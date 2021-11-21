@@ -73,19 +73,8 @@ jobs:
           cache: npm
           node-version: 16
 
-      - name: Cache node modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
-        with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-
+      - run: ls
+      - run: ls node_modules
       # TODO check if unit tests needs builds
       # - name: Download builds
       #   uses: actions/download-artifact@v2
