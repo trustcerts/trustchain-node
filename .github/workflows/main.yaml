@@ -36,7 +36,7 @@ jobs:
 
       - run: npm ci
       - run: sed -ri "s|\"BUILD\"|\"${{ env.GITHUB_SHA }}\"|" apps/shared/build.ts
-      - run: ls
+      - run: ls node_modules
       - run: node tools/build.mjs
 
       - name: Upload builds
