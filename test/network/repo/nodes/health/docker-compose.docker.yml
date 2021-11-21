@@ -1,0 +1,13 @@
+version: "3.8"
+
+version: "3.8"
+
+networks:
+  test-network:
+    external:
+      name: test-network
+
+services:
+  health:
+    networks:
+      test-network:

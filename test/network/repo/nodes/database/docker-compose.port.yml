@@ -1,0 +1,9 @@
+version: '3.8'
+
+networks:
+  internal:
+
+services:
+  db:
+    ports:
+      - ${DATABASE_PORT-3002}:27017

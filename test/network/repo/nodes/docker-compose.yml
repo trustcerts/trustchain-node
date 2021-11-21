@@ -1,0 +1,110 @@
+version: '3.8'
+
+networks:
+  internal:
+
+volumes:
+  wallet:
+  parse:
+  persist:
+  http:
+  network:
+  db_shared:
+
+x-db-custom: &db-variables
+  DB_TYPE: mysql
+  DB_HOST: ${DB_HOST-db}
+  DB_PORT: ${DB_PORT-3306}
+  DB_USERNAME: ${DB_USERNAME-root}
+  DB_PASSWORD: ${DB_PASSWORD-rootpw}
+  DB_DATABASE: ${DB_DATABASE-trustchain}
+
+services:
+  wallet:
+    image: registry.gitlab.com/trustcerts/trustchain/wallet:${IMAGE_TAG-dev}
+    restart: ${RESTART-always}
+    depends_on:
+      - redis
+    environment:
+      IDENTIFIER: ${IDENTIFIER}
+      LOG_LEVEL: ${LOG_LEVEL-info}
+    volumes:
+      - wallet:/app/storage
+    networks:
+      internal:
+
+  parse:
+    image: registry.gitlab.com/trustcerts/trustchain/parse:${IMAGE_TAG-dev}
+    restart: ${RESTART-always}
+    depends_on:
+      - redis
+      - db
+    environment:
+      IDENTIFIER: ${IDENTIFIER}
+      LOG_LEVEL: ${LOG_LEVEL-info}
+      <<: *db-variables
+    volumes:
+      - parse:/app/storage
+      - db_shared:/app/db_shared
+    networks:
+      internal:
+
+  persist:
+    image: registry.gitlab.com/trustcerts/trustchain/persist:${IMAGE_TAG-dev}
+    restart: ${RESTART-always}
+    depends_on:
+      - redis
+    environment:
+      IDENTIFIER: ${IDENTIFIER}
+      LOG_LEVEL: ${LOG_LEVEL-info}
+    volumes:
+      - persist:/app/storage
+    networks:
+      internal:
+
+  http:
+    image: registry.gitlab.com/trustcerts/trustchain/http-${NODE_TYPE}:${IMAGE_TAG-dev}
+    restart: ${RESTART-always}
+    depends_on:
+      - redis
+      - db
+      - parse
+      - wallet
+    environment:
+      NODE_SECRET: ${NODE_SECRET}
+      NETWORK_SECRET: ${NETWORK_SECRET}
+      IDENTIFIER: ${IDENTIFIER}
+      LOG_LEVEL: ${LOG_LEVEL-info}
+      RESET: ${RESET-false}
+      <<: *db-variables
+    volumes:
+      - http:/app/storage
+    networks:
+      internal:
+
+  network:
+    image: registry.gitlab.com/trustcerts/trustchain/network-${NODE_TYPE}:${IMAGE_TAG-dev}
+    restart: ${RESTART-always}
+    depends_on:
+      - redis
+      - db
+      - parse
+      - persist
+      - wallet
+    environment:
+      NETWORK_SECRET: ${NETWORK_SECRET}
+      CHUNK_SIZE: ${CHUNK_SIZE-100}
+      IDENTIFIER: ${IDENTIFIER}
+      LOG_LEVEL: ${LOG_LEVEL-info}
+      RECONNECT: ${RECONNECT-true}
+      <<: *db-variables
+    volumes:
+      - network:/app/storage
+    networks:
+      internal:
+
+  redis:
+    image: redis
+    restart: ${RESTART-always}
+    networks:
+      internal:

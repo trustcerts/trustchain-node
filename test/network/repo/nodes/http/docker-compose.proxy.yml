@@ -1,0 +1,16 @@
+version: "3.8"
+
+networks:
+  proxy:
+    external:
+      name: proxy
+
+services:
+  http:
+    environment:
+      LETSENCRYPT_HOST: ${HTTP_HOSTNAME-api}.${DOMAIN}
+      VIRTUAL_HOST: ${HTTP_HOSTNAME-api}.${DOMAIN}
+      VIRTUAL_PORT: 3000
+      OWN_PEER: https://${HTTP_HOSTNAME-api}.${DOMAIN}
+    networks:
+      proxy:

@@ -1,0 +1,9 @@
+version: "3.8"
+
+services:
+  network:
+    environment:
+      OWN_PEER: ${IP_ADDRESS}:${NETWORK_PORT-3000}
+      HTTP_ENDPOINT: ${HTTP_HOSTNAME-api}.${DOMAIN}
+    ports:
+      - "${NETWORK_PORT-3000}:3000"

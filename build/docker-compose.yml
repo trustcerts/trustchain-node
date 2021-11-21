@@ -1,0 +1,31 @@
+version: "3"
+
+volumes:
+  redis:
+  health:
+
+services:
+  #  mysql:
+  #    restart: always
+  #    image: mysql
+  #    command: --default-authentication-plugin=mysql_native_password
+  #    volumes:
+  #      - ./init.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+  #    environment:
+  #      MYSQL_ROOT_PASSWORD: root
+  #    ports:
+  #      - 3306:3306
+
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+
+  health:
+    image: registry.gitlab.com/trustcerts/trustchain-health-check
+    volumes:
+      - health:/usr/src/app
+    environment:
+      IDENTIFIER: HEALTH
+      SECRET: HEALTH
+      OBSERVER: http://host.docker.internal:3031

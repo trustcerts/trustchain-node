@@ -1,0 +1,25 @@
+notifiers:
+  # https://api.slack.com/bot-users
+  - name: notification-channel-1
+    type: slack
+    uid: notifier1
+    # either
+    org_id: 1    
+    is_default: true
+    send_reminder: false
+    frequency: 10m
+    disable_resolve_message: false
+    # See `Supported Settings` section for settings supported for each
+    # alert notification type.
+    settings:
+      uploadImage: false
+      mentionUsers: dev
+    # Secure settings that will be encrypted in the database (supported since Grafana v7.2). See `Supported Settings` section for secure settings supported for each notifier.
+    secure_settings:
+      token: '$SLACK_TOKEN'
+      url: $SLACK_URL
+
+delete_notifiers:
+  - name: notification-channel-1
+    uid: notifier1
+    org_id: 1

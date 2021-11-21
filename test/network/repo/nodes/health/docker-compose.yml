@@ -1,0 +1,20 @@
+version: "3.8"
+
+volumes:
+  health:
+
+services:
+  health:
+    image: registry.gitlab.com/trustcerts/trustchain-health-check
+    restart: always
+    volumes:
+      - health:/health
+    environment:
+        STORAGE: '/health/config.json'
+        REPEAT: ${HEALTH_REPEAT}
+        NAME: ${HEALTH_NAME}
+        IDENTIFIER: ${HEALTH_IDENTIFIER}
+        SECRET: ${HEALTH_SECRET}
+        GATEWAY: ${HEALTH_GATEWAY}
+        OBSERVER: ${HEALTH_OBSERVER}        
+        BC_ID: ${HEALTH_BC_ID}

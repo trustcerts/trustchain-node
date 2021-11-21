@@ -1,0 +1,18 @@
+version: "3.8"
+
+networks:
+  test-network:
+    external:
+      name: test-network
+
+services:
+  http:
+    networks:
+      test-network:
+    environment: 
+      NETWORK_URL: ${NETWORK_URL-network}
+  network:
+    environment:
+      OWN_PEER: ${COMPOSE_PROJECT_NAME}_network_1:3000
+    networks:
+      test-network:

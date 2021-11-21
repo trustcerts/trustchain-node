@@ -1,0 +1,35 @@
+global:
+  scrape_interval: 15s
+scrape_configs:
+  - job_name: 'Http'
+    static_configs:
+      - targets: ['http:3000']
+
+  - job_name: 'Persist'
+    static_configs:
+      - targets: ['persist:3000']
+
+  - job_name: 'Parse'
+    static_configs:
+      - targets: ['parse:3000']
+
+  - job_name: 'Wallet'
+    static_configs:
+      - targets: ['wallet:3000']
+
+  - job_name: 'Network'
+    static_configs:
+      - targets: ['network:3000']
+
+#  - job_name: 'redis_exporter_targets'
+#    static_configs:
+#      - targets:
+#          - redis://redis:6379
+#    metrics_path: /scrape
+#    relabel_configs:
+#      - source_labels: [__address__]
+#        target_label: __param_target
+#      - source_labels: [__param_target]
+#        target_label: instance
+#      - target_label: __address__
+#        replacement: redis_exporter:9121

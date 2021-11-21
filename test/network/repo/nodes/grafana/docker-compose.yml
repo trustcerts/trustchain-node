@@ -1,0 +1,18 @@
+version: "3.8"
+
+volumes:
+  grafana-storage:
+  grafana-config:
+
+services:
+  grafana:
+    image: grafana/grafana
+    restart: ${RESTART-always}
+    environment:
+      SLACK_URL: ${SLACK_URL}
+      SLACK_TOKEN: ${SLACK_TOKEN}
+    volumes:
+      - grafana-storage:/var/lib/grafana
+      - ${GRAFANA_CONFIG-grafana-config}:/etc/grafana
+    networks:
+      internal:

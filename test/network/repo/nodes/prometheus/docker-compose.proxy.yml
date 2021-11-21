@@ -1,0 +1,16 @@
+version: "3.8"
+
+networks:
+  proxy:
+    external:
+      name: proxy
+
+services:
+  prometheus:
+    environment:
+      LETSENCRYPT_HOST: ${PROMETHEUS_HOSTNAME-prometheus}.${DOMAIN}
+      VIRTUAL_HOST: ${PROMETHEUS_HOSTNAME-prometheus}.${DOMAIN}
+      VIRTUAL_PORT: 9090
+    networks:
+      proxy:
+

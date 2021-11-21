@@ -1,0 +1,14 @@
+version: "3.8"
+
+networks:
+  proxy:
+    external:
+      name: proxy
+
+services:
+  loki:
+    environment:
+      LETSENCRYPT_HOST: ${LOKI_HOSTNAME-loki}.${DOMAIN}
+      VIRTUAL_HOST: ${LOKI_HOSTNAME-loki}.${DOMAIN}
+    networks:
+      proxy:

@@ -1,0 +1,6 @@
+version: "3.8"
+
+services:
+  http:
+    ports:
+      - "${HTTP_PORT-3000}:3000"

@@ -1,0 +1,18 @@
+version: '3.8'
+
+volumes:
+  db:
+
+services:
+  db:
+    image: mongo
+    restart: ${RESTART-always}
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME-root}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD-rootpw}
+      MONGO_INITDB_DATABASE: ${DB_DATABASE-trustchain}
+    volumes:
+      - db:/data/db
+      - ./database/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+    networks:
+      internal:

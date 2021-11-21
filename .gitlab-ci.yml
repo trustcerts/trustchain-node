@@ -1,0 +1,421 @@
+image: node:15
+
+workflow:
+  rules:
+    - if: $CI_MERGE_REQUEST_ID # Execute jobs in merge request context
+    - if: $CI_COMMIT_BRANCH == 'master' # Execute jobs when a new commit is pushed to master branch
+
+stages:
+  - prepare
+  - build
+  - test
+  - e2e-test
+  - package
+  - network-test
+  - release
+  - deploy
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+  DOCKER_DRIVER: overlay2
+  # Create the certificates inside this directory for both the server
+  # and Client. The certificates used by the Client will be created in
+  # /certs/Client so we only need to share this directory with the
+  # volume mount in `config.toml`.
+  DOCKER_TLS_CERTDIR: '/certs'
+
+# get the next version to tag the docker image and the built application.
+version:
+  stage: prepare
+  image: registry.gitlab.com/juhani/go-semrel-gitlab:v0.21.1
+  script:
+    - echo $GSG_INITIAL_DEVELOPMENT
+    - release next-version --allow-current > .next-version
+    - cat .next-version
+  artifacts:
+    paths:
+      - .next-version
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+
+# builds the node from the source files
+build-nodes:
+  stage: build
+  before_script:
+    - npm config set @trustcerts:registry https://gitlab.com/api/v4/packages/npm/
+    - npm config set '//gitlab.com/api/v4/packages/npm/:_authToken' "${CI_JOB_TOKEN}"
+    - npm ci --cache .npm --prefer-offline
+  script:
+    - sed -ri "s|\"BUILD\"|\"$CI_COMMIT_SHA\"|" apps/shared/build.ts
+    - node tools/build.mjs
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - dist/
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - .npm/
+  tags:
+    - node
+
+test-unit:
+  stage: test
+  script:
+    - npm ci --cache .npm --prefer-offline
+    - npm run test:unit-ci --cache .npm
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - .npm/
+    policy: pull
+  tags:
+    - node
+  coverage: /All\sfiles.*?\s+(\d+.\d+)/
+  artifacts:
+    when: always
+    paths:
+      - coverage
+    expire_in: 30 days
+    reports:
+      junit:
+        - junit.xml
+
+# # TODO check if the report from the unit test can also be used in this stage, e.g. mounting folder
+test-httpGateway:
+  stage: e2e-test
+  image: docker:20.10.6
+  services:
+    - docker:20.10.6-dind
+  before_script:
+    - apk --no-cache add docker-compose
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN ${CI_REGISTRY}
+  script:
+    - docker-compose -f test/docker-compose.yml --env-file test/.env run test-httpGateway npm run test:e2e-http-gateway-ci
+  after_script:
+    - docker-compose -f test/docker-compose.yml --env-file test/.env down -v
+  tags:
+    - docker
+  coverage: /All\sfiles.*?\s+(\d+.\d+)/
+  artifacts:
+    when: always
+    paths:
+      - coverage
+    expire_in: 30 days
+    reports:
+      junit:
+        - junit.xml
+
+test-httpObserver:
+  stage: e2e-test
+  image: docker:20.10.6
+  services:
+    - docker:20.10.6-dind
+  before_script:
+    - apk --no-cache add docker-compose
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN ${CI_REGISTRY}
+  script:
+    - docker-compose -f test/docker-compose.yml --env-file test/.env run test-httpObserver npm run test:e2e-http-observer-ci
+  after_script:
+    - docker-compose -f test/docker-compose.yml --env-file test/.env down -v
+  tags:
+    - docker
+  coverage: /All\sfiles.*?\s+(\d+.\d+)/
+  artifacts:
+    when: always
+    paths:
+      - coverage
+    expire_in: 30 days
+    reports:
+      junit:
+        - junit.xml
+
+test-httpValidator:
+  stage: e2e-test
+  image: docker:20.10.6
+  services:
+    - docker:20.10.6-dind
+  before_script:
+    - apk --no-cache add docker-compose
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN ${CI_REGISTRY}
+  script:
+    - docker-compose -f test/docker-compose.yml --env-file test/.env run test-httpValidator npm run test:e2e-http-validator-ci
+  after_script:
+    - docker-compose -f test/docker-compose.yml --env-file test/.env down -v
+  tags:
+    - docker
+  coverage: /All\sfiles.*?\s+(\d+.\d+)/
+  artifacts:
+    when: always
+    paths:
+      - coverage
+    expire_in: 30 days
+    reports:
+      junit:
+        - junit.xml
+
+test-networkGateway:
+  stage: e2e-test
+  image: docker:20.10.6
+  services:
+    - docker:20.10.6-dind
+  before_script:
+    - apk --no-cache add docker-compose
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN ${CI_REGISTRY}
+  script:
+    - docker-compose -f test/docker-compose.yml --env-file test/.env run test-networkGateway npm run test:e2e-network-gateway-ci
+  after_script:
+    - docker-compose -f test/docker-compose.yml --env-file test/.env down -v
+  tags:
+    - docker
+  coverage: /All\sfiles.*?\s+(\d+.\d+)/
+  artifacts:
+    when: always
+    paths:
+      - coverage
+    expire_in: 30 days
+    reports:
+      junit:
+        - junit.xml
+
+test-networkObserver:
+  stage: e2e-test
+  image: docker:20.10.6
+  services:
+    - docker:20.10.6-dind
+  before_script:
+    - apk --no-cache add docker-compose
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN ${CI_REGISTRY}
+  script:
+    - docker-compose -f test/docker-compose.yml --env-file test/.env run test-networkObserver npm run test:e2e-network-observer-ci
+  after_script:
+    - docker-compose -f test/docker-compose.yml --env-file test/.env down -v
+  tags:
+    - docker
+  coverage: /All\sfiles.*?\s+(\d+.\d+)/
+  artifacts:
+    when: always
+    paths:
+      - coverage
+    expire_in: 30 days
+    reports:
+      junit:
+        - junit.xml
+
+test-networkValidator:
+  stage: e2e-test
+  image: docker:20.10.6
+  services:
+    - docker:20.10.6-dind
+  before_script:
+    - apk --no-cache add docker-compose
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN ${CI_REGISTRY}
+  script:
+    - docker-compose -f test/docker-compose.yml --env-file test/.env run test-networkValidator npm run test:e2e-network-validator-ci
+  after_script:
+    - docker-compose -f test/docker-compose.yml --env-file test/.env down -v
+  tags:
+    - docker
+  coverage: /All\sfiles.*?\s+(\d+.\d+)/
+  artifacts:
+    when: always
+    paths:
+      - coverage
+    expire_in: 30 days
+    reports:
+      junit:
+        - junit.xml
+
+test-parse:
+  stage: e2e-test
+  image: docker:20.10.6
+  services:
+    - docker:20.10.6-dind
+  before_script:
+    - apk --no-cache add docker-compose
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN ${CI_REGISTRY}
+  script:
+    - docker-compose -f test/docker-compose.yml --env-file test/.env run test-parse npm run test:e2e-parse-ci
+  after_script:
+    - docker-compose -f test/docker-compose.yml --env-file test/.env down -v
+  tags:
+    - docker
+  coverage: /All\sfiles.*?\s+(\d+.\d+)/
+  artifacts:
+    when: always
+    paths:
+      - coverage
+    expire_in: 30 days
+    reports:
+      junit:
+        - junit.xml
+
+test-persist:
+  stage: e2e-test
+  image: docker:20.10.6
+  services:
+    - docker:20.10.6-dind
+  before_script:
+    - apk --no-cache add docker-compose
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN ${CI_REGISTRY}
+  script:
+    - docker-compose -f test/docker-compose.yml --env-file test/.env run test-persist npm run test:e2e-persist-ci
+  after_script:
+    - docker-compose -f test/docker-compose.yml --env-file test/.env down -v
+  tags:
+    - docker
+  coverage: /All\sfiles.*?\s+(\d+.\d+)/
+  artifacts:
+    when: always
+    paths:
+      - coverage
+    expire_in: 30 days
+    reports:
+      junit:
+        - junit.xml
+
+test-wallet:
+  stage: e2e-test
+  image: docker:20.10.6
+  services:
+    - docker:20.10.6-dind
+  before_script:
+    - apk --no-cache add docker-compose
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN ${CI_REGISTRY}
+  script:
+    - docker-compose -f test/docker-compose.yml --env-file test/.env run test-wallet npm run test:e2e-wallet-ci
+  after_script:
+    - docker-compose -f test/docker-compose.yml --env-file test/.env down -v
+  tags:
+    - docker
+  coverage: /All\sfiles.*?\s+(\d+.\d+)/
+  artifacts:
+    when: always
+    paths:
+      - coverage
+    expire_in: 30 days
+    reports:
+      junit:
+        - junit.xml
+
+# add temporary docker image to run the tests
+docker_push:
+  stage: package
+  image: docker:20.10.6
+  services:
+    - docker:20.10.6-dind
+  before_script:
+    - apk update
+    - apk add nodejs-current
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN ${CI_REGISTRY}
+  script:
+    - node tools/package.mjs
+  tags:
+    - docker
+
+network-test:
+  stage: network-test
+  image: docker:20.10.6
+  services:
+    - docker:20.10.6-dind
+  before_script:
+    # TODO put this into a docker container for caching. Better include an own package json where only the dependencies for the network test are included.
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN ${CI_REGISTRY}
+    - apk add --update --no-cache bash docker-compose curl nodejs-current npm && rm -rf /var/cache/apk/*
+    - docker network create test-network
+    - chmod 777 test/network/config/
+    # TODO use the image that was build in this ci, not the static `dev` one since we want to test the new image
+    - cd test/network/config/ && bash all.sh up -d
+    - npm config set @trustcerts:registry https://gitlab.com/api/v4/packages/npm/
+    - npm config set '//gitlab.com/api/v4/packages/npm/:_authToken' "${CI_JOB_TOKEN}"
+    - npm ci --cache .npm --prefer-offline
+  script:
+    - cd ${CI_PROJECT_DIR}/test/network/config/
+    # check if network can build up
+    # TODO put this shell script into a npm job with a typescript call to make it more dynamic
+    - bash run.sh
+    - npm run test:network
+  after_script:
+    # TODO use absolute path to make sure the process is not stuck in another process.
+    - cd ${CI_PROJECT_DIR}/test/network/config/ && bash all.sh down -v
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - .npm/
+    policy: pull
+  tags:
+    - docker
+  # TODO include the stage when the cli is working with ports
+  # rules:
+  #   - if: $CI_COMMIT_BRANCH == "master"
+
+# release the latest image when feature was merged into master
+release-dev:
+  stage: release
+  image: docker:20.10.6
+  services:
+    - docker:20.10.6-dind
+  before_script:
+    - apk update
+    - apk add --update nodejs
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN ${CI_REGISTRY}
+  script:
+    - node tools/release.mjs
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+  tags:
+    - docker
+
+# build a new image and release it. Stage is triggered manual since not every time when something is committed to the master there should be built a new version.
+release:
+  stage: release
+  image: docker:20.10.6
+  services:
+    - docker:20.10.6-dind
+  before_script:
+    - apk update
+    - apk add --update nodejs
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - wget https://juhani.gitlab.io/go-semrel-gitlab/download/v0.21.1/release
+    - chmod +x release
+    - tag=$(cat .next-version)
+    - docker-build=$CI_COMMIT_SHA
+  script:
+    # TODO use semantic release cli
+    # TODO make release script
+    # https://stackoverflow.com/questions/918886/how-do-i-split-a-string-on-a-delimiter-in-bash#15988793
+    - major_minor=${tag%.*}
+    - major=${major_minor%.*}
+    - echo $tag
+    - echo $major_minor
+    - echo $major
+    - node tools/release.mjs
+    - ./release -v
+    - ./release changelog
+    - ./release commit-and-tag CHANGELOG.md
+    - ./release --ci-commit-tag "v$tag"
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: manual
+      allow_failure: true
+  tags:
+    - docker
+
+# deploy to dev server
+deploy:
+  image: kroniak/ssh-client
+  stage: deploy
+  environment:
+    name: development
+  before_script:
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - echo "$STAGING_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+  script:
+    - ssh root@${DEV_DOMAIN} "
+      cd chain/config &&
+      ./update.sh"
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"

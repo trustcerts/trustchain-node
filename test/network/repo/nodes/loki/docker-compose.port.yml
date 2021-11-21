@@ -1,0 +1,6 @@
+version: "3.8"
+
+services:
+  loki:
+    ports:
+      - ${LOKI_PORT-3004}:3100

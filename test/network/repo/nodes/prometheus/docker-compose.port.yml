@@ -1,0 +1,6 @@
+version: "3.8"
+
+services:
+  prometheus:
+    ports:
+      - ${PROMETHEUS_PORT-3003}:9090

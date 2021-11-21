@@ -1,0 +1,18 @@
+version: '3.8'
+
+volumes:
+  db-sql:
+
+services:
+  db-sql:
+    image: mysql
+    restart: ${RESTART-always}
+    environment:      
+      MYSQL_ROOT_PASSWORD: ${DB_SQL_ROOT_PASSWORD-rootpw}
+      MYSQL_DATABASE: ${DB_SQL_DATABASE-trustchain}
+      MYSQL_USER: ${DB_SQL_USER_PASSWORD-rootpw}
+      MYSQL_PASSWORD: ${DB_SQL_USER_PASSWORD-rootpw}
+    volumes:
+      - db-sql:/var/lib/mysql
+    networks:
+      internal:

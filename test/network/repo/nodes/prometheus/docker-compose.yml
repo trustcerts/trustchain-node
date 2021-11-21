@@ -1,0 +1,19 @@
+version: "3.8"
+
+networks:
+  internal:
+
+volumes:
+  prometheus:
+
+services:
+  prometheus:
+    image: prom/prometheus
+    restart: ${RESTART-always}
+    volumes:
+    - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    - prometheus:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    networks:
+      internal:

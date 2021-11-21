@@ -1,0 +1,7 @@
+version: "3.8"
+
+services:
+  http:
+    environment:
+      DID_NETWORK: ${DID_NETWORK}
+      IMPORT: ${IMPORT}

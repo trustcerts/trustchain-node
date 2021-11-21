@@ -1,0 +1,28 @@
+version: "3.8"
+
+volumes:
+  loki:
+
+x-loki-custom: &loki-variables
+  LOKI_URL: ${LOKI_URL-http://loki:3100}
+  LOKI_LOG_LEVEL: ${LOKI_LOG_LEVEL-info}
+
+services:
+  loki:
+    image: grafana/loki:2.0.0
+    restart: ${RESTART-always}
+    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - loki:/loki
+    networks:
+      internal:
+  http:
+    environment: *loki-variables
+  network:
+    environment: *loki-variables
+  parse:
+    environment: *loki-variables
+  persist:
+    environment: *loki-variables
+  wallet:
+    environment: *loki-variables

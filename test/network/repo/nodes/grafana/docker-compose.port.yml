@@ -1,0 +1,8 @@
+version: "3.8"
+
+services:
+  grafana:
+    ports:
+      - ${GRAFANA_PORT-3005}:3000
+    environment:
+      GF_SERVER_ROOT_URL: http://${DOMAIN}:${GRAFANA_PORT-3005}

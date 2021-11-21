@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  wallet:
+    image: registry.gitlab.com/trustcerts/trustchain:dev
+    command: ./wait-for-it.sh redis:6379 -- nodemon --trace-warnings --watch /app/dist/main.js -L /app/dist/main.js
+    volumes:
+      - ${COMPILED_PATH}/wallet:/app/dist:ro
+
+  parse:
+    image: registry.gitlab.com/trustcerts/trustchain:dev
+    command: ./wait-for-it.sh redis:6379 -- nodemon --trace-warnings --watch /app/dist/main.js -L /app/dist/main.js
+    volumes:
+      - ${COMPILED_PATH}/parse:/app/dist:ro
+
+  persist:
+    image: registry.gitlab.com/trustcerts/trustchain:dev
+    command: ./wait-for-it.sh redis:6379 -- nodemon --trace-warnings --watch /app/dist/main.js -L /app/dist/main.js
+    volumes:
+      - ${COMPILED_PATH}/persist:/app/dist:ro
+
+  http:
+    image: registry.gitlab.com/trustcerts/trustchain:dev
+    command: ./wait-for-it.sh redis:6379 -- nodemon --trace-warnings --watch /app/dist/main.js -L /app/dist/main.js
+    volumes:
+      - ${COMPILED_PATH}/http-${NODE_TYPE}:/app/dist:ro
+
+  network:
+    image: registry.gitlab.com/trustcerts/trustchain:dev
+    command: ./wait-for-it.sh redis:6379 -- nodemon --trace-warnings --watch /app/dist/main.js -L /app/dist/main.js || (sleep 2s && touch /app/dist/main.js)
+    volumes:
+      - ${COMPILED_PATH}/network-${NODE_TYPE}:/app/dist

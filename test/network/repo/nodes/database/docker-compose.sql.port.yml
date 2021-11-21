@@ -1,0 +1,9 @@
+version: '3.8'
+
+networks:
+  internal:
+
+services:
+  db-sql:
+    ports:
+      - ${DATABASE_SQL_PORT-3306}:3306

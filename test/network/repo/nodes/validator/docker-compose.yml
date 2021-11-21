@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  http:
+    environment:
+      DID_NETWORK: ${DID_NETWORK}      
+  network:
+    environment:
+      DID_NETWORK: ${DID_NETWORK}
+      VALIDATOR_MIN: ${VALIDATOR_MIN}
+      DID: ${DID-}
