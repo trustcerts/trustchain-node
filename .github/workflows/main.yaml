@@ -1,0 +1,192 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - next
+      - beta
+      - alpha
+      - '*.x'
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Build
+        uses: actions/setup-node@v2
+        with:
+          cache: npm
+
+      - name: Set registry config
+        run: |
+          npm config set @trustcerts:registry https://gitlab.com/api/v4/packages/npm/
+          npm config set '//gitlab.com/api/v4/packages/npm/:_authToken' $NPM_TOKEN
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - run: npm ci
+      - run: sed -ri "s|\"BUILD\"|\"$CI_COMMIT_SHA\"|" apps/shared/build.ts
+      - run: node tools/build.mjs
+
+      - name: Upload builds
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: dist/
+
+  test-unit:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      # TODO check if unit tests needs builds
+      # - name: Download builds
+      #   uses: actions/download-artifact@v2
+      #   with:
+      #     name: build          
+
+      - name: test
+        run: npm run test:unit-ci --cache .npm
+
+        # TODO upload coverage to show in MR
+      #       coverage: /All\sfiles.*?\s+(\d+.\d+)/
+      # artifacts:
+      #   when: always
+      #   paths:
+      #     - coverage
+      #   expire_in: 30 days
+      #   reports:
+      #     junit:
+      #       - junit.xml
+      - name: Upload coverage
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage
+          path: junit.xml
+
+  e2e:
+    needs: test-unit
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        services:
+          [
+            httpGateway,
+            httpObserver,
+            httpValidator,
+            networkGateway,
+            networkObserver,
+            networkValidator,
+            persist,
+            parse,
+            wallet,
+          ]
+    steps:
+      - name: Checkout
+          uses: actions/checkout@v2
+          with:
+            fetch-depth: 0
+
+      - name: Login into docker
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: e2e test
+        run: docker-compose -f test/docker-compose.yml --env-file test/.env run test-${{ matrix.service }} npm run test:e2e-${{ matrix.service }}-ci
+
+      - name: Upload coverage
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage
+          path: junit.xml
+
+  package:
+    needs: e2e
+    runs-on: ubuntu-latest    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Download builds
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+
+      - name: Login into docker
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: test
+        run: node tools/package.mjs
+
+  network-test:
+    needs: package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+          uses: actions/checkout@v2
+          with:
+            fetch-depth: 0
+
+      - name: Login into docker
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Preparation
+        run: | 
+          docker network create test-network
+          - chmod 777 test/network/config/
+# TODO use the image that was build in this ci, not the static `dev` one since we want to test the new image
+          - cd test/network/config/ && bash all.sh up -d
+          - npm config set @trustcerts:registry https://gitlab.com/api/v4/packages/npm/
+          - npm config set '//gitlab.com/api/v4/packages/npm/:_authToken' "${CI_JOB_TOKEN}"
+          - npm ci --cache .npm --prefer-offline
+      
+      - name: Test
+        run: |
+          - cd ${CI_PROJECT_DIR}/test/network/config/
+    # check if network can build up
+    # TODO put this shell script into a npm job with a typescript call to make it more dynamic
+          - bash run.sh
+          - npm run test:network
+  
+  semantic-release:
+    needs: network-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prepare
+
+  release:
+    needs: network-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prepare
+  
+  # TODO put this step into another file since it is CD
+  deploy:
+    needs: network-test
+      runs-on: ubuntu-latest
+      steps:
+        - name: Prepare
