@@ -80,8 +80,7 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-      - run: ls
-      - run: ls node_modules
+      - run: ls -la
       # TODO check if unit tests needs builds
       # - name: Download builds
       #   uses: actions/download-artifact@v2
