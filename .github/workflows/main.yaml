@@ -35,7 +35,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - run: npm ci
-      - run: sed -ri "s|\"BUILD\"|\"${{ GITHUB_SHA }}\"|" apps/shared/build.ts
+      - run: sed -ri "s|\"BUILD\"|\"${{ env.GITHUB_SHA }}\"|" apps/shared/build.ts
       - run: node tools/build.mjs
 
       - name: Upload builds
