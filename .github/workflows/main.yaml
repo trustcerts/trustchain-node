@@ -119,6 +119,7 @@ jobs:
       - name: Build temporary docker images
         run: |
           node tools/package.mjs
+          docker image ls
           node tools/release.mjs
         env:
           CI_REGISTRY_IMAGE: $GITHUB_REPOSITORY
