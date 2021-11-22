@@ -92,12 +92,12 @@ jobs:
         env:
           STORAGE: tmp/
 
-      - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1
+      - name: Upload Unit Test Results
         if: always()
+        uses: actions/upload-artifact@v2
         with:
-          name: Unit Test Results
-          files: ./*.xml
+          name: Unit Test Results ${{ matrix.service }}
+          path: ./*.xml
 
   # TODO check if containers have to be build before the e2e test
   e2e:
@@ -132,12 +132,12 @@ jobs:
       - name: e2e test
         run: docker-compose -f test/docker-compose.yml --env-file test/.env run test-${{ matrix.service }} npm run test:e2e-${{ matrix.service }}-ci
 
-      - name: Upload Unit Test Results
+      - name: Upload E2E Test Results
         if: always()
         uses: actions/upload-artifact@v2
         with:
           name: E2E Test Results ${{ matrix.service }}
-          files: ./*.xml
+          path: ./*.xml
 
   publish-test-results:
     name: 'Publish Unit Tests Results'
