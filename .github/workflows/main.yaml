@@ -126,7 +126,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: e2e test
-        run: docker-compose -f test/docker-compose.yml --env-file test/.env run test-${{ matrix.service }} npm run test:e2e-${{ matrix.service }}-ci
+        run: docker-compose -f test/docker-compose.yml --env-file test/.env run test-${{ matrix.services }} npm run test:e2e-${{ matrix.services }}-ci
 
       - name: Upload E2E Test Results
         if: always()
