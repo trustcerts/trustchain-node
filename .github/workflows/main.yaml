@@ -95,9 +95,38 @@ jobs:
           name: Unit Test Results ${{ matrix.service }}
           path: ./*.xml
 
+  package:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Download builds
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+
+      - name: Login into docker
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build temporary docker images
+        run: |
+          node tools/package.mjs
+          node tools/release.mjs
+        env:
+          CI_REGISTRY_IMAGE: $GITHUB_REPOSITORY
+          CI_COMMIT_BRANCH: $GITHUB_HEAD_REF
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
   # TODO check if containers have to be build before the e2e test
   e2e:
-    needs: test-unit
+    needs: package
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -151,31 +180,8 @@ jobs:
         with:
           files: artifacts/**/*.xml
 
-  package:
-    needs: e2e
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Download builds
-        uses: actions/download-artifact@v2
-        with:
-          name: build
-
-      - name: Login into docker
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: test
-        run: node tools/package.mjs
-
   network-test:
-    needs: package
+    needs: e2e
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
