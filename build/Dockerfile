@@ -1,4 +1,5 @@
-FROM trustcerts/baseimage
+ARG base=lastest
+FROM trustcerts/trustchain-baseimage:${base}
 ARG app
 
 # copy built code
