@@ -155,9 +155,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: e2e test
-        run: docker-compose -f test/docker-compose.yml --env-file test/.env run -e IMAGE_TAG=${{ CI_COMMIT_BRANCH }} test-${{ matrix.services }} npm run test:e2e-${{ matrix.services }}-ci
-        env:
-          CI_COMMIT_BRANCH: $GITHUB_HEAD_REF
+        run: docker-compose -f test/docker-compose.yml --env-file test/.env run -e IMAGE_TAG=${{ env.GITHUB_HEAD_REF }} test-${{ matrix.services }} npm run test:e2e-${{ matrix.services }}-ci
 
       - name: Upload E2E Test Results
         if: always()
