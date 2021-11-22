@@ -82,11 +82,7 @@ jobs:
             ${{ runner.os }}-
       # TODO instead of running ci check if node_modules folder should be cached
       - run: npm ci
-      # TODO check if unit tests needs builds
-      # - name: Download builds
-      #   uses: actions/download-artifact@v2
-      #   with:
-      #     name: build
+
       - name: test
         run: npm run test:unit-ci --cache .npm
         env:
