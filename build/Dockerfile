@@ -1,4 +1,4 @@
-FROM baseimage
+FROM trustcerts/baseimage
 ARG app
 
 # copy built code
