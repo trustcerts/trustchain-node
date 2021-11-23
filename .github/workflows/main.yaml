@@ -155,8 +155,6 @@ jobs:
           printf "\nIMAGE_TAG=$IMAGE_TAG\n" >> test/.env
           env
           docker-compose -f test/docker-compose.yml --env-file test/.env run test-${{ matrix.services }} npm run test:e2e-${{ matrix.services }}-ci
-        env:
-          IMAGE_TAG: GITHUB_BASE_REF
 
       - name: Upload E2E Test Results
         if: always()
