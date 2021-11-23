@@ -152,7 +152,8 @@ jobs:
 
       - name: e2e test
         run: |
-          echo "IMAGE_TAG=${{ env.GITHUB_HEAD_REF }} >> test/.env"
+          echo "IMAGE_TAG=${{ env.GITHUB_HEAD_REF }}" >> test/.env
+          cat test/.env
           docker-compose -f test/docker-compose.yml --env-file test/.env run test-${{ matrix.services }} npm run test:e2e-${{ matrix.services }}-ci
 
       - name: Upload E2E Test Results
