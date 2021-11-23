@@ -1,6 +1,3 @@
-[submodule "test/network/repo"]
-	path = test/network/repo
-	url = ../../trustcerts/chain-config.git
-[submodule "test/benchmarktool"]
-	path = test/benchmarktool
-	url = ../../trustcerts/benchmarktool.git
+[submodule "test/benchmark"]
+	path = test/benchmark
+	url = git@github.com:trustcerts/benchmarktool.git
