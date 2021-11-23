@@ -153,8 +153,8 @@ jobs:
       - name: e2e test
         run: |
           printf "\nIMAGE_TAG=$GITHUB_SERVER_URL" >> test/.env
-          echo $IMAGE_TAG
-          cat test/.env
+          printf "\nIMAGE_TAG=$GITHUB_SERVER_URL" >> test/.env1
+          cat test/.env1
           docker-compose -f test/docker-compose.yml --env-file test/.env run test-${{ matrix.services }} npm run test:e2e-${{ matrix.services }}-ci
         env:
           IMAGE_TAG: Hello
