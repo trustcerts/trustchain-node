@@ -113,7 +113,7 @@ services:
     networks:
       internal:
 
-  test-httpGateway:
+  test-http-gateway:
     image: trustcerts/trustchain-dev:${IMAGE_TAG-dev}
     command: npm run test:e2e-http-gateway
     depends_on:
@@ -133,7 +133,7 @@ services:
     networks:
       internal:
 
-  test-httpObserver:
+  test-http-observer:
     image: trustcerts/trustchain-dev:${IMAGE_TAG-dev}
     command: npm run test:e2e-http-observer
     depends_on:
@@ -155,7 +155,7 @@ services:
     networks:
       internal:
 
-  test-httpValidator:
+  test-http-validator:
     image: trustcerts/trustchain-dev:${IMAGE_TAG-dev}
     command: npm run test:e2e-http-validator
     depends_on:
@@ -176,7 +176,7 @@ services:
     networks:
       internal:
 
-  test-networkGateway:
+  test-network-gateway:
     image: trustcerts/trustchain-dev:${IMAGE_TAG-dev}
     command: npm run test:e2e-network-gateway
     depends_on:
@@ -195,7 +195,7 @@ services:
     networks:
       internal:
 
-  test-networkObserver:
+  test-network-observer:
     image: trustcerts/trustchain-dev:${IMAGE_TAG-dev}
     command: npm run test:e2e-network-observer
     depends_on:
@@ -214,7 +214,7 @@ services:
     networks:
       internal:
 
-  test-networkValidator:
+  test-network-validator:
     image: trustcerts/trustchain-dev:${IMAGE_TAG-dev}
     command: npm run test:e2e-network-validator
     depends_on:

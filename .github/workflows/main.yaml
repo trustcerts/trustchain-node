@@ -122,18 +122,18 @@ jobs:
 
   # TODO check if containers have to be build before the e2e test
   e2e:
-    # needs: package
+    needs: package
     runs-on: ubuntu-latest
     strategy:
       matrix:
         services:
           [
-            httpGateway,
-            httpObserver,
-            httpValidator,
-            networkGateway,
-            networkObserver,
-            networkValidator,
+            http-gateway,
+            http-observer,
+            http-validator,
+            network-gateway,
+            network-observer,
+            network-validator,
             persist,
             parse,
             wallet,
@@ -152,8 +152,7 @@ jobs:
 
       - name: e2e test
         run: |
-          printf "\nIMAGE_TAG=$GITHUB_HEAD_REF\n" >> test/.env
-          echo $GITHUB_HEAD_REF
+          printf "\nIMAGE_TAG=$GITHUB_HEAD_REF\n" >> test/.env          
           docker-compose -f test/docker-compose.yml --env-file test/.env run test-${{ matrix.services }} npm run test:e2e-${{ matrix.services }}-ci
 
       - name: Upload E2E Test Results
