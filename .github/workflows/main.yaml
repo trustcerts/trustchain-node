@@ -154,10 +154,9 @@ jobs:
         run: |
           printf "\nIMAGE_TAG=$GITHUB_SERVER_URL" >> test/.env
           ls test
-          printf "\nIMAGE_TAG=$GITHUB_SERVER_URL" >> test/.env1
+          printf "\nIMAGE_TAG=line1\n" >> test/.env1
           cat test/.env1
-          printf "\nIMAGE_TAG=$GITHUB_SERVER_URL" >> test/.env1
-          echo "hello"
+          printf "\nIMAGE_TAG=line2\n" >> test/.env1          
           cat test/.env1
           docker-compose -f test/docker-compose.yml --env-file test/.env run test-${{ matrix.services }} npm run test:e2e-${{ matrix.services }}-ci
         env:
