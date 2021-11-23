@@ -152,8 +152,9 @@ jobs:
 
       - name: e2e test
         run: |
-          echo 'IMAGE_TAG=${{ env.GITHUB_HEAD_REF }}' > .envTmp
-          docker-compose -f test/docker-compose.yml --env-file test/.env --env-file .envTmp run test-${{ matrix.services }} npm run test:e2e-${{ matrix.services }}-ci
+          docker-compose -f test/docker-compose.yml --env-file test/.env run test-${{ matrix.services }} npm run test:e2e-${{ matrix.services }}-ci
+        env:
+          IMAGE_TAG: ${{ env.GITHUB_HEAD_REF }}
 
       - name: Upload E2E Test Results
         if: always()
