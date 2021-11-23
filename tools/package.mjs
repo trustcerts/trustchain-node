@@ -15,7 +15,7 @@ const TOKEN = process.env.NPM_TOKEN;
   await run(
     `docker build -f ./build/base-dev.Dockerfile -t trustcerts/trustchain-dev:${CI_TAG} --build-arg NPM_TOKEN=${TOKEN} .`,
   );
-  await run(`docker push trustcerts/trustchain-baseimage:${CI_TAG}`);
+  await run(`docker push trustcerts/trustchain-dev:${CI_TAG}`);
 
   for (let project of projects) {
     await run(
