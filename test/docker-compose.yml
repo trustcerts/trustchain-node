@@ -21,7 +21,7 @@ x-db-custom: &db-variables
 
 services:
   test-e2e-ci:
-    image: registry.gitlab.com/trustcerts/trustchain-dev:${IMAGE_TAG-dev}
+    image: trustcerts/trustchain-dev:${IMAGE_TAG-dev}
     command: npm run test:e2e-ci
     privileged: true
     environment:
@@ -45,7 +45,7 @@ services:
       internal:
 
   test-e2e:
-    image: registry.gitlab.com/trustcerts/trustchain-dev:${IMAGE_TAG-dev}
+    image: trustcerts/trustchain-dev:${IMAGE_TAG-dev}
     command: npm run test:e2e
     privileged: true
     environment:
@@ -69,7 +69,7 @@ services:
       internal:
 
   test-persist:
-    image: registry.gitlab.com/trustcerts/trustchain-dev:${IMAGE_TAG-dev}
+    image: trustcerts/trustchain-dev:${IMAGE_TAG-dev}
     command: npm run test:e2e-persist
     depends_on:
       - redis      
@@ -83,7 +83,7 @@ services:
       internal:
 
   test-parse:
-    image: registry.gitlab.com/trustcerts/trustchain-dev:${IMAGE_TAG-dev}
+    image: trustcerts/trustchain-dev:${IMAGE_TAG-dev}
     command: npm run test:e2e-parse
     depends_on:
       - redis
@@ -100,7 +100,7 @@ services:
       internal:
 
   test-wallet:
-    image: registry.gitlab.com/trustcerts/trustchain-dev:${IMAGE_TAG-dev}
+    image: trustcerts/trustchain-dev:${IMAGE_TAG-dev}
     command: npm run test:e2e-wallet
     depends_on:
       - redis
@@ -114,7 +114,7 @@ services:
       internal:
 
   test-httpGateway:
-    image: registry.gitlab.com/trustcerts/trustchain-dev:${IMAGE_TAG-dev}
+    image: trustcerts/trustchain-dev:${IMAGE_TAG-dev}
     command: npm run test:e2e-http-gateway
     depends_on:
       - redis
@@ -134,7 +134,7 @@ services:
       internal:
 
   test-httpObserver:
-    image: registry.gitlab.com/trustcerts/trustchain-dev:${IMAGE_TAG-dev}
+    image: trustcerts/trustchain-dev:${IMAGE_TAG-dev}
     command: npm run test:e2e-http-observer
     depends_on:
       - redis
@@ -156,7 +156,7 @@ services:
       internal:
 
   test-httpValidator:
-    image: registry.gitlab.com/trustcerts/trustchain-dev:${IMAGE_TAG-dev}
+    image: trustcerts/trustchain-dev:${IMAGE_TAG-dev}
     command: npm run test:e2e-http-validator
     depends_on:
       - redis
@@ -177,7 +177,7 @@ services:
       internal:
 
   test-networkGateway:
-    image: registry.gitlab.com/trustcerts/trustchain-dev:${IMAGE_TAG-dev}
+    image: trustcerts/trustchain-dev:${IMAGE_TAG-dev}
     command: npm run test:e2e-network-gateway
     depends_on:
       - redis
@@ -196,7 +196,7 @@ services:
       internal:
 
   test-networkObserver:
-    image: registry.gitlab.com/trustcerts/trustchain-dev:${IMAGE_TAG-dev}
+    image: trustcerts/trustchain-dev:${IMAGE_TAG-dev}
     command: npm run test:e2e-network-observer
     depends_on:
       - redis
@@ -215,7 +215,7 @@ services:
       internal:
 
   test-networkValidator:
-    image: registry.gitlab.com/trustcerts/trustchain-dev:${IMAGE_TAG-dev}
+    image: trustcerts/trustchain-dev:${IMAGE_TAG-dev}
     command: npm run test:e2e-network-validator
     depends_on:
       - redis
@@ -236,7 +236,7 @@ services:
       internal:
 
   test-wallet:
-    image: registry.gitlab.com/trustcerts/trustchain-dev:${IMAGE_TAG-dev}
+    image: trustcerts/trustchain-dev:${IMAGE_TAG-dev}
     command: npm run test:e2e-wallet
     depends_on:
       - redis
@@ -251,7 +251,7 @@ services:
       
 
   wallet:
-    image: registry.gitlab.com/trustcerts/trustchain-wallet:${IMAGE_TAG-dev}
+    image: trustcerts/trustchain-wallet:${IMAGE_TAG-dev}
     restart: ${RESTART-always}
     depends_on:
       - redis
@@ -264,7 +264,7 @@ services:
       internal:
 
   parse:
-    image: registry.gitlab.com/trustcerts/trustchain-parse:${IMAGE_TAG-dev}
+    image: trustcerts/trustchain-parse:${IMAGE_TAG-dev}
     restart: ${RESTART-always}
     depends_on:
       - redis
@@ -280,7 +280,7 @@ services:
       internal:
 
   persist:
-    image: registry.gitlab.com/trustcerts/trustchain-persist:${IMAGE_TAG-dev}
+    image: trustcerts/trustchain-persist:${IMAGE_TAG-dev}
     restart: ${RESTART-always}
     depends_on:
       - redis
@@ -293,7 +293,7 @@ services:
       internal:
 
   http:
-    image: registry.gitlab.com/trustcerts/trustchain-http-${NODE_TYPE}:${IMAGE_TAG-dev}
+    image: trustcerts/trustchain-http-${NODE_TYPE}:${IMAGE_TAG-dev}
     restart: ${RESTART-always}
     depends_on:
       - redis
@@ -313,7 +313,7 @@ services:
       internal:
 
   network:
-    image: registry.gitlab.com/trustcerts/trustchain-network-${NODE_TYPE}:${IMAGE_TAG-dev}
+    image: trustcerts/trustchain-network-${NODE_TYPE}:${IMAGE_TAG-dev}
     restart: ${RESTART-always}
     depends_on:
       - redis
