@@ -199,7 +199,11 @@ jobs:
         run: |
           docker network create test-network
           chmod 777 test/network/config/
-          cd test/network/config/ && bash all.sh up -d
+          cd test/network/config/
+          for filename in ./*.env; do  
+            printf "\nIMAGE_TAG=$GITHUB_HEAD_REF\n" >> $filename
+          done
+          bash all.sh up -d
           npm config set @trustcerts:registry https://gitlab.com/api/v4/packages/npm/
           npm config set '//gitlab.com/api/v4/packages/npm/:_authToken' "${CI_JOB_TOKEN}"
 
@@ -208,8 +212,6 @@ jobs:
         # TODO put this shell script into a npm job with a typescript call to make it more dynamic
         run: |
           cd ${CI_PROJECT_DIR}/test/network/config/
-          for filename in ./*.env; do  
-            printf "\nIMAGE_TAG=$GITHUB_HEAD_REF\n" >> $filename
           bash run.sh
           npm run test:network
 
