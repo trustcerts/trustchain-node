@@ -200,29 +200,22 @@ jobs:
           docker network create test-network
           chmod 777 test/network/config/
           cd test/network/config/
-          FILES=".validator1.env
-          .validator2.env
-          .validator3.env
-          .validator4.env
-          .gateway1.env
-          .gateway2.env
-          .observer1.env
-          .observer2.env
-          "
-          for filename in $FILES; do
+          for filename in $(find . -name '*.env' -print); do
             echo "update $filename"
             printf "\nIMAGE_TAG=$GITHUB_HEAD_REF\n" >> $filename
           done
           cat .validator1.env
           bash all.sh up -d
           npm config set @trustcerts:registry https://gitlab.com/api/v4/packages/npm/
-          npm config set '//gitlab.com/api/v4/packages/npm/:_authToken' "${CI_JOB_TOKEN}"
+          npm config set '//gitlab.com/api/v4/packages/npm/:_authToken' $NPM_TOKEN
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Test
         # check if network can build up
         # TODO put this shell script into a npm job with a typescript call to make it more dynamic
         run: |
-          cd ${CI_PROJECT_DIR}/test/network/config/
+          cd ${GITHUB_WORKSPACE}/test/network/config/
           bash run.sh
           npm run test:network
 
