@@ -208,6 +208,8 @@ jobs:
         # TODO put this shell script into a npm job with a typescript call to make it more dynamic
         run: |
           cd ${CI_PROJECT_DIR}/test/network/config/
+          for filename in ./*.env; do  
+            printf "\nIMAGE_TAG=$GITHUB_HEAD_REF\n" >> $filename
           bash run.sh
           npm run test:network
 
