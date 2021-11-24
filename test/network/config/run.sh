@@ -31,5 +31,4 @@ curl -X POST "http://localhost:3540/did/invite" -H "accept: */*" -H "Authorizati
 curl -X POST "http://localhost:3540/did/invite" -H "accept: */*" -H "Authorization: Bearer dev" -H "Content-Type: application/json" -d "{\"id\":\"did:trust:tc:dev:id:XLzBJ69jeqEgq7oqqdEsHW\",\"name\":\"Healthcheck\",\"secret\":\"Healthcheck\",\"role\":\"client\"}" &
 curl -X POST "http://localhost:3540/did/invite" -H "accept: */*" -H "Authorization: Bearer dev" -H "Content-Type: application/json" -d "{\"id\":\"did:trust:tc:dev:id:XLzBJ69keqEgq7oqqdEsHW\",\"name\":\"platform\",\"secret\":\"foobar\",\"role\":\"client\"}"
 
-
 exit
