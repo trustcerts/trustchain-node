@@ -76,7 +76,7 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
       # TODO instead of running ci check if node_modules folder should be cached
-      - run: npm ci
+      - run: npm ci --cache .npm --prefer-offline
 
       - name: test
         run: npm run test:unit-ci --cache .npm
@@ -194,6 +194,12 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: Set node
+        uses: actions/setup-node@v2
+        with:
+          cache: npm
+          node-version: 16
+
       - name: Cache node modules
         uses: actions/cache@v2
         env:
@@ -205,8 +211,9 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-      # TODO evaluate if script should be put in a separate package json to reduce size
-      - run: npm ci
+      # TODO evaulate if script should be put in a separate package json to reduce size
+      - run: npm ci --cache .npm --prefer-offline
+
       - name: Preparation
         # TODO use the image that was build in this ci, not the static `dev` one since we want to test the new image
         run: |
