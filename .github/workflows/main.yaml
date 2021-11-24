@@ -200,7 +200,8 @@ jobs:
           docker network create test-network
           chmod 777 test/network/config/
           cd test/network/config/
-          for filename in ./*.env; do  
+          for filename in $GITHUB_WORKSPACE/test/network/config/*.env; do
+            echo "update $filename"
             printf "\nIMAGE_TAG=$GITHUB_HEAD_REF\n" >> $filename
           done
           cat .validator1.env
