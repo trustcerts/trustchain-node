@@ -216,6 +216,7 @@ jobs:
         run: |
           cd ${GITHUB_WORKSPACE}/test/network/config/
           bash run.sh
+          cd ${GITHUB_WORKSPACE}
           npm run test:network
 
   semantic-release:

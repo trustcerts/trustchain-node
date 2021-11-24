@@ -8,8 +8,8 @@ describe('Network Testing', () => {
     ];
     const responses: any = {
       // TODO make endpoints dynamic to run it local and not only in the ci
-      resGate1: await axios.get(`http://docker:3560/did/${dids[0]}`),
-      resGate2: await axios.get(`http://docker:3560/did/${dids[1]}`),
+      resGate1: await axios.get(`http://localhost:3560/did/${dids[0]}`),
+      resGate2: await axios.get(`http://localhost:3560/did/${dids[1]}`),
     };
     dids.forEach((did, i) => {
       expect(responses[`resGate${i + 1}`].status).toEqual(200);
@@ -26,8 +26,8 @@ describe('Network Testing', () => {
       'did:trust:tc:dev:id:XLzBJ69BeqEgq7oqqdEsHQ',
     ];
     const responses: any = {
-      resObs1: await axios.get(`http://docker:3560/did/${dids[0]}`),
-      resObs2: await axios.get(`http://docker:3560/did/${dids[1]}`),
+      resObs1: await axios.get(`http://localhost:3560/did/${dids[0]}`),
+      resObs2: await axios.get(`http://localhost:3560/did/${dids[1]}`),
     };
     dids.forEach((did, i) => {
       expect(responses[`resObs${i + 1}`].status).toEqual(200);
