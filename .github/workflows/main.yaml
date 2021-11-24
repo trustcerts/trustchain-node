@@ -205,7 +205,8 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-
+      # TODO evaluate if script should be put in a separate package json to reduce size
+      - run: npm ci
       - name: Preparation
         # TODO use the image that was build in this ci, not the static `dev` one since we want to test the new image
         run: |
