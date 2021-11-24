@@ -112,11 +112,13 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build temporary docker images
+        # if: $GITHUB_HEAD_REF
         run: |
           node tools/package.mjs          
           node tools/release.mjs
         env:
           CI_REGISTRY_IMAGE: $GITHUB_REPOSITORY
+          # TODO this is not given when it was merged on the main branch
           CI_COMMIT_BRANCH: $GITHUB_HEAD_REF
           NPM_TOKEN: ${{ secrets.GITLAB_NPM_TOKEN }}
 
@@ -179,7 +181,7 @@ jobs:
           files: artifacts/**/*.xml
 
   network-test:
-    # needs: e2e
+    needs: e2e
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -239,6 +241,7 @@ jobs:
           cd ${GITHUB_WORKSPACE}
           npm run test:network
 
+  # TODO needs implementation, see script in tools/semantic-release.mjs
   semantic-release:
     needs: network-test
     runs-on: ubuntu-latest
@@ -247,7 +250,7 @@ jobs:
         run: echo test
 
   release:
-    needs: network-test
+    needs: semantic-release
     runs-on: ubuntu-latest
     steps:
       - name: Prepare
@@ -255,6 +258,7 @@ jobs:
 
   # TODO put this step into another file since it is CD
   deploy:
+    if: contains( github.ref, 'main')
     needs: network-test
     runs-on: ubuntu-latest
     steps:
