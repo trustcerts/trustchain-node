@@ -204,7 +204,6 @@ jobs:
             echo "update $filename"
             printf "\nIMAGE_TAG=$GITHUB_HEAD_REF\n" >> $filename
           done
-          cat .validator1.env
           bash all.sh up -d
           npm config set @trustcerts:registry https://gitlab.com/api/v4/packages/npm/
           npm config set '//gitlab.com/api/v4/packages/npm/:_authToken' $NPM_TOKEN

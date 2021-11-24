@@ -4,6 +4,7 @@ echo "reset"
 for HOST in docker:3500 docker:3510 docker:3520 docker:3530 docker:3540 docker:3550 docker:3560 docker:3570 ; do
   until $(curl --output /dev/null --silent --head --fail "http://$HOST"); do
     printf "$HOST is not there yet\n"
+    docker logs validator1_http_1
     sleep 5
   done
   curl -X POST "http://$HOST/reset" -H "accept: */*" -H "Authorization: Bearer dev" -d ""
