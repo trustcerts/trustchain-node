@@ -179,13 +179,14 @@ jobs:
           files: artifacts/**/*.xml
 
   network-test:
-    needs: e2e
+    # needs: e2e
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+          submodules: true
 
       - name: Login into docker
         uses: docker/login-action@v1
