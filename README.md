@@ -1,5 +1,3 @@
-![Build status](https://github.com/trustcerts/trustchain/workflows/main/badge.svg)
-
 # Trustchain
 
 Source code of the trustchain. For a detailed lookup into the concepts check out the [documentation](https://github.com/trustcerts/trustchain-doc) repository.
