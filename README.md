@@ -1,4 +1,4 @@
-![Build status](https://github.com/trustcerts/trustchain/workflows/main/badge.svg)
+![Build status](https://github.com/trustcerts/trustchain/actions/workflows/main/badge.svg)
 
 # Trustchain
 
