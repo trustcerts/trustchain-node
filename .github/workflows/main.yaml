@@ -29,7 +29,7 @@ jobs:
           npm config set @trustcerts:registry https://gitlab.com/api/v4/packages/npm/
           npm config set '//gitlab.com/api/v4/packages/npm/:_authToken' $NPM_TOKEN
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.GITLAB_NPM_TOKEN }}
 
       - run: npm ci --cache .npm --prefer-offline
       - run: sed -ri "s|\"BUILD\"|\"${{ env.GITHUB_SHA }}\"|" apps/shared/build.ts
@@ -251,7 +251,7 @@ jobs:
           npm config set @trustcerts:registry https://gitlab.com/api/v4/packages/npm/
           npm config set '//gitlab.com/api/v4/packages/npm/:_authToken' $NPM_TOKEN
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.GITLAB_NPM_TOKEN }}
           IMAGE_TAG: $GITHUB_HEAD_REF
 
       - name: Preparation
@@ -269,7 +269,7 @@ jobs:
           npm config set @trustcerts:registry https://gitlab.com/api/v4/packages/npm/
           npm config set '//gitlab.com/api/v4/packages/npm/:_authToken' $NPM_TOKEN
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.GITLAB_NPM_TOKEN }}
           IMAGE_TAG: latest
 
       - name: Test
