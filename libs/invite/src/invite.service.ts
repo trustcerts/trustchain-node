@@ -45,18 +45,20 @@ export class InviteService {
    * @param inviteDto
    */
   async createInvite(inviteDto: InviteRequest): Promise<InviteRequest> {
-    await this.inviteModel
-      .findOne({ name: inviteDto.name })
-      .then((res) =>
-        res
-          ? new ConflictException('identifier already has an invite code')
-          : true,
-      );
-    if (inviteDto.id) {
-      await this.didCachedService.getDidByKey(inviteDto.id).then(
-        () => new ConflictException('identifier already exists'),
-        () => true,
-      );
+    if (!inviteDto.force) {
+      await this.inviteModel
+        .findOne({ name: inviteDto.name })
+        .then((res) =>
+          res
+            ? new ConflictException('identifier already has an invite code')
+            : true,
+        );
+      if (inviteDto.id) {
+        await this.didCachedService.getDidByKey(inviteDto.id).then(
+          () => new ConflictException('identifier already exists'),
+          () => true,
+        );
+      }
     }
 
     const invite = new this.inviteModel({
@@ -74,6 +76,7 @@ export class InviteService {
     return invite;
   }
 
+  // TODO expose endpint
   /**
    * Returns all existing invites.
    */
@@ -81,6 +84,7 @@ export class InviteService {
     return this.inviteModel.find();
   }
 
+  // TODO expose endpoint
   /**
    * Delete the secret to an invite so it cannot be used anymore.
    * @param id
@@ -105,7 +109,7 @@ export class InviteService {
         'No invite code found for this identifier.',
       );
     }
-    delete invite.secret;
+    invite.secret = undefined;
     await invite.save();
     return invite;
   }

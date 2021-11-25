@@ -275,6 +275,7 @@ export class ConfigService {
   /**
    * Loads the parameters to connect to the db based on the db type.
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public db(module: string) {
     // TODO add port
     // TODO pass type of db

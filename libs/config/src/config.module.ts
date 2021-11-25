@@ -1,14 +1,11 @@
 import * as Joi from 'joi';
 import { ConfigService } from './config.service';
 import { DynamicModule, Global, Module } from '@nestjs/common';
-import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 import { VersionModule } from './version/version.module';
 
 @Global()
 @Module({
-  imports: [
-    VersionModule,
-  ],
+  imports: [VersionModule],
 })
 export class ConfigModule {
   static forRoot(values: {

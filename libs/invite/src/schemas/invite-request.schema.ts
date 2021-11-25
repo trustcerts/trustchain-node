@@ -50,6 +50,15 @@ export class InviteRequest {
   })
   @Prop({ length: 20 })
   role!: RoleManageAddEnum;
+
+  /**
+   * If set to true a new secret will be set for an existing entry
+   */
+  @ApiProperty({
+    description:
+      'If set to true a new secret will be set for an existing entry',
+  })
+  force?: boolean;
 }
 
 /**

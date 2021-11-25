@@ -79,7 +79,6 @@ export class DidTransactionCheckService extends TransactionCheck {
     const idRole = await this.didCachedService.getRole(id).then(
       (roles) => roles[0],
       () => {
-        console.log(JSON.stringify(transaction.body.value, null, 4));
         // seems like did is new, use the role from the transaction
         const roles = transaction.body.value.role?.add;
         if (!roles) {
@@ -111,7 +110,6 @@ export class DidTransactionCheckService extends TransactionCheck {
           }
         },
       );
-    console.log(controllers);
     const found = controllers.find((controller) => controller.id === signerId);
     if (found) {
       return Promise.resolve();
@@ -140,7 +138,6 @@ export class DidTransactionCheckService extends TransactionCheck {
     transaction: DidTransactionDto,
     addedTransactions: Map<string, TransactionDto>,
   ): Promise<void> {
-    console.log('vali');
     this.checkDouble(transaction, addedTransactions);
     await this.checkAuthorization(transaction);
     // TODO check which elements can be changed. E.g. the controller can not be changed by the did itself, it can only set new keys

@@ -35,6 +35,7 @@ export class HashCachedService extends CachedService {
     return this.hashModel.count(options);
   }
 
+  // TODO implement rate limit
   /**
    * Set filters depending on the given parameters.
    * @param filter
