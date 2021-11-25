@@ -1,0 +1,6 @@
+[submodule "test/benchmark"]
+	path = test/benchmark
+	url = git@github.com:trustcerts/trustchain-benchmarktool.git
+[submodule "test/network/repo"]
+	path = test/network/repo
+	url = git@github.com:trustcerts/trustchain-config.git

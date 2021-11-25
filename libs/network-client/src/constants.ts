@@ -1,0 +1,6 @@
+/**
+ * URL und PORTS for connections
+ */
+export const NETWORK_URL = 'NETWORK_URL',
+  NETWORK_PORT_HTTP = 'NETWORK_PORT_HTTP',
+  NETWORK_PORT_TCP = 'NETWORK_PORT_TCP';

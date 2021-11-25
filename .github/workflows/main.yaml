@@ -1,0 +1,306 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Build
+        uses: actions/setup-node@v2
+        with:
+          cache: npm
+          node-version: 16
+
+      - name: Set registry config
+        run: |
+          npm config set @trustcerts:registry https://gitlab.com/api/v4/packages/npm/
+          npm config set '//gitlab.com/api/v4/packages/npm/:_authToken' $NPM_TOKEN
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - run: npm ci --cache .npm --prefer-offline
+      - run: sed -ri "s|\"BUILD\"|\"${{ env.GITHUB_SHA }}\"|" apps/shared/build.ts
+      - run: node tools/build.mjs
+
+      - name: Upload builds
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: dist/
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: .npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+  test-unit:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v2
+        with:
+          cache: npm
+          node-version: 16
+      - uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: .npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      # TODO instead of running ci check if node_modules folder should be cached
+      - run: npm ci --cache .npm --prefer-offline
+
+      - name: test
+        run: npm run test:unit-ci --cache .npm
+        env:
+          STORAGE: tmp/
+
+      - name: Upload Unit Test Results
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: Unit Test Results ${{ matrix.service }}
+          path: ./*.xml
+
+  package:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Download builds
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: dist/
+
+      - name: Login into docker
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build temporary docker images
+        if: github.ref != 'refs/heads/main'
+        run: |
+          node tools/package.mjs          
+          node tools/release.mjs
+        env:
+          CI_REGISTRY_IMAGE: $GITHUB_REPOSITORY
+          CI_COMMIT_BRANCH: $GITHUB_HEAD_REF
+          NPM_TOKEN: ${{ secrets.GITLAB_NPM_TOKEN }}
+
+      - name: Build temporary docker images
+        if: github.ref == 'refs/heads/main'
+        run: |
+          node tools/package.mjs          
+          node tools/release.mjs
+        env:
+          CI_REGISTRY_IMAGE: $GITHUB_REPOSITORY
+          CI_COMMIT_BRANCH: latest
+          NPM_TOKEN: ${{ secrets.GITLAB_NPM_TOKEN }}
+
+  # TODO check if containers have to be build before the e2e test
+  e2e:
+    needs: package
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        services:
+          [
+            http-gateway,
+            http-observer,
+            http-validator,
+            network-gateway,
+            network-observer,
+            network-validator,
+            persist,
+            parse,
+            wallet,
+          ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Login into docker
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: e2e test
+        if: github.ref != 'refs/heads/main'
+        run: |
+          printf "\nIMAGE_TAG=$IMAGE_TAG\n" >> test/.env          
+          docker-compose -f test/docker-compose.yml --env-file test/.env run test-${{ matrix.services }} npm run test:e2e-${{ matrix.services }}-ci
+        env:
+          IMAGE_TAG: $GITHUB_HEAD_REF
+
+      - name: e2e test
+        if: github.ref == 'refs/heads/main'
+        run: |
+          printf "\nIMAGE_TAG=$IMAGE_TAG\n" >> test/.env          
+          docker-compose -f test/docker-compose.yml --env-file test/.env run test-${{ matrix.services }} npm run test:e2e-${{ matrix.services }}-ci
+        env:
+          IMAGE_TAG: latest
+
+      - name: Upload E2E Test Results
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: E2E Test Results ${{ matrix.service }}
+          path: ./*.xml
+
+  publish-test-results:
+    name: 'Publish Unit Tests Results'
+    needs: e2e
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          path: artifacts
+
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        with:
+          files: artifacts/**/*.xml
+
+  network-test:
+    needs: e2e
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          submodules: true
+
+      - name: Login into docker
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Set node
+        uses: actions/setup-node@v2
+        with:
+          cache: npm
+          node-version: 16
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: .npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      # TODO evaulate if script should be put in a separate package json to reduce size
+      - run: npm ci --cache .npm --prefer-offline
+
+      - name: Preparation
+        if: github.ref != 'refs/heads/main'
+        # TODO use the image that was build in this ci, not the static `dev` one since we want to test the new image
+        run: |
+          docker network create test-network
+          chmod 777 test/network/config/
+          cd test/network/config/
+          for filename in $(find . -name '*.env' -print); do
+            echo "update $filename"
+            printf "\nIMAGE_TAG=$IMAGE_TAG\n" >> $filename
+          done
+          bash all.sh up -d
+          npm config set @trustcerts:registry https://gitlab.com/api/v4/packages/npm/
+          npm config set '//gitlab.com/api/v4/packages/npm/:_authToken' $NPM_TOKEN
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          IMAGE_TAG: $GITHUB_HEAD_REF
+
+      - name: Preparation
+        if: github.ref == 'refs/heads/main'
+        # TODO use the image that was build in this ci, not the static `dev` one since we want to test the new image
+        run: |
+          docker network create test-network
+          chmod 777 test/network/config/
+          cd test/network/config/
+          for filename in $(find . -name '*.env' -print); do
+            echo "update $filename"
+            printf "\nIMAGE_TAG=$IMAGE_TAG\n" >> $filename
+          done
+          bash all.sh up -d
+          npm config set @trustcerts:registry https://gitlab.com/api/v4/packages/npm/
+          npm config set '//gitlab.com/api/v4/packages/npm/:_authToken' $NPM_TOKEN
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          IMAGE_TAG: latest
+
+      - name: Test
+        # check if network can build up
+        # TODO put this shell script into a npm job with a typescript call to make it more dynamic
+        run: |
+          cd ${GITHUB_WORKSPACE}/test/network/config/
+          bash run.sh
+          cd ${GITHUB_WORKSPACE}
+          npm run test:network
+
+  # TODO needs implementation, see script in tools/semantic-release.mjs
+  semantic-release:
+    needs: network-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prepare
+        run: echo test
+
+  release:
+    needs: semantic-release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prepare
+        run: echo test
+
+  # TODO put this step into another file since it is CD
+  deploy:
+    if: contains( github.ref, 'main')
+    needs: network-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prepare
+        run: echo test
