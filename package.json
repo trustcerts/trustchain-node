@@ -2,8 +2,20 @@
   "name": "trustchain",
   "version": "1.0.0",
   "description": "",
-  "author": "",
-  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trustcerts/trustchain-node"
+  },
+  "author": {
+    "name": "TrustCerts GmbH",
+    "email": "dev@trustcerts.de",
+    "url": "https://trustcerts.de"
+  },
+  "license": "Apache-2.0",
+  "bugs": {
+    "mail": "dev@trustcerts.de",
+    "url": "https://github.com/trustcerts/trustchain-node/issues"
+  },
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
