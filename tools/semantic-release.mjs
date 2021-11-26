@@ -13,7 +13,8 @@ try {
         '@semantic-release/release-notes-generator',
         '@semantic-release/github',
       ],
-      dryRun: true,
+      // dryRun: true,
+      ci: false,
     },
     {
       stdout: stdoutBuffer,
