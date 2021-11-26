@@ -27,6 +27,7 @@ try {
       `Published ${nextRelease.type} release version ${nextRelease.version} containing ${commits.length} commits.`,
     );
     if (lastRelease.version) {
+      // TODO build versioned docker container: when there is a new patch 1.1.10, update 1, 1.1, 1.1.10, latest
       console.log(`The last release was "${lastRelease.version}".`);
     }
     for (const release of releases) {
