@@ -8,6 +8,12 @@ try {
       // Core options
       branches: ['main', 'legal'],
       repositoryUrl: 'https://github.com/trustcerts/trustchain-node.git',
+      plugins: [
+        '@semantic-release/commit-analyzer',
+        '@semantic-release/release-notes-generator',
+        '@semantic-release/github',
+      ],
+      dryRun: true,
       // Shareable config
       // extends: 'my-shareable-config',
       // Plugin options
