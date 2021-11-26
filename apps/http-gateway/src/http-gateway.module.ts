@@ -25,6 +25,7 @@ import {
     ConfigModule.forRoot({
       service: 'http',
       environment: {
+        INVITE_FORCE: Joi.boolean().default(true),
         MAX_BLOCK_WAIT: Joi.number().default(30),
         ...httpValidation,
         ...dbConnectionValidation,
