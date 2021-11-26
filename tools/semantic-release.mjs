@@ -14,18 +14,8 @@ try {
         '@semantic-release/github',
       ],
       dryRun: true,
-      // Shareable config
-      // extends: 'my-shareable-config',
-      // Plugin options
-      // githubUrl: 'https://github.com/trustcerts/trustchain-node',
-      // githubApiPathPrefix: '/api-prefix',
     },
     {
-      // Run semantic-release from `/path/to/git/repo/root` without having to change local process `cwd` with `process.chdir()`
-      // cwd: '/path/to/git/repo/root',
-      // Pass the variable `MY_ENV_VAR` to semantic-release without having to modify the local `process.env`
-      // env: { ...process.env, MY_ENV_VAR: 'MY_ENV_VAR_VALUE' },
-      // Store stdout and stderr to use later instead of writing to `process.stdout` and `process.stderr`
       stdout: stdoutBuffer,
       stderr: stderrBuffer,
     },
