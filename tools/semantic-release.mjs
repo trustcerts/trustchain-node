@@ -4,8 +4,6 @@ import semanticRelease from 'semantic-release';
 const stdoutBuffer = new WritableStreamBuffer();
 const stderrBuffer = new WritableStreamBuffer();
 try {
-  process.env.CI_REGISTRY_IMAGE = 'trustcerts/trustchain';
-  process.env.DOCKER_BUILD = 'latest';
   const result = await semanticRelease(
     {
       // Core options
@@ -17,7 +15,7 @@ try {
         '@semantic-release/github',
       ],
       // dryRun: true,
-      ci: false,
+      // ci: false,
     },
     {
       stdout: stdoutBuffer,
@@ -30,26 +28,26 @@ try {
       `Published ${nextRelease.type} release version ${nextRelease.version} containing ${commits.length} commits.`,
     );
     if (lastRelease.version) {
-      // //TODO build versioned docker container: when there is a new patch 1.1.10, update 1, 1.1, 1.1.10, latest
-      // const elements = lastRelease.version.split('.');
-      // const major = elements[0];
-      // const minor = elements[1];
-      // const patch = elements[2];
-      // console.log(elements);
-      // for (let project of projects) {
-      //   const path = `${process.env.CI_REGISTRY_IMAGE}/${project}`;
-      //   for (let tag in [
-      //     'latest',
-      //     major,
-      //     [major, minor].join('.'),
-      //     [major, minor, patch].join('.'),
-      //   ]) {
-      //     await run(
-      //       `docker tag "${path}:${process.env.DOCKER_BUILD}" "${path}:${tag}"`,
-      //     );
-      //     await run(`docker push "${path}:${tag}`);
-      //   }
-      // }
+      //TODO build versioned docker container: when there is a new patch 1.1.10, update 1, 1.1, 1.1.10, latest
+      const elements = lastRelease.version.split('.');
+      const major = elements[0];
+      const minor = elements[1];
+      const patch = elements[2];
+      console.log(elements);
+      for (let project of projects) {
+        const path = `${process.env.CI_REGISTRY_IMAGE}/${project}`;
+        for (let tag in [
+          'latest',
+          major,
+          [major, minor].join('.'),
+          [major, minor, patch].join('.'),
+        ]) {
+          await run(
+            `docker tag "${path}:${process.env.DOCKER_BUILD}" "${path}:${tag}"`,
+          );
+          await run(`docker push "${path}:${tag}`);
+        }
+      }
       console.log(`The last release was "${lastRelease.version}".`);
     }
     for (const release of releases) {
