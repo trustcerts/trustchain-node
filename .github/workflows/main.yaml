@@ -289,13 +289,6 @@ jobs:
       - name: Prepare
         run: echo test
 
-  release:
-    needs: semantic-release
-    runs-on: ubuntu-latest
-    steps:
-      - name: Prepare
-        run: echo test
-
   # TODO put this step into another file since it is CD
   deploy:
     if: contains( github.ref, 'main')
