@@ -1,3 +1,4 @@
+import { ConfigService } from '@tc/config';
 import {
   ConflictException,
   Inject,
@@ -30,6 +31,7 @@ export class InviteService {
     @InjectModel(InviteRequest.name)
     private inviteModel: Model<InviteRequestDocument>,
     private readonly didCachedService: DidCachedService,
+    private readonly configService: ConfigService,
     @Inject('winston') private readonly logger: Logger,
   ) {}
 
@@ -103,7 +105,11 @@ export class InviteService {
    * @param secret
    */
   async isValidInvite(id: string, secret: string): Promise<InviteRequest> {
-    const invite = await this.inviteModel.findOne({ secret, id });
+    const query: any = { id };
+    if (!this.configService.getBoolean('INVITE_FORCE')) {
+      query.secret = secret;
+    }
+    const invite = await this.inviteModel.findOne(query);
     if (!invite) {
       throw new UnprocessableEntityException(
         'No invite code found for this identifier.',
@@ -111,6 +117,7 @@ export class InviteService {
     }
     invite.secret = undefined;
     await invite.save();
+    console.log(invite);
     return invite;
   }
 

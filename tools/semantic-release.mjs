@@ -1,32 +1,23 @@
 import { WritableStreamBuffer } from 'stream-buffers';
+import { projects, run } from './functions.mjs';
 import semanticRelease from 'semantic-release';
-const stdoutBuffer = WritableStreamBuffer();
-const stderrBuffer = WritableStreamBuffer();
+const stdoutBuffer = new WritableStreamBuffer();
+const stderrBuffer = new WritableStreamBuffer();
 try {
   const result = await semanticRelease(
     {
       // Core options
-      branches: [
-        '+([0-9])?(.{+([0-9]),x}).x',
-        'master',
-        'next',
-        'next-major',
-        { name: 'beta', prerelease: true },
-        { name: 'alpha', prerelease: true },
+      branches: ['main', 'legal'],
+      repositoryUrl: 'https://github.com/trustcerts/trustchain-node.git',
+      plugins: [
+        '@semantic-release/commit-analyzer',
+        '@semantic-release/release-notes-generator',
+        '@semantic-release/github',
       ],
-      repositoryUrl: 'https://github.com/me/my-package.git',
-      // Shareable config
-      extends: 'my-shareable-config',
-      // Plugin options
-      githubUrl: 'https://my-ghe.com',
-      githubApiPathPrefix: '/api-prefix',
+      // dryRun: true,
+      // ci: false,
     },
     {
-      // Run semantic-release from `/path/to/git/repo/root` without having to change local process `cwd` with `process.chdir()`
-      cwd: '/path/to/git/repo/root',
-      // Pass the variable `MY_ENV_VAR` to semantic-release without having to modify the local `process.env`
-      env: { ...process.env, MY_ENV_VAR: 'MY_ENV_VAR_VALUE' },
-      // Store stdout and stderr to use later instead of writing to `process.stdout` and `process.stderr`
       stdout: stdoutBuffer,
       stderr: stderrBuffer,
     },
@@ -37,6 +28,26 @@ try {
       `Published ${nextRelease.type} release version ${nextRelease.version} containing ${commits.length} commits.`,
     );
     if (lastRelease.version) {
+      //TODO build versioned docker container: when there is a new patch 1.1.10, update 1, 1.1, 1.1.10, latest
+      const elements = lastRelease.version.split('.');
+      const major = elements[0];
+      const minor = elements[1];
+      const patch = elements[2];
+      console.log(elements);
+      for (let project of projects) {
+        const path = `${process.env.CI_REGISTRY_IMAGE}/${project}`;
+        for (let tag in [
+          'latest',
+          major,
+          [major, minor].join('.'),
+          [major, minor, patch].join('.'),
+        ]) {
+          await run(
+            `docker tag "${path}:${process.env.DOCKER_BUILD}" "${path}:${tag}"`,
+          );
+          await run(`docker push "${path}:${tag}`);
+        }
+      }
       console.log(`The last release was "${lastRelease.version}".`);
     }
     for (const release of releases) {

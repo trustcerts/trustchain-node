@@ -24,6 +24,7 @@ import {
     ConfigModule.forRoot({
       service: 'http',
       environment: {
+        INVITE_FORCE: Joi.boolean().default(true),
         ...httpValidation,
         ...dbConnectionValidation,
         DID_NETWORK: Joi.string(),

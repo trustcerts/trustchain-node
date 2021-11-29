@@ -2,8 +2,20 @@
   "name": "trustchain",
   "version": "1.0.0",
   "description": "",
-  "author": "",
-  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trustcerts/trustchain-node"
+  },
+  "author": {
+    "name": "TrustCerts GmbH",
+    "email": "dev@trustcerts.de",
+    "url": "https://trustcerts.de"
+  },
+  "license": "Apache-2.0",
+  "bugs": {
+    "mail": "dev@trustcerts.de",
+    "url": "https://github.com/trustcerts/trustchain-node/issues"
+  },
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
@@ -99,8 +111,10 @@
     "jest-junit": "^13.0.0",
     "nodemon": "^2.0.15",
     "prettier": "^2.4.1",
+    "semantic-release": "^18.0.1",
     "shelljs": "^0.8.4",
     "start-server-webpack-plugin": "^2.2.5",
+    "stream-buffers": "^3.0.2",
     "supertest": "^6.1.6",
     "ts-jest": "^27.0.7",
     "ts-loader": "^9.2.6",
