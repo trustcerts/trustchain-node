@@ -25,6 +25,21 @@ jobs:
           cache: npm
           node-version: 16
 
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: .npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      
+      # TODO evaulate if script should be put in a separate package json to reduce size
+      - run: npm ci --cache .npm --prefer-offline
+
       - name: Semantic release
         run: node tools/semantic-release.mjs
         env:
