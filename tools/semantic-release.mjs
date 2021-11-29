@@ -42,6 +42,7 @@ try {
           [major, minor, patch].join('.'),
         ]) {
           await run(`docker pull "${path}:${process.env.DOCKER_BUILD}"`);
+          console.log(`create "${path}:${tag}"`);
           await run(
             `docker tag "${path}:${process.env.DOCKER_BUILD}" "${path}:${tag}"`,
           );
