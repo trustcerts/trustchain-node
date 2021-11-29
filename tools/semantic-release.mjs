@@ -26,9 +26,9 @@ try {
     console.log(
       `Published ${nextRelease.type} release version ${nextRelease.version} containing ${commits.length} commits.`,
     );
-    if (lastRelease.version) {
+    if (nextRelease.version) {
       //TODO build versioned docker container: when there is a new patch 1.1.10, update 1, 1.1, 1.1.10, latest
-      const elements = lastRelease.version.split('.');
+      const elements = nextRelease.version.split('.');
       const major = elements[0];
       const minor = elements[1];
       const patch = elements[2];
