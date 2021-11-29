@@ -119,7 +119,7 @@ jobs:
           node tools/package.mjs          
           node tools/release.mjs
         env:
-          CI_REGISTRY_IMAGE: trustchain
+          CI_REGISTRY_IMAGE: trustcerts/trustchain
           CI_COMMIT_BRANCH: ${{ github.head_ref }}
           NPM_TOKEN: ${{ secrets.GITLAB_NPM_TOKEN }}
 
@@ -129,7 +129,7 @@ jobs:
           node tools/package.mjs          
           node tools/release.mjs
         env:
-          CI_REGISTRY_IMAGE: trustchain
+          CI_REGISTRY_IMAGE: trustcerts/trustchain
           CI_COMMIT_BRANCH: latest
           NPM_TOKEN: ${{ secrets.GITLAB_NPM_TOKEN }}
 
