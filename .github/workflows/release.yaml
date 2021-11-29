@@ -2,15 +2,15 @@ name: Release
 
 on:
   workflow_dispatch:
-    # inputs:
-    #   name:
-    #     description: 'Person to greet'
-    #     required: true
-    #     default: 'Mona the Octocat'
-    #   home:
-    #     description: 'location'
-    #     required: false
-    #     default: 'The Octoverse'
+    inputs:
+      name:
+        description: 'Person to greet'
+        required: true
+        default: 'Mona the Octocat'
+      home:
+        description: 'location'
+        required: false
+        default: 'The Octoverse'
 
 jobs:
   release:
