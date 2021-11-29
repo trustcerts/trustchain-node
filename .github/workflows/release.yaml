@@ -1,11 +1,11 @@
-name: Release
+# name: Release
 
-on:
-  release:
-    types: [published]
+# on:
+#   release:
+#     types: [published]
 
-jobs:
-  runs-on: ubuntu-latest
-  steps:
-    - name: Prepare
-      run: echo test
+# jobs:
+#   runs-on: ubuntu-latest
+#   steps:
+#     - name: Prepare
+#       run: echo test
