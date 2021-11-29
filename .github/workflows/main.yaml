@@ -164,7 +164,8 @@ jobs:
       - name: e2e test
         if: github.ref != 'refs/heads/main'
         run: |
-          printf "\nIMAGE_TAG=$IMAGE_TAG\n" >> test/.env          
+          printf "\nIMAGE_TAG=$IMAGE_TAG\n" >> test/.env
+          cat test/.env
           docker-compose -f test/docker-compose.yml --env-file test/.env run test-${{ matrix.services }} npm run test:e2e-${{ matrix.services }}-ci
         env:
           IMAGE_TAG: $GITHUB_HEAD_REF
