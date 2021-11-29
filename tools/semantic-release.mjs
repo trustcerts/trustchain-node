@@ -14,8 +14,7 @@ try {
         '@semantic-release/release-notes-generator',
         '@semantic-release/github',
       ],
-      // dryRun: true,
-      // ci: false,
+      tagFormat: '${version}',
     },
     {
       stdout: stdoutBuffer,
