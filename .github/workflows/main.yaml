@@ -117,8 +117,8 @@ jobs:
           node tools/package.mjs          
           node tools/release.mjs
         env:
-          CI_REGISTRY_IMAGE: $GITHUB_REPOSITORY
-          CI_COMMIT_BRANCH: $GITHUB_HEAD_REF
+          CI_REGISTRY_IMAGE: ${{ GITHUB_REPOSITORY }}
+          CI_COMMIT_BRANCH: ${{ GITHUB_HEAD_REF }}
           NPM_TOKEN: ${{ secrets.GITLAB_NPM_TOKEN }}
 
       - name: Build temporary docker images
@@ -168,7 +168,7 @@ jobs:
           cat test/.env
           docker-compose -f test/docker-compose.yml --env-file test/.env run test-${{ matrix.services }} npm run test:e2e-${{ matrix.services }}-ci
         env:
-          IMAGE_TAG: $GITHUB_HEAD_REF
+          IMAGE_TAG: ${{ GITHUB_HEAD_REF }}
 
       - name: e2e test
         if: github.ref == 'refs/heads/main'
@@ -253,7 +253,7 @@ jobs:
           npm config set '//gitlab.com/api/v4/packages/npm/:_authToken' $NPM_TOKEN
         env:
           NPM_TOKEN: ${{ secrets.GITLAB_NPM_TOKEN }}
-          IMAGE_TAG: $GITHUB_HEAD_REF
+          IMAGE_TAG: ${{ GITHUB_HEAD_REF }}
 
       - name: Preparation
         if: github.ref == 'refs/heads/main'
