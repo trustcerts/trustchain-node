@@ -34,7 +34,7 @@ try {
       const patch = elements[2];
       console.log(elements);
       for (let project of projects) {
-        const path = `${process.env.CI_REGISTRY_IMAGE}/${project}`;
+        const path = `${process.env.CI_REGISTRY_IMAGE}-${project}`;
         for (let tag in [
           'latest',
           major,
