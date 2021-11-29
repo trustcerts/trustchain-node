@@ -35,11 +35,11 @@ try {
       console.log(elements);
       for (let project of projects) {
         const path = `${process.env.CI_REGISTRY_IMAGE}-${project}`;
-        for (let tag in [
+        for (let tag of [
           'latest',
           major,
-          [major, minor].join('.'),
-          [major, minor, patch].join('.'),
+          `${major}.${minor}`,
+          `${major}.${minor}.${patch}`,
         ]) {
           await run(`docker pull "${path}:${process.env.DOCKER_BUILD}"`);
           console.log(`create "${path}:${tag}"`);
