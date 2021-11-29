@@ -4,6 +4,8 @@ import semanticRelease from 'semantic-release';
 const stdoutBuffer = new WritableStreamBuffer();
 const stderrBuffer = new WritableStreamBuffer();
 try {
+  process.env.CI_REGISTRY_IMAGE = 'trustcerts/trustchain';
+  process.env.DOCKER_BUILD = 'latest';
   const result = await semanticRelease(
     {
       // Core options
@@ -34,20 +36,20 @@ try {
       const minor = elements[1];
       const patch = elements[2];
       console.log(elements);
-      // for (let project of projects) {
-      //   const path = `${process.env.CI_REGISTRY_IMAGE}/${project}`;
-      //   for (let tag in [
-      //     'latest',
-      //     major,
-      //     [major, minor].join('.'),
-      //     [major, minor, patch].join('.'),
-      //   ]) {
-      //     await run(
-      //       `docker tag "${path}:${process.env.DOCKER_BUILD}" "${path}:${tag}"`,
-      //     );
-      //     await run(`docker push "${path}:${tag}`);
-      //   }
-      // }
+      for (let project of projects) {
+        const path = `${process.env.CI_REGISTRY_IMAGE}/${project}`;
+        for (let tag in [
+          'latest',
+          major,
+          [major, minor].join('.'),
+          [major, minor, patch].join('.'),
+        ]) {
+          await run(
+            `docker tag "${path}:${process.env.DOCKER_BUILD}" "${path}:${tag}"`,
+          );
+          await run(`docker push "${path}:${tag}`);
+        }
+      }
       console.log(`The last release was "${lastRelease.version}".`);
     }
     for (const release of releases) {

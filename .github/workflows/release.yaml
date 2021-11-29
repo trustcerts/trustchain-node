@@ -1,11 +1,11 @@
-# name: Release
+name: Release
 
-# on:
-#   release:
+on:
+  release:
+    types: [published]
 
-#     release:
-#     needs: semantic-release
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Prepare
-#         run: echo test
+jobs:
+  runs-on: ubuntu-latest
+  steps:
+    - name: Prepare
+      run: echo test
