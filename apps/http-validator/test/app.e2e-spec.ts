@@ -7,7 +7,7 @@ import { InviteRequest } from '@tc/invite/schemas/invite-request.schema';
 import { RoleManageAddEnum } from '@tc/did/constants';
 import { CreateDidDto } from '@shared/create-did.dto';
 import { WalletClientService } from '@tc/wallet-client';
-import { Did, DidRegister, Identifier } from '@trustcerts/sdk';
+import { Identifier } from '@trustcerts/core';
 import { REDIS_INJECTION } from '@tc/event-client/constants';
 import { ClientRedis } from '@nestjs/microservices';
 import { HashService } from '@tc/blockchain';
@@ -16,6 +16,7 @@ import { ConfigService } from '@tc/config/config.service';
 import { addListenerToTransactionParsed } from '@test/helpers';
 import { HttpValidatorService } from '../src/http-validator.service';
 import { wait } from '@apps/shared/helpers';
+import { DidIdRegister } from '@trustcerts/did-id-create';
 
 describe('ValidatorController (e2e)', () => {
   let app: INestApplication;
@@ -69,7 +70,7 @@ describe('ValidatorController (e2e)', () => {
 
   // #Did_Section
   it('should generate an invite for a new node', () => {
-    const did = DidRegister.create();
+    const did = DidIdRegister.create();
     const invite: InviteRequest = {
       id: did.id,
       secret: 'test_secret',
@@ -84,7 +85,7 @@ describe('ValidatorController (e2e)', () => {
   });
 
   it('should sign a public key for the gateway', async () => {
-    const did = DidRegister.create();
+    const did = DidIdRegister.create();
     await walletClientService.setOwnInformation(did.id);
     const pair = await walletClientService.getPublicKey();
     const testCert: CreateDidDto = {
@@ -114,7 +115,7 @@ describe('ValidatorController (e2e)', () => {
 
   it('should resolve the name to a given did that was created by this node', async () => {
     Identifier.setNetwork('tc:test');
-    const did = DidRegister.create();
+    const did = DidIdRegister.create();
     const invite: InviteRequest = {
       id: did.id,
       secret: 'test_secret',
@@ -134,7 +135,7 @@ describe('ValidatorController (e2e)', () => {
 
   //#Rebuild&Reset_Section
   it('should rebuild the pki and hash database based on local blockchain', async () => {
-    const did = DidRegister.create();
+    const did = DidIdRegister.create();
     await walletClientService.setOwnInformation(did.id);
     const pair = await walletClientService.getPublicKey();
     const testCert: CreateDidDto = {

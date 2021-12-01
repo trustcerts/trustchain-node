@@ -7,7 +7,7 @@ import { GatewayHashModule } from './gateway-hash/gateway-hash.module';
 import { GatewayTemplateModule } from './gateway-template/gateway-template.module';
 import { HttpGatewayController } from './http-gateway.controller';
 import { HttpGatewayService } from './http-gateway.service';
-import { Identifier } from '@trustcerts/sdk';
+import { Identifier } from '@trustcerts/core';
 import { InviteModule } from '@tc/invite/invite.module';
 import { Module } from '@nestjs/common';
 import { ParseClientModule } from '@tc/parse-client';

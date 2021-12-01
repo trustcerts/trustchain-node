@@ -6,14 +6,13 @@ import {
 } from '@tc/event-client/constants';
 import { Block } from '@tc/blockchain/block/block.interface';
 import { ClientRedis } from '@nestjs/microservices';
+import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
 import {
-  Did,
-  DidRegister,
+  DidId,
   Identifier,
   SignatureContent,
   VerificationRelationshipType,
-} from '@trustcerts/sdk';
-import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
+} from '@trustcerts/core';
 import { DidTransactionDto } from '@tc/did/dto/did.transaction.dto';
 import { HashCreationTransactionDto } from '@tc/hash/schemas/hash-creation.transaction.dto';
 import { HashService } from '@tc/blockchain/hash.service';
@@ -31,6 +30,7 @@ import { exec } from 'child_process';
 import http = require('http');
 import express = require('express');
 import { CompressionType } from '@tc/template/dto/template.transaction.dto';
+import { DidIdRegister } from '@trustcerts/did-id-create';
 import { Server } from 'socket.io';
 
 /**
@@ -197,7 +197,7 @@ export async function createDidForTesting(
 ) {
   // create key for client
   Identifier.setNetwork('tc:test');
-  const did: Did = DidRegister.create();
+  const did: DidId = DidIdRegister.create();
   // wallet setId
   await walletService.setOwnInformation(did.id);
   const pair = await walletService.getPublicKey();

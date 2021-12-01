@@ -9,7 +9,7 @@ import {
   TRANSACTION_CREATED,
 } from '@tc/event-client/constants';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
-import { Did } from '@trustcerts/sdk';
+import { DidId } from '@trustcerts/core';
 import { WalletClientService } from '@tc/wallet-client';
 import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
 import { wait } from '@shared/helpers';
@@ -40,7 +40,7 @@ describe('Network Gateway (e2e)', () => {
   let p2PService: P2PService;
   let httpService: HttpService;
   let logger: Logger;
-  let didTransaction: { did: Did; transaction: TransactionDto };
+  let didTransaction: { did: DidId; transaction: TransactionDto };
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({

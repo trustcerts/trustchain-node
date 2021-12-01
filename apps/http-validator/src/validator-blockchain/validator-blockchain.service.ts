@@ -57,7 +57,7 @@ export class ValidatorBlockchainService {
   async addTransaction(
     transaction: TransactionDto,
   ): Promise<PersistedTransaction> {
-    // TODO improve function, see https://gitlab.com/trustcerts/trustchain/-/issues/205
+    // TODO improve function
     if (this.transactions.includes(transaction)) {
       throw new ConflictException('transaction already in pool');
     }

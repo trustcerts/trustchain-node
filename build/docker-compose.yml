@@ -22,7 +22,7 @@ services:
       - 8080:8080
 
   health:
-    image: registry.gitlab.com/trustcerts/trustchain-health-check
+    image: trustcerts/trustchain-health-check
     volumes:
       - health:/usr/src/app
     environment:

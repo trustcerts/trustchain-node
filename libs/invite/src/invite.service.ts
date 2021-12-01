@@ -6,7 +6,7 @@ import {
   UnprocessableEntityException,
 } from '@nestjs/common';
 import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
-import { DidRegister } from '@trustcerts/sdk';
+import { DidIdRegister } from '@trustcerts/did-id-create';
 import { InjectModel } from '@nestjs/mongoose';
 import {
   InviteRequest,
@@ -67,7 +67,7 @@ export class InviteService {
       name: inviteDto.name,
       role: inviteDto.role,
       secret: inviteDto.secret || InviteService.createSecret(),
-      id: inviteDto.id || DidRegister.create().id,
+      id: inviteDto.id || DidIdRegister.create().id,
     });
 
     await invite.save();

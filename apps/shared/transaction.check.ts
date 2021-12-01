@@ -3,7 +3,7 @@ import { CachedService } from './cache.service';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
-import { sortKeys } from '@trustcerts/sdk';
+import { sortKeys } from '@trustcerts/core';
 
 /**
  * Service that implements required function to validate a transaction of a specific type.

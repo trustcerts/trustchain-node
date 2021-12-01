@@ -27,7 +27,7 @@ import { io } from 'socket.io-client';
 import { WS_TRANSACTION } from '@tc/blockchain/blockchain.events';
 import { WalletClientService } from '@tc/wallet-client/wallet-client.service';
 import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
-import { Did } from '@trustcerts/sdk';
+import { DidId } from '@trustcerts/core';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { RoleManageAddEnum } from '@tc/did/constants';
 import { HttpService } from '@nestjs/axios';
@@ -40,10 +40,10 @@ describe('AppController (e2e)', () => {
   let clientRedis: ClientRedis;
   let walletClientService: WalletClientService;
   let didCachedService: DidCachedService;
-  let didTransaction: { did: Did; transaction: TransactionDto };
+  let didTransaction: { did: DidId; transaction: TransactionDto };
 
   beforeAll(async () => {
-    process.env.OWN_PEER = 'network:3000'
+    process.env.OWN_PEER = 'network:3000';
     process.env.NETWORK_SECRET = 'iAmJustASecret';
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [NetworkValidatorModule],
@@ -106,7 +106,7 @@ describe('AppController (e2e)', () => {
           // remove the identifier from P2P service
           p2PService.removeConnection(connection.identifier);
           // close the websocket server
-          server.disconnectSockets(true)
+          server.disconnectSockets(true);
           closeServer(server);
           resolve(true);
         });
@@ -146,7 +146,7 @@ describe('AppController (e2e)', () => {
   }, 10000);
 
   afterAll(async () => {
-    await wait(5000)
+    await wait(5000);
     fs.rmdirSync(app.get(ConfigService).storagePath, { recursive: true });
     await app.close().catch(() => {});
   }, 15000);
