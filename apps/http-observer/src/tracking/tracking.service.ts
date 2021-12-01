@@ -1,5 +1,5 @@
 import { ConflictException, Inject, Injectable } from '@nestjs/common';
-import { Did } from '@trustcerts/sdk';
+import { Did } from '@trustcerts/core';
 import { DidDocument } from '@tc/did/schemas/did.schema';
 import { Hash } from '@tc/hash/entities/hash.entity';
 import { InjectModel } from '@nestjs/mongoose';

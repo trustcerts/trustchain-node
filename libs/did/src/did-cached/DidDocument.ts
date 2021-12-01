@@ -1,13 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { DidPublicKey, DidService } from '../dto/did.transaction.dto';
-import { IDidDocument } from '@trustcerts/sdk';
+import { IDidIdDocument } from '@trustcerts/core';
 import { RoleManageAddEnum } from '@tc/did/constants';
 
 /**
  * Did document based on the transactions.
  */
 
-export class DidDocument implements IDidDocument {
+export class DidIdDocument implements IDidIdDocument {
   /**
    * schemas that define the document.
    */

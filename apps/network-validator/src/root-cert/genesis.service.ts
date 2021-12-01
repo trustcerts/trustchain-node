@@ -2,11 +2,8 @@ import { Block } from '@tc/blockchain/block/block.interface';
 import { ConfigService } from '@tc/config/config.service';
 import { Connection } from '../../../shared/connection';
 import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
-import {
-  DidCreation,
-  DidRegister,
-  VerificationRelationshipType,
-} from '@trustcerts/sdk';
+import { DidCreation, VerificationRelationshipType } from '@trustcerts/core';
+import { DidIdRegister } from '@trustcerts/did-id-create';
 import { DidTransactionDto } from '@tc/did/dto/did.transaction.dto';
 import { HashService } from '@tc/blockchain';
 import { HttpService } from '@nestjs/axios';
@@ -148,7 +145,7 @@ export class GenesisService {
    * Checks if the Validator is already healthy for the consensus.
    * @param connection
    */
-  async checkNode(connection: Connection) {
+  async checkNode(connection: Connection): Promise<any> {
     return lastValueFrom(
       this.httpService.get(
         `${await connection.getHttpEndpoint()}/mashed?amount=${
@@ -254,7 +251,7 @@ export class GenesisService {
     if (this.configService.getString('DID') !== '') {
       creation.id = this.configService.getString('DID');
     }
-    const did = DidRegister.create(creation);
+    const did = DidIdRegister.create(creation);
 
     // passes the id to the wallet to add the keypair
     await this.walletClientService.setOwnInformation(did.id);

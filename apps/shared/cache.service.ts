@@ -1,4 +1,4 @@
-import { SignatureContent } from '@trustcerts/sdk';
+import { SignatureContent } from '@trustcerts/core';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 
 /**

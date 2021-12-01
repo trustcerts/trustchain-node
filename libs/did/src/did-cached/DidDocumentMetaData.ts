@@ -1,11 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { DidDocumentMetaData as IDidDocumentMetaData } from '@trustcerts/sdk';
 
+// TODO evalute if this should be defined here or inside the SDK. To ass the swagger open api
 /**
  * Metadata of a did document.
  */
-
-export class DidDocumentMetaData implements IDidDocumentMetaData {
+export class DidDocumentMetaData {
   /**
    * timestamp when the document was updated the last time.
    */

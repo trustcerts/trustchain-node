@@ -9,11 +9,11 @@ import {
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 import {
   Did,
-  DidRegister,
   exportKey,
   generateCryptoKeyPair,
   Identifier,
-} from '@trustcerts/sdk';
+} from '@trustcerts/core';
+import { DidIdRegister } from '@trustcerts/did-id-create';
 import { DidTransactionDto } from '@tc/did/dto/did.transaction.dto';
 import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
 import { HashCachedService } from '@tc/hash/hash-cached/hash-cached.service';
@@ -256,7 +256,7 @@ describe('Http Gateway (e2e)', () => {
   });
 
   it('should sign a public key for the client', async () => {
-    const did = DidRegister.create();
+    const did = DidIdRegister.create();
     const invite: InviteRequest = {
       id: did.id,
       secret: 'test_secret',

@@ -5,7 +5,7 @@ import {
   CryptoService,
   DecryptedKeyPair,
   generateKeyPair,
-} from '@trustcerts/sdk';
+} from '@trustcerts/core';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
 import {

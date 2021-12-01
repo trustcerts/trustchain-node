@@ -1,8 +1,8 @@
 import { CachedService } from '@shared/cache.service';
 import { Did, DidDocument } from '@tc/did/schemas/did.schema';
-import { DidDocument as DidDoc } from './DidDocument';
+import { DidIdDocument as DidDoc } from './DidDocument';
 import { DidDocumentMetaData } from './DidDocumentMetaData';
-import { DidResolver } from '@trustcerts/sdk';
+import { DidIdResolver } from '@trustcerts/core';
 import {
   DidTransaction,
   DidTransactionDocument,
@@ -111,7 +111,7 @@ export class DidCachedService extends CachedService {
     if (transactions.length === 0) {
       throw new NotFoundException();
     }
-    const did = await DidResolver.load(id, {
+    const did = await DidIdResolver.load(id, {
       transactions: transactions as DidTransaction[],
       validateChainOfTrust: false,
       doc: false,

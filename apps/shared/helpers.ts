@@ -1,4 +1,4 @@
-import { Identifier } from '@trustcerts/sdk';
+import { Identifier } from '@trustcerts/core';
 
 /**
  * Waits a defined time in milliseconds.
