@@ -21,11 +21,10 @@ jobs:
       - name: Set Node version
         uses: actions/setup-node@v2
         with:
-          cache: 'npm'
           node-version: 16
 
       - name: Install depedencies
-        run: npm ci --cache .npm --prefer-offline
+        run: npm ci
 
       - name: Build code
         run: |
