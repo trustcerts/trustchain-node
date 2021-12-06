@@ -60,13 +60,14 @@ jobs:
         with:
           cache: 'npm'
           node-version: 16
-        run: npm ci
 
       # use modules from build stage
       #- run: npm ci --cache .npm --prefer-offline
 
       - name: test
-        run: npm run test:unit-ci --cache .npm
+        run: |
+          npm ci
+          npm run test:unit-ci --cache .npm
         env:
           STORAGE: tmp/
 
@@ -216,8 +217,7 @@ jobs:
         with:
           cache: 'npm'
           node-version: 16
-        run: npm ci
-
+          
 
       # TODO evaulate if script should be put in a separate package json to reduce size
       # - run: npm ci --cache .npm --prefer-offline
