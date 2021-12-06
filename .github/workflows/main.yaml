@@ -32,6 +32,7 @@ jobs:
           path: ~/.npm
           key: npm-${{ hashFiles('package-lock.json') }}
           restore-keys: npm-
+        
 
       - name: Install dependencies
         run: npm ci --ignore-scripts
@@ -59,6 +60,7 @@ jobs:
         with:
           cache: 'npm'
           node-version: 16
+        run: npm ci
 
       # use modules from build stage
       #- run: npm ci --cache .npm --prefer-offline
@@ -214,6 +216,8 @@ jobs:
         with:
           cache: 'npm'
           node-version: 16
+        run: npm ci
+
 
       # TODO evaulate if script should be put in a separate package json to reduce size
       # - run: npm ci --cache .npm --prefer-offline
