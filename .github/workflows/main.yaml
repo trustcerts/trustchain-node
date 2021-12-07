@@ -49,6 +49,8 @@ jobs:
 
       - name: Delete Package Versions
         uses: actions/delete-package-versions@v2
+        with:
+          package-version-ids: 6
 
 
 
