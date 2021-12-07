@@ -49,9 +49,7 @@ jobs:
 
       - name: Delete Package Versions
         uses: actions/delete-package-versions@v2
-        with:
-          name: build
-          path: dist/
+
 
 
   test-unit:
