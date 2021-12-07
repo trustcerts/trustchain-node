@@ -47,6 +47,13 @@ jobs:
           name: build
           path: dist/
 
+      - name: Delete Package Versions
+        uses: actions/delete-package-versions@v2
+        with:
+          name: build
+          path: dist/
+
+
   test-unit:
     needs: build
     runs-on: ubuntu-latest

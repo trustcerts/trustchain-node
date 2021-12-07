@@ -3,7 +3,7 @@ import { projects, run } from './functions.mjs';
 const OLD_CONTAINER = process.env.CI_REGISTRY_IMAGE;
 const NEW_CONTAINER = OLD_CONTAINER.split('/').slice(1).join('/');
 const CI_TAG = process.env.CI_COMMIT_BRANCH;
-const TAG_RELEASE = process.env.TAG_RELEASE;
+const TAG_RELEASE = process.env.TAG_RELEASE | 'beta';
 (async () => {
   // build base image
   for (let project of projects) {
