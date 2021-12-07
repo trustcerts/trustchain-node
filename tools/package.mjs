@@ -20,5 +20,6 @@ const CI_TAG = process.env.CI_COMMIT_BRANCH;
     await run(
       `docker build --build-arg app=${project} --build-arg base=${CI_TAG} -f ./build/Dockerfile -t ${CONTAINER}-${project}:${CI_TAG} .`,
     );
+    await run(`docker push ${CONTAINER}-${project}:${CI_TAG}`);
   }
 })();
