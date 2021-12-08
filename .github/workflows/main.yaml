@@ -102,6 +102,14 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+          
+      - name: Cache docker builds
+        uses: actions/cache@v2
+        with:
+          path: ./dockerbuild
+          key: docker-${{ hashFiles('./tools/package.mjs') }}
+          restore-keys: docker-
+
       - name: Build temporary docker images
         if: github.ref != 'refs/heads/main'
         run: |
@@ -110,12 +118,6 @@ jobs:
           CI_REGISTRY_IMAGE: trustcerts/trustchain
           CI_COMMIT_BRANCH: ${{ env.PR_NUMBER }}
 
-      - name: Cache dependencies
-        uses: actions/cache@v2
-        with:
-          path: ./dockerbuild
-          key: docker-${{ hashFiles('./tools/package-cache.mjs') }}
-          restore-keys: docker-
 
       - name: Build temporary docker images
         if: github.ref == 'refs/heads/main'
