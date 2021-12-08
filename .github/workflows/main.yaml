@@ -47,10 +47,6 @@ jobs:
           name: build
           path: dist/
 
-      - name: Delete Package Versions
-        uses: actions/delete-package-versions@v2
-        with:
-          package-version-ids: 6
 
 
 
@@ -109,10 +105,17 @@ jobs:
       - name: Build temporary docker images
         if: github.ref != 'refs/heads/main'
         run: |
-          node tools/package.mjs
+          node tools/package-cache.mjs
         env:
           CI_REGISTRY_IMAGE: ghcr.io/trustcerts/trustchain
           CI_COMMIT_BRANCH: ${{ env.PR_NUMBER }}
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: /shared/dockercache
+          key: docker-${{ hashFiles('build/Dockerfile') }}
+          restore-keys: docker-
 
       - name: Build temporary docker images
         if: github.ref == 'refs/heads/main'
