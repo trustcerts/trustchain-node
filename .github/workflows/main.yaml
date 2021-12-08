@@ -107,7 +107,7 @@ jobs:
         run: |
           node tools/package-cache.mjs
         env:
-          CI_REGISTRY_IMAGE: /trustcerts/trustchain
+          CI_REGISTRY_IMAGE: trustcerts/trustchain
           CI_COMMIT_BRANCH: ${{ env.PR_NUMBER }}
 
       - name: Cache dependencies
@@ -149,12 +149,16 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Log into github's docker registry
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Log into github's docker registry
+      #   uses: docker/login-action@v1
+      #   with:
+      #     registry: ghcr.io
+      #     username: ${{ github.actor }}
+      #     password: ${{ secrets.GITHUB_TOKEN }}
+
+
+      - name: load docker images 
+        run: docker load -i ./dockerbuild/${{ matrix.services }}.tar
 
       - name: e2e test
         if: github.ref != 'refs/heads/main'
