@@ -107,7 +107,7 @@ jobs:
         run: |
           node tools/package-cache.mjs
         env:
-          CI_REGISTRY_IMAGE: ghcr.io/trustcerts/trustchain
+          CI_REGISTRY_IMAGE: /trustcerts/trustchain
           CI_COMMIT_BRANCH: ${{ env.PR_NUMBER }}
 
       - name: Cache dependencies
