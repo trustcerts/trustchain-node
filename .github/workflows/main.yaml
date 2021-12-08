@@ -113,7 +113,7 @@ jobs:
       - name: Cache dependencies
         uses: actions/cache@v2
         with:
-          path: /shared/dockercache
+          path: ./dockerbuild
           key: docker-${{ hashFiles('./tools/package-cache.mjs') }}
           restore-keys: docker-
 
