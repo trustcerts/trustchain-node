@@ -111,7 +111,7 @@ jobs:
           restore-keys: docker-
 
       - name: Build temporary docker images
-        if: github.ref != 'refs/heads/main'
+        if:  ${{ github.ref != 'refs/heads/main' && steps.cache-primes.outputs.cache-hit != 'true' }}
         run: |
           node tools/package-cache.mjs
         env:
@@ -157,10 +157,11 @@ jobs:
       #     registry: ghcr.io
       #     username: ${{ github.actor }}
       #     password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: find dockerbuild
-        run: find / -name dockerbuild -type d
-        
+      - name: check if folder exits
+        run: |
+          ls 
+          ls ./dockerbuild
+          
       - name: load docker images 
         run: docker load -i ./dockerbuild/${{ matrix.services }}.tar
 
