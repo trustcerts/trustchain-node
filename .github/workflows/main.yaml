@@ -114,7 +114,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: /shared/dockercache
-          key: docker-${{ hashFiles('build/Dockerfile') }}
+          key: docker-${{ hashFiles('./tools/package-cache.mjs') }}
           restore-keys: docker-
 
       - name: Build temporary docker images
