@@ -142,7 +142,7 @@ jobs:
       - name: change buildx builder instance
         run: docker buildx create --use
         
-      - name: Build production image
+      - name: Build docker image
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -203,13 +203,6 @@ jobs:
       #     registry: ghcr.io
       #     username: ${{ github.actor }}
       #     password: ${{ secrets.GITHUB_TOKEN }}
-      - name: check if folder exits
-        run: |
-          ls 
-          ls ./dockerbuild
-
-      - name: load docker images 
-        run: docker load -i ./dockerbuild/${{ matrix.services }}.tar
 
       - name: e2e test
         if: github.ref != 'refs/heads/main'
