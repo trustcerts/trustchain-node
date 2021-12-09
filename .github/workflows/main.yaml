@@ -83,6 +83,20 @@ jobs:
   package:
     needs: build
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        services:
+          [
+            http-gateway,
+            http-observer,
+            http-validator,
+            network-gateway,
+            network-observer,
+            network-validator,
+            persist,
+            parse,
+            wallet,
+          ]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -103,20 +117,47 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
           
-      - name: Cache docker builds
+      # - name: Cache docker builds
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: ./dockerbuild
+      #     key: docker-${{ hashFiles('./tools/package.mjs') }}
+      #     restore-keys: docker-
+
+      # - name: Build temporary docker images
+      #   if:  ${{ github.ref != 'refs/heads/main' && steps.cache-primes.outputs.cache-hit != 'true' }}
+      #   run: |
+      #     node tools/package-cache.mjs
+      #   env:
+      #     CI_REGISTRY_IMAGE: trustcerts/trustchain
+      #     CI_COMMIT_BRANCH: ${{ env.PR_NUMBER }}
+
+      - name: Cache Docker layers
         uses: actions/cache@v2
         with:
-          path: ./dockerbuild
-          key: docker-${{ hashFiles('./tools/package.mjs') }}
-          restore-keys: docker-
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-single-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-single-buildx
 
-      - name: Build temporary docker images
-        if:  ${{ github.ref != 'refs/heads/main' && steps.cache-primes.outputs.cache-hit != 'true' }}
+      - name: Build production image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: build/Dockerfile
+          push: false 
+          build-args: |
+            app=${{ matrix.services }}
+            base=${{ env.PR_NUMBER }}
+          tags: |
+            ${{env.CI_REGISTRY_IMAGE}}-${{matrix.services}}:${{env.PR_NUMBER}}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new
+
+      - name: Move cache
         run: |
-          node tools/package-cache.mjs
-        env:
-          CI_REGISTRY_IMAGE: trustcerts/trustchain
-          CI_COMMIT_BRANCH: ${{ env.PR_NUMBER }}
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
 
       - name: Build temporary docker images
@@ -161,7 +202,7 @@ jobs:
         run: |
           ls 
           ls ./dockerbuild
-          
+
       - name: load docker images 
         run: docker load -i ./dockerbuild/${{ matrix.services }}.tar
 
