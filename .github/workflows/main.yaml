@@ -139,7 +139,9 @@ jobs:
           key: ${{ runner.os }}-single-buildx-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-single-buildx
-
+      - name: change buildx builder instance
+        run: docker buildx create --use
+        
       - name: Build production image
         uses: docker/build-push-action@v2
         with:
@@ -153,6 +155,9 @@ jobs:
             ${{env.CI_REGISTRY_IMAGE}}-${{matrix.services}}:${{env.PR_NUMBER}}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
+        env:
+          CI_REGISTRY_IMAGE: trustcerts/trustchain
+          CI_COMMIT_BRANCH: latest
 
       - name: Move cache
         run: |
