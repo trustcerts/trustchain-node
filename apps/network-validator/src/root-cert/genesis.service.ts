@@ -260,7 +260,7 @@ export class GenesisService {
     did.addKey(key.id.split('#')[1], key.value);
     did.addVerificationRelationship(
       key.id.split('#')[1],
-      VerificationRelationshipType.authentication,
+      VerificationRelationshipType.modification,
     );
     did.addRole(RoleManageAddEnum.Validator);
     // TODO update endpoint if microservice is not api.
