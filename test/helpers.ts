@@ -206,7 +206,7 @@ export async function createDidForTesting(
   // add Authentication
   did.addVerificationRelationship(
     pair.id,
-    VerificationRelationshipType.authentication,
+    VerificationRelationshipType.modification,
   );
   // add Assertion
   did.addVerificationRelationship(

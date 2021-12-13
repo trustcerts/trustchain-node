@@ -75,7 +75,7 @@ export class ValidatorDidService {
     did.addKey(fingerPrint, await exportKey(key));
     did.addVerificationRelationship(
       fingerPrint,
-      VerificationRelationshipType.authentication,
+      VerificationRelationshipType.modification,
     );
 
     // add endpoint to resolve name
