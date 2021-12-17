@@ -78,6 +78,11 @@ export class ValidatorDidService {
       VerificationRelationshipType.modification,
     );
 
+    did.addVerificationRelationship(
+      fingerPrint,
+      VerificationRelationshipType.authentication,
+    );
+
     // add endpoint to resolve name
     // TODO replace with OWN peer to be independent from domain approach
     const endpoint = this.configService.getString('OWN_PEER');
