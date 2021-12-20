@@ -8,11 +8,13 @@ import {
   DidTransactionDocument,
 } from '../schemas/did-transaction.schema';
 import { DocResponse } from './DocResponse';
+import { GenesisBlock } from '../../../blockchain/src/block/genesis-block.dto';
 import { IVerificationRelationships } from '../dto/did.transaction.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Key } from '@tc/did/schemas/key.schema';
 import { Model } from 'mongoose';
+import { PersistClientService } from '@tc/persist-client';
 import { RoleManageAddEnum } from '@tc/did/constants';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { VersionInformation } from './VersionInformation';
@@ -34,6 +36,7 @@ export class DidCachedService extends CachedService {
     private didDocumentModel: Model<DidTransactionDocument>,
     @InjectModel(Did.name)
     private didModel: Model<DidDocument>,
+    private readonly persistClientService: PersistClientService,
   ) {
     super();
   }
@@ -41,11 +44,9 @@ export class DidCachedService extends CachedService {
   /**
    * Returns the genesis block
    */
-  getGenesis() {
-    throw new Error('Method not implemented.');
-    // request transaction from the first block.
-    // One solution would be to let the parser write the genesis block into the shared folder
-    // To run over all transactions in the db could be really time consuming so the genesis block should be cached anyway.
+  getGenesis(): Promise<GenesisBlock> {
+    // TODO cache it
+    return this.persistClientService.getBlock(1) as Promise<GenesisBlock>;
   }
 
   /**
