@@ -153,7 +153,6 @@ jobs:
           CI_COMMIT_BRANCH: latest
 
       - name: Cache base build Image
-        id: cache-trustchain-$matrix.services
         uses: actions/cache@v2
         with:
           path: ./trustchain-${{ matrix.services }}.tar
@@ -161,7 +160,6 @@ jobs:
           restore-keys: docker-    
 
       - name: Save Docker Image
-        if: steps.cache-trustchain-${{matrix.services}}.cache-hit != 'true'
         run: docker save ${{env.CI_REGISTRY_IMAGE}}-${{ matrix.services }}:${{ env.CI_COMMIT_BRANCH }} > trustchain-${{matrix.services}}.tar
         env:
           BASEIMAGE: baseimage
