@@ -70,6 +70,11 @@ jobs:
 
       - name: Build Docker
         run: docker build --build-arg app=${{ env.BASEIMAGE }} -t ${{env.CI_REGISTRY_IMAGE}}-${{env.BASEIMAGE}}:latest - < ./build/baseimage.Dockerfile
+        env:
+          BASEIMAGE: baseimage
+          CI_REGISTRY_IMAGE: trustcerts/trustchain
+          CI_COMMIT_BRANCH: latest
+
 
       - name: Cache base build Image
         id: cache-trustchain-baseimage
@@ -78,14 +83,15 @@ jobs:
           path: ./trustchain-baseimage.tar
           key: docker-${{ hashFiles('package-lock.json')}}-${{ hashFiles('./app') }}
           restore-keys: docker-    
+
+      - name: Save Docker Image
+        if: steps.cache-trustchain-baseimage.cache-hit != 'true'
+        run: docker save ${{env.CI_REGISTRY_IMAGE}}-${{env.BASEIMAGE}}:latest > trustchain-baseimage.tar
         env:
           BASEIMAGE: baseimage
           CI_REGISTRY_IMAGE: trustcerts/trustchain
           CI_COMMIT_BRANCH: latest
 
-      - name: Save Docker Image
-        if: steps.cache-trustchain-baseimage.cache-hit != 'true'
-        run: docker save ${{env.CI_REGISTRY_IMAGE}}-${{env.BASEIMAGE}}:latest > trustchain-baseimage.tar
 
 
   test-unit:
