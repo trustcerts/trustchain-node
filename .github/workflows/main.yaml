@@ -42,11 +42,30 @@ jobs:
           sed -ri "s|\"BUILD\"|\"$GITHUB_SHA\"|" apps/shared/build.ts
           node tools/build.mjs
 
+  build-base:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+          uses: actions/checkout@v2
+          with:
+            fetch-depth: 0
+      
       - name: Upload builds
         uses: actions/upload-artifact@v2
         with:
           name: build
           path: dist/
+      
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-single-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-single-buildx
+
+      - name: change buildx builder instance
+        run: docker buildx create --use
 
       - name: Build base image
         uses: docker/build-push-action@v2
@@ -65,8 +84,13 @@ jobs:
           CI_REGISTRY_IMAGE: trustcerts/trustchain
           CI_COMMIT_BRANCH: latest
 
+      - name: Move cache
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+
   test-unit:
-    needs: build
+    needs: [build, build-base]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
