@@ -94,7 +94,7 @@ jobs:
   #         mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
   test-unit:
-    needs: [build, build-base]
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
