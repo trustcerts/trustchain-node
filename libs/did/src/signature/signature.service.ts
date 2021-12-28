@@ -5,7 +5,7 @@ import { Logger } from 'winston';
 import { ProposedBlock } from '@tc/blockchain/block/proposed-block.dto';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
 import { WalletClientService } from '@tc/wallet-client';
-import { sortKeys } from '@trustcerts/sdk';
+import { sortKeys } from '@trustcerts/core';
 
 /**
  * Bundles function to verify a signature.

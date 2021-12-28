@@ -21,8 +21,9 @@ import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
 import { wait } from '@shared/helpers';
 import { startDependencies, stopDependencies } from '@test/helpers';
 import { ConfigService } from '@tc/config/config.service';
-import { Did, DidRegister } from '@trustcerts/sdk';
+import { DidId } from '@trustcerts/core';
 import { lastValueFrom } from 'rxjs';
+import { DidIdRegister } from '@trustcerts/did-id-create';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -60,96 +61,95 @@ describe('AppController (e2e)', () => {
   beforeEach(async () => {
     clientRedis.emit(SYSTEM_RESET, {});
     await wait(2000);
-  })
+  });
 
   it('should set a wallet id and create a wallet.json file', async () => {
-    const did: Did = DidRegister.create();
-    await new Promise(resolve => {
+    const did: DidId = DidIdRegister.create();
+    await new Promise((resolve) => {
       clientTCP.send(WALLET_SET_ID, did.id).subscribe({
         complete: () => {
           resolve(true);
         },
       });
-    })
-  const key = JSON.parse(fs.readFileSync(path, 'utf-8'));
-  expect(fs.existsSync(path)).toBeTruthy();
-  expect(key).toMatchObject({
-    privateKey: { key_ops: ['sign'] },
-    publicKey: { key_ops: ['verify'] },
+    });
+    const key = JSON.parse(fs.readFileSync(path, 'utf-8'));
+    expect(fs.existsSync(path)).toBeTruthy();
+    expect(key).toMatchObject({
+      privateKey: { key_ops: ['sign'] },
+      publicKey: { key_ops: ['verify'] },
+    });
+    expect(key.identifier).toContain(did.id);
   });
-  expect(key.identifier).toContain(did.id);
-});
 
-it('should get the wallet id', async () => {
-  const did: Did = DidRegister.create();
-  await new Promise(resolve => {
-    clientTCP.send(WALLET_SET_ID, did.id).subscribe({
-      complete: () => {
-        resolve(true);
-      },
-    });
-  })
-  const id = await lastValueFrom(clientTCP.send(WALLET_GET_ID, {}))
-  expect(id).toEqual(did.id)
-});
-
-it('should get the wallet public key', async () => {
-  const did: Did = DidRegister.create();
-  await new Promise(resolve => {
-    clientTCP.send(WALLET_SET_ID, did.id).subscribe({
-      complete: () => {
-        resolve(true);
-      },
-    });
-  })
-  const pubKey = await lastValueFrom(clientTCP.send(WALLET_PUB_KEY, {}));
-  const { publicKey } = JSON.parse(fs.readFileSync(path, 'utf-8'));
-  expect(pubKey.value).toMatchObject(publicKey);
-  expect(pubKey.id).toContain(did.id);
-});
-
-it('should sign a value with the private key', async () => {
-  // CryptoService muss neugestartet werden
-  const did: Did = DidRegister.create();
-    await new Promise(resolve => {
+  it('should get the wallet id', async () => {
+    const did: DidId = DidIdRegister.create();
+    await new Promise((resolve) => {
       clientTCP.send(WALLET_SET_ID, did.id).subscribe({
         complete: () => {
           resolve(true);
         },
       });
-    })
-  const data = await lastValueFrom(clientTCP
-    .send<SignatureDto>(WALLET_SIGN, 'iamjustasignedstring'))
-  expect(data).toHaveProperty('signature');
-  expect(data.identifier).toContain(did.id);
-});
+    });
+    const id = await lastValueFrom(clientTCP.send(WALLET_GET_ID, {}));
+    expect(id).toEqual(did.id);
+  });
 
-it('should reset the service', async () => {
-  const did: Did = DidRegister.create();
-    await new Promise(resolve => {
+  it('should get the wallet public key', async () => {
+    const did: DidId = DidIdRegister.create();
+    await new Promise((resolve) => {
       clientTCP.send(WALLET_SET_ID, did.id).subscribe({
         complete: () => {
           resolve(true);
         },
       });
-    })
-  expect(fs.existsSync(path)).toBeTruthy();
-  expect(app.get(ConfigService).getConfig('IDENTIFIER')).toBe(did.id)
-  clientRedis.emit(SYSTEM_RESET, {});
-  await wait(2000);
-  expect(fs.existsSync(path)).toBeFalsy();
-  expect(app.get(ConfigService).getConfig('IDENTIFIER')).toBeUndefined()
+    });
+    const pubKey = await lastValueFrom(clientTCP.send(WALLET_PUB_KEY, {}));
+    const { publicKey } = JSON.parse(fs.readFileSync(path, 'utf-8'));
+    expect(pubKey.value).toMatchObject(publicKey);
+    expect(pubKey.id).toContain(did.id);
+  });
 
-});
+  it('should sign a value with the private key', async () => {
+    // CryptoService muss neugestartet werden
+    const did: DidId = DidIdRegister.create();
+    await new Promise((resolve) => {
+      clientTCP.send(WALLET_SET_ID, did.id).subscribe({
+        complete: () => {
+          resolve(true);
+        },
+      });
+    });
+    const data = await lastValueFrom(
+      clientTCP.send<SignatureDto>(WALLET_SIGN, 'iamjustasignedstring'),
+    );
+    expect(data).toHaveProperty('signature');
+    expect(data.identifier).toContain(did.id);
+  });
 
+  it('should reset the service', async () => {
+    const did: DidId = DidIdRegister.create();
+    await new Promise((resolve) => {
+      clientTCP.send(WALLET_SET_ID, did.id).subscribe({
+        complete: () => {
+          resolve(true);
+        },
+      });
+    });
+    expect(fs.existsSync(path)).toBeTruthy();
+    expect(app.get(ConfigService).getConfig('IDENTIFIER')).toBe(did.id);
+    clientRedis.emit(SYSTEM_RESET, {});
+    await wait(2000);
+    expect(fs.existsSync(path)).toBeFalsy();
+    expect(app.get(ConfigService).getConfig('IDENTIFIER')).toBeUndefined();
+  });
 
-afterAll(async () => {
-  fs.rmdirSync(app.get(ConfigService).storagePath, { recursive: true });
-  if ((global as any).isE2E) {
-    await startDependencies(['parse', 'persist', 'wallet']);
-  }
-  clientRedis.close();
-  clientTCP.close();
-  await app.close();
-}, 10000);
+  afterAll(async () => {
+    fs.rmdirSync(app.get(ConfigService).storagePath, { recursive: true });
+    if ((global as any).isE2E) {
+      await startDependencies(['parse', 'persist', 'wallet']);
+    }
+    clientRedis.close();
+    clientTCP.close();
+    await app.close();
+  }, 10000);
 });

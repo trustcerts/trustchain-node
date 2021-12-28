@@ -66,6 +66,7 @@ export class TemplateStructure {
   @ApiProperty({
     description: 'template that should be used.',
   })
+  @IsString()
   template!: string;
 
   /**
@@ -75,6 +76,7 @@ export class TemplateStructure {
     description:
       'json schema to validate the data that should be parsed into the',
   })
+  @IsString()
   schema!: string;
 
   /**

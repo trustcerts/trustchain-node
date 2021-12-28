@@ -8,10 +8,12 @@ import {
 } from '@tc/did/schemas/did-transaction.schema';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { PersistClientModule } from '@tc/persist-client';
 
 @Module({
   imports: [
     DidDbModule,
+    PersistClientModule,
     MongooseModule.forFeature(
       [
         { name: DidTransaction.name, schema: DidTransactionSchema },

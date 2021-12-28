@@ -1,16 +1,16 @@
 import { ConfigService } from '@tc/config';
 import { CreateDidDto } from '../../../shared/create-did.dto';
+import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
+import { DidCreationResponse } from './responses';
 import {
-  Did,
-  DidRegister,
-  DidResolver,
+  DidId,
+  DidIdResolver,
   VerificationRelationshipType,
   exportKey,
   getFingerPrint,
   importKey,
-} from '@trustcerts/sdk';
-import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
-import { DidCreationResponse } from './responses';
+} from '@trustcerts/core';
+import { DidIdRegister } from '@trustcerts/did-id-create';
 import { DidTransactionDto } from '@tc/did/dto/did.transaction.dto';
 import { GatewayBlockchainService } from '../gateway-blockchain/gateway-blockchain.service';
 import { GatewayTransactionService } from '../gateway-transaction.service';
@@ -100,7 +100,7 @@ export class GatewayDidService extends GatewayTransactionService {
     if (transactions.length === 0) {
       throw new NotFoundException(`${createCert.identifier} not known`);
     }
-    const did = await DidResolver.load(createCert.identifier, {
+    const did = await DidIdResolver.load(createCert.identifier, {
       validateChainOfTrust: false,
       transactions,
     });
@@ -133,7 +133,7 @@ export class GatewayDidService extends GatewayTransactionService {
     roles: RoleManageAddEnum[] = [],
   ): Promise<DidCreationResponse> {
     // add the did
-    const did = DidRegister.create({
+    const did = DidIdRegister.create({
       id: createCert.identifier,
       controllers: [await this.walletService.getOwnInformation()],
     });
@@ -144,7 +144,7 @@ export class GatewayDidService extends GatewayTransactionService {
     did.addKey(fingerPrint, await exportKey(key));
     did.addVerificationRelationship(
       fingerPrint,
-      VerificationRelationshipType.authentication,
+      VerificationRelationshipType.modification,
     );
 
     // add endpoint to resolve name
@@ -166,7 +166,7 @@ export class GatewayDidService extends GatewayTransactionService {
    * @param did
    * @private
    */
-  private async getTransaction(did: Did) {
+  private async getTransaction(did: DidId) {
     // add transaction
     const didDocSignature: SignatureInfo = {
       type: SignatureType.single,

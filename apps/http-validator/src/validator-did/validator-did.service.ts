@@ -1,13 +1,7 @@
 import { ConfigService } from '@tc/config';
 import { CreateDidDto } from '../../../shared/create-did.dto';
 import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
-import {
-  DidRegister,
-  VerificationRelationshipType,
-  exportKey,
-  getFingerPrint,
-  importKey,
-} from '@trustcerts/sdk';
+import { DidIdRegister } from '@trustcerts/did-id-create';
 import { DidTransactionDto } from '@tc/did/dto/did.transaction.dto';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
@@ -18,6 +12,12 @@ import {
   SignatureType,
 } from '@tc/blockchain/transaction/transaction.dto';
 import { ValidatorBlockchainService } from '../validator-blockchain/validator-blockchain.service';
+import {
+  VerificationRelationshipType,
+  exportKey,
+  getFingerPrint,
+  importKey,
+} from '@trustcerts/core';
 import { WalletClientService } from '@tc/wallet-client';
 
 /**
@@ -64,7 +64,7 @@ export class ValidatorDidService {
     roles: RoleManageAddEnum[] = [],
   ): Promise<PersistedTransaction> {
     // add the did
-    const did = DidRegister.create({
+    const did = DidIdRegister.create({
       id: createCert.identifier,
       controllers: [await this.walletService.getOwnInformation()],
     });
@@ -73,6 +73,11 @@ export class ValidatorDidService {
     const key = await importKey(createCert.publicKey, 'jwk', ['verify']);
     const fingerPrint = await getFingerPrint(key);
     did.addKey(fingerPrint, await exportKey(key));
+    did.addVerificationRelationship(
+      fingerPrint,
+      VerificationRelationshipType.modification,
+    );
+
     did.addVerificationRelationship(
       fingerPrint,
       VerificationRelationshipType.authentication,
