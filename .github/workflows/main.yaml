@@ -168,7 +168,7 @@ jobs:
 
   # TODO check if containers have to be build before the e2e test
   e2e:
-    needs: package
+    needs: build-packages
     runs-on: ubuntu-latest
     strategy:
       matrix:
