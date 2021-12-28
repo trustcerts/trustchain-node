@@ -76,7 +76,7 @@ jobs:
           build-args: |
             app=${{ env.BASEIMAGE }}
           tags: |
-            ${{env.CI_REGISTRY_IMAGE}}-${{env.BASEIMAGE}}
+            ${{env.CI_REGISTRY_IMAGE}}-${{env.BASEIMAGE}}:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
         env:
