@@ -52,49 +52,44 @@ jobs:
           node tools/build.mjs
 
 
-  # build-base:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v2
-  #       with:
-  #         fetch-depth: 0
+  build-base:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
-  #     - name: change buildx builder instance
-  #       run: docker buildx create --use
+      - name: Cache build node
+        uses: actions/cache@v2
+        id: build-dist-folder
+        with:
+          path: ./dist
+          key: build-${{ hashFiles('./apps') }}
+          restore-keys: build-
 
-  #     - name: Cache Docker layers
-  #       uses: actions/cache@v2
-  #       with:
-  #         path: /tmp/.buildx-cache
-  #         key: ${{ runner.os }}-single-buildx-${{ github.sha }}
-  #         restore-keys: |
-  #           ${{ runner.os }}-single-buildx
+      - name: Build Docker
+        run: docker build --build-arg app=${{ env.BASEIMAGE }} -t ${{env.CI_REGISTRY_IMAGE}}-${{env.BASEIMAGE}}:latest - < ./build/baseimage.Dockerfile
 
-  #     - name: Build base image
-  #       uses: docker/build-push-action@v2
-  #       with:
-  #         context: .
-  #         file: build/baseimage.Dockerfile
-  #         push: false
-  #         build-args: |
-  #           app=${{ env.BASEIMAGE }}
-  #         tags: |
-  #           ${{env.CI_REGISTRY_IMAGE}}-${{env.BASEIMAGE}}:latest
-  #         cache-from: type=local,src=/tmp/.buildx-cache
-  #         cache-to: type=local,dest=/tmp/.buildx-cache-new
-  #       env:
-  #         BASEIMAGE: baseimage
-  #         CI_REGISTRY_IMAGE: trustcerts/trustchain
-  #         CI_COMMIT_BRANCH: latest
+      - name: Cache base build Image
+        id: cache-trustchain-baseimage
+        uses: actions/cache@v2
+        with:
+          path: ./trustchain-baseimage.tar
+          key: docker-${{ hashFiles('package-lock.json')}}-${{ hashFiles('./app') }}
+          restore-keys: docker-    
+        env:
+          BASEIMAGE: baseimage
+          CI_REGISTRY_IMAGE: trustcerts/trustchain
+          CI_COMMIT_BRANCH: latest
 
-  #     - name: Move cache
-  #       run: |
-  #         rm -rf /tmp/.buildx-cache
-  #         mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+      - name: Save Docker Image
+        if: steps.cache-trustchain-baseimage.cache-hit != 'true'
+        run: docker save ${{env.CI_REGISTRY_IMAGE}}-${{env.BASEIMAGE}}:latest > trustchain-baseimage.tar
+
 
   test-unit:
-    needs: build
+    needs: [build,build-base]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -120,7 +115,7 @@ jobs:
           name: Unit Test Results ${{ matrix.service }}
           path: ./*.xml
 
-  package:
+  build-packages:
     needs: build
     runs-on: ubuntu-latest
     strategy:
@@ -151,43 +146,25 @@ jobs:
           key: build-${{ hashFiles('./apps') }}
           restore-keys: build-
 
-      - name: change buildx builder instance
-        run: docker buildx create --use
-
-      - name: Cache Docker layers
-        uses: actions/cache@v2
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-single-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-single-buildx
-
-      - name: Build docker image
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: build/Dockerfile
-          push: false
-          build-args: |
-            app=${{ matrix.services }}
-          tags: |
-            ${{env.CI_REGISTRY_IMAGE}}-${{matrix.services}}
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache-new
+      - name: Build Docker
+        run: docker build --build-arg app=${{ matrix.services}} --build-arg base=${{ env.CI_REGISTRY_IMAGE }} -t ${{env.CI_REGISTRY_IMAGE}}-${{ matrix.services }}:${{ env.CI_COMMIT_BRANCH }} - < ./build/Dockerfile 
         env:
           CI_REGISTRY_IMAGE: trustcerts/trustchain
           CI_COMMIT_BRANCH: latest
 
-      - name: Move cache
-        run: |
-          rm -rf /tmp/.buildx-cache
-          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+      - name: Cache base build Image
+        id: cache-trustchain-${{matrix.services}}
+        uses: actions/cache@v2
+        with:
+          path: ./trustchain-${{ matrix.services }}.tar
+          key: docker-${{ hashFiles('package-lock.json')}}-${{ hashFiles('./app') }}
+          restore-keys: docker-    
 
-      - name: Build temporary docker images
-        if: github.ref == 'refs/heads/main'
-        run: |
-          node tools/package.mjs
+      - name: Save Docker Image
+        if: steps.cache-trustchain-${{matrix.services}}.cache-hit != 'true'
+        run: docker save ${{env.CI_REGISTRY_IMAGE}}-${{ matrix.services }}:${{ env.CI_COMMIT_BRANCH }} > trustchain-${{matrix.services}}.tar
         env:
+          BASEIMAGE: baseimage
           CI_REGISTRY_IMAGE: trustcerts/trustchain
           CI_COMMIT_BRANCH: latest
 
