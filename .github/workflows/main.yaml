@@ -47,9 +47,6 @@ jobs:
           name: build
           path: dist/
 
-
-
-
   test-unit:
     needs: build
     runs-on: ubuntu-latest
@@ -62,9 +59,6 @@ jobs:
         with:
           cache: 'npm'
           node-version: 16
-
-      # use modules from build stage
-      #- run: npm ci --cache .npm --prefer-offline
 
       - name: test
         run: |
@@ -109,29 +103,6 @@ jobs:
           name: build
           path: dist/
 
-      # - name: Log into github's docker registry
-      #   uses: docker/login-action@v1
-      #   with:
-      #     registry: ghcr.io
-      #     username: ${{ github.actor }}
-      #     password: ${{ secrets.GITHUB_TOKEN }}
-
-          
-      # - name: Cache docker builds
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: ./dockerbuild
-      #     key: docker-${{ hashFiles('./tools/package.mjs') }}
-      #     restore-keys: docker-
-
-      # - name: Build temporary docker images
-      #   if:  ${{ github.ref != 'refs/heads/main' && steps.cache-primes.outputs.cache-hit != 'true' }}
-      #   run: |
-      #     node tools/package-cache.mjs
-      #   env:
-      #     CI_REGISTRY_IMAGE: trustcerts/trustchain
-      #     CI_COMMIT_BRANCH: ${{ env.PR_NUMBER }}
-
       - name: Cache Docker layers
         uses: actions/cache@v2
         with:
@@ -141,13 +112,31 @@ jobs:
             ${{ runner.os }}-single-buildx
       - name: change buildx builder instance
         run: docker buildx create --use
-        
+
+      - name: Build base image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: build/Dockerfile
+          push: false
+          build-args: |
+            app=${{ env.BASEIMAGE }}
+            base=${{ env.PR_NUMBER }}
+          tags: |
+            ${{env.CI_REGISTRY_IMAGE}}-${{env.BASEIMAGE}}:${{env.PR_NUMBER}}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new
+        env:
+          BASEIMAGE: baseimage
+          CI_REGISTRY_IMAGE: trustcerts/trustchain
+          CI_COMMIT_BRANCH: latest
+
       - name: Build docker image
         uses: docker/build-push-action@v2
         with:
           context: .
           file: build/Dockerfile
-          push: false 
+          push: false
           build-args: |
             app=${{ matrix.services }}
             base=${{ env.PR_NUMBER }}
@@ -163,7 +152,6 @@ jobs:
         run: |
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
-
 
       - name: Build temporary docker images
         if: github.ref == 'refs/heads/main'
@@ -227,7 +215,7 @@ jobs:
       # - name: e2e test
       #   if: github.ref == 'refs/heads/main'
       #   run: |
-      #     printf "\nIMAGE_TAG=$IMAGE_TAG\n" >> test/.env          
+      #     printf "\nIMAGE_TAG=$IMAGE_TAG\n" >> test/.env
       #     docker-compose -f test/docker-compose.yml --env-file test/.env run test-${{ matrix.services }} npm run test:e2e-${{ matrix.services }}-ci
       #   env:
       #     IMAGE_TAG: latest
@@ -276,7 +264,6 @@ jobs:
           fi
         env:
           REF: ${{ github.ref }}
-
 
       # - name: Log into github's docker registry
       #   uses: docker/login-action@v1
