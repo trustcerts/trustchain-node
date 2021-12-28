@@ -9,8 +9,9 @@ on:
       - opened
       - synchronize
 
-env:
-  PR_NUMBER: ${{ github.event.pull_request.number }}
+# TODO evaluate if we need the pr number since we store the images in the cicd cache and not in a registry during the branches
+# env:
+#   PR_NUMBER: ${{ github.event.pull_request.number }}
 
 jobs:
   build:
@@ -121,9 +122,8 @@ jobs:
           push: false
           build-args: |
             app=${{ env.BASEIMAGE }}
-            base=${{ env.PR_NUMBER }}
           tags: |
-            ${{env.CI_REGISTRY_IMAGE}}-${{env.BASEIMAGE}}:${{env.PR_NUMBER}}
+            ${{env.CI_REGISTRY_IMAGE}}-${{env.BASEIMAGE}}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
         env:
@@ -139,9 +139,8 @@ jobs:
           push: false
           build-args: |
             app=${{ matrix.services }}
-            base=${{ env.PR_NUMBER }}
           tags: |
-            ${{env.CI_REGISTRY_IMAGE}}-${{matrix.services}}:${{env.PR_NUMBER}}
+            ${{env.CI_REGISTRY_IMAGE}}-${{matrix.services}}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
         env:
@@ -184,33 +183,32 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: main or not
-        id: main_or_not
-        run: |
-          if [$REF == 'refs/heads/main']
-          then
-              echo "::set-output name=imagetag::latest"
-          else
-              echo "::set-output name=imagetag::${{ env.PR_NUMBER }}"
-          fi
-        env:
-          REF: ${{ github.ref }}
 
-        # - name: Log into github's docker registry
-        #   uses: docker/login-action@v1
-        #   with:
-        #     registry: ghcr.io
-        #     username: ${{ github.actor }}
-        #     password: ${{ secrets.GITHUB_TOKEN }}
+      # - name: main or not
+      #   id: main_or_not
+      #   run: |
+      #     if [$REF == 'refs/heads/main']
+      #     then
+      #         echo "::set-output name=imagetag::latest"
+      #     else
+      #         echo "::set-output name=imagetag::${{ env.PR_NUMBER }}"
+      #     fi
+      #   env:
+      #     REF: ${{ github.ref }}
+
+      # - name: Log into github's docker registry
+      #   uses: docker/login-action@v1
+      #   with:
+      #     registry: ghcr.io
+      #     username: ${{ github.actor }}
+      #     password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: e2e test
         # if: github.ref != 'refs/heads/main'
         run: |
-          printf "\nIMAGE_TAG=$IMAGE_TAG\n" >> test/.env
+          printf "\nIMAGE_TAG=latest\n" >> test/.env
           cat test/.env
           docker-compose -f test/docker-compose.yml --env-file test/.env run test-${{ matrix.services }} npm run test:e2e-${{ matrix.services }}-ci
-        env:
-          IMAGE_TAG: ${{ steps.main_or_not.outputs.imagetag }}
 
       # - name: e2e test
       #   if: github.ref == 'refs/heads/main'
@@ -253,17 +251,17 @@ jobs:
           fetch-depth: 0
           submodules: true
 
-      - name: main or not
-        id: main_or_not
-        run: |
-          if [$REF == 'refs/heads/main']
-          then
-              echo "::set-output name=imagetag::latest"
-          else
-              echo "::set-output name=imagetag::${{ env.PR_NUMBER }}"
-          fi
-        env:
-          REF: ${{ github.ref }}
+      # - name: main or not
+      #   id: main_or_not
+      #   run: |
+      #     if [$REF == 'refs/heads/main']
+      #     then
+      #         echo "::set-output name=imagetag::latest"
+      #     else
+      #         echo "::set-output name=imagetag::${{ env.PR_NUMBER }}"
+      #     fi
+      #   env:
+      #     REF: ${{ github.ref }}
 
       # - name: Log into github's docker registry
       #   uses: docker/login-action@v1
@@ -290,11 +288,9 @@ jobs:
           cd test/network/config/
           for filename in $(find . -name '*.env' -print); do
             echo "update $filename"
-            printf "\nIMAGE_TAG=$IMAGE_TAG\n" >> $filename
+            printf "\nIMAGE_TAG=latest\n" >> $filename
           done
           bash all.sh up -d
-        env:
-          IMAGE_TAG: ${{ steps.main_or_not.outputs.imagetag }}
 
       # - name: Preparation
       #   if: github.ref == 'refs/heads/main'
@@ -346,7 +342,7 @@ jobs:
         run: node tools/retag.mjs
         env:
           CI_REGISTRY_IMAGE: ghcr.io/trustcerts/trustchain
-          CI_COMMIT_BRANCH: ${{ env.PR_NUMBER }}
+          CI_COMMIT_BRANCH: latest
 
   # TODO put this step into another file since it is CD
   deploy:
