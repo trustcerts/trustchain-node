@@ -153,7 +153,7 @@ jobs:
           CI_COMMIT_BRANCH: latest
 
       - name: Cache base build Image
-        id: cache-trustchain-${{matrix.services}}
+        id: cache-trustchain-$matrix.services
         uses: actions/cache@v2
         with:
           path: ./trustchain-${{ matrix.services }}.tar
