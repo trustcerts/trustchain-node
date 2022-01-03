@@ -153,13 +153,15 @@ jobs:
           CI_COMMIT_BRANCH: latest
 
       - name: Cache base build Image
+        id: cache-trustchain-images
         uses: actions/cache@v2
         with:
           path: ./docker-dist
-          key: docker-${{ hashFiles('apps')}}-${{ hashFiles('package-lock.json')}}
+          key: docker-${{ hashFiles('apps')}}
           restore-keys: docker-    
 
       - name: Save Docker Image
+        if: steps.cache-trustchain-images.cache-hit != 'true'
         run: node tools/save-docker-images.mjs
         env:
           BASEIMAGE: baseimage
@@ -175,8 +177,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ./docker-dist
-          key: docker-${{ hashFiles('apps')}}-${{ hashFiles('package-lock.json')}}
-          restore-keys: docker-     
+          key: docker-${{ hashFiles('apps')}}
+          restore-keys: docker-    
+
       - name: test
         run: ls docker-dist/
 
