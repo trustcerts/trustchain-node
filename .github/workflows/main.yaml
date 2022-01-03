@@ -158,6 +158,9 @@ jobs:
           CI_REGISTRY_IMAGE: trustcerts/trustchain
           CI_COMMIT_BRANCH: latest
 
+      - name: create folder
+        run: mkdir -p docker-dist
+
       - name: Cache base build Image
         uses: actions/cache@v2
         with:
