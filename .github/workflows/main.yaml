@@ -165,7 +165,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ./docker-dist
-          key: docker-${{ hashFiles('package-lock.json')}}-${{ hashFiles('./app') }}
+          key: docker-${{ hashFiles('docker-dist')}}
           restore-keys: docker-    
 
       - name: Save Docker Image
