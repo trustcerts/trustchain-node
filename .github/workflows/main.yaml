@@ -161,174 +161,188 @@ jobs:
       - name: Cache base build Image
         uses: actions/cache@v2
         with:
-          path: ./trustchain-${{ matrix.services }}.tar
+          path: ./docker-dist
           key: docker-${{ hashFiles('package-lock.json')}}-${{ hashFiles('./app') }}
           restore-keys: docker-    
 
       - name: Save Docker Image
-        run: docker save ${{env.CI_REGISTRY_IMAGE}}-${{ matrix.services }}:${{ env.CI_COMMIT_BRANCH }} > trustchain-${{matrix.services}}.tar
+        run: docker save ${{env.CI_REGISTRY_IMAGE}}-${{ matrix.services }}:${{ env.CI_COMMIT_BRANCH }} > ./docker-dist/trustchain-${{matrix.services}}.tar
         env:
           BASEIMAGE: baseimage
           CI_REGISTRY_IMAGE: trustcerts/trustchain
           CI_COMMIT_BRANCH: latest
 
-  # TODO check if containers have to be build before the e2e test
-  e2e:
-    needs: build-packages
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        services:
-          [
-            http-gateway,
-            http-observer,
-            http-validator,
-            network-gateway,
-            network-observer,
-            network-validator,
-            persist,
-            parse,
-            wallet,
-          ]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: e2e test
-        run: |
-          printf "\nIMAGE_TAG=latest\n" >> test/.env
-          cat test/.env
-          docker-compose -f test/docker-compose.yml --env-file test/.env run test-${{ matrix.services }} npm run test:e2e-${{ matrix.services }}-ci
-
-      - name: Upload E2E Test Results
-        if: always()
-        uses: actions/upload-artifact@v2
-        with:
-          name: E2E Test Results ${{ matrix.service }}
-          path: ./*.xml
-
-  publish-test-results:
-    name: 'Publish Unit Tests Results'
-    needs: e2e
-    runs-on: ubuntu-latest
-    if: always()
-    steps:
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
-        with:
-          path: artifacts
-
-      - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1
-        with:
-          files: artifacts/**/*.xml
-
-  network-test:
-    needs: e2e
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        services:
-          [
-            http-gateway,
-            http-observer,
-            http-validator,
-            network-gateway,
-            network-observer,
-            network-validator,
-            persist,
-            parse,
-            wallet,
-          ]
-    steps:
-      - uses: actions/checkout@v2  
-        with:
-          repository: 'trustcerts/trustchain-benchmarktool'
-          submodules: 'true'
-
-      - name: Cache dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: npm-${{ hashFiles('package-lock.json') }}
-          restore-keys: npm-
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: link benchmarktool
-        run: npm link
-
+  test:
+   runs-on: ubuntu-latest
+   needs: build-packages
+   
+   steps:
       - name: Cache base build Image
         uses: actions/cache@v2
         with:
-          path: ./trustchain-${{ matrix.services }}.tar
+          path: ./docker-dist
           key: docker-${{ hashFiles('package-lock.json')}}-${{ hashFiles('./app') }}
-          restore-keys: docker-
+          restore-keys: docker-    
+      - name: test
+        run: ls docker-dist/
 
-      - name: load docker images
-        run: docker load -i trustchain-${{ matrix.services }}.tar
+  # TODO check if containers have to be build before the e2e test
+  # e2e:
+  #   needs: build-packages
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       services:
+  #         [
+  #           http-gateway,
+  #           http-observer,
+  #           http-validator,
+  #           network-gateway,
+  #           network-observer,
+  #           network-validator,
+  #           persist,
+  #           parse,
+  #           wallet,
+  #         ]
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+  #       with:
+  #         fetch-depth: 0
 
-      - name: generate config folder
-        run: benchmarktool generate -h localhost -v 4 -o 2 -g 2
+  #     - name: e2e test
+  #       run: |
+  #         printf "\nIMAGE_TAG=latest\n" >> test/.env
+  #         cat test/.env
+  #         docker-compose -f test/docker-compose.yml --env-file test/.env run test-${{ matrix.services }} npm run test:e2e-${{ matrix.services }}-ci
+
+  #     - name: Upload E2E Test Results
+  #       if: always()
+  #       uses: actions/upload-artifact@v2
+  #       with:
+  #         name: E2E Test Results ${{ matrix.service }}
+  #         path: ./*.xml
+
+  # publish-test-results:
+  #   name: 'Publish Unit Tests Results'
+  #   needs: e2e
+  #   runs-on: ubuntu-latest
+  #   if: always()
+  #   steps:
+  #     - name: Download Artifacts
+  #       uses: actions/download-artifact@v2
+  #       with:
+  #         path: artifacts
+
+  #     - name: Publish Unit Test Results
+  #       uses: EnricoMi/publish-unit-test-result-action@v1
+  #       with:
+  #         files: artifacts/**/*.xml
+
+  # network-test:
+  #   needs: e2e
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       services:
+  #         [
+  #           http-gateway,
+  #           http-observer,
+  #           http-validator,
+  #           network-gateway,
+  #           network-observer,
+  #           network-validator,
+  #           persist,
+  #           parse,
+  #           wallet,
+  #         ]
+  #   steps:
+  #     - uses: actions/checkout@v2  
+  #       with:
+  #         repository: 'trustcerts/trustchain-benchmarktool'
+  #         submodules: 'true'
+
+  #     - name: Cache dependencies
+  #       uses: actions/cache@v2
+  #       with:
+  #         path: ~/.npm
+  #         key: npm-${{ hashFiles('package-lock.json') }}
+  #         restore-keys: npm-
+
+  #     - name: Install dependencies
+  #       run: npm ci
+
+  #     - name: link benchmarktool
+  #       run: npm link
+
+  #     - name: Cache base build Image
+  #       uses: actions/cache@v2
+  #       with:
+  #         path: ./trustchain-${{ matrix.services }}.tar
+  #         key: docker-${{ hashFiles('package-lock.json')}}-${{ hashFiles('./app') }}
+  #         restore-keys: docker-
+
+  #     - name: load docker images
+  #       run: docker load -i trustchain-${{ matrix.services }}.tar
+
+  #     - name: generate config folder
+  #       run: benchmarktool generate -h localhost -v 4 -o 2 -g 2
       
-      - name: Start blockchain-nodes
-        run: |
-          cd ./config
-          docker network create test-network
-          ./all.sh up -d
-          docker ps
-          ./initNodes.sh
+  #     - name: Start blockchain-nodes
+  #       run: |
+  #         cd ./config
+  #         docker network create test-network
+  #         ./all.sh up -d
+  #         docker ps
+  #         ./initNodes.sh
 
-      - uses: actions/checkout@v2
+  #     - uses: actions/checkout@v2
 
-      - name: Cache dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: npm-${{ hashFiles('package-lock.json') }}
-          restore-keys: npm-
+  #     - name: Cache dependencies
+  #       uses: actions/cache@v2
+  #       with:
+  #         path: ~/.npm
+  #         key: npm-${{ hashFiles('package-lock.json') }}
+  #         restore-keys: npm-
 
-      - name: Install dependencies
-        run: npm ci
+  #     - name: Install dependencies
+  #       run: npm ci
 
-      - name: run test
-        run: npm run test:network
+  #     - name: run test
+  #       run: npm run test:network
 
-  release:
-    if: contains( github.ref, 'main')
-    needs: network-test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+  # release:
+  #   if: contains( github.ref, 'main')
+  #   needs: network-test
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+  #       with:
+  #         fetch-depth: 0
 
-      - name: Set npm
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16
+  #     - name: Set npm
+  #       uses: actions/setup-node@v2
+  #       with:
+  #         node-version: 16
 
-      - name: Login into docker
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+  #     - name: Login into docker
+  #       uses: docker/login-action@v1
+  #       with:
+  #         username: ${{ secrets.DOCKER_USERNAME }}
+  #         password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: retag images
-        run: node tools/retag.mjs
-        env:
-          CI_REGISTRY_IMAGE: ghcr.io/trustcerts/trustchain
-          CI_COMMIT_BRANCH: latest
+  #     - name: retag images
+  #       run: node tools/retag.mjs
+  #       env:
+  #         CI_REGISTRY_IMAGE: ghcr.io/trustcerts/trustchain
+  #         CI_COMMIT_BRANCH: latest
 
-  # TODO put this step into another file since it is CD
-  deploy:
-    if: contains( github.ref, 'main')
-    needs: release
-    runs-on: ubuntu-latest
-    steps:
-      - name: Prepare
-        run: echo test
+  # # TODO put this step into another file since it is CD
+  # deploy:
+  #   if: contains( github.ref, 'main')
+  #   needs: release
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Prepare
+  #       run: echo test
