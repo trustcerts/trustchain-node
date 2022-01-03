@@ -3,8 +3,8 @@ import axios from 'axios';
 describe('Network Testing', () => {
   it('gateway', async () => {
     const dids = [
-      'did:trust:tc:dev:id:XLzBJ69BeqEgq7oqqdEsHY',
-      'did:trust:tc:dev:id:XLzBJ69BeqEgq7oqqdEsHZ',
+      'did:trust:tc:dev:id:7a5r7AqGaChZ3gE4wmPuGk',
+      'did:trust:tc:dev:id:3wyYoWVpKLgxZdCCYfK8zM',
     ];
     const responses: any = {
       // TODO make endpoints dynamic to run it local and not only in the ci
@@ -22,8 +22,8 @@ describe('Network Testing', () => {
 
   it('observer', async () => {
     const dids = [
-      'did:trust:tc:dev:id:XLzBJ69BeqEgq7oqqdEsHW',
-      'did:trust:tc:dev:id:XLzBJ69BeqEgq7oqqdEsHQ',
+      'did:trust:tc:dev:id:BA6Tk61num6ivTCSChLMHH',
+      'did:trust:tc:dev:id:GWJz1nTjbeeGBjJcW681UV',
     ];
     const responses: any = {
       resObs1: await axios.get(`http://localhost:3560/did/${dids[0]}`),

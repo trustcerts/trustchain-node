@@ -124,25 +124,19 @@ jobs:
   build-packages:
     needs: build
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        services:
-          [
-            http-gateway,
-            http-observer,
-            http-validator,
-            network-gateway,
-            network-observer,
-            network-validator,
-            persist,
-            parse,
-            wallet,
-          ]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-
+
 
       - name: Cache build node
         uses: actions/cache@v2
@@ -153,7 +147,7 @@ jobs:
           restore-keys: build-
 
       - name: Build Docker
-        run: docker build --build-arg app=${{ matrix.services}} --build-arg base=${{ env.CI_COMMIT_BRANCH }} -f ./build/Dockerfile -t ${{env.CI_REGISTRY_IMAGE}}-${{ matrix.services }}:${{ env.CI_COMMIT_BRANCH }} .
+        run: node tools/package.mjs
         env:
           CI_REGISTRY_IMAGE: trustcerts/trustchain
           CI_COMMIT_BRANCH: latest
