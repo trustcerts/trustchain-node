@@ -218,6 +218,14 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+        
+      - name: Cache base build Image
+        id: cache-trustchain-images
+        uses: actions/cache@v2
+        with:
+          path: ./docker-dist
+          key: buildDocker-${{ hashFiles('./apps')}}
+          restore-keys: buildDocker-    
 
       - name: load docker images
         run: node tools/load-docker-images.mjs
@@ -232,10 +240,9 @@ jobs:
 
       - name: Start blockchain-nodes
         run: |
-          cd ./config
           docker network create test-network
-          ./all.sh up -d
-          ./initNodes.sh
+          ./test/network/config/all.sh up -d
+          ./test/network/config/initNodes.sh
 
       - name: run test
         run: npm run test:network
