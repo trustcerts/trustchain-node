@@ -1,0 +1,3 @@
+[submodule "test/network/trustchain-config"]
+	path = test/network/trustchain-config
+	url = git@github.com:trustcerts/trustchain-config.git
