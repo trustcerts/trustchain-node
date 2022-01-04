@@ -222,7 +222,8 @@ jobs:
       - name: load docker images
         run: node tools/load-docker-images.mjs
 
-      - name: npm install -g @trustcerts/cli
+      - name: Install trustcerts cli
+        run: npm install -g @trustcerts/cli
 
       - name: generate config folder
         run: |
