@@ -30,6 +30,7 @@ lerna-debug.log*
 /test/network/node_modules
 /.nyc_output
 /storage
+/test/network/config
 
 # IDEs and editors
 /.idea
@@ -52,4 +53,3 @@ private__*.*
 
 
 #Benchmark
-/test/benchmark/config

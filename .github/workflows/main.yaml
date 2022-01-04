@@ -42,7 +42,7 @@ jobs:
         id: build-dist-folder
         with:
           path: ./dist
-          key: build-${{ hashFiles('./apps') }}
+          key: build-${{ hashFiles('./apps') }}-${{ hashFiles('./libs') }}
           restore-keys: build-
 
       - name: Build code
@@ -74,7 +74,7 @@ jobs:
         id: build-dist-folder
         with:
           path: ./dist
-          key: build-${{ hashFiles('./apps') }}
+          key: build-${{ hashFiles('./apps') }}-${{ hashFiles('./libs') }}
           restore-keys: build-
 
       - name: Build Docker
@@ -207,7 +207,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2  
         with:
-          repository: 'trustcerts/trustchain-benchmarktool'
           submodules: 'true'
 
       - name: Cache dependencies
@@ -220,42 +219,22 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: link benchmarktool
-        run: npm link
-
-      - name: Cache base build Image
-        uses: actions/cache@v2
-        with:
-          path: ./docker-dist
-          key: buildDocker-${{ hashFiles('apps')}}
-          restore-keys: buildDocker-
-
-
       - name: load docker images
         run: node tools/load-docker-images.mjs
 
+      - name: npm install -g @trustcerts/cli
+
       - name: generate config folder
-        run: benchmarktool generate -h localhost -v 4 -o 2 -g 2
-      
+        run: |
+          cd ./test/network
+          trusty generate -h localhost -v 4 -o 2 -g 2
+
       - name: Start blockchain-nodes
         run: |
           cd ./config
           docker network create test-network
           ./all.sh up -d
-          docker ps
           ./initNodes.sh
-
-      - uses: actions/checkout@v2
-
-      - name: Cache dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: npm-${{ hashFiles('package-lock.json') }}
-          restore-keys: npm-
-
-      - name: Install dependencies
-        run: npm ci
 
       - name: run test
         run: npm run test:network
