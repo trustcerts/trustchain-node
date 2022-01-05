@@ -206,8 +206,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2  
-        with:
-          submodules: 'true'
 
       - name: Cache dependencies
         uses: actions/cache@v2
@@ -241,8 +239,9 @@ jobs:
       - name: Start blockchain-nodes
         run: |
           docker network create test-network
-          ./test/network/config/all.sh up -d
-          ./test/network/config/initNodes.sh
+          cd ./test/network
+          ./all.sh up -d
+          ./initNodes.sh
 
       - name: run test
         run: npm run test:network
