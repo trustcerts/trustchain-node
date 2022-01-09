@@ -90,6 +90,7 @@ export class ConfigService {
       LOKI_LOG_LEVEL: Joi.string()
         .valid('debug', 'info', 'warn', 'error')
         .default('info'),
+      LOKI_AUTH: Joi.string().default('loki:loki'),
       //REDIS
       REDIS_URL: Joi.string().default('redis'),
       REDIS_PORT: Joi.number().default(6379),
@@ -251,6 +252,7 @@ export class ConfigService {
           level: this.getString('LOKI_LOG_LEVEL'),
           batching: true,
           host: this.getString('LOKI_URL'),
+          basicAuth: this.getString('LOKI_AUTH'),
           labels: { node: this.getConfig('IDENTIFIER'), service: this.service },
           format: winston.format.combine(
             winston.format.printf(({ message }) => {

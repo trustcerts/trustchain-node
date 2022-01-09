@@ -217,7 +217,7 @@ export class DidCachedService extends CachedService {
     return this.didModel
       .findOne({ id: this.getIdentifierOfKey(identifier) })
       .then((did) => {
-        const key = did?.keys.find((key) => key.id === identifier);
+        const key = did?.keys.find((key: Key) => key.id === identifier);
         if (!key) {
           throw new Error('key not found');
         }

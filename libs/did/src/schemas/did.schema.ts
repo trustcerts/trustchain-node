@@ -1,4 +1,4 @@
-import * as mongoose from 'mongoose';
+import { Document, Schema as MongooseSchema } from 'mongoose';
 import { IsString } from 'class-validator';
 import { Key } from '@tc/did/schemas/key.schema';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
@@ -28,7 +28,7 @@ export class Did {
    * Controllers are authorized to make changes to the document.
    * https://www.w3.org/TR/did-core/#control
    */
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Did' }] })
+  @Prop({ type: [{ type: MongooseSchema.Types.ObjectId, ref: 'Did' }] })
   controllers!: Did[];
 
   /**

@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { BcEntity } from '@apps/shared/bc-entity.schema';
 import { Compression } from '../dto/template.transaction.dto';
+import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 export type TemplateDocument = Template & Document;

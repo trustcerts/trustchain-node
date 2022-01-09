@@ -19,6 +19,7 @@ import { ParseService } from '@apps/parse/src/parse.service';
 import { ParsingService as Parser } from '@tc/parsing';
 import { ParsingService } from '@shared/parsing.service';
 import { REDIS_INJECTION } from '@tc/event-client/constants';
+import { RoleManageAddEnum } from '../constants';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 
 /**
@@ -107,7 +108,7 @@ export class DidParsingService extends ParsingService {
     // update roles
     if (transaction.body.value.role) {
       if (transaction.body.value.role.remove) {
-        did.roles = did.roles!.filter((role) =>
+        did.roles = did.roles!.filter((role: RoleManageAddEnum) =>
           transaction.body.value.role!.remove!.includes(role),
         );
       }
@@ -119,7 +120,7 @@ export class DidParsingService extends ParsingService {
     // update the controllers
     if (transaction.body.value.controller) {
       if (transaction.body.value.controller!.remove) {
-        did.controllers = did.controllers.filter((controller) =>
+        did.controllers = did.controllers.filter((controller: Did) =>
           transaction.body.value.controller!.remove!.includes(controller.id),
         );
       }

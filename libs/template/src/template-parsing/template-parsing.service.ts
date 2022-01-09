@@ -64,7 +64,7 @@ export class TemplateParsingService extends ParsingService {
       },
       signature: transaction.signature.values,
     });
-    await template.save().catch((err) =>
+    await template.save().catch((err: any) =>
       this.logger.error({
         message: err,
         labels: { source: this.constructor.name },

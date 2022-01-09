@@ -117,7 +117,6 @@ export class InviteService {
     }
     invite.secret = undefined;
     await invite.save();
-    console.log(invite);
     return invite;
   }
 

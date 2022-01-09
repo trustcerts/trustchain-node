@@ -8,6 +8,7 @@ import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 
 import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
 import { PersistClientService } from '@tc/persist-client';
+import { TextEncoder } from 'util';
 import { TransactionChecks } from '@tc/blockchain/block-check/transaction-checks.interface';
 import { WalletClientService } from '@tc/wallet-client';
 

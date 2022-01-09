@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { BcEntity } from '@apps/shared/bc-entity.schema';
 import { DidStructure } from '@tc/did/dto/did.transaction.dto';
+import { Document } from 'mongoose';
 import { IsString } from 'class-validator';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
