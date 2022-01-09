@@ -3,7 +3,6 @@ import { ConfigService } from '@tc/config';
 import { INestApplication, LoggerService } from '@nestjs/common';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { WinstonModule, utilities } from 'nest-winston';
-import helmet from 'helmet';
 
 /**
  * Adds helmet if the lets encrypt variable is set. Required for swagger rendering
