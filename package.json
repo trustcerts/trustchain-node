@@ -61,7 +61,7 @@
     "watch:network-validator": "nest build network-validator --watch"
   },
   "dependencies": {
-    "@nestjs/axios": "^0.0.3",
+    "@nestjs/axios": "^0.0.4",
     "@nestjs/common": "^8.2.1",
     "@nestjs/core": "^8.2.1",
     "@nestjs/microservices": "^8.2.1",
@@ -71,8 +71,8 @@
     "@nestjs/swagger": "^5.1.4",
     "@nestjs/terminus": "^8.0.1",
     "@nestjs/websockets": "^8.2.1",
-    "@trustcerts/core": "^0.3.3",
-    "@trustcerts/did-id-create": "^0.3.3",
+    "@trustcerts/core": "^0.4.3",
+    "@trustcerts/did-id-create": "^0.4.3",
     "@willsoto/nestjs-prometheus": "^4.2.0",
     "axios": "^0.24.0",
     "class-transformer": "^0.4.0",
