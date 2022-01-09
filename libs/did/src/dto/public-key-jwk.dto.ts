@@ -1,11 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Equals, IsString } from 'class-validator';
-
 /**
  * Describes a json web key object.
  */
 // TODO add values for a ec key.
-export class PublicKeyJwkDto implements JsonWebKey {
+// TODO evaluate if JsonWebKey should be implemented.
+export class PublicKeyJwkDto {
+    
   /**
    * How the key was meant to be used
    */
@@ -54,4 +55,5 @@ export class PublicKeyJwkDto implements JsonWebKey {
     example: 'RS256',
   })
   alg?: string;
+
 }

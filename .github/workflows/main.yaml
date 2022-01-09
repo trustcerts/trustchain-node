@@ -9,8 +9,9 @@ on:
       - opened
       - synchronize
 
-env:
-  PR_NUMBER: ${{ github.event.pull_request.number }}
+# TODO evaluate if we need the pr number since we store the images in the cicd cache and not in a registry during the branches
+# env:
+#   PR_NUMBER: ${{ github.event.pull_request.number }}
 
 jobs:
   build:
@@ -36,22 +37,74 @@ jobs:
       - name: Install dependencies
         run: npm ci --ignore-scripts
 
+      - name: Cache build node
+        uses: actions/cache@v2
+        id: build-dist-folder
+        with:
+          path: ./dist
+          key: build-${{ hashFiles('./apps') }}-${{ hashFiles('./libs') }}
+          restore-keys: build-
+
       - name: Build code
+        if: steps.build-dist-folder.outputs.cache-hit != 'true'
         run: |
           sed -ri "s|\"BUILD\"|\"$GITHUB_SHA\"|" apps/shared/build.ts
           node tools/build.mjs
 
-      - name: Upload builds
-        uses: actions/upload-artifact@v2
+
+  build-packages:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
         with:
-          name: build
-          path: dist/
+          fetch-depth: 0
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-
+
+
+      - name: Cache build node
+        uses: actions/cache@v2
+        id: build-dist-folder
+        with:
+          path: ./dist
+          key: build-${{ hashFiles('./apps') }}-${{ hashFiles('./libs') }}
+          restore-keys: build-
+
+      - name: Build Docker
+        run: node tools/package.mjs
+        env:
+          CI_REGISTRY_IMAGE: trustcerts/trustchain
+          CI_COMMIT_BRANCH: latest
+
+      - name: Cache base build Image
+        id: cache-trustchain-images
+        uses: actions/cache@v2
+        with:
+          path: ./docker-dist
+          key: buildDocker-${{ hashFiles('./apps')}}
+          restore-keys: buildDocker-    
+
+      - name: Save Docker Image
+        if: steps.cache-trustchain-images.cache-hit != 'true'
+        run: node tools/save-docker-images.mjs
+        env:
+          BASEIMAGE: baseimage
+          CI_REGISTRY_IMAGE: trustcerts/trustchain
+          CI_COMMIT_BRANCH: latest
+
 
 
 
 
   test-unit:
-    needs: build
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -62,9 +115,6 @@ jobs:
         with:
           cache: 'npm'
           node-version: 16
-
-      # use modules from build stage
-      #- run: npm ci --cache .npm --prefer-offline
 
       - name: test
         run: |
@@ -80,102 +130,10 @@ jobs:
           name: Unit Test Results ${{ matrix.service }}
           path: ./*.xml
 
-  package:
-    needs: build
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        services:
-          [
-            http-gateway,
-            http-observer,
-            http-validator,
-            network-gateway,
-            network-observer,
-            network-validator,
-            persist,
-            parse,
-            wallet,
-          ]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Download builds
-        uses: actions/download-artifact@v2
-        with:
-          name: build
-          path: dist/
-
-      # - name: Log into github's docker registry
-      #   uses: docker/login-action@v1
-      #   with:
-      #     registry: ghcr.io
-      #     username: ${{ github.actor }}
-      #     password: ${{ secrets.GITHUB_TOKEN }}
-
-          
-      # - name: Cache docker builds
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: ./dockerbuild
-      #     key: docker-${{ hashFiles('./tools/package.mjs') }}
-      #     restore-keys: docker-
-
-      # - name: Build temporary docker images
-      #   if:  ${{ github.ref != 'refs/heads/main' && steps.cache-primes.outputs.cache-hit != 'true' }}
-      #   run: |
-      #     node tools/package-cache.mjs
-      #   env:
-      #     CI_REGISTRY_IMAGE: trustcerts/trustchain
-      #     CI_COMMIT_BRANCH: ${{ env.PR_NUMBER }}
-
-      - name: Cache Docker layers
-        uses: actions/cache@v2
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-single-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-single-buildx
-      - name: change buildx builder instance
-        run: docker buildx create --use
-        
-      - name: Build docker image
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: build/Dockerfile
-          push: false 
-          build-args: |
-            app=${{ matrix.services }}
-            base=${{ env.PR_NUMBER }}
-          tags: |
-            ${{env.CI_REGISTRY_IMAGE}}-${{matrix.services}}:${{env.PR_NUMBER}}
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache-new
-        env:
-          CI_REGISTRY_IMAGE: trustcerts/trustchain
-          CI_COMMIT_BRANCH: latest
-
-      - name: Move cache
-        run: |
-          rm -rf /tmp/.buildx-cache
-          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
-
-
-      - name: Build temporary docker images
-        if: github.ref == 'refs/heads/main'
-        run: |
-          node tools/package.mjs
-        env:
-          CI_REGISTRY_IMAGE: trustcerts/trustchain
-          CI_COMMIT_BRANCH: latest
 
   # TODO check if containers have to be build before the e2e test
   e2e:
-    needs: package
+    needs: build-packages
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -196,41 +154,29 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: main or not
-        id: main_or_not
-        run: |
-          if [$REF == 'refs/heads/main']
-          then
-              echo "::set-output name=imagetag::latest"
-          else
-              echo "::set-output name=imagetag::${{ env.PR_NUMBER }}"
-          fi
-        env:
-          REF: ${{ github.ref }}
 
-        # - name: Log into github's docker registry
-        #   uses: docker/login-action@v1
-        #   with:
-        #     registry: ghcr.io
-        #     username: ${{ github.actor }}
-        #     password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-    
+
+      - name: Cache base build Image
+        uses: actions/cache@v2
+        with:
+          path: ./docker-dist
+          key: buildDocker-${{ hashFiles('apps')}}
+          restore-keys: buildDocker-
+
+      - name: load docker images
+        run: node tools/load-docker-images.mjs
 
       - name: e2e test
-        # if: github.ref != 'refs/heads/main'
         run: |
-          printf "\nIMAGE_TAG=$IMAGE_TAG\n" >> test/.env
+          printf "\nIMAGE_TAG=latest\n" >> test/.env
           cat test/.env
           docker-compose -f test/docker-compose.yml --env-file test/.env run test-${{ matrix.services }} npm run test:e2e-${{ matrix.services }}-ci
-        env:
-          IMAGE_TAG: ${{ steps.main_or_not.outputs.imagetag }}
-
-      # - name: e2e test
-      #   if: github.ref == 'refs/heads/main'
-      #   run: |
-      #     printf "\nIMAGE_TAG=$IMAGE_TAG\n" >> test/.env          
-      #     docker-compose -f test/docker-compose.yml --env-file test/.env run test-${{ matrix.services }} npm run test:e2e-${{ matrix.services }}-ci
-      #   env:
-      #     IMAGE_TAG: latest
 
       - name: Upload E2E Test Results
         if: always()
@@ -259,80 +205,46 @@ jobs:
     needs: e2e
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-          submodules: true
+      - uses: actions/checkout@v2  
 
-      - name: main or not
-        id: main_or_not
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-
+
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Cache base build Image
+        id: cache-trustchain-images
+        uses: actions/cache@v2
+        with:
+          path: ./docker-dist
+          key: buildDocker-${{ hashFiles('./apps')}}
+          restore-keys: buildDocker-    
+
+      - name: load docker images
+        run: node tools/load-docker-images.mjs
+
+      - name: Install trustcerts cli
+        run: npm install -g @trustcerts/cli
+
+      - name: generate config folder
         run: |
-          if [$REF == 'refs/heads/main']
-          then
-              echo "::set-output name=imagetag::latest"
-          else
-              echo "::set-output name=imagetag::${{ env.PR_NUMBER }}"
-          fi
-        env:
-          REF: ${{ github.ref }}
+          cd ./test/network
+          trusty generate -h localhost -v 4 -o 2 -g 2
 
-
-      # - name: Log into github's docker registry
-      #   uses: docker/login-action@v1
-      #   with:
-      #     registry: ghcr.io
-      #     username: ${{ github.actor }}
-      #     password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Set node
-        uses: actions/setup-node@v2
-        with:
-          cache: 'npm'
-          node-version: 16
-
-      # TODO evaluate if script should be put in a separate package json to reduce size
-      # - run: npm ci --cache .npm --prefer-offline
-
-      - name: Preparation
-        # if: github.ref != 'refs/heads/main'
-        # TODO use the image that was build in this ci, not the static `dev` one since we want to test the new image
+      - name: Start blockchain-nodes
         run: |
           docker network create test-network
-          chmod 777 test/network/config/
-          cd test/network/config/
-          for filename in $(find . -name '*.env' -print); do
-            echo "update $filename"
-            printf "\nIMAGE_TAG=$IMAGE_TAG\n" >> $filename
-          done
-          bash all.sh up -d
-        env:
-          IMAGE_TAG: ${{ steps.main_or_not.outputs.imagetag }}
+          cd ./test/network/config
+          ./all.sh up -d
+          ./initNodes.sh
 
-      # - name: Preparation
-      #   if: github.ref == 'refs/heads/main'
-      #   # TODO use the image that was build in this ci, not the static `dev` one since we want to test the new image
-      #   run: |
-      #     docker network create test-network
-      #     chmod 777 test/network/config/
-      #     cd test/network/config/
-      #     for filename in $(find . -name '*.env' -print); do
-      #       echo "update $filename"
-      #       printf "\nIMAGE_TAG=$IMAGE_TAG\n" >> $filename
-      #     done
-      #     bash all.sh up -d
-      #   env:
-      #     IMAGE_TAG: latest
-
-      - name: Test
-        # check if network can build up
-        # TODO put this shell script into a npm job with a typescript call to make it more dynamic
-        run: |
-          npm ci
-          cd ${GITHUB_WORKSPACE}/test/network/config/
-          bash run.sh
-          cd ${GITHUB_WORKSPACE}
-          npm run test:network
+      - name: run test
+        run: npm run test:network
 
   release:
     if: contains( github.ref, 'main')
@@ -359,7 +271,7 @@ jobs:
         run: node tools/retag.mjs
         env:
           CI_REGISTRY_IMAGE: ghcr.io/trustcerts/trustchain
-          CI_COMMIT_BRANCH: ${{ env.PR_NUMBER }}
+          CI_COMMIT_BRANCH: latest
 
   # TODO put this step into another file since it is CD
   deploy:
