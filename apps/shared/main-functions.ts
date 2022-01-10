@@ -8,6 +8,7 @@ import { WinstonModule, utilities } from 'nest-winston';
  * Adds helmet if the lets encrypt variable is set. Required for swagger rendering
  * @param app
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function addHelmet(app: INestApplication) {
   if (process.env.LETSENCRYPT_HOST) {
     // TODO removed until this is solved https://github.com/helmetjs/helmet/issues/344 or downgrade version to 4.

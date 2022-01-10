@@ -6,7 +6,6 @@ import { Equals, IsString } from 'class-validator';
 // TODO add values for a ec key.
 // TODO evaluate if JsonWebKey should be implemented.
 export class PublicKeyJwkDto {
-    
   /**
    * How the key was meant to be used
    */
@@ -55,5 +54,4 @@ export class PublicKeyJwkDto {
     example: 'RS256',
   })
   alg?: string;
-
 }
