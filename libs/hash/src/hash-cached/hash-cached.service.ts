@@ -40,6 +40,7 @@ export class HashCachedService extends CachedService {
    * Set filters depending on the given parameters.
    * @param filter
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private async setFilter(filter: HashFilterDto) {
     const options: { signature?: any; createdAt?: any } = {};
     throw new Error('not implemented yet');

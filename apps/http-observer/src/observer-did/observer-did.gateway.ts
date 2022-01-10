@@ -1,4 +1,5 @@
 import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
+import { DidDocumentMetaData } from '@tc/did/did-cached/DidDocumentMetaData';
 import { DidTransaction } from '@tc/did/schemas/did-transaction.schema';
 import {
   MessageBody,
@@ -6,7 +7,6 @@ import {
   WebSocketGateway,
 } from '@nestjs/websockets';
 import { VersionInformation } from '@tc/did/did-cached/VersionInformation';
-import { DidDocumentMetaData } from '@tc/did/did-cached/DidDocumentMetaData';
 
 // TODO validate incoming values.
 /**
