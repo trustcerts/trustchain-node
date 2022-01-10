@@ -51,7 +51,6 @@ jobs:
           sed -ri "s|\"BUILD\"|\"$GITHUB_SHA\"|" apps/shared/build.ts
           node tools/build.mjs
 
-
   build-packages:
     needs: build
     runs-on: ubuntu-latest
@@ -67,7 +66,6 @@ jobs:
           path: ~/.npm
           key: npm-${{ hashFiles('package-lock.json') }}
           restore-keys: npm-
-
 
       - name: Cache build node
         uses: actions/cache@v2
@@ -89,7 +87,7 @@ jobs:
         with:
           path: ./docker-dist
           key: buildDocker-${{ hashFiles('./apps')}}
-          restore-keys: buildDocker-    
+          restore-keys: buildDocker-
 
       - name: Save Docker Image
         if: steps.cache-trustchain-images.cache-hit != 'true'
@@ -98,10 +96,6 @@ jobs:
           BASEIMAGE: baseimage
           CI_REGISTRY_IMAGE: trustcerts/trustchain
           CI_COMMIT_BRANCH: latest
-
-
-
-
 
   test-unit:
     needs: [build]
@@ -129,7 +123,6 @@ jobs:
         with:
           name: Unit Test Results ${{ matrix.service }}
           path: ./*.xml
-
 
   # TODO check if containers have to be build before the e2e test
   e2e:
@@ -160,7 +153,7 @@ jobs:
         with:
           path: ~/.npm
           key: npm-${{ hashFiles('package-lock.json') }}
-          restore-keys: npm-    
+          restore-keys: npm-
 
       - name: Cache base build Image
         uses: actions/cache@v2
@@ -205,7 +198,7 @@ jobs:
     needs: e2e
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2  
+      - uses: actions/checkout@v2
 
       - name: Cache dependencies
         uses: actions/cache@v2
@@ -216,14 +209,14 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-        
+
       - name: Cache base build Image
         id: cache-trustchain-images
         uses: actions/cache@v2
         with:
           path: ./docker-dist
           key: buildDocker-${{ hashFiles('./apps')}}
-          restore-keys: buildDocker-    
+          restore-keys: buildDocker-
 
       - name: load docker images
         run: node tools/load-docker-images.mjs
@@ -261,6 +254,17 @@ jobs:
         with:
           node-version: 16
 
+      - name: Cache base build Image
+        id: cache-trustchain-images
+        uses: actions/cache@v2
+        with:
+          path: ./docker-dist
+          key: buildDocker-${{ hashFiles('./apps')}}
+          restore-keys: buildDocker-
+
+      - name: load docker images
+        run: node tools/load-docker-images.mjs
+
       - name: Login into docker
         uses: docker/login-action@v1
         with:
@@ -270,8 +274,8 @@ jobs:
       - name: retag images
         run: node tools/retag.mjs
         env:
-          CI_REGISTRY_IMAGE: ghcr.io/trustcerts/trustchain
-          CI_COMMIT_BRANCH: latest
+          CI_TAG: latest
+          TAG_RELEASE: beta
 
   # TODO put this step into another file since it is CD
   deploy:
