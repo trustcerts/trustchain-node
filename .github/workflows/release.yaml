@@ -43,5 +43,5 @@ jobs:
         run: node tools/semantic-release.mjs
         env:
           CI_REGISTRY_IMAGE: trustcerts/trustchain
-          DOCKER_BUILD: latest
+          DOCKER_BUILD: beta
           GITHUB_TOKEN: ${{ github.token }}
