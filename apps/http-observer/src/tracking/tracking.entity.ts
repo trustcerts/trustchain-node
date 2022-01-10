@@ -1,3 +1,4 @@
+import { Document } from 'mongoose';
 import { IDENTIFIER_LENGTH_MAX } from '@tc/p2-p/connect.const';
 import { IsString } from 'class-validator';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';

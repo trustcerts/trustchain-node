@@ -1,4 +1,3 @@
-import * as helmet from 'helmet';
 import * as winston from 'winston';
 import { ConfigService } from '@tc/config';
 import { INestApplication, LoggerService } from '@nestjs/common';
@@ -11,7 +10,8 @@ import { WinstonModule, utilities } from 'nest-winston';
  */
 export function addHelmet(app: INestApplication) {
   if (process.env.LETSENCRYPT_HOST) {
-    app.use(helmet());
+    // TODO removed until this is solved https://github.com/helmetjs/helmet/issues/344 or downgrade version to 4.
+    // app.use(helmet);
   }
 }
 

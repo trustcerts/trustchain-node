@@ -45,6 +45,7 @@ import {
 import { HttpGatewayService } from '../src/http-gateway.service';
 import { wait } from '@apps/shared/helpers';
 import { InviteService } from '@tc/invite';
+import { TextEncoder } from 'util';
 
 describe('Http Gateway (e2e)', () => {
   let app: INestApplication;

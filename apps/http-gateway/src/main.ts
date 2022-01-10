@@ -5,7 +5,11 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
-import { addRedisEndpoint, getLogger } from '../../shared/main-functions';
+import {
+  addHelmet,
+  addRedisEndpoint,
+  getLogger,
+} from '../../shared/main-functions';
 import { build, version } from '../../shared/build';
 import { json } from 'body-parser';
 /**
@@ -31,6 +35,7 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
+  addHelmet(app);
   // Starts listening for shutdown hooks
   app.enableShutdownHooks();
   await addRedisEndpoint(app);
