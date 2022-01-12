@@ -5,7 +5,7 @@ import { HttpModule, HttpService } from '@nestjs/axios';
 import { Inject, Module, OnApplicationBootstrap } from '@nestjs/common';
 import { Logger } from 'winston';
 import { PARSE_PORT_HTTP, PARSE_URL } from './constants';
-import { parseTcpProvider } from 'libs/clients/parse-client/src/parse.provider';
+import { parseTcpProvider } from '@tc/parse-client/parse.provider';
 
 @Module({
   imports: [

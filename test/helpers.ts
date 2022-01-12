@@ -3,7 +3,7 @@ import {
   BLOCK_PARSED,
   TRANSACTION_CREATED,
   TRANSACTION_PARSED,
-} from 'libs/clients/event-client/src/constants';
+} from '@tc/event-client/constants';
 import { Block } from '@tc/blockchain/block/block.interface';
 import { ClientRedis } from '@nestjs/microservices';
 import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
@@ -14,7 +14,7 @@ import {
   VerificationRelationshipType,
 } from '@trustcerts/core';
 import { DidTransactionDto } from '@tc/did/dto/did.transaction.dto';
-import { HashCreationTransactionDto } from '@tc/hash/schemas/hash-creation.transaction.dto';
+import { HashCreationTransactionDto } from '@tc/hash/dto/hash-creation.transaction.dto';
 import { HashService } from '@tc/blockchain/hash.service';
 import { MESSAGE_EVENT } from '@nestjs/microservices/constants';
 import { RedisClient } from '@nestjs/microservices/external/redis.interface';
@@ -25,7 +25,7 @@ import {
 } from '@tc/blockchain/transaction/transaction.dto';
 import { Subject } from 'rxjs';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
-import { WalletClientService } from 'libs/clients/wallet-client/src';
+import { WalletClientService } from '@tc/wallet-client';
 import { exec } from 'child_process';
 import http = require('http');
 import express = require('express');

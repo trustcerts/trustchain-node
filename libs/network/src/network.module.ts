@@ -1,4 +1,4 @@
-import { EventClientModule } from 'libs/clients/event-client/src';
+import { EventClientModule } from '@tc/event-client';
 import { Module } from '@nestjs/common';
 import { NetworkController } from './network.controller';
 import { NetworkService } from './network.service';

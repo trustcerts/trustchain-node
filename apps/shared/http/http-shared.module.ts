@@ -1,9 +1,9 @@
-import { EventClientModule } from 'libs/clients/event-client/src';
+import { EventClientModule } from '@tc/event-client';
 import { Module } from '@nestjs/common';
-import { NetworkClientModule } from 'libs/clients/network-client/src';
-import { ParseClientModule } from 'libs/clients/parse-client/src';
-import { PersistClientModule } from 'libs/clients/persist-client/src';
-import { WalletClientModule } from 'libs/clients/wallet-client/src';
+import { NetworkClientModule } from '@tc/network-client';
+import { ParseClientModule } from '@tc/parse-client';
+import { PersistClientModule } from '@tc/persist-client';
+import { WalletClientModule } from '@tc/wallet-client';
 
 @Module({
   imports: [

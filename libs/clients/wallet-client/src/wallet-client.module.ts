@@ -6,7 +6,7 @@ import { Inject, Module, OnApplicationBootstrap } from '@nestjs/common';
 import { Logger } from 'winston';
 import { WALLET_PORT_HTTP, WALLET_URL } from './constants';
 import { WalletClientService } from './wallet-client.service';
-import { walletTcpProvider } from 'libs/clients/wallet-client/src/wallet.provider';
+import { walletTcpProvider } from '@tc/wallet-client/wallet.provider';
 
 @Module({
   imports: [

@@ -2,7 +2,7 @@ import {
   BLOCKS_REQUEST,
   BLOCK_COUNTER,
   BLOCK_REQUEST,
-} from 'libs/clients/event-client/src/constants';
+} from '@tc/event-client/constants';
 import { Block } from '@tc/blockchain/block/block.interface';
 import { ClientTCP } from '@nestjs/microservices';
 import { Inject, Injectable } from '@nestjs/common';

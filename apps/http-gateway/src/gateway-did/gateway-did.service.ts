@@ -22,7 +22,7 @@ import {
   SignatureInfo,
   SignatureType,
 } from '@tc/blockchain/transaction/transaction.dto';
-import { WalletClientService } from 'libs/clients/wallet-client/src';
+import { WalletClientService } from '@tc/wallet-client';
 
 /**
  * Administrates did objects.

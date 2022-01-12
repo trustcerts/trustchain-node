@@ -1,13 +1,13 @@
 import * as Joi from 'joi';
 import { ConfigModule, ConfigService } from '@tc/config';
-import { EventClientModule } from 'libs/clients/event-client/src';
+import { EventClientModule } from '@tc/event-client';
 import { HealthController } from './health/health.controller';
 import { Module } from '@nestjs/common';
 import { NetworkObserverController } from './network-observer.controller';
 import { P2PModule } from '@tc/p2-p';
 import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 import { TerminusModule } from '@nestjs/terminus';
-import { WalletClientModule } from 'libs/clients/wallet-client/src';
+import { WalletClientModule } from '@tc/wallet-client';
 import { WinstonModule } from 'nest-winston';
 import {
   dbConnectionValidation,

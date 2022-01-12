@@ -9,9 +9,9 @@ import { DidCachedModule } from '@tc/did/did-cached/did-cached.module';
 import { HttpConfigService } from '@shared/http-config.service';
 import { HttpModule } from '@nestjs/axios';
 import { NetworkModule } from '@tc/network';
-import { PersistClientModule } from 'libs/clients/persist-client/src';
-import { SignatureModule } from '@tc/did/signature/signature.module';
-import { WalletClientModule } from 'libs/clients/wallet-client/src';
+import { PersistClientModule } from '@tc/persist-client';
+import { SignatureModule } from '@tc/blockchain/signature/signature.module';
+import { WalletClientModule } from '@tc/wallet-client';
 import { makeGaugeProvider } from '@willsoto/nestjs-prometheus';
 
 @Module({

@@ -6,7 +6,7 @@ import { Inject, Module, OnApplicationBootstrap } from '@nestjs/common';
 import { Logger } from 'winston';
 import { PERSIST_PORT_HTTP, PERSIST_URL } from './constants';
 import { PersistClientService } from './persist-client.service';
-import { persistTcpProvider } from 'libs/clients/persist-client/src/persist.provider';
+import { persistTcpProvider } from '@tc/persist-client/persist.provider';
 
 @Module({
   imports: [

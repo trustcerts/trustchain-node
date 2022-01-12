@@ -6,7 +6,7 @@ import { Logger } from 'winston';
 import { RateLimitCachedService } from '@tc/security/rate-limit/rate-limit-cached/rate-limit-cached.service';
 import { SecurityLimitTransactionDto } from '@tc/security/rate-limit/security-limit.transaction.dto';
 import { SignatureType } from '@tc/blockchain/transaction/transaction.dto';
-import { WalletClientService } from 'libs/clients/wallet-client/src';
+import { WalletClientService } from '@tc/wallet-client';
 
 /**
  * Service that generate a transaction to limit the amount of transactions a user is allowed to make.

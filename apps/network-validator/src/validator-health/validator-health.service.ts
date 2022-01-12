@@ -1,10 +1,7 @@
 import { ConfigService } from '@tc/config';
 import { Injectable } from '@nestjs/common';
 import { MicroserviceHealthIndicator } from '@nestjs/terminus';
-import {
-  PERSIST_PORT_TCP,
-  PERSIST_URL,
-} from 'libs/clients/persist-client/src/constants';
+import { PERSIST_PORT_TCP, PERSIST_URL } from '@tc/persist-client/constants';
 import { Transport } from '@nestjs/microservices';
 
 /**

@@ -1,6 +1,6 @@
 import { ClientProxyFactory, Transport } from '@nestjs/microservices';
 import { ConfigService } from '@tc/config';
-import { REDIS_INJECTION } from 'libs/clients/event-client/src/constants';
+import { REDIS_INJECTION } from '@tc/event-client/constants';
 
 /**
  * provider to interact with the Client module.

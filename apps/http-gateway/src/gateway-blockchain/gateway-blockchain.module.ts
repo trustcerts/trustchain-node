@@ -1,5 +1,5 @@
 import { DidCachedModule } from '@tc/did/did-cached/did-cached.module';
-import { EventClientModule } from 'libs/clients/event-client/src';
+import { EventClientModule } from '@tc/event-client';
 import { GatewayBlockchainController } from './gateway-blockchain.controller';
 import { GatewayBlockchainService } from './gateway-blockchain.service';
 import { HashModule } from '@tc/blockchain/hashModule';

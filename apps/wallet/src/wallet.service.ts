@@ -11,8 +11,8 @@ import { Logger } from 'winston';
 import {
   NEW_IDENTIFIER,
   PublicKeyInformation,
-} from 'libs/clients/wallet-client/src/constants';
-import { REDIS_INJECTION } from 'libs/clients/event-client/src/constants';
+} from '@tc/wallet-client/constants';
+import { REDIS_INJECTION } from '@tc/event-client/constants';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
 import { join } from 'path';
 

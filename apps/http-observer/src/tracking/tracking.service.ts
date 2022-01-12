@@ -1,7 +1,7 @@
 import { ConflictException, Inject, Injectable } from '@nestjs/common';
 import { Did } from '@trustcerts/core';
 import { DidDocument } from '@tc/did/schemas/did.schema';
-import { Hash } from '@tc/hash/entities/hash.entity';
+import { Hash } from '@tc/hash/schemas/hash.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Logger } from 'winston';
 import { Model } from 'mongoose';

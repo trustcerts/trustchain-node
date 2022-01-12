@@ -13,10 +13,7 @@ import {
 } from '@nestjs/common';
 import { Logger } from 'winston';
 import { P2PService } from '@tc/p2-p';
-import {
-  REDIS_INJECTION,
-  SYSTEM_RESET,
-} from 'libs/clients/event-client/src/constants';
+import { REDIS_INJECTION, SYSTEM_RESET } from '@tc/event-client/constants';
 import { WALLET_TCP_INJECTION } from '../../shared/constants';
 
 /**

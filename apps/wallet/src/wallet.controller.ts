@@ -1,14 +1,14 @@
 import { Controller } from '@nestjs/common';
 import { EventPattern, MessagePattern, Transport } from '@nestjs/microservices';
-import { PublicKeyInformation } from 'libs/clients/wallet-client/src/constants';
-import { SYSTEM_RESET } from 'libs/clients/event-client/src/constants';
+import { PublicKeyInformation } from '@tc/wallet-client/constants';
+import { SYSTEM_RESET } from '@tc/event-client/constants';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
 import {
   WALLET_GET_ID,
   WALLET_PUB_KEY,
   WALLET_SET_ID,
   WALLET_SIGN,
-} from 'libs/clients/wallet-client/src/endpoints';
+} from '@tc/wallet-client/endpoints';
 import { WalletService } from './wallet.service';
 
 /**

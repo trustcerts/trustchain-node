@@ -8,7 +8,7 @@ import { HttpConfigService } from '../../../shared/http-config.service';
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { RateLimitCachedModule } from '@tc/security/rate-limit/rate-limit-cached/rate-limit-cached.module';
-import { WalletClientModule } from 'libs/clients/wallet-client/src';
+import { WalletClientModule } from '@tc/wallet-client';
 
 @Module({
   imports: [

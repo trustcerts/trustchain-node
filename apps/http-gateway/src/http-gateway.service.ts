@@ -5,11 +5,8 @@ import { Inject, Injectable } from '@nestjs/common';
 import { InviteNode } from '@tc/invite/dto/invite-node.dto';
 import { Logger } from 'winston';
 import { PARSE_TCP_INJECTION } from '../../shared/constants';
-import {
-  REDIS_INJECTION,
-  SYSTEM_INIT,
-} from 'libs/clients/event-client/src/constants';
-import { WalletClientService } from 'libs/clients/wallet-client/src';
+import { REDIS_INJECTION, SYSTEM_INIT } from '@tc/event-client/constants';
+import { WalletClientService } from '@tc/wallet-client';
 
 /**
  * Service to interact with the gateway from external.

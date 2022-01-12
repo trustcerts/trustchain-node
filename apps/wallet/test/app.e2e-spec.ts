@@ -6,17 +6,14 @@ import {
   Transport,
 } from '@nestjs/microservices';
 import { Test, TestingModule } from '@nestjs/testing';
-import {
-  REDIS_INJECTION,
-  SYSTEM_RESET,
-} from 'libs/clients/event-client/src/constants';
+import { REDIS_INJECTION, SYSTEM_RESET } from '@tc/event-client/constants';
 import { WalletModule } from '../src/wallet.module';
 import {
   WALLET_GET_ID,
   WALLET_PUB_KEY,
   WALLET_SET_ID,
   WALLET_SIGN,
-} from 'libs/clients/wallet-client/src/endpoints';
+} from '@tc/wallet-client/endpoints';
 import { addRedisEndpoint, addTCPEndpoint } from '@shared/main-functions';
 import * as fs from 'fs';
 import { join } from 'path';

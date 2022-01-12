@@ -3,7 +3,7 @@ import { ConfigService } from '@tc/config';
 import { HttpService } from '../../shared/http/http.service';
 import { Inject, Injectable } from '@nestjs/common';
 import { PARSE_TCP_INJECTION } from '../../shared/constants';
-import { REDIS_INJECTION } from 'libs/clients/event-client/src/constants';
+import { REDIS_INJECTION } from '@tc/event-client/constants';
 
 /**
  * Service for the http controller to interact with the internal system.

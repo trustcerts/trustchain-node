@@ -7,7 +7,7 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { Hash } from '@tc/hash/entities/hash.entity';
+import { Hash } from '@tc/hash/schemas/hash.schema';
 import { HashCachedService } from '@tc/hash/hash-cached/hash-cached.service';
 import { MaintenanceGuard } from '@tc/config/version/maintenance.guard';
 import { Request } from 'express';

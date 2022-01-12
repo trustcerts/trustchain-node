@@ -4,7 +4,7 @@ import { HashService } from '@tc/blockchain';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';
 import { ParsingService as Parser } from '@tc/parsing';
 import { PersistedTransaction } from './persisted-transaction';
-import { TRANSACTION_PARSED } from 'libs/clients/event-client/src/constants';
+import { TRANSACTION_PARSED } from '@tc/event-client/constants';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 
 /**

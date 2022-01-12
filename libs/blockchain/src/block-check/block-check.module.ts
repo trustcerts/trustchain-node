@@ -2,8 +2,8 @@ import { BlockCheckService } from '@tc/blockchain/block-check/block-check.servic
 import { DidCachedModule } from '@tc/did/did-cached/did-cached.module';
 import { HashModule } from '@tc/blockchain';
 import { Module } from '@nestjs/common';
-import { PersistClientModule } from 'libs/clients/persist-client/src';
-import { WalletClientModule } from 'libs/clients/wallet-client/src';
+import { PersistClientModule } from '@tc/persist-client';
+import { WalletClientModule } from '@tc/wallet-client';
 
 @Module({
   imports: [

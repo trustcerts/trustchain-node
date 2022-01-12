@@ -4,7 +4,7 @@ import { PersistedTransaction } from '../../../shared/persisted-transaction';
 import {
   TRANSACTION_PARSED,
   TRANSACTION_REJECTED,
-} from 'libs/clients/event-client/src/constants';
+} from '@tc/event-client/constants';
 import { ValidatorBlockchainService } from './validator-blockchain.service';
 
 /**

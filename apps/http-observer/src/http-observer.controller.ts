@@ -12,7 +12,7 @@ import { HttpObserverService } from './http-observer.service';
 import { InviteNode } from '@tc/invite/dto/invite-node.dto';
 import { Logger } from 'winston';
 import { NodeGuard } from '../../shared/node-guard.service';
-import { REDIS_INJECTION } from 'libs/clients/event-client/src/constants';
+import { REDIS_INJECTION } from '@tc/event-client/constants';
 
 /**
  * Controller to interact with the Observer.

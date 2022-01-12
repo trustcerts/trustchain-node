@@ -5,7 +5,7 @@ import { P2PService } from '@tc/p2-p';
 import {
   REDIS_INJECTION,
   TRANSACTION_REJECTED,
-} from 'libs/clients/event-client/src/constants';
+} from '@tc/event-client/constants';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import {
   WS_TRANSACTION,

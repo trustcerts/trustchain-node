@@ -1,7 +1,4 @@
-import {
-  BLOCK_CREATED,
-  REDIS_INJECTION,
-} from 'libs/clients/event-client/src/constants';
+import { BLOCK_CREATED, REDIS_INJECTION } from '@tc/event-client/constants';
 import { Block } from '@tc/blockchain/block/block.interface';
 import { ClientRedis } from '@nestjs/microservices';
 import { EventEmitter } from 'events';

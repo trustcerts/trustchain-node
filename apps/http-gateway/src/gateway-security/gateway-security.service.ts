@@ -5,7 +5,7 @@ import { GatewayTransactionService } from '../gateway-transaction.service';
 import { Inject } from '@nestjs/common';
 import { Logger } from 'winston';
 import { SecurityTransactionDto } from '@tc/security/security.transaction.dto';
-import { WalletClientService } from 'libs/clients/wallet-client/src';
+import { WalletClientService } from '@tc/wallet-client';
 
 /**
  * Base Service to add a security transaction.

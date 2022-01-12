@@ -7,8 +7,8 @@ import {
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { GatewayHashService } from './gateway-hash.service';
 import { HashCreationResponse, HashRevocationResponse } from './response';
-import { HashCreationTransactionDto } from '@tc/hash/schemas/hash-creation.transaction.dto';
-import { HashRevocationTransactionDto } from '@tc/hash/schemas/hash-revocation.transaction.dto';
+import { HashCreationTransactionDto } from '@tc/hash/dto/hash-creation.transaction.dto';
+import { HashRevocationTransactionDto } from '@tc/hash/dto/hash-revocation.transaction.dto';
 import { MaintenanceGuard } from '@tc/config/version/maintenance.guard';
 
 /**

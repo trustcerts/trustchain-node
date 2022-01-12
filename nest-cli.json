@@ -247,15 +247,6 @@
         "tsConfigPath": "libs/did/tsconfig.lib.json"
       }
     },
-    "vc": {
-      "type": "library",
-      "root": "libs/vc",
-      "entryFile": "index",
-      "sourceRoot": "libs/vc/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/vc/tsconfig.lib.json"
-      }
-    },
     "template": {
       "type": "library",
       "root": "libs/template",

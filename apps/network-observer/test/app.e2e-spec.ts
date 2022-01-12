@@ -5,10 +5,7 @@ import * as request from 'supertest';
 import { addRedisEndpoint } from '@shared/main-functions';
 import { ClientRedis } from '@nestjs/microservices';
 import { wait } from '@shared/helpers';
-import {
-  REDIS_INJECTION,
-  SYSTEM_RESET,
-} from 'libs/clients/event-client/src/constants';
+import { REDIS_INJECTION, SYSTEM_RESET } from '@tc/event-client/constants';
 import { P2PService } from '@tc/p2-p';
 import * as fs from 'fs';
 import { Logger } from 'winston';

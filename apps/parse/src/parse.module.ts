@@ -2,7 +2,7 @@ import * as Joi from 'joi';
 import { ConfigModule, ConfigService } from '@tc/config';
 import { DidCachedModule } from '@tc/did/did-cached/did-cached.module';
 import { DidParsingModule } from '@tc/did/did-parsing/did-parsing.module';
-import { EventClientModule } from 'libs/clients/event-client/src';
+import { EventClientModule } from '@tc/event-client';
 import { HashCachedModule } from '@tc/hash/hash-cached/hash-cached.module';
 import { HashParsingModule } from '@tc/hash/hash-parsing/hash-parsing.module';
 import { HealthController } from './health/health.controller';
@@ -10,7 +10,7 @@ import { Module } from '@nestjs/common';
 import { ParseController } from './parse.controller';
 import { ParseService } from './parse.service';
 import { ParsingModule } from '@tc/parsing';
-import { PersistClientModule } from 'libs/clients/persist-client/src';
+import { PersistClientModule } from '@tc/persist-client';
 import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 import { RateLimitParsingModule } from '@tc/security/rate-limit/rate-limit-parsing/rate-limit-parsing.module';
 import { SecurityCachedModule } from '@tc/security/security-cached/security-cached.module';
@@ -18,10 +18,8 @@ import { SecurityParsingModule } from '@tc/security/security-parsing/security-pa
 import { TemplateCachedModule } from '@tc/template/template-cached/template-cached.module';
 import { TemplateParsingModule } from '@tc/template/template-parsing/template-parsing.module';
 import { TerminusModule } from '@nestjs/terminus';
-import { VcCachedModule } from '@tc/vc/vc-cached/vc-cached.module';
 import { WinstonModule } from 'nest-winston';
 import { dbConnectionValidation } from '../../shared/constants';
-
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -59,8 +57,6 @@ import { dbConnectionValidation } from '../../shared/constants';
 
     DidParsingModule,
     DidCachedModule,
-
-    VcCachedModule,
 
     TemplateParsingModule,
     TemplateCachedModule,

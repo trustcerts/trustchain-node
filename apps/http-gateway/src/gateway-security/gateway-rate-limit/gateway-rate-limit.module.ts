@@ -5,7 +5,7 @@ import { HashModule } from '@tc/blockchain';
 import { Module } from '@nestjs/common';
 import { RateLimitCachedModule } from '@tc/security/rate-limit/rate-limit-cached/rate-limit-cached.module';
 import { RateLimitController } from './rate-limit.controller';
-import { WalletClientModule } from 'libs/clients/wallet-client/src';
+import { WalletClientModule } from '@tc/wallet-client';
 
 @Module({
   imports: [

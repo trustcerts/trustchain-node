@@ -5,7 +5,7 @@ import { HttpModule, HttpService } from '@nestjs/axios';
 import { Inject, Module, OnApplicationBootstrap } from '@nestjs/common';
 import { Logger } from 'winston';
 import { NETWORK_PORT_HTTP, NETWORK_URL } from './constants';
-import { networkTcpProvider } from 'libs/clients/network-client/src/network.provider';
+import { networkTcpProvider } from '@tc/network-client/network.provider';
 
 @Module({
   imports: [

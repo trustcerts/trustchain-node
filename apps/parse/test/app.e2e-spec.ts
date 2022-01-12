@@ -5,7 +5,7 @@ import {
   CHAIN_REBUILD,
   REDIS_INJECTION,
   SYSTEM_RESET,
-} from 'libs/clients/event-client/src/constants';
+} from '@tc/event-client/constants';
 import { Block } from '@tc/blockchain/block/block.interface';
 import {
   ClientRedis,
@@ -13,10 +13,10 @@ import {
   ClientTCP,
   Transport,
 } from '@nestjs/microservices';
-import { Hash } from '@tc/hash/entities/hash.entity';
+import { Hash } from '@tc/hash/schemas/hash.schema';
 import { Did } from '@tc/did/schemas/did.schema';
 import { addRedisEndpoint, addTCPEndpoint } from '../../shared/main-functions';
-import { PersistClientService } from 'libs/clients/persist-client/src';
+import { PersistClientService } from '@tc/persist-client';
 import {
   generateTestTransaction,
   sendBlock,
