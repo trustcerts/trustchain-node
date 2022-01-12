@@ -1,4 +1,4 @@
-import { BLOCK_PARSED } from '@tc/event-client/constants';
+import { BLOCK_PARSED } from 'libs/clients/event-client/src/constants';
 import { Controller, Inject } from '@nestjs/common';
 import { EventPattern, Transport } from '@nestjs/microservices';
 import { Logger } from 'winston';

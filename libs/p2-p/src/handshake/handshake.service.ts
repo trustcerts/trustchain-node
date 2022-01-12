@@ -4,7 +4,7 @@ import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
-import { WalletClientService } from '@tc/wallet-client';
+import { WalletClientService } from 'libs/clients/wallet-client/src';
 import { randomBytes } from 'crypto';
 
 /**

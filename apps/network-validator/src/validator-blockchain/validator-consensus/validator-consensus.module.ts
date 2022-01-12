@@ -3,13 +3,13 @@ import { ConsensusHealthIndicator } from './consensus.health';
 import { DidCachedModule } from '@tc/did/did-cached/did-cached.module';
 import { Module } from '@nestjs/common';
 import { P2PModule } from '@tc/p2-p';
-import { PersistClientModule } from '@tc/persist-client';
+import { PersistClientModule } from 'libs/clients/persist-client/src';
 import { ProposerService } from './proposer/proposer.service';
 import { SignatureModule } from '@tc/did/signature/signature.module';
 import { ValidatorBlockchainModule } from '../validator-blockchain.module';
 import { ValidatorConsensusService } from './validator-consensus.service';
 import { ValidatorService } from './validator/validator.service';
-import { WalletClientModule } from '@tc/wallet-client';
+import { WalletClientModule } from 'libs/clients/wallet-client/src';
 import { makeGaugeProvider } from '@willsoto/nestjs-prometheus';
 
 @Module({

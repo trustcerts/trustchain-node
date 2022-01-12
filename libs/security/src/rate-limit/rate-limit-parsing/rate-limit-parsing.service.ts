@@ -8,7 +8,7 @@ import { Logger } from 'winston';
 import { Model } from 'mongoose';
 import { ParsingService as Parser } from '@tc/parsing';
 import { ParsingService } from '@shared/parsing.service';
-import { REDIS_INJECTION } from '@tc/event-client/constants';
+import { REDIS_INJECTION } from 'libs/clients/event-client/src/constants';
 import { Security, SecurityDocument } from '@tc/security/security.entity';
 import { SecurityLimitTransactionDto } from '@tc/security/rate-limit/security-limit.transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';

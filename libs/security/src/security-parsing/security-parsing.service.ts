@@ -9,7 +9,7 @@ import { Model } from 'mongoose';
 import { ParseService } from '@apps/parse/src/parse.service';
 import { ParsingService as Parser } from '@tc/parsing';
 import { ParsingService } from '@shared/parsing.service';
-import { REDIS_INJECTION } from '@tc/event-client/constants';
+import { REDIS_INJECTION } from 'libs/clients/event-client/src/constants';
 import { Security, SecurityDocument } from '@tc/security/security.entity';
 
 /**

@@ -3,7 +3,7 @@ import {
   BLOCK_PARSED,
   TRANSACTION_CREATED,
   TRANSACTION_PARSED,
-} from '@tc/event-client/constants';
+} from 'libs/clients/event-client/src/constants';
 import { Block } from '@tc/blockchain/block/block.interface';
 import { ClientRedis } from '@nestjs/microservices';
 import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
@@ -25,7 +25,7 @@ import {
 } from '@tc/blockchain/transaction/transaction.dto';
 import { Subject } from 'rxjs';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
-import { WalletClientService } from '@tc/wallet-client';
+import { WalletClientService } from 'libs/clients/wallet-client/src';
 import { exec } from 'child_process';
 import http = require('http');
 import express = require('express');

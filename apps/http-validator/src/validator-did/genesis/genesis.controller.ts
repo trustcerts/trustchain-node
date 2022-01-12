@@ -12,7 +12,7 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { CERT_ROOT_INIT } from '@tc/event-client/constants';
+import { CERT_ROOT_INIT } from 'libs/clients/event-client/src/constants';
 import { ClientTCP } from '@nestjs/microservices';
 import { NETWORK_TCP_INJECTION } from '../../../../shared/constants';
 import { NodeGuard } from '../../../../shared/node-guard.service';

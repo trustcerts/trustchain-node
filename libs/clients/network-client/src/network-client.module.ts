@@ -4,8 +4,8 @@ import { HttpConfigService } from '@shared/http-config.service';
 import { HttpModule, HttpService } from '@nestjs/axios';
 import { Inject, Module, OnApplicationBootstrap } from '@nestjs/common';
 import { Logger } from 'winston';
-import { PARSE_PORT_HTTP, PARSE_URL } from './constants';
-import { parseTcpProvider } from '@tc/parse-client/parse.provider';
+import { NETWORK_PORT_HTTP, NETWORK_URL } from './constants';
+import { networkTcpProvider } from 'libs/clients/network-client/src/network.provider';
 
 @Module({
   imports: [
@@ -14,10 +14,10 @@ import { parseTcpProvider } from '@tc/parse-client/parse.provider';
       useClass: HttpConfigService,
     }),
   ],
-  providers: [parseTcpProvider],
-  exports: [parseTcpProvider],
+  providers: [networkTcpProvider],
+  exports: [networkTcpProvider],
 })
-export class ParseClientModule
+export class NetworkClientModule
   extends ClientModule
   implements OnApplicationBootstrap
 {
@@ -30,15 +30,15 @@ export class ParseClientModule
   constructor(
     @Inject('winston') logger: Logger,
     httpService: HttpService,
-    configService: ConfigService,
+    protected configService: ConfigService,
   ) {
     super(configService, httpService, logger);
   }
 
   onApplicationBootstrap(): Promise<void> {
     return this.isHealthy(
-      this.configService.getString(PARSE_URL),
-      this.configService.getNumber(PARSE_PORT_HTTP),
+      this.configService.getString(NETWORK_URL),
+      this.configService.getNumber(NETWORK_PORT_HTTP),
     );
   }
 }

@@ -1,6 +1,6 @@
 import * as Joi from 'joi';
 import { ConfigModule, ConfigService } from '@tc/config';
-import { EventClientModule } from '@tc/event-client';
+import { EventClientModule } from 'libs/clients/event-client/src';
 import { HealthController } from './health/health.controller';
 import { Module } from '@nestjs/common';
 import { PrometheusModule } from '@willsoto/nestjs-prometheus';

@@ -14,7 +14,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Key } from '@tc/did/schemas/key.schema';
 import { Model } from 'mongoose';
-import { PersistClientService } from '@tc/persist-client';
+import { PersistClientService } from 'libs/clients/persist-client/src';
 import { RoleManageAddEnum } from '@tc/did/constants';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { VersionInformation } from './VersionInformation';

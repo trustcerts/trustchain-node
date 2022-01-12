@@ -1,7 +1,7 @@
 import * as Joi from 'joi';
 import { ConfigModule } from '@tc/config/config.module';
 import { ConfigService } from '@tc/config';
-import { EventClientModule } from '@tc/event-client';
+import { EventClientModule } from 'libs/clients/event-client/src';
 import { GatewayDidModule } from './gateway-did/gateway-did.module';
 import { GatewayHashModule } from './gateway-hash/gateway-hash.module';
 import { GatewayTemplateModule } from './gateway-template/gateway-template.module';
@@ -10,9 +10,9 @@ import { HttpGatewayService } from './http-gateway.service';
 import { Identifier } from '@trustcerts/core';
 import { InviteModule } from '@tc/invite/invite.module';
 import { Module } from '@nestjs/common';
-import { ParseClientModule } from '@tc/parse-client';
+import { ParseClientModule } from 'libs/clients/parse-client/src';
 import { PrometheusModule } from '@willsoto/nestjs-prometheus';
-import { WalletClientModule } from '@tc/wallet-client';
+import { WalletClientModule } from 'libs/clients/wallet-client/src';
 import { WinstonModule } from 'nest-winston';
 import {
   dbConnectionValidation,

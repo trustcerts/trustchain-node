@@ -1,12 +1,12 @@
-import { EventClientModule } from '@tc/event-client';
+import { EventClientModule } from 'libs/clients/event-client/src';
 import { InviteModule } from '@tc/invite/invite.module';
 import { Module } from '@nestjs/common';
-import { NetworkClientModule } from '@tc/network-client';
-import { PersistClientModule } from '@tc/persist-client';
+import { NetworkClientModule } from 'libs/clients/network-client/src';
+import { PersistClientModule } from 'libs/clients/persist-client/src';
 import { ValidatorBlockchainModule } from '../validator-blockchain/validator-blockchain.module';
 import { ValidatorDidController } from './validator-did.controller';
 import { ValidatorDidService } from './validator-did.service';
-import { WalletClientModule } from '@tc/wallet-client';
+import { WalletClientModule } from 'libs/clients/wallet-client/src';
 
 import { DidCachedModule } from '@tc/did/did-cached/did-cached.module';
 import { GenesisController } from './genesis/genesis.controller';

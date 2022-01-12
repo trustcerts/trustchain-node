@@ -13,7 +13,7 @@ import { PersistedTransaction } from '../../../shared/persisted-transaction';
 import {
   REDIS_INJECTION,
   TRANSACTION_CREATED,
-} from '@tc/event-client/constants';
+} from 'libs/clients/event-client/src/constants';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 
 /**

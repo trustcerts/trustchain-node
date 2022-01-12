@@ -3,9 +3,9 @@ import * as request from 'supertest';
 import { Test, TestingModule } from '@nestjs/testing';
 import { HttpObserverModule } from '../src/http-observer.module';
 import { ClientRedis } from '@nestjs/microservices';
-import { REDIS_INJECTION } from '@tc/event-client/constants';
+import { REDIS_INJECTION } from 'libs/clients/event-client/src/constants';
 import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
-import { WalletClientService } from '@tc/wallet-client';
+import { WalletClientService } from 'libs/clients/wallet-client/src';
 import { InviteNode } from '@tc/invite/dto/invite-node.dto';
 import { addRedisEndpoint } from '@shared/main-functions';
 import * as fs from 'fs';
@@ -173,5 +173,5 @@ describe('ObserverController (e2e)', () => {
   afterAll(async () => {
     fs.rmdirSync(app.get(ConfigService).storagePath, { recursive: true });
     await app.close().catch(() => {});
-  } , 15000);
+  }, 15000);
 });

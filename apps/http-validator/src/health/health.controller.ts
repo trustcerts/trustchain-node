@@ -11,10 +11,19 @@ import {
 import { HealthIndicatorFunction } from '@nestjs/terminus/dist/health-indicator';
 import { INVITE_CONNECTION } from '@tc/invite/constants';
 import { InjectConnection } from '@nestjs/mongoose';
-import { NETWORK_PORT_TCP, NETWORK_URL } from '@tc/network-client/constants';
-import { PERSIST_PORT_TCP, PERSIST_URL } from '@tc/persist-client/constants';
+import {
+  NETWORK_PORT_TCP,
+  NETWORK_URL,
+} from 'libs/clients/network-client/src/constants';
+import {
+  PERSIST_PORT_TCP,
+  PERSIST_URL,
+} from 'libs/clients/persist-client/src/constants';
 import { Transport } from '@nestjs/microservices';
-import { WALLET_PORT_TCP, WALLET_URL } from '@tc/wallet-client/constants';
+import {
+  WALLET_PORT_TCP,
+  WALLET_URL,
+} from 'libs/clients/wallet-client/src/constants';
 
 /**
  * Health check endpoint for this service and the node.

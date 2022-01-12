@@ -1,8 +1,8 @@
 import { ClientRedis } from '@nestjs/microservices';
 import { Inject, Module, OnApplicationBootstrap } from '@nestjs/common';
 import { Logger } from 'winston';
-import { REDIS_INJECTION } from '@tc/event-client/constants';
-import { redisProvider } from '@tc/event-client/redis.provider';
+import { REDIS_INJECTION } from 'libs/clients/event-client/src/constants';
+import { redisProvider } from 'libs/clients/event-client/src/redis.provider';
 
 @Module({
   providers: [redisProvider],

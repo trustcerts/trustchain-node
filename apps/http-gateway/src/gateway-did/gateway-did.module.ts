@@ -4,7 +4,7 @@ import { GatewayDidController } from './gateway-did.controller';
 import { GatewayDidService } from './gateway-did.service';
 import { InviteModule } from '@tc/invite';
 import { Module } from '@nestjs/common';
-import { WalletClientModule } from '@tc/wallet-client';
+import { WalletClientModule } from 'libs/clients/wallet-client/src';
 
 @Module({
   imports: [

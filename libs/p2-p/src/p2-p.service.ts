@@ -26,7 +26,7 @@ import { HttpService } from '@nestjs/axios';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';
 import { Logger } from 'winston';
 import { NetworkService } from '@tc/network';
-import { PersistClientService } from '@tc/persist-client';
+import { PersistClientService } from 'libs/clients/persist-client/src';
 import { ProposedBlock } from '@tc/blockchain/block/proposed-block.dto';
 import { RoleManageAddEnum } from '@tc/did/constants';
 import { Socket as ServerSocket } from 'socket.io';
@@ -628,24 +628,24 @@ export class P2PService implements BeforeApplicationShutdown {
   }
 
   private validateRequest(callback: any, endpoint: Connection) {
-      //TODO why there is null in connection
-      // if (endpoint.peer === null) {
-      //   throw new Error('found peer with null value');
-      // }
-      const urls = this.validatorConnections
-        .filter(
-          (connection) =>
-            connection.identifier !== endpoint.identifier && connection.peer,
-        )
-        .map((connection) => connection.peer);
-      this.logger.info({
-        message: `send ${JSON.stringify(urls)} to ${endpoint.identifier}`,
-        labels: {
-          source: this.constructor.name,
-          identifier: endpoint.identifier,
-        },
-      });
-      callback(urls);
+    //TODO why there is null in connection
+    // if (endpoint.peer === null) {
+    //   throw new Error('found peer with null value');
+    // }
+    const urls = this.validatorConnections
+      .filter(
+        (connection) =>
+          connection.identifier !== endpoint.identifier && connection.peer,
+      )
+      .map((connection) => connection.peer);
+    this.logger.info({
+      message: `send ${JSON.stringify(urls)} to ${endpoint.identifier}`,
+      labels: {
+        source: this.constructor.name,
+        identifier: endpoint.identifier,
+      },
+    });
+    callback(urls);
   }
 
   /**
@@ -654,7 +654,7 @@ export class P2PService implements BeforeApplicationShutdown {
    */
   private addBasicListeners(endpoint: Connection) {
     endpoint.socket.once(IS_ENDPOINT_LISTENING_FOR_BLOCKS, () =>
-      endpoint.socket.emit(ENDPOINT_LISTENING_FOR_BLOCKS)
+      endpoint.socket.emit(ENDPOINT_LISTENING_FOR_BLOCKS),
     );
     endpoint.socket.once(IS_ENDPOINT_LISTENING_FOR_VALIDATORS, () => {
       endpoint.socket.emit(ENDPOINT_LISTENING_FOR_VALIDATORS);
@@ -666,8 +666,6 @@ export class P2PService implements BeforeApplicationShutdown {
    * @param endpoint this node syncs up with.
    */
   private async syncBlockchainWith(endpoint: Connection) {
-
-
     //wait that until all endpoints are registered
     await this.waitUntilReady(endpoint, 'blocks');
 
@@ -679,10 +677,11 @@ export class P2PService implements BeforeApplicationShutdown {
    * @param endpoint
    */
   private async addListeners(endpoint: Connection) {
-
     this.blockchainSyncService.response(endpoint.socket);
 
-    endpoint.socket.on(CONNECTION_VALIDATORS_REQUEST, (data, callback) => this.validateRequest(callback, endpoint));
+    endpoint.socket.on(CONNECTION_VALIDATORS_REQUEST, (data, callback) =>
+      this.validateRequest(callback, endpoint),
+    );
 
     if (endpoint.type === 'validator') {
       const validators: string[] =
@@ -754,7 +753,6 @@ export class P2PService implements BeforeApplicationShutdown {
         );
       });
     } else {
-
       this.logger.debug({
         message: `${endpoint.identifier} connected, don't ask for other connections or blocks`,
         labels: {

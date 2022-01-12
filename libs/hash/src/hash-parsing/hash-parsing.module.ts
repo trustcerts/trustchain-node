@@ -1,4 +1,4 @@
-import { EventClientModule } from '@tc/event-client';
+import { EventClientModule } from 'libs/clients/event-client/src';
 import { HASH_CONNECTION } from '@tc/hash/constants';
 import { Hash, HashSchema } from '@tc/hash/entities/hash.entity';
 import { HashDbModule } from '@tc/hash/hash-db/hash-db.module';

@@ -4,9 +4,8 @@ import { HttpConfigService } from '@shared/http-config.service';
 import { HttpModule, HttpService } from '@nestjs/axios';
 import { Inject, Module, OnApplicationBootstrap } from '@nestjs/common';
 import { Logger } from 'winston';
-import { WALLET_PORT_HTTP, WALLET_URL } from './constants';
-import { WalletClientService } from './wallet-client.service';
-import { walletTcpProvider } from '@tc/wallet-client/wallet.provider';
+import { PARSE_PORT_HTTP, PARSE_URL } from './constants';
+import { parseTcpProvider } from 'libs/clients/parse-client/src/parse.provider';
 
 @Module({
   imports: [
@@ -15,10 +14,10 @@ import { walletTcpProvider } from '@tc/wallet-client/wallet.provider';
       useClass: HttpConfigService,
     }),
   ],
-  providers: [WalletClientService, walletTcpProvider],
-  exports: [WalletClientService, walletTcpProvider],
+  providers: [parseTcpProvider],
+  exports: [parseTcpProvider],
 })
-export class WalletClientModule
+export class ParseClientModule
   extends ClientModule
   implements OnApplicationBootstrap
 {
@@ -31,15 +30,15 @@ export class WalletClientModule
   constructor(
     @Inject('winston') logger: Logger,
     httpService: HttpService,
-    protected configService: ConfigService,
+    configService: ConfigService,
   ) {
     super(configService, httpService, logger);
   }
 
   onApplicationBootstrap(): Promise<void> {
     return this.isHealthy(
-      this.configService.getString(WALLET_URL),
-      this.configService.getNumber(WALLET_PORT_HTTP),
+      this.configService.getString(PARSE_URL),
+      this.configService.getNumber(PARSE_PORT_HTTP),
     );
   }
 }

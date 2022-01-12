@@ -1,17 +1,17 @@
 import * as Joi from 'joi';
 import { ConfigModule } from '@tc/config/config.module';
 import { ConfigService } from '@tc/config';
-import { EventClientModule } from '@tc/event-client';
+import { EventClientModule } from 'libs/clients/event-client/src';
 import { HealthController } from './health/health.controller';
 import { HttpValidatorController } from './http-validator.controller';
 import { HttpValidatorService } from './http-validator.service';
 import { Identifier } from '@trustcerts/core';
 import { Module } from '@nestjs/common';
-import { ParseClientModule } from '@tc/parse-client';
+import { ParseClientModule } from 'libs/clients/parse-client/src';
 import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 import { TerminusModule } from '@nestjs/terminus';
 import { ValidatorDidModule } from './validator-did/validator-did.module';
-import { WalletClientModule } from '@tc/wallet-client';
+import { WalletClientModule } from 'libs/clients/wallet-client/src';
 import { WinstonModule } from 'nest-winston';
 import {
   dbConnectionValidation,

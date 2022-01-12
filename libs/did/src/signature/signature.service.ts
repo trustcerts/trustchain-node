@@ -4,7 +4,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
 import { ProposedBlock } from '@tc/blockchain/block/proposed-block.dto';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
-import { WalletClientService } from '@tc/wallet-client';
+import { WalletClientService } from 'libs/clients/wallet-client/src';
 import { sortKeys } from '@trustcerts/core';
 
 /**

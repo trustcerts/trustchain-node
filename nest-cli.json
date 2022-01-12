@@ -151,47 +151,47 @@
     },
     "wallet-client": {
       "type": "library",
-      "root": "libs/wallet-client",
+      "root": "libs/clients/clients/wallet-client",
       "entryFile": "index",
-      "sourceRoot": "libs/wallet-client/src",
+      "sourceRoot": "libs/clients/clients/wallet-client/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/wallet-client/tsconfig.lib.json"
+        "tsConfigPath": "libs/clients/clients/wallet-client/tsconfig.lib.json"
       }
     },
     "persist-client": {
       "type": "library",
-      "root": "libs/persist-client",
+      "root": "libs/clients/persist-client",
       "entryFile": "index",
-      "sourceRoot": "libs/persist-client/src",
+      "sourceRoot": "libs/clients/persist-client/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/persist-client/tsconfig.lib.json"
+        "tsConfigPath": "libs/clients/persist-client/tsconfig.lib.json"
       }
     },
     "parse-client": {
       "type": "library",
-      "root": "libs/parse-client",
+      "root": "libs/clients/parse-client",
       "entryFile": "index",
-      "sourceRoot": "libs/parse-client/src",
+      "sourceRoot": "libs/clients/parse-client/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/parse-client/tsconfig.lib.json"
+        "tsConfigPath": "libs/clients/parse-client/tsconfig.lib.json"
       }
     },
     "network-client": {
       "type": "library",
-      "root": "libs/network-client",
+      "root": "libs/clients/network-client",
       "entryFile": "index",
-      "sourceRoot": "libs/network-client/src",
+      "sourceRoot": "libs/clients/network-client/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/network-client/tsconfig.lib.json"
+        "tsConfigPath": "libs/clients/network-client/tsconfig.lib.json"
       }
     },
     "event-client": {
       "type": "library",
-      "root": "libs/event-client",
+      "root": "libs/clients/event-client",
       "entryFile": "index",
-      "sourceRoot": "libs/event-client/src",
+      "sourceRoot": "libs/clients/event-client/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/event-client/tsconfig.lib.json"
+        "tsConfigPath": "libs/clients/event-client/tsconfig.lib.json"
       }
     },
     "network-gateway": {

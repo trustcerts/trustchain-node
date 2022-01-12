@@ -1,13 +1,13 @@
 import * as Joi from 'joi';
 import { ConfigModule, ConfigService } from '@tc/config';
-import { EventClientModule } from '@tc/event-client';
+import { EventClientModule } from 'libs/clients/event-client/src';
 import { HashBlockchainModule } from '@tc/hash/hash-blockchain/hash-blockchain.module';
 import { HealthController } from './health/health.controller';
 import { Module } from '@nestjs/common';
 import { NetworkGatewayController } from './network-gateway.controller';
 import { NetworkGatewayService } from './network-gateway.service';
 import { P2PModule } from '@tc/p2-p';
-import { PersistClientModule } from '@tc/persist-client';
+import { PersistClientModule } from 'libs/clients/persist-client/src';
 import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 import { RateLimitBlockchainModule } from '@tc/security/rate-limit/rate-limit-blockchain/rate-limit-blockchain.module';
 import { TerminusModule } from '@nestjs/terminus';

@@ -5,7 +5,7 @@ import {
   TransactionDto,
 } from '@tc/blockchain/transaction/transaction.dto';
 import { Type } from 'class-transformer';
-import { WalletClientService } from '@tc/wallet-client';
+import { WalletClientService } from 'libs/clients/wallet-client/src';
 
 /**
  * Describes the values of a hash transaction.

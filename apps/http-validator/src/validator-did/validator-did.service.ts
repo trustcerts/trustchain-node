@@ -18,7 +18,7 @@ import {
   getFingerPrint,
   importKey,
 } from '@trustcerts/core';
-import { WalletClientService } from '@tc/wallet-client';
+import { WalletClientService } from 'libs/clients/wallet-client/src';
 
 /**
  * Service that signs or revokes public keys from gateways.

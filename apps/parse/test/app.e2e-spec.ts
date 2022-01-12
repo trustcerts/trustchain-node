@@ -5,7 +5,7 @@ import {
   CHAIN_REBUILD,
   REDIS_INJECTION,
   SYSTEM_RESET,
-} from '@tc/event-client/constants';
+} from 'libs/clients/event-client/src/constants';
 import { Block } from '@tc/blockchain/block/block.interface';
 import {
   ClientRedis,
@@ -16,7 +16,7 @@ import {
 import { Hash } from '@tc/hash/entities/hash.entity';
 import { Did } from '@tc/did/schemas/did.schema';
 import { addRedisEndpoint, addTCPEndpoint } from '../../shared/main-functions';
-import { PersistClientService } from '@tc/persist-client';
+import { PersistClientService } from 'libs/clients/persist-client/src';
 import {
   generateTestTransaction,
   sendBlock,

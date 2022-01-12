@@ -9,7 +9,7 @@ import { HashCreationTransactionDto } from '@tc/hash/schemas/hash-creation.trans
 import { HashRevocationTransactionDto } from '@tc/hash/schemas/hash-revocation.transaction.dto';
 import { HashService } from '@tc/blockchain/hash.service';
 import { Logger } from 'winston';
-import { WalletClientService } from '@tc/wallet-client';
+import { WalletClientService } from 'libs/clients/wallet-client/src';
 
 /**
  * Service to validate requests from the api to the blockchain level.

@@ -6,7 +6,7 @@ import { HashService } from '@tc/blockchain';
 import { Logger } from 'winston';
 import { TemplateCachedService } from '@tc/template/template-cached/template-cached.service';
 import { TemplateTransactionDto } from '@tc/template/dto/template.transaction.dto';
-import { WalletClientService } from '@tc/wallet-client';
+import { WalletClientService } from 'libs/clients/wallet-client/src';
 
 /**
  * Service to handle incoming templates.

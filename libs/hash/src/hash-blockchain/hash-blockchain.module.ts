@@ -1,6 +1,6 @@
 import { BlockCheckModule } from '@tc/blockchain/block-check/block-check.module';
 import { DidCachedModule } from '@tc/did/did-cached/did-cached.module';
-import { EventClientModule } from '@tc/event-client';
+import { EventClientModule } from 'libs/clients/event-client/src';
 import { HASH_CONNECTION } from '@tc/hash/constants';
 import { Hash, HashSchema } from '@tc/hash/entities/hash.entity';
 import { HashCachedModule } from '@tc/hash/hash-cached/hash-cached.module';

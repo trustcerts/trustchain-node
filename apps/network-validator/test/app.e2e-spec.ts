@@ -13,7 +13,7 @@ import {
   REDIS_INJECTION,
   SYSTEM_RESET,
   TRANSACTION_CREATED,
-} from '@tc/event-client/constants';
+} from 'libs/clients/event-client/src/constants';
 import { wait } from '@shared/helpers';
 import {
   createWSServer,
@@ -25,7 +25,7 @@ import {
 import { Server } from 'socket.io';
 import { io } from 'socket.io-client';
 import { WS_TRANSACTION } from '@tc/blockchain/blockchain.events';
-import { WalletClientService } from '@tc/wallet-client/wallet-client.service';
+import { WalletClientService } from 'libs/clients/wallet-client/src/wallet-client.service';
 import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
 import { DidId } from '@trustcerts/core';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';

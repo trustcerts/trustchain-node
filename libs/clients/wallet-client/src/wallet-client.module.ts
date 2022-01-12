@@ -4,9 +4,9 @@ import { HttpConfigService } from '@shared/http-config.service';
 import { HttpModule, HttpService } from '@nestjs/axios';
 import { Inject, Module, OnApplicationBootstrap } from '@nestjs/common';
 import { Logger } from 'winston';
-import { PERSIST_PORT_HTTP, PERSIST_URL } from './constants';
-import { PersistClientService } from './persist-client.service';
-import { persistTcpProvider } from '@tc/persist-client/persist.provider';
+import { WALLET_PORT_HTTP, WALLET_URL } from './constants';
+import { WalletClientService } from './wallet-client.service';
+import { walletTcpProvider } from 'libs/clients/wallet-client/src/wallet.provider';
 
 @Module({
   imports: [
@@ -15,13 +15,19 @@ import { persistTcpProvider } from '@tc/persist-client/persist.provider';
       useClass: HttpConfigService,
     }),
   ],
-  providers: [persistTcpProvider, PersistClientService],
-  exports: [persistTcpProvider, PersistClientService],
+  providers: [WalletClientService, walletTcpProvider],
+  exports: [WalletClientService, walletTcpProvider],
 })
-export class PersistClientModule
+export class WalletClientModule
   extends ClientModule
   implements OnApplicationBootstrap
 {
+  /**
+   *
+   * @param logger
+   * @param httpService
+   * @param configService
+   */
   constructor(
     @Inject('winston') logger: Logger,
     httpService: HttpService,
@@ -30,10 +36,10 @@ export class PersistClientModule
     super(configService, httpService, logger);
   }
 
-  onApplicationBootstrap(): any {
+  onApplicationBootstrap(): Promise<void> {
     return this.isHealthy(
-      this.configService.getString(PERSIST_URL),
-      this.configService.getNumber(PERSIST_PORT_HTTP),
+      this.configService.getString(WALLET_URL),
+      this.configService.getNumber(WALLET_PORT_HTTP),
     );
   }
 }

@@ -5,7 +5,7 @@ import {
   BLOCK_REQUEST,
   REDIS_INJECTION,
   SYSTEM_RESET,
-} from '@tc/event-client/constants';
+} from 'libs/clients/event-client/src/constants';
 import { Block } from '@tc/blockchain/block/block.interface';
 import {
   ClientRedis,

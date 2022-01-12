@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
 import { Model } from 'mongoose';
 import { ParsingService } from '@tc/parsing';
-import { PersistClientService } from '@tc/persist-client';
+import { PersistClientService } from 'libs/clients/persist-client/src';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 
 /**

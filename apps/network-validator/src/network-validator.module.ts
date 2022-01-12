@@ -6,13 +6,13 @@ import { Module } from '@nestjs/common';
 import { NetworkValidatorController } from './network-validator.controller';
 import { NetworkValidatorService } from './network-validator.service';
 import { P2PModule } from '@tc/p2-p';
-import { ParseClientModule } from '@tc/parse-client';
-import { PersistClientModule } from '@tc/persist-client';
+import { ParseClientModule } from 'libs/clients/parse-client/src';
+import { PersistClientModule } from 'libs/clients/persist-client/src';
 import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 import { ValidatorBlockchainModule } from './validator-blockchain/validator-blockchain.module';
 import { ValidatorConsensusModule } from './validator-blockchain/validator-consensus/validator-consensus.module';
 import { ValidatorHealthModule } from './validator-health/validator-health.module';
-import { WalletClientModule } from '@tc/wallet-client';
+import { WalletClientModule } from 'libs/clients/wallet-client/src';
 import { WinstonModule } from 'nest-winston';
 import {
   dbConnectionValidation,
@@ -22,7 +22,7 @@ import {
 
 import { DidCachedModule } from '@tc/did/did-cached/did-cached.module';
 import { DidDbModule } from '@tc/did/did-db/did-db.module';
-import { EventClientModule } from '@tc/event-client';
+import { EventClientModule } from 'libs/clients/event-client/src';
 import { HttpConfigService } from '../../shared/http-config.service';
 import { HttpModule } from '@nestjs/axios';
 import { Identifier } from '@trustcerts/core';

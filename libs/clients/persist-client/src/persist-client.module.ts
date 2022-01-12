@@ -4,8 +4,9 @@ import { HttpConfigService } from '@shared/http-config.service';
 import { HttpModule, HttpService } from '@nestjs/axios';
 import { Inject, Module, OnApplicationBootstrap } from '@nestjs/common';
 import { Logger } from 'winston';
-import { NETWORK_PORT_HTTP, NETWORK_URL } from './constants';
-import { networkTcpProvider } from '@tc/network-client/network.provider';
+import { PERSIST_PORT_HTTP, PERSIST_URL } from './constants';
+import { PersistClientService } from './persist-client.service';
+import { persistTcpProvider } from 'libs/clients/persist-client/src/persist.provider';
 
 @Module({
   imports: [
@@ -14,19 +15,13 @@ import { networkTcpProvider } from '@tc/network-client/network.provider';
       useClass: HttpConfigService,
     }),
   ],
-  providers: [networkTcpProvider],
-  exports: [networkTcpProvider],
+  providers: [persistTcpProvider, PersistClientService],
+  exports: [persistTcpProvider, PersistClientService],
 })
-export class NetworkClientModule
+export class PersistClientModule
   extends ClientModule
   implements OnApplicationBootstrap
 {
-  /**
-   *
-   * @param logger
-   * @param httpService
-   * @param configService
-   */
   constructor(
     @Inject('winston') logger: Logger,
     httpService: HttpService,
@@ -35,10 +30,10 @@ export class NetworkClientModule
     super(configService, httpService, logger);
   }
 
-  onApplicationBootstrap(): Promise<void> {
+  onApplicationBootstrap(): any {
     return this.isHealthy(
-      this.configService.getString(NETWORK_URL),
-      this.configService.getNumber(NETWORK_PORT_HTTP),
+      this.configService.getString(PERSIST_URL),
+      this.configService.getNumber(PERSIST_PORT_HTTP),
     );
   }
 }

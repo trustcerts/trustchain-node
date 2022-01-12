@@ -13,7 +13,10 @@ import { Logger } from 'winston';
 import { NetworkGuard } from '../../shared/network-guard.service';
 import { NetworkValidatorService } from './network-validator.service';
 import { P2PService } from '@tc/p2-p';
-import { SYSTEM_RESET, TRANSACTION_CREATED } from '@tc/event-client/constants';
+import {
+  SYSTEM_RESET,
+  TRANSACTION_CREATED,
+} from 'libs/clients/event-client/src/constants';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { ValidatorBlockchainService } from './validator-blockchain/validator-blockchain.service';
 import { ValidatorConsensusService } from './validator-blockchain/validator-consensus/validator-consensus.service';

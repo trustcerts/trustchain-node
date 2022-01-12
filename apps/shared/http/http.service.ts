@@ -2,7 +2,7 @@ import {
   CHAIN_REBUILD,
   REDIS_INJECTION,
   SYSTEM_RESET,
-} from '@tc/event-client/constants';
+} from 'libs/clients/event-client/src/constants';
 import { ClientRedis, ClientTCP } from '@nestjs/microservices';
 import { ConfigService } from '@tc/config';
 import { Inject } from '@nestjs/common';

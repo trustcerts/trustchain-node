@@ -8,11 +8,14 @@ import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { ConfigService } from '@tc/config';
 import { ConnectDto } from '@tc/p2-p/connect.dto';
 import { EventPattern, MessagePattern, Transport } from '@nestjs/microservices';
-import { NEW_IDENTIFIER } from '@tc/wallet-client/constants';
+import { NEW_IDENTIFIER } from 'libs/clients/wallet-client/src/constants';
 import { NetworkGuard } from '@shared/network-guard.service';
 import { NodeGuard } from '@shared/node-guard.service';
 import { P2PService } from './p2-p.service';
-import { SYSTEM_INIT, VALIDATE_CONNECTIONS } from '@tc/event-client/constants';
+import {
+  SYSTEM_INIT,
+  VALIDATE_CONNECTIONS,
+} from 'libs/clients/event-client/src/constants';
 import { VALIDATOR_ENDPOINT } from '@tc/p2-p/constant';
 
 /**

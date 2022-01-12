@@ -7,7 +7,7 @@ import {
   SignatureType,
   TransactionDto,
 } from '@tc/blockchain/transaction/transaction.dto';
-import { WalletClientService } from '@tc/wallet-client';
+import { WalletClientService } from 'libs/clients/wallet-client/src';
 
 /**
  * Base Service to add a transaction.

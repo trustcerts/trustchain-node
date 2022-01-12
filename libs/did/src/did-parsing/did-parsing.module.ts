@@ -6,7 +6,7 @@ import {
   DidTransaction,
   DidTransactionSchema,
 } from '@tc/did/schemas/did-transaction.schema';
-import { EventClientModule } from '@tc/event-client';
+import { EventClientModule } from 'libs/clients/event-client/src';
 import { Module, forwardRef } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ParseModule } from '@apps/parse/src/parse.module';
