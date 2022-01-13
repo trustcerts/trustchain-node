@@ -722,12 +722,9 @@ export class P2PService implements BeforeApplicationShutdown {
         );
       });
     } else {
-<<<<<<< HEAD
-=======
       endpoint.socket.once(IS_ENDPOINT_LISTENING_FOR_VALIDATORS, () => {
         endpoint.socket.emit(ENDPOINT_LISTENING_FOR_VALIDATORS);
       });
->>>>>>> e82ceab0d537678abae8298019ec6ac13a951284
       this.logger.debug({
         message: `${endpoint.identifier} connected, don't ask for other connections or blocks`,
         labels: {
