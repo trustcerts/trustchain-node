@@ -7,7 +7,6 @@ import { HashParsingService } from '@tc/hash/hash-parsing/hash-parsing.service';
 import { Module, forwardRef } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ParseModule } from '@apps/parse/src/parse.module';
-import { ParsingModule } from '@tc/parsing';
 import {
   PrometheusModule,
   makeCounterProvider,
@@ -15,7 +14,6 @@ import {
 
 @Module({
   imports: [
-    ParsingModule,
     forwardRef(() => ParseModule),
     EventClientModule,
     HashDbModule,

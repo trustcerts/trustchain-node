@@ -16,7 +16,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Logger } from 'winston';
 import { Model } from 'mongoose';
 import { ParseService } from '@apps/parse/src/parse.service';
-import { ParsingService as Parser } from '@tc/parsing';
 import { ParsingService } from '@shared/parsing.service';
 import { REDIS_INJECTION } from '@tc/event-client/constants';
 import { RoleManageAddEnum } from '../constants';
@@ -41,7 +40,6 @@ export class DidParsingService extends ParsingService {
    * @param serviceRepository
    */
   constructor(
-    protected readonly parser: Parser,
     protected readonly hashService: HashService,
     @Inject(REDIS_INJECTION) protected readonly clientRedis: ClientRedis,
     @Inject('winston') protected readonly logger: Logger,
@@ -50,15 +48,14 @@ export class DidParsingService extends ParsingService {
     private didDocumentRepository: Model<DidTransactionDocument>,
     @InjectMetric('transactions')
     protected readonly transactionsCounter: Counter<string>,
-    public readonly parseService: ParseService,
+    private readonly parseService: ParseService,
   ) {
-    super(clientRedis, parser, hashService, transactionsCounter);
-    this.parser.emitter.on(
-      TransactionType[TransactionType.Did],
-      this.parseDid.bind(this),
-    );
-    this.parseService.modules.push(this.didDocumentRepository);
-    this.parseService.modules.push(this.didRepository);
+    super(clientRedis, hashService, transactionsCounter);
+
+    this.parseService.parsers.set(TransactionType.Did, {
+      parsing: this.parseDid.bind(this),
+      reset: this.reset.bind(this),
+    });
   }
 
   /**
@@ -186,5 +183,15 @@ export class DidParsingService extends ParsingService {
       labels: { source: this.constructor.name },
     });
     this.created(transaction).then();
+  }
+
+  /**
+   * Resets a database.
+   */
+  public async reset(): Promise<void> {
+    await Promise.all([
+      this.didRepository.deleteMany(),
+      this.didDocumentRepository.deleteMany(),
+    ]);
   }
 }

@@ -6,11 +6,14 @@ import { InjectMetric } from '@willsoto/nestjs-prometheus';
 import { InjectModel } from '@nestjs/mongoose';
 import { Logger } from 'winston';
 import { Model } from 'mongoose';
-import { ParsingService as Parser } from '@tc/parsing';
+import { ParseService } from '@apps/parse/src/parse.service';
 import { ParsingService } from '@shared/parsing.service';
 import { REDIS_INJECTION } from '@tc/event-client/constants';
-import { Security, SecurityDocument } from '@tc/security/security.entity';
-import { SecurityLimitTransactionDto } from '@tc/security/rate-limit/security-limit.transaction.dto';
+import {
+  Security,
+  SecurityDocument,
+} from '@tc/security/schemas/security.entity';
+import { SecurityLimitTransactionDto } from '@tc/security/rate-limit/dto/security-limit.transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 
 /**
@@ -28,19 +31,19 @@ export class RateLimitParsingService extends ParsingService {
    * @param transactionsCounter
    */
   constructor(
-    protected readonly parser: Parser,
     protected readonly hashService: HashService,
     @Inject(REDIS_INJECTION) protected readonly clientRedis: ClientRedis,
     @Inject('winston') protected readonly logger: Logger,
     @InjectModel(Security.name) private securityModel: Model<SecurityDocument>,
     @InjectMetric('transactions')
     protected readonly transactionsCounter: Counter<string>,
+    private readonly parseService: ParseService,
   ) {
-    super(clientRedis, parser, hashService, transactionsCounter);
-    this.parser.emitter.on(
-      TransactionType[TransactionType.SecurityLimit],
-      this.addLimit.bind(this),
-    );
+    super(clientRedis, hashService, transactionsCounter);
+    this.parseService.parsers.set(TransactionType.SecurityLimit, {
+      parsing: this.addLimit.bind(this),
+      reset: this.reset.bind(this),
+    });
   }
 
   /**
@@ -59,5 +62,12 @@ export class RateLimitParsingService extends ParsingService {
       },
     );
     this.created(transaction).then();
+  }
+
+  /**
+   * Resets the database
+   */
+  public async reset(): Promise<void> {
+    await this.securityModel.deleteMany();
   }
 }

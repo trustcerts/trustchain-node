@@ -9,7 +9,6 @@ import { HealthController } from './health/health.controller';
 import { Module } from '@nestjs/common';
 import { ParseController } from './parse.controller';
 import { ParseService } from './parse.service';
-import { ParsingModule } from '@tc/parsing';
 import { PersistClientModule } from '@tc/persist-client';
 import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 import { RateLimitParsingModule } from '@tc/security/rate-limit/rate-limit-parsing/rate-limit-parsing.module';
@@ -44,8 +43,6 @@ import { dbConnectionValidation } from '../../shared/constants';
     TerminusModule,
     EventClientModule,
     PersistClientModule,
-
-    ParsingModule,
 
     HashParsingModule,
     HashCachedModule,

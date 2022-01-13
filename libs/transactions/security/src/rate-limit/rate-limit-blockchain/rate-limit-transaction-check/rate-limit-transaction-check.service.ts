@@ -3,7 +3,7 @@ import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
 import { Injectable } from '@nestjs/common';
 import { RateLimitCachedService } from '@tc/security/rate-limit/rate-limit-cached/rate-limit-cached.service';
 import { RoleManageAddEnum } from '@tc/did/constants';
-import { SecurityLimitTransactionDto } from '../../security-limit.transaction.dto';
+import { SecurityLimitTransactionDto } from '../../dto/security-limit.transaction.dto';
 import { TransactionCheck } from '@shared/transaction.check';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';

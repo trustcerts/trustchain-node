@@ -2,7 +2,6 @@ import { ClientRedis } from '@nestjs/microservices';
 import { Counter } from 'prom-client';
 import { HashService } from '@tc/blockchain';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';
-import { ParsingService as Parser } from '@tc/parsing';
 import { PersistedTransaction } from './persisted-transaction';
 import { TRANSACTION_PARSED } from '@tc/event-client/constants';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
@@ -10,7 +9,7 @@ import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 /**
  * Base class to parse a new transaction.
  */
-export class ParsingService {
+export abstract class ParsingService {
   /**
    * Path where shared files should be stored that will not be stored in the database.
    */
@@ -25,7 +24,6 @@ export class ParsingService {
    */
   constructor(
     protected readonly clientRedis: ClientRedis,
-    protected readonly parser: Parser,
     protected readonly hashService: HashService,
     @InjectMetric('transactions')
     protected transactionsCounter: Counter<string>,
@@ -52,7 +50,6 @@ export class ParsingService {
     });
     const hash = await this.hashTransaction({ ...transaction });
     if (transaction.block) {
-      this.parser.emitter.emit(`block-${transaction.block.id}`);
       const persisted: PersistedTransaction = {
         transaction: {
           hash,
@@ -63,4 +60,9 @@ export class ParsingService {
       this.clientRedis.emit(TRANSACTION_PARSED, persisted);
     }
   }
+
+  /**
+   * Resets a database.
+   */
+  public abstract reset(): Promise<void>;
 }

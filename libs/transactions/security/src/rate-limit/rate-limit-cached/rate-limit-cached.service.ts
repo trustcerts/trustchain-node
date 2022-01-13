@@ -4,7 +4,10 @@ import { HashTransactionDto } from '@tc/hash/dto/hash.transaction.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Model } from 'mongoose';
-import { Security, SecurityDocument } from '@tc/security/security.entity';
+import {
+  Security,
+  SecurityDocument,
+} from '@tc/security/schemas/security.entity';
 
 /**
  * Manages the amount of hashes a Client is allowed to sign monthly.

@@ -6,7 +6,7 @@ import {
 } from '@nestjs/swagger';
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { ConfigService } from '@tc/config';
-import { ConnectDto } from '@tc/p2-p/connect.dto';
+import { ConnectDto } from '@tc/p2-p/dto/connect.dto';
 import { EventPattern, MessagePattern, Transport } from '@nestjs/microservices';
 import { NEW_IDENTIFIER } from '@tc/wallet-client/constants';
 import { NetworkGuard } from '@shared/network-guard.service';

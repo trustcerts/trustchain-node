@@ -2,7 +2,10 @@ import { CachedService } from '@shared/cache.service';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Model } from 'mongoose';
-import { Security, SecurityDocument } from '@tc/security/security.entity';
+import {
+  Security,
+  SecurityDocument,
+} from '@tc/security/schemas/security.entity';
 
 /**
  * Implements required security functions.

@@ -220,24 +220,6 @@
         "tsConfigPath": "apps/network-validator/tsconfig.app.json"
       }
     },
-    "parsing": {
-      "type": "library",
-      "root": "libs/parsing",
-      "entryFile": "index",
-      "sourceRoot": "libs/parsing/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/parsing/tsconfig.lib.json"
-      }
-    },
-    "network": {
-      "type": "library",
-      "root": "libs/network",
-      "entryFile": "index",
-      "sourceRoot": "libs/network/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/network/tsconfig.lib.json"
-      }
-    },
     "did": {
       "type": "library",
       "root": "libs/did",

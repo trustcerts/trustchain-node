@@ -3,7 +3,7 @@ import { IsNumber, Min, ValidateNested } from 'class-validator';
 import {
   SecurityTransactionDto,
   SecurityTransactionValue,
-} from '@tc/security/security.transaction.dto';
+} from '@tc/security/dto/security.transaction.dto';
 import { TransactionBody } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 import { Type } from 'class-transformer';

@@ -3,19 +3,16 @@ import { HashModule } from '@tc/blockchain';
 import { Module, forwardRef } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ParseModule } from '@apps/parse/src/parse.module';
-import { ParsingModule } from '@tc/parsing';
 import {
   PrometheusModule,
   makeCounterProvider,
 } from '@willsoto/nestjs-prometheus';
 import { SECURITY_CONNECTION } from '@tc/security/constants';
-import { Security, SecuritySchema } from '@tc/security/security.entity';
+import { Security, SecuritySchema } from '@tc/security/schemas/security.entity';
 import { SecurityDbModule } from '@tc/security/security-db/security-db.module';
-import { SecurityParsingService } from '@tc/security/security-parsing/security-parsing.service';
 
 @Module({
   imports: [
-    ParsingModule,
     forwardRef(() => ParseModule),
     EventClientModule,
     SecurityDbModule,
@@ -31,7 +28,6 @@ import { SecurityParsingService } from '@tc/security/security-parsing/security-p
     }),
   ],
   providers: [
-    SecurityParsingService,
     makeCounterProvider({
       name: 'transactions',
       labelNames: ['type'],

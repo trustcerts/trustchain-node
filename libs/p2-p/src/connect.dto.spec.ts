@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { validate, validateOrReject } from 'class-validator';
 import { plainToClass } from 'class-transformer';
-import { ConnectDto } from '@tc/p2-p/connect.dto';
+import { ConnectDto } from '@tc/p2-p/dto/connect.dto';
 
 describe('ConnectDto test', () => {
   let classObj: ConnectDto;

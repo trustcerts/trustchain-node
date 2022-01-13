@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { SECURITY_CONNECTION } from '../constants';
-import { Security, SecuritySchema } from '@tc/security/security.entity';
+import { Security, SecuritySchema } from '@tc/security/schemas/security.entity';
 import { SecurityCachedService } from '@tc/security/security-cached/security-cached.service';
 import { SecurityDbModule } from '@tc/security/security-db/security-db.module';
 

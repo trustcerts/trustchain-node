@@ -7,10 +7,10 @@ import {
   DidTransactionSchema,
 } from '@tc/did/schemas/did-transaction.schema';
 import { EventClientModule } from '@tc/event-client';
+import { HashModule } from '@tc/blockchain';
 import { Module, forwardRef } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ParseModule } from '@apps/parse/src/parse.module';
-import { ParsingModule } from '@tc/parsing';
 import {
   PrometheusModule,
   makeCounterProvider,
@@ -18,9 +18,9 @@ import {
 
 @Module({
   imports: [
-    ParsingModule,
     forwardRef(() => ParseModule),
     EventClientModule,
+    HashModule,
     DidDbModule,
     MongooseModule.forFeature(
       [

@@ -21,7 +21,6 @@ import { WalletClientService } from '@tc/wallet-client';
 import { clearTimeout } from 'timers';
 import { plainToClass } from 'class-transformer';
 import { validateOrReject } from 'class-validator';
-import Timeout = NodeJS.Timeout;
 
 /**
  * Service to handle interaction with a proposer.
@@ -31,12 +30,12 @@ export class ValidatorService extends ParticipantConsensus {
   /**
    * Fired when the proposed block was not received in time.
    */
-  private blockTimeout!: Timeout;
+  private blockTimeout!: NodeJS.Timeout;
 
   /**
    * Fired when the signatures were not received in time.
    */
-  private signatureTimeout!: Timeout;
+  private signatureTimeout!: NodeJS.Timeout;
 
   /**
    * Cancel block creation because all signatures are already there.

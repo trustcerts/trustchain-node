@@ -1,8 +1,8 @@
 import { EventClientModule } from '@tc/event-client';
+import { HashModule } from '@tc/blockchain';
 import { Module, forwardRef } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ParseModule } from '@apps/parse/src/parse.module';
-import { ParsingModule } from '@tc/parsing';
 import {
   PrometheusModule,
   makeCounterProvider,
@@ -14,9 +14,9 @@ import { TemplateParsingService } from './template-parsing.service';
 
 @Module({
   imports: [
-    ParsingModule,
     forwardRef(() => ParseModule),
     EventClientModule,
+    HashModule,
     TemplateDbModule,
     MongooseModule.forFeature(
       [{ name: Template.name, schema: TemplateSchema }],

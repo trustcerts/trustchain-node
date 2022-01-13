@@ -1,8 +1,7 @@
 import { Block } from '@tc/blockchain/block/block.interface';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
-import { Model } from 'mongoose';
-import { ParsingService } from '@tc/parsing';
+import { Parser } from './parser.interface';
 import { PersistClientService } from '@tc/persist-client';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 
@@ -12,9 +11,12 @@ import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 @Injectable()
 export class ParseService {
   /**
-   * Modules that will be registered by the loaded modules to reset them.
+   * Includes a function pointer how to parse a special type of transaction.
    */
-  public modules: Model<any>[] = [];
+  public parsers: Map<TransactionType, Parser> = new Map<
+    TransactionType,
+    Parser
+  >();
 
   /**
    * Import required services.
@@ -28,7 +30,6 @@ export class ParseService {
   constructor(
     @Inject('winston') private readonly logger: Logger,
     private readonly persistClientService: PersistClientService,
-    private readonly parsingService: ParsingService,
   ) {}
 
   /**
@@ -36,8 +37,9 @@ export class ParseService {
    * @returns
    */
   public reset() {
-    // TODO since all entries are based on uuids there is no increment that has to be reset.
-    return Promise.all(this.modules.map((module) => module.deleteMany({})));
+    return Promise.all(
+      Array.from(this.parsers.values()).map((parser) => parser.reset()),
+    );
   }
 
   /**
@@ -75,19 +77,9 @@ export class ParseService {
    * Informs other nodes about a block ready for cert-parsing.
    * @param block block that is ready for cert-parsing
    */
-  public parseBlock(block: Block): Promise<void> {
-    return new Promise((resolve) => {
-      let parsed = 0;
-      this.parsingService.emitter.on(`block-${block.index}`, () => {
-        parsed++;
-        if (parsed === block.transactions.length) {
-          this.parsingService.emitter.removeAllListeners(
-            `block-${block.index}`,
-          );
-          resolve();
-        }
-      });
-      block.transactions.forEach((transaction) => {
+  public parseBlock(block: Block): Promise<void[]> {
+    return Promise.all(
+      block.transactions.map((transaction) => {
         transaction.block = {
           id: block.index,
           createdAt: block.timestamp,
@@ -96,11 +88,14 @@ export class ParseService {
             ...block.signatures.map((signature) => signature.identifier),
           ],
         };
-        this.parsingService.emitter.emit(
-          TransactionType[transaction.body.type],
-          transaction,
-        );
-      });
-    });
+        const parser = this.parsers.get(transaction.body.type);
+        if (!parser) {
+          throw Error(
+            `no parser found for transaction type ${transaction.body.type}`,
+          );
+        }
+        return parser.parsing(transaction);
+      }),
+    );
   }
 }

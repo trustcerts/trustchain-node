@@ -1,4 +1,5 @@
 import { Block } from '@tc/blockchain/block/block.interface';
+import { BlockReceivedService } from '@tc/p2-p/block-received/block-received.service';
 import { ConfigService } from '@tc/config/config.service';
 import { Connection } from '../../../shared/connection';
 import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
@@ -9,7 +10,6 @@ import { HashService } from '@tc/blockchain';
 import { HttpService } from '@nestjs/axios';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
-import { NetworkService } from '@tc/network';
 import { ProposedBlock } from '@tc/blockchain/block/proposed-block.dto';
 import { RoleManageAddEnum } from '@tc/did/constants';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
@@ -47,7 +47,7 @@ export class GenesisService {
     @Inject('winston') private readonly logger: Logger,
     private readonly httpService: HttpService,
     private readonly hashService: HashService,
-    private readonly networkService: NetworkService,
+    private readonly networkService: BlockReceivedService,
   ) {}
 
   /**

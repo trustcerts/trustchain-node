@@ -4,7 +4,7 @@ import { GatewayBlockchainService } from '../gateway-blockchain/gateway-blockcha
 import { GatewayTransactionService } from '../gateway-transaction.service';
 import { Inject } from '@nestjs/common';
 import { Logger } from 'winston';
-import { SecurityTransactionDto } from '@tc/security/security.transaction.dto';
+import { SecurityTransactionDto } from '@tc/security/dto/security.transaction.dto';
 import { WalletClientService } from '@tc/wallet-client';
 
 /**

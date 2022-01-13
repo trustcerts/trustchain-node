@@ -4,7 +4,7 @@ import { GatewaySecurityService } from '../gateway-security.service';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
 import { RateLimitCachedService } from '@tc/security/rate-limit/rate-limit-cached/rate-limit-cached.service';
-import { SecurityLimitTransactionDto } from '@tc/security/rate-limit/security-limit.transaction.dto';
+import { SecurityLimitTransactionDto } from '@tc/security/rate-limit/dto/security-limit.transaction.dto';
 import { SignatureType } from '@tc/blockchain/transaction/transaction.dto';
 import { WalletClientService } from '@tc/wallet-client';
 
