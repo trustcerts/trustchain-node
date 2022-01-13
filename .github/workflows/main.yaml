@@ -86,7 +86,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ./docker-dist
-          key: buildDocker-${{ hashFiles('./apps')}}
+          key: build-${{ hashFiles('./apps') }}-${{ hashFiles('./libs')-hashFiles('package-lock.json') }}
           restore-keys: buildDocker-
 
       - name: Save Docker Image
@@ -159,7 +159,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ./docker-dist
-          key: buildDocker-${{ hashFiles('apps')}}
+          key: build-${{ hashFiles('./apps') }}-${{ hashFiles('./libs')-hashFiles('package-lock.json') }}
           restore-keys: buildDocker-
 
       - name: load docker images
@@ -215,7 +215,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ./docker-dist
-          key: buildDocker-${{ hashFiles('./apps')}}
+          key: build-${{ hashFiles('./apps') }}-${{ hashFiles('./libs')-hashFiles('package-lock.json') }}
           restore-keys: buildDocker-
 
       - name: load docker images
