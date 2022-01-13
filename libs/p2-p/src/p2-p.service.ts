@@ -561,23 +561,6 @@ export class P2PService implements BeforeApplicationShutdown {
    * @param endpoint
    */
   public async connected(endpoint: Connection) {
-    // Add listener that dont depend on the endpoints type.
-    this.addBasicListeners(endpoint);
-    // --------------------------------------------------------
-    // If the other node is a validator, do the sync up
-    if (!endpoint.type) {
-      const connection = this.connections.find(
-        (connection) => connection.identifier === endpoint.identifier,
-      );
-      if (connection) {
-        endpoint.type = connection.type;
-      }
-    }
-    if (endpoint.type === 'validator') {
-      await this.syncBlockchainWith(endpoint);
-    }
-    // --------------------------------------------------------
-
     // answer to the challenge
     endpoint.socket.on(
       CONNECTION_CHALLENGE,
@@ -627,62 +610,44 @@ export class P2PService implements BeforeApplicationShutdown {
     }
   }
 
-  private validateRequest(callback: any, endpoint: Connection) {
-    //TODO why there is null in connection
-    // if (endpoint.peer === null) {
-    //   throw new Error('found peer with null value');
-    // }
-    const urls = this.validatorConnections
-      .filter(
-        (connection) =>
-          connection.identifier !== endpoint.identifier && connection.peer,
-      )
-      .map((connection) => connection.peer);
-    this.logger.info({
-      message: `send ${JSON.stringify(urls)} to ${endpoint.identifier}`,
-      labels: {
-        source: this.constructor.name,
-        identifier: endpoint.identifier,
-      },
-    });
-    callback(urls);
-  }
-
-  /**
-   * Adds listeners to the endpoint that are not depending on the type of endpoint.
-   * @param endpoint the listeners are added to
-   */
-  private addBasicListeners(endpoint: Connection) {
-    endpoint.socket.once(IS_ENDPOINT_LISTENING_FOR_BLOCKS, () =>
-      endpoint.socket.emit(ENDPOINT_LISTENING_FOR_BLOCKS),
-    );
-    endpoint.socket.once(IS_ENDPOINT_LISTENING_FOR_VALIDATORS, () => {
-      endpoint.socket.emit(ENDPOINT_LISTENING_FOR_VALIDATORS);
-    });
-  }
-
-  /**
-   * Synchronizes the blockchains of the node and the given endpoint, if the endpoint has more blocks.
-   * @param endpoint this node syncs up with.
-   */
-  private async syncBlockchainWith(endpoint: Connection) {
-    //wait that until all endpoints are registered
-    await this.waitUntilReady(endpoint, 'blocks');
-
-    await this.blockchainSyncService.request(endpoint);
-  }
-
   /**
    * Adds listeners after the handshake was successful.
    * @param endpoint
    */
   private async addListeners(endpoint: Connection) {
+    // wait until chain is synced up
+    if (!endpoint.type) {
+      const connection = this.connections.find(
+        (connection) => connection.identifier === endpoint.identifier,
+      );
+      if (connection) {
+        endpoint.type = connection.type;
+      }
+    }
     this.blockchainSyncService.response(endpoint.socket);
-
-    endpoint.socket.on(CONNECTION_VALIDATORS_REQUEST, (data, callback) =>
-      this.validateRequest(callback, endpoint),
-    );
-
+    endpoint.socket.on(CONNECTION_VALIDATORS_REQUEST, (data, callback) => {
+      //TODO why there is null in connection
+      if (endpoint.peer === null) {
+        throw new Error('found peer with null value');
+      }
+      const urls = this.validatorConnections
+        .filter(
+          (connection) =>
+            connection.identifier !== endpoint.identifier && connection.peer,
+        )
+        .map((connection) => connection.peer);
+      this.logger.info({
+        message: `send ${JSON.stringify(urls)} to ${endpoint.identifier}`,
+        labels: {
+          source: this.constructor.name,
+          identifier: endpoint.identifier,
+        },
+      });
+      callback(urls);
+    });
+    endpoint.socket.once(IS_ENDPOINT_LISTENING_FOR_BLOCKS, () => {
+      endpoint.socket.emit(ENDPOINT_LISTENING_FOR_BLOCKS);
+    });
     if (endpoint.type === 'validator') {
       const validators: string[] =
         this.configService.getConfig('VALIDATORS') ?? [];
@@ -690,6 +655,10 @@ export class P2PService implements BeforeApplicationShutdown {
         validators.push(endpoint.peer);
         this.configService.setConfig('VALIDATORS', validators.sort());
       }
+      //wait that until all endpoints are registered
+      await this.waitUntilReady(endpoint, 'blocks');
+
+      await this.blockchainSyncService.request(endpoint);
 
       this.logger.debug({
         message: `request missing validators`,
@@ -753,6 +722,12 @@ export class P2PService implements BeforeApplicationShutdown {
         );
       });
     } else {
+<<<<<<< HEAD
+=======
+      endpoint.socket.once(IS_ENDPOINT_LISTENING_FOR_VALIDATORS, () => {
+        endpoint.socket.emit(ENDPOINT_LISTENING_FOR_VALIDATORS);
+      });
+>>>>>>> e82ceab0d537678abae8298019ec6ac13a951284
       this.logger.debug({
         message: `${endpoint.identifier} connected, don't ask for other connections or blocks`,
         labels: {
