@@ -25,3 +25,8 @@ export const NEW_IDENTIFIER = 'NEW_IDENTIFIER';
 export const WALLET_URL = 'WALLET_URL',
   WALLET_PORT_HTTP = 'WALLET_PORT_HTTP',
   WALLET_PORT_TCP = 'WALLET_PORT_TCP';
+
+/**
+ * name of the wallet injection.
+ */
+export const WALLET_TCP_INJECTION = 'WALLET_TCP';

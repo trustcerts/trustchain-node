@@ -1,7 +1,7 @@
 import { ClientProxyFactory, Transport } from '@nestjs/microservices';
 import { ConfigService } from '@tc/config';
 import { PERSIST_PORT_TCP, PERSIST_URL } from './constants';
-import { PERSIST_TCP_INJECTION } from '@shared/constants';
+import { PERSIST_TCP_INJECTION } from './constants';
 
 /**
  * provider to interact with the Client module.

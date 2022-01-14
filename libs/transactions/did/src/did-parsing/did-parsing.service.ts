@@ -16,7 +16,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Logger } from 'winston';
 import { Model } from 'mongoose';
 import { ParseService } from '@apps/parse/src/parse.service';
-import { ParsingService } from '@shared/parsing.service';
+import { ParsingService } from 'libs/transactions/parsing.service';
 import { REDIS_INJECTION } from '@tc/event-client/constants';
 import { RoleManageAddEnum } from '../constants';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';

@@ -1,7 +1,7 @@
 import { ClientProxyFactory, Transport } from '@nestjs/microservices';
 import { ConfigService } from '@tc/config';
 import { PARSE_PORT_TCP, PARSE_URL } from './constants';
-import { PARSE_TCP_INJECTION } from '@shared/constants';
+import { PARSE_TCP_INJECTION } from './constants';
 
 /**
  * provider to interact with the Client module.

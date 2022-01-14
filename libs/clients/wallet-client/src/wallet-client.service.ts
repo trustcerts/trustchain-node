@@ -1,7 +1,7 @@
 import { ClientTCP, RpcException } from '@nestjs/microservices';
 import { ConfigService } from '@tc/config';
 import { Connection } from '@shared/connection';
-import { CreateDidDto } from '@shared/create-did.dto';
+import { CreateDidDto } from '@tc/did/dto/create-did.dto';
 import { HttpService } from '@nestjs/axios';
 import { Inject, Injectable, OnModuleDestroy } from '@nestjs/common';
 import { InviteNode } from '@tc/invite/dto/invite-node.dto';
@@ -15,7 +15,7 @@ import {
   WALLET_SET_ID,
   WALLET_SIGN,
 } from '@tc/wallet-client/endpoints';
-import { WALLET_TCP_INJECTION } from '@shared/constants';
+import { WALLET_TCP_INJECTION } from './constants';
 import { importKey, sortKeys, verifySignature } from '@trustcerts/core';
 import { lastValueFrom } from 'rxjs';
 import { webcrypto } from 'crypto';

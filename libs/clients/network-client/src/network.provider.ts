@@ -1,7 +1,10 @@
 import { ClientProxyFactory, Transport } from '@nestjs/microservices';
 import { ConfigService } from '@tc/config';
-import { NETWORK_PORT_TCP, NETWORK_URL } from './constants';
-import { NETWORK_TCP_INJECTION } from '@shared/constants';
+import {
+  NETWORK_PORT_TCP,
+  NETWORK_TCP_INJECTION,
+  NETWORK_URL,
+} from './constants';
 
 /**
  * provider to interact with the network service.

@@ -1,22 +1,6 @@
 import * as Joi from 'joi';
 
 /**
- * name of the persist injection.
- */
-export const PERSIST_TCP_INJECTION = 'PERSIST_TCP';
-/**
- * name of the parse injection.
- */
-export const PARSE_TCP_INJECTION = 'PARSE_TCP';
-/**
- * name of the network injection.
- */
-export const NETWORK_TCP_INJECTION = 'NETWORK_TCP';
-/**
- * name of the wallet injection.
- */
-export const WALLET_TCP_INJECTION = 'WALLET_TCP';
-/**
  * validation rules for the database connection values.
  */
 export const dbConnectionValidation = {

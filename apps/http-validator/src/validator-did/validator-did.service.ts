@@ -1,11 +1,11 @@
 import { ConfigService } from '@tc/config';
-import { CreateDidDto } from '../../../shared/create-did.dto';
+import { CreateDidDto } from '../../../../libs/transactions/did/src/dto/create-did.dto';
 import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
 import { DidIdRegister } from '@trustcerts/did-id-create';
 import { DidTransactionDto } from '@tc/did/dto/did.transaction.dto';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
-import { PersistedTransaction } from '../../../shared/persisted-transaction';
+import { PersistedTransaction } from '../../../shared/http/persisted-transaction';
 import { RoleManageAddEnum } from '@tc/did/constants';
 import {
   SignatureInfo,

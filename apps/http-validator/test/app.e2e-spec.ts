@@ -5,7 +5,7 @@ import * as request from 'supertest';
 import * as fs from 'fs';
 import { InviteRequest } from '@tc/invite/schemas/invite-request.schema';
 import { RoleManageAddEnum } from '@tc/did/constants';
-import { CreateDidDto } from '@shared/create-did.dto';
+import { CreateDidDto } from '@tc/did/dto/create-did.dto';
 import { WalletClientService } from '@tc/wallet-client';
 import { Identifier } from '@trustcerts/core';
 import { REDIS_INJECTION } from '@tc/event-client/constants';

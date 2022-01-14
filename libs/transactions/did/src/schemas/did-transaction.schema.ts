@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { BcEntity } from '@apps/shared/bc-entity.schema';
+import { BcEntity } from 'libs/transactions/bc-entity.schema';
 import { DidStructure } from '@tc/did/dto/did.transaction.dto';
 import { Document } from 'mongoose';
 import { IsString } from 'class-validator';

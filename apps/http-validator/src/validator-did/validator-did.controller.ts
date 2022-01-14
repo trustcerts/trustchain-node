@@ -11,13 +11,13 @@ import {
 } from '@nestjs/common';
 import { ClientTCP } from '@nestjs/microservices';
 import { ConfigService } from '@tc/config';
-import { CreateDidDto } from '../../../shared/create-did.dto';
+import { CreateDidDto } from '../../../../libs/transactions/did/src/dto/create-did.dto';
 import { InviteRequest } from '@tc/invite/schemas/invite-request.schema';
 import { InviteService } from '@tc/invite/invite.service';
 import { MaintenanceGuard } from '@tc/config/version/maintenance.guard';
-import { NETWORK_TCP_INJECTION } from '../../../shared/constants';
-import { NetworkGuard } from '../../../shared/network-guard.service';
-import { NodeGuard } from '../../../shared/node-guard.service';
+import { NETWORK_TCP_INJECTION } from '@tc/network-client/constants';
+import { NetworkGuard } from '../../../shared/guards/network-guard.service';
+import { NodeGuard } from '../../../shared/guards/node-guard.service';
 import { VALIDATOR_ENDPOINT } from '@tc/p2-p/constant';
 import { ValidatorDidService } from './validator-did.service';
 

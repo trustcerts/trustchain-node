@@ -1,5 +1,5 @@
 import { BlockCheckService } from '@tc/blockchain/block-check/block-check.service';
-import { CachedService } from './cache.service';
+import { CachedService } from '../../apps/shared/cache.service';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';

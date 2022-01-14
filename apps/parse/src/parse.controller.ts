@@ -15,7 +15,7 @@ import {
 import { Controller, Inject } from '@nestjs/common';
 import { Logger } from 'winston';
 import { ParseService } from './parse.service';
-import { ParsingService } from '@shared/parsing.service';
+import { ParsingService } from 'libs/transactions/parsing.service';
 import { existsSync, rmSync } from 'fs';
 import { join } from 'path';
 /**

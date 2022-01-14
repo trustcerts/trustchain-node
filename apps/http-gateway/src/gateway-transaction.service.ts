@@ -2,7 +2,7 @@ import { CachedService } from '@shared/cache.service';
 import { ConfigService } from '@tc/config';
 import { GatewayBlockchainService } from './gateway-blockchain/gateway-blockchain.service';
 import { Logger } from 'winston';
-import { PersistedTransaction } from '@shared/persisted-transaction';
+import { PersistedTransaction } from '@apps/shared/http/persisted-transaction';
 import {
   SignatureType,
   TransactionDto,

@@ -10,7 +10,7 @@ import {
 import { EventPattern, Transport } from '@nestjs/microservices';
 import { LIST_NOT_EMPTY } from '@tc/blockchain/blockchain.events';
 import { Logger } from 'winston';
-import { NetworkGuard } from '../../shared/network-guard.service';
+import { NetworkGuard } from '../../shared/guards/network-guard.service';
 import { NetworkValidatorService } from './network-validator.service';
 import { P2PService } from '@tc/p2-p';
 import { SYSTEM_RESET, TRANSACTION_CREATED } from '@tc/event-client/constants';

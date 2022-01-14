@@ -9,7 +9,7 @@ import {
 import { EventEmitter } from 'events';
 import { HashService } from '@tc/blockchain';
 import { Logger } from 'winston';
-import { PersistedTransaction } from '../../../shared/persisted-transaction';
+import { PersistedTransaction } from '../../../shared/http/persisted-transaction';
 import {
   REDIS_INJECTION,
   TRANSACTION_CREATED,

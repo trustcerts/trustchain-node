@@ -18,7 +18,7 @@ import {
   dbConnectionValidation,
   networkDynamicValidation,
   networkValidation,
-} from '../../shared/constants';
+} from '../../shared/validation-rules';
 
 import { BlockReceivedModule } from '@tc/p2-p/block-received/block-received.module';
 import { DidCachedModule } from '@tc/did/did-cached/did-cached.module';

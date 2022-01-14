@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { BcEntity } from '@apps/shared/bc-entity.schema';
+import { BcEntity } from 'libs/transactions/bc-entity.schema';
 import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 

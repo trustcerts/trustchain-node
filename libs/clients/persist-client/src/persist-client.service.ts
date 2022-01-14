@@ -6,7 +6,7 @@ import {
 import { Block } from '@tc/blockchain/block/block.interface';
 import { ClientTCP } from '@nestjs/microservices';
 import { Inject, Injectable } from '@nestjs/common';
-import { PERSIST_TCP_INJECTION } from '@shared/constants';
+import { PERSIST_TCP_INJECTION } from './constants';
 import { lastValueFrom } from 'rxjs';
 
 /**

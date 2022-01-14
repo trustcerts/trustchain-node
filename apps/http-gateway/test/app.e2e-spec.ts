@@ -28,7 +28,7 @@ import {
   CompressionType,
   TemplateTransactionDto,
 } from '@tc/template/dto/template.transaction.dto';
-import { CreateDidDto } from '@shared/create-did.dto';
+import { CreateDidDto } from '@tc/did/dto/create-did.dto';
 import { InviteRequest } from '@tc/invite/schemas/invite-request.schema';
 import { InviteNode } from '@tc/invite/dto/invite-node.dto';
 import * as fs from 'fs';
