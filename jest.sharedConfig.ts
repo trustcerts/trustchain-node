@@ -23,8 +23,6 @@ export default {
     '@tc/parse-client(.*)': '<rootDir>/libs/clients/parse-client/src$1',
     '@tc/network-client(.*)': '<rootDir>/libs/clients/network-client/src$1',
     '@tc/event-client(.*)': '<rootDir>/libs/clients/event-client/src$1',
-    '@tc/parsing(.*)': '<rootDir>/libs/parsing/src$1',
-    '@tc/network(.*)': '<rootDir>/libs/network/src$1',
     '@tc/did(.*)': '<rootDir>/libs/transactions/did/src$1',
     '@tc/template(.*)': '<rootDir>/libs/transactions/template/src$1',
   },
