@@ -12,7 +12,7 @@ import * as fs from 'fs';
 import { ConfigService } from '@tc/config/config.service';
 import { createTemplate } from '@test/helpers';
 import { HttpObserverService } from '../src/http-observer.service';
-import { wait } from '@apps/shared/helpers';
+import { wait } from '@shared/helpers';
 
 describe('ObserverController (e2e)', () => {
   let app: INestApplication;
@@ -173,5 +173,5 @@ describe('ObserverController (e2e)', () => {
   afterAll(async () => {
     fs.rmdirSync(app.get(ConfigService).storagePath, { recursive: true });
     await app.close().catch(() => {});
-  } , 15000);
+  }, 15000);
 });

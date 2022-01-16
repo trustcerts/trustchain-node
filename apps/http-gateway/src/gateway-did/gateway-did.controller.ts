@@ -5,14 +5,14 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
-import { CreateDidDto } from '../../../shared/create-did.dto';
+import { CreateDidDto } from '@tc/did/dto/create-did.dto';
 import { DidCreationResponse } from './responses';
 import { DidTransactionDto } from '@tc/did/dto/did.transaction.dto';
 import { GatewayDidService } from './gateway-did.service';
 import { InviteRequest } from '@tc/invite/schemas/invite-request.schema';
 import { InviteService } from '@tc/invite';
 import { MaintenanceGuard } from '@tc/config/version/maintenance.guard';
-import { NodeGuard } from '../../../shared/node-guard.service';
+import { NodeGuard } from '@shared/guards/node-guard.service';
 
 /**
  * Endpoints to administrate did documents.

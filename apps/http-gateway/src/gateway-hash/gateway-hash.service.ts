@@ -5,8 +5,8 @@ import { GatewayBlockchainService } from '../gateway-blockchain/gateway-blockcha
 import { GatewayTransactionService } from '../gateway-transaction.service';
 import { HashCachedService } from '@tc/hash/hash-cached/hash-cached.service';
 import { HashCreationResponse, HashRevocationResponse } from './response';
-import { HashCreationTransactionDto } from '@tc/hash/schemas/hash-creation.transaction.dto';
-import { HashRevocationTransactionDto } from '@tc/hash/schemas/hash-revocation.transaction.dto';
+import { HashCreationTransactionDto } from '@tc/hash/dto/hash-creation.transaction.dto';
+import { HashRevocationTransactionDto } from '@tc/hash/dto/hash-revocation.transaction.dto';
 import { HashService } from '@tc/blockchain/hash.service';
 import { Logger } from 'winston';
 import { WalletClientService } from '@tc/wallet-client';

@@ -64,6 +64,6 @@ describe('Network Observer (e2e)', () => {
 
   afterAll(async () => {
     fs.rmdirSync(app.get(ConfigService).storagePath, { recursive: true });
-    await app.close().catch(()=>{})
+    await app.close().catch(() => {});
   }, 15000);
 });

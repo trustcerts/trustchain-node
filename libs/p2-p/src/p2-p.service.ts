@@ -16,8 +16,9 @@ import { Socket as ClientSocket, io } from 'socket.io-client';
 import { ConfigService } from '@tc/config/config.service';
 import { EventEmitter } from 'events';
 
+import { BlockReceivedService } from './block-received/block-received.service';
 import { BlockchainSyncService } from '@tc/p2-p/blockchain-sync/blockchain-sync.service';
-import { ConnectDto } from '@tc/p2-p/connect.dto';
+import { ConnectDto } from '@tc/p2-p/dto/connect.dto';
 import { Connection } from '@shared/connection';
 import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
 import { Gauge } from 'prom-client';
@@ -25,16 +26,15 @@ import { HandshakeService } from '@tc/p2-p/handshake/handshake.service';
 import { HttpService } from '@nestjs/axios';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';
 import { Logger } from 'winston';
-import { NetworkService } from '@tc/network';
 import { PersistClientService } from '@tc/persist-client';
 import { ProposedBlock } from '@tc/blockchain/block/proposed-block.dto';
 import { RoleManageAddEnum } from '@tc/did/constants';
 import { Socket as ServerSocket } from 'socket.io';
-import { SignatureService } from '@tc/did/signature/signature.service';
+import { SignatureService } from '@tc/blockchain/signature/signature.service';
 import { lastValueFrom } from 'rxjs';
 import { plainToClass } from 'class-transformer';
 import { validateSync } from 'class-validator';
-import { wait } from '@apps/shared/helpers';
+import { wait } from '@shared/helpers';
 
 /**
  * Handles the connections to the blockchain.
@@ -83,7 +83,7 @@ export class P2PService implements BeforeApplicationShutdown {
   constructor(
     private readonly httpService: HttpService,
     private readonly configService: ConfigService,
-    private readonly networkService: NetworkService,
+    private readonly networkService: BlockReceivedService,
     private readonly blockchainSyncService: BlockchainSyncService,
     private readonly handshakeService: HandshakeService,
     private readonly didCachedService: DidCachedService,

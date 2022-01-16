@@ -6,7 +6,7 @@ import {
 import { ClientRedis, ClientTCP } from '@nestjs/microservices';
 import { ConfigService } from '@tc/config';
 import { Inject } from '@nestjs/common';
-import { PARSE_TCP_INJECTION } from '../constants';
+import { PARSE_TCP_INJECTION } from '@tc/parse-client/constants';
 
 /**
  * Base class for http services.

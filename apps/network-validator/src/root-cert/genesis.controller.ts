@@ -4,7 +4,7 @@ import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
 import { CERT_ROOT_INIT } from '@tc/event-client/constants';
 import { GenesisService } from './genesis.service';
 import { MessagePattern, RpcException, Transport } from '@nestjs/microservices';
-import { NetworkGuard } from '../../../shared/network-guard.service';
+import { NetworkGuard } from '@shared/guards/network-guard.service';
 import { P2PService } from '@tc/p2-p';
 import { ProposedBlock } from '@tc/blockchain/block/proposed-block.dto';
 

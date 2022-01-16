@@ -9,7 +9,7 @@ import {
   WS_BLOCK_PROPOSE,
 } from '@tc/blockchain/blockchain.events';
 import { ConfigService } from '@tc/config';
-import { Connection } from '../../../../../shared/connection';
+import { Connection } from '@shared/connection';
 import { HashService } from '@tc/blockchain';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
@@ -19,7 +19,7 @@ import { PersistClientService } from '@tc/persist-client';
 import { ProposedBlock } from '@tc/blockchain/block/proposed-block.dto';
 import { ProposedSignatures } from '@tc/blockchain/block/proposed-signatures.dto';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
-import { SignatureService } from '@tc/did/signature/signature.service';
+import { SignatureService } from '@tc/blockchain/signature/signature.service';
 import { Subject } from 'rxjs';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { ValidatorBlockchainService } from '../../validator-blockchain.service';

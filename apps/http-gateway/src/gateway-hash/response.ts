@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { HashCreationTransactionDto } from '@tc/hash/schemas/hash-creation.transaction.dto';
-import { HashRevocationTransactionDto } from '@tc/hash/schemas/hash-revocation.transaction.dto';
-import { PersistedResponse } from '../../../shared/persisted-transaction';
+import { HashCreationTransactionDto } from '@tc/hash/dto/hash-creation.transaction.dto';
+import { HashRevocationTransactionDto } from '@tc/hash/dto/hash-revocation.transaction.dto';
+import { PersistedResponse } from '@shared/http/persisted-transaction';
 import { Type } from 'class-transformer';
 
 /**

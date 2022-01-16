@@ -6,7 +6,7 @@ import {
   addRedisEndpoint,
   addTCPEndpoint,
   getLogger,
-} from '../../shared/main-functions';
+} from '@shared/main-functions';
 
 // process.env.DEBUG = '*';
 /**

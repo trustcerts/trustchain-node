@@ -7,11 +7,6 @@ import { Inject } from '@nestjs/common';
 // @ts-ignore
 import * as LokiTransport from 'winston-loki';
 
-process.on('unhandledRejection', (reason, promise) => {
-  console.log('Unhandled Rejection at:', promise, 'reason:', reason);
-  // Application specific logging, throwing an error, or other logic here
-});
-
 /**
  * Service that handles the configuration of the node.
  */

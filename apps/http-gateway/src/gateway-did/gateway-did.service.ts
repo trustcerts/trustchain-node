@@ -1,5 +1,5 @@
 import { ConfigService } from '@tc/config';
-import { CreateDidDto } from '../../../shared/create-did.dto';
+import { CreateDidDto } from '@tc/did/dto/create-did.dto';
 import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
 import { DidCreationResponse } from './responses';
 import {

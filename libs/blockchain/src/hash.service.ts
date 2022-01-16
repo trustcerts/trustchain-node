@@ -24,17 +24,8 @@ export class HashService {
    * @return {string}
    */
   hashBlock(block: Block): Promise<string> {
-    let hashString;
-    switch (block.version) {
-      case 1:
-        // will be removed since the hash of the transactions is stored in the hash value.
-        delete (block as any).transactions;
-        hashString = JSON.stringify(block);
-        break;
-      default:
-        hashString = `${block.index}${block.previousHash}${block.hash}`;
-        break;
-    }
+    delete (block as any).transactions;
+    const hashString = JSON.stringify(block);
     return getHash(hashString);
   }
 

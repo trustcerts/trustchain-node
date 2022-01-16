@@ -1,5 +1,5 @@
 import { ConfigService } from '@tc/config';
-import { Connection } from '@apps/shared/connection';
+import { Connection } from '@shared/connection';
 import { Controller, Get } from '@nestjs/common';
 import { DID_CONNECTION } from '@tc/did/constants';
 import {

@@ -1,5 +1,6 @@
 import { Block } from '@tc/blockchain/block/block.interface';
 import { BlockCheckService } from '@tc/blockchain/block-check/block-check.service';
+import { BlockReceivedService } from '@tc/p2-p/block-received/block-received.service';
 import {
   CONNECTION_ADDED,
   CONNECTION_VALIDATORS_RESPONSE,
@@ -9,12 +10,11 @@ import {
 } from '@tc/blockchain/blockchain.events';
 import { ClientRedis } from '@nestjs/microservices';
 import { Socket as ClientSocket } from 'socket.io-client';
-import { Connection } from '../../../shared/connection';
+import { Connection } from '@shared/connection';
 import { EventEmitter } from 'events';
 import { HashService } from '@tc/blockchain/hash.service';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
-import { NetworkService } from '@tc/network';
 import { P2PService } from '@tc/p2-p';
 import { REDIS_INJECTION } from '@tc/event-client/constants';
 import { RoleManageAddEnum } from '@tc/did/constants';
@@ -52,7 +52,7 @@ export class ValidatorBlockchainService {
     private readonly p2PService: P2PService,
     private readonly hashService: HashService,
     private readonly blockCheckService: BlockCheckService,
-    private readonly networkService: NetworkService,
+    private readonly networkService: BlockReceivedService,
     @Inject(REDIS_INJECTION) private readonly clientRedis: ClientRedis,
     @Inject('winston') private readonly logger: Logger,
   ) {

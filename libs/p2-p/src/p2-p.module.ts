@@ -3,14 +3,14 @@ import { Module } from '@nestjs/common';
 import { P2PController } from './p2-p.controller';
 import { P2PService } from './p2-p.service';
 
+import { BlockReceivedModule } from './block-received/block-received.module';
 import { BlockchainSyncModule } from '@tc/p2-p/blockchain-sync/blockchain-sync.module';
 import { ConfigModule } from '@tc/config';
 import { DidCachedModule } from '@tc/did/did-cached/did-cached.module';
 import { HttpConfigService } from '@shared/http-config.service';
 import { HttpModule } from '@nestjs/axios';
-import { NetworkModule } from '@tc/network';
 import { PersistClientModule } from '@tc/persist-client';
-import { SignatureModule } from '@tc/did/signature/signature.module';
+import { SignatureModule } from '@tc/blockchain/signature/signature.module';
 import { WalletClientModule } from '@tc/wallet-client';
 import { makeGaugeProvider } from '@willsoto/nestjs-prometheus';
 
@@ -25,7 +25,7 @@ import { makeGaugeProvider } from '@willsoto/nestjs-prometheus';
     DidCachedModule,
     WalletClientModule,
     PersistClientModule,
-    NetworkModule,
+    BlockReceivedModule,
   ],
   providers: [
     P2PService,

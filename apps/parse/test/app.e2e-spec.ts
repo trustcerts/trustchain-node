@@ -13,9 +13,9 @@ import {
   ClientTCP,
   Transport,
 } from '@nestjs/microservices';
-import { Hash } from '@tc/hash/entities/hash.entity';
+import { Hash } from '@tc/hash/schemas/hash.schema';
 import { Did } from '@tc/did/schemas/did.schema';
-import { addRedisEndpoint, addTCPEndpoint } from '../../shared/main-functions';
+import { addRedisEndpoint, addTCPEndpoint } from '@shared/main-functions';
 import { PersistClientService } from '@tc/persist-client';
 import {
   generateTestTransaction,

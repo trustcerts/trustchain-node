@@ -5,12 +5,8 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
-import {
-  addHelmet,
-  addRedisEndpoint,
-  getLogger,
-} from '../../shared/main-functions';
-import { build, version } from '../../shared/build';
+import { addHelmet, addRedisEndpoint, getLogger } from '@shared/main-functions';
+import { build, version } from '@shared/build';
 import { json } from 'body-parser';
 /**
  * Function to configure and start a http gateway micro service.

@@ -1,10 +1,10 @@
+import { BlockReceivedModule } from '../block-received/block-received.module';
 import { BlockchainSyncService } from './blockchain-sync.service';
 import { Module } from '@nestjs/common';
-import { NetworkModule } from '@tc/network';
 import { PersistClientModule } from '@tc/persist-client';
 
 @Module({
-  imports: [PersistClientModule, NetworkModule],
+  imports: [PersistClientModule, BlockReceivedModule],
   providers: [BlockchainSyncService],
   exports: [BlockchainSyncService],
 })

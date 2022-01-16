@@ -14,8 +14,8 @@ import {
 } from '@nestjs/common';
 import { CERT_ROOT_INIT } from '@tc/event-client/constants';
 import { ClientTCP } from '@nestjs/microservices';
-import { NETWORK_TCP_INJECTION } from '../../../../shared/constants';
-import { NodeGuard } from '../../../../shared/node-guard.service';
+import { NETWORK_TCP_INJECTION } from '@tc/network-client/constants';
+import { NodeGuard } from '@shared/guards/node-guard.service';
 
 /**
  * Creates root certificates, signs the values and gives public information.

@@ -14,7 +14,7 @@ import {
   VerificationRelationshipType,
 } from '@trustcerts/core';
 import { DidTransactionDto } from '@tc/did/dto/did.transaction.dto';
-import { HashCreationTransactionDto } from '@tc/hash/schemas/hash-creation.transaction.dto';
+import { HashCreationTransactionDto } from '@tc/hash/dto/hash-creation.transaction.dto';
 import { HashService } from '@tc/blockchain/hash.service';
 import { MESSAGE_EVENT } from '@nestjs/microservices/constants';
 import { RedisClient } from '@nestjs/microservices/external/redis.interface';

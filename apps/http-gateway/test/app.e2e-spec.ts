@@ -20,7 +20,7 @@ import { HashCachedService } from '@tc/hash/hash-cached/hash-cached.service';
 import { WalletClientService } from '@tc/wallet-client';
 import { ClientRedis } from '@nestjs/microservices';
 import { REDIS_INJECTION } from '@tc/event-client/constants';
-import { HashCreationTransactionDto } from '@tc/hash/schemas/hash-creation.transaction.dto';
+import { HashCreationTransactionDto } from '@tc/hash/dto/hash-creation.transaction.dto';
 import { addRedisEndpoint } from '@shared/main-functions';
 import { HashService } from '@tc/blockchain';
 import { RoleManageAddEnum } from '@tc/did/constants';
@@ -28,7 +28,7 @@ import {
   CompressionType,
   TemplateTransactionDto,
 } from '@tc/template/dto/template.transaction.dto';
-import { CreateDidDto } from '@shared/create-did.dto';
+import { CreateDidDto } from '@tc/did/dto/create-did.dto';
 import { InviteRequest } from '@tc/invite/schemas/invite-request.schema';
 import { InviteNode } from '@tc/invite/dto/invite-node.dto';
 import * as fs from 'fs';
@@ -43,7 +43,7 @@ import {
   createTemplate,
 } from '@test/helpers';
 import { HttpGatewayService } from '../src/http-gateway.service';
-import { wait } from '@apps/shared/helpers';
+import { wait } from '@shared/helpers';
 import { InviteService } from '@tc/invite';
 import { TextEncoder } from 'util';
 

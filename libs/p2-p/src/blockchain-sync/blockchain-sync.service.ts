@@ -1,10 +1,10 @@
 import { Block } from '@tc/blockchain/block/block.interface';
+import { BlockReceivedService } from '../block-received/block-received.service';
 import { Socket as ClientSocket } from 'socket.io-client';
 import { ConfigService } from '@tc/config';
 import { Connection } from '@shared/connection';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
-import { NetworkService } from '@tc/network';
 import { PersistClientService } from '@tc/persist-client';
 import { Socket as ServerSocket } from 'socket.io';
 import { WS_BLOCK_MISSING } from '@tc/blockchain/blockchain.events';
@@ -28,7 +28,7 @@ export class BlockchainSyncService {
    */
   constructor(
     private readonly persistClientService: PersistClientService,
-    private readonly networkService: NetworkService,
+    private readonly networkService: BlockReceivedService,
     private readonly configService: ConfigService,
     @Inject('winston') private readonly logger: Logger,
   ) {

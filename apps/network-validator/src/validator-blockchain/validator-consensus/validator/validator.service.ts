@@ -9,19 +9,18 @@ import {
   WS_BLOCK_PROPOSE,
 } from '@tc/blockchain/blockchain.events';
 import { ConfigService } from '@tc/config';
-import { Connection } from '../../../../../shared/connection';
+import { Connection } from '@shared/connection';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
 import { ParticipantConsensus } from '../participant-consensus';
 import { ProposedBlock } from '@tc/blockchain/block/proposed-block.dto';
 import { ProposedSignatures } from '@tc/blockchain/block/proposed-signatures.dto';
-import { SignatureService } from '@tc/did/signature/signature.service';
+import { SignatureService } from '@tc/blockchain/signature/signature.service';
 import { ValidatorBlockchainService } from '../../validator-blockchain.service';
 import { WalletClientService } from '@tc/wallet-client';
 import { clearTimeout } from 'timers';
 import { plainToClass } from 'class-transformer';
 import { validateOrReject } from 'class-validator';
-import Timeout = NodeJS.Timeout;
 
 /**
  * Service to handle interaction with a proposer.
@@ -31,12 +30,12 @@ export class ValidatorService extends ParticipantConsensus {
   /**
    * Fired when the proposed block was not received in time.
    */
-  private blockTimeout!: Timeout;
+  private blockTimeout!: NodeJS.Timeout;
 
   /**
    * Fired when the signatures were not received in time.
    */
-  private signatureTimeout!: Timeout;
+  private signatureTimeout!: NodeJS.Timeout;
 
   /**
    * Cancel block creation because all signatures are already there.

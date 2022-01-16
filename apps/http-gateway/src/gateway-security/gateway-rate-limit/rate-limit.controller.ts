@@ -1,7 +1,7 @@
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Controller, Param, Post, UseGuards } from '@nestjs/common';
 import { GatewayRateLimitService } from './gateway-rate-limit.service';
-import { NodeGuard } from '../../../../shared/node-guard.service';
+import { NodeGuard } from '@shared/guards/node-guard.service';
 
 /**
  * Endpoint to set a limit for a Client.

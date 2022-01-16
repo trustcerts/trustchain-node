@@ -1,20 +1,14 @@
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import {
-  ClientRedis,
-  ClientTCP,
-  EventPattern,
-  Transport,
-} from '@nestjs/microservices';
-import {
   Controller,
   Get,
   Inject,
   OnApplicationBootstrap,
 } from '@nestjs/common';
+import { EventPattern, Transport } from '@nestjs/microservices';
 import { Logger } from 'winston';
 import { P2PService } from '@tc/p2-p';
-import { REDIS_INJECTION, SYSTEM_RESET } from '@tc/event-client/constants';
-import { WALLET_TCP_INJECTION } from '../../shared/constants';
+import { SYSTEM_RESET } from '@tc/event-client/constants';
 
 /**
  * Endpoint to interact with the network service of the Observer
@@ -30,8 +24,6 @@ export class NetworkObserverController implements OnApplicationBootstrap {
    */
   constructor(
     private readonly p2PService: P2PService,
-    @Inject(REDIS_INJECTION) private readonly client: ClientRedis,
-    @Inject(WALLET_TCP_INJECTION) private readonly wallet: ClientTCP,
     @Inject('winston') private readonly logger: Logger,
   ) {}
 
