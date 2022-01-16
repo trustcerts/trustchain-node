@@ -15,7 +15,6 @@ import {
   SYSTEM_RESET,
 } from '@tc/event-client/constants';
 import * as fs from 'fs';
-import { EventClientModule } from '@tc/event-client';
 import { addRedisEndpoint, addTCPEndpoint } from '../../shared/main-functions';
 import { join } from 'path';
 import { Block } from '@tc/blockchain/block/block.interface';

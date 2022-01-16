@@ -8,6 +8,41 @@
     "tsConfigPath": "apps/http-validator/tsconfig.app.json"
   },
   "projects": {
+    "network-validator": {
+      "type": "application",
+      "root": "apps/network-validator",
+      "entryFile": "main",
+      "sourceRoot": "apps/network-validator/src",
+      "compilerOptions": {
+        "plugins": [
+          {
+            "name": "@nestjs/swagger",
+            "options": {
+              "dtoFileNameSuffix": [".dto.ts", ".schema.ts"]
+            }
+          }
+        ],
+        "tsConfigPath": "apps/network-validator/tsconfig.app.json"
+      }
+    },
+    "network-gateway": {
+      "type": "application",
+      "root": "apps/network-gateway",
+      "entryFile": "main",
+      "sourceRoot": "apps/network-gateway/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/network-gateway/tsconfig.app.json"
+      }
+    },
+    "network-observer": {
+      "type": "application",
+      "root": "apps/network-observer",
+      "entryFile": "main",
+      "sourceRoot": "apps/network-observer/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/network-observer/tsconfig.app.json"
+      }
+    },
     "http-validator": {
       "type": "application",
       "root": "apps/http-validator",
@@ -59,60 +94,6 @@
         "tsConfigPath": "apps/http-observer/tsconfig.app.json"
       }
     },
-    "config": {
-      "type": "library",
-      "root": "libs/config",
-      "entryFile": "index",
-      "sourceRoot": "libs/config/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/config/tsconfig.lib.json"
-      }
-    },
-    "blockchain": {
-      "type": "library",
-      "root": "libs/blockchain",
-      "entryFile": "index",
-      "sourceRoot": "libs/blockchain/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/blockchain/tsconfig.lib.json"
-      }
-    },
-    "hash": {
-      "type": "library",
-      "root": "libs/hash",
-      "entryFile": "index",
-      "sourceRoot": "libs/hash/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/hash/tsconfig.lib.json"
-      }
-    },
-    "invite": {
-      "type": "library",
-      "root": "libs/invite",
-      "entryFile": "index",
-      "sourceRoot": "libs/invite/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/invite/tsconfig.lib.json"
-      }
-    },
-    "p2-p": {
-      "type": "library",
-      "root": "libs/p2-p",
-      "entryFile": "index",
-      "sourceRoot": "libs/p2-p/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/p2-p/tsconfig.lib.json"
-      }
-    },
-    "security": {
-      "type": "library",
-      "root": "libs/security",
-      "entryFile": "index",
-      "sourceRoot": "libs/security/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/security/tsconfig.lib.json"
-      }
-    },
     "parse": {
       "type": "application",
       "root": "apps/parse",
@@ -131,15 +112,6 @@
         "tsConfigPath": "apps/persist/tsconfig.app.json"
       }
     },
-    "network-observer": {
-      "type": "application",
-      "root": "apps/network-observer",
-      "entryFile": "main",
-      "sourceRoot": "apps/network-observer/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/network-observer/tsconfig.app.json"
-      }
-    },
     "wallet": {
       "type": "application",
       "root": "apps/wallet",
@@ -147,6 +119,42 @@
       "sourceRoot": "apps/wallet/src",
       "compilerOptions": {
         "tsConfigPath": "apps/wallet/tsconfig.app.json"
+      }
+    },
+    "config": {
+      "type": "library",
+      "root": "libs/config",
+      "entryFile": "index",
+      "sourceRoot": "libs/config/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/config/tsconfig.lib.json"
+      }
+    },
+    "blockchain": {
+      "type": "library",
+      "root": "libs/blockchain",
+      "entryFile": "index",
+      "sourceRoot": "libs/blockchain/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/blockchain/tsconfig.lib.json"
+      }
+    },
+    "invite": {
+      "type": "library",
+      "root": "libs/invite",
+      "entryFile": "index",
+      "sourceRoot": "libs/invite/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/invite/tsconfig.lib.json"
+      }
+    },
+    "p2-p": {
+      "type": "library",
+      "root": "libs/p2-p",
+      "entryFile": "index",
+      "sourceRoot": "libs/p2-p/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/p2-p/tsconfig.lib.json"
       }
     },
     "wallet-client": {
@@ -194,48 +202,40 @@
         "tsConfigPath": "libs/clients/event-client/tsconfig.lib.json"
       }
     },
-    "network-gateway": {
-      "type": "application",
-      "root": "apps/network-gateway",
-      "entryFile": "main",
-      "sourceRoot": "apps/network-gateway/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/network-gateway/tsconfig.app.json"
-      }
-    },
-    "network-validator": {
-      "type": "application",
-      "root": "apps/network-validator",
-      "entryFile": "main",
-      "sourceRoot": "apps/network-validator/src",
-      "compilerOptions": {
-        "plugins": [
-          {
-            "name": "@nestjs/swagger",
-            "options": {
-              "dtoFileNameSuffix": [".dto.ts", ".schema.ts"]
-            }
-          }
-        ],
-        "tsConfigPath": "apps/network-validator/tsconfig.app.json"
-      }
-    },
     "did": {
       "type": "library",
-      "root": "libs/did",
+      "root": "libs/transactions/did",
       "entryFile": "index",
-      "sourceRoot": "libs/did/src",
+      "sourceRoot": "libs/transactions/did/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/did/tsconfig.lib.json"
+        "tsConfigPath": "libs/transactions/did/tsconfig.lib.json"
+      }
+    },
+    "hash": {
+      "type": "library",
+      "root": "libs/transactions/hash",
+      "entryFile": "index",
+      "sourceRoot": "libs/transactions/hash/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/transactions/hash/tsconfig.lib.json"
       }
     },
     "template": {
       "type": "library",
-      "root": "libs/template",
+      "root": "libs/transactions/template",
       "entryFile": "index",
-      "sourceRoot": "libs/template/src",
+      "sourceRoot": "libs/transactions/template/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/template/tsconfig.lib.json"
+        "tsConfigPath": "libs/transactions/template/tsconfig.lib.json"
+      }
+    },
+    "security": {
+      "type": "library",
+      "root": "libs/transactions/security",
+      "entryFile": "index",
+      "sourceRoot": "libs/transactions/security/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/transactions/security/tsconfig.lib.json"
       }
     }
   }

@@ -19,16 +19,19 @@ describe('PersistService', () => {
 
   beforeAll(async () => {
     if (!fs.existsSync(process.env.STORAGE!)) {
-      fs.mkdirSync(`${process.env.STORAGE!}/bc`, { recursive: true })
+      fs.mkdirSync(`${process.env.STORAGE!}/bc`, { recursive: true });
     }
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         PersistService,
         { provide: ConfigService, useValue: configServiceMock },
-        { provide: getToken('blockchainLength'), useValue:{
-          inc:jest.fn(()=>''),
-          reset:jest.fn(()=>'')
-        } },
+        {
+          provide: getToken('blockchainLength'),
+          useValue: {
+            inc: jest.fn(() => ''),
+            reset: jest.fn(() => ''),
+          },
+        },
       ],
     }).compile();
     _path = `${configServiceMock.storagePath}/bc`;
