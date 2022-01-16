@@ -1,10 +1,6 @@
-import {
-  BLOCK_CREATED,
-  BLOCK_PARSED,
-  REDIS_INJECTION,
-} from '@tc/event-client/constants';
+import { BLOCK_CREATED, REDIS_INJECTION } from '@tc/event-client/constants';
 import { Block } from '@tc/blockchain/block/block.interface';
-import { ClientRedis, EventPattern, Transport } from '@nestjs/microservices';
+import { ClientRedis } from '@nestjs/microservices';
 import { EventEmitter } from 'events';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
@@ -32,9 +28,7 @@ export class BlockReceivedService {
   constructor(
     @Inject(REDIS_INJECTION) private readonly clientRedis: ClientRedis,
     @Inject('winston') private readonly logger: Logger,
-  ) {
-    console.log('hello');
-  }
+  ) {}
 
   /**
    * Adds block to the database and chain and fire a new event. Returns a resolved promise when the block got parsed.

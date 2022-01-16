@@ -1,4 +1,4 @@
-import { ClientModule } from 'libs/clients/client.module';
+import { ClientModule } from '@shared/client.module';
 import { ConfigModule, ConfigService } from '@tc/config';
 import { HttpConfigService } from '@shared/http-config.service';
 import { HttpModule, HttpService } from '@nestjs/axios';

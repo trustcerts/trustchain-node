@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { RoleManageAddEnum } from '@tc/did/constants';
 import { TemplateCachedService } from '@tc/template/template-cached/template-cached.service';
 import { TemplateTransactionDto } from '@tc/template/dto/template.transaction.dto';
-import { TransactionCheck } from 'libs/transactions/transaction.check';
+import { TransactionCheck } from '@shared/transactions/transaction.check';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 

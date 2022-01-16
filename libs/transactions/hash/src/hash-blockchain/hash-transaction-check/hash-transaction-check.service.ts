@@ -4,7 +4,7 @@ import { HashDocument } from '@tc/hash/schemas/hash.schema';
 import { HashTransactionDto } from '@tc/hash/dto/hash.transaction.dto';
 import { Model } from 'mongoose';
 import { RoleManageAddEnum } from '@tc/did/constants';
-import { TransactionCheck } from 'libs/transactions/transaction.check';
+import { TransactionCheck } from '@shared/transactions/transaction.check';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 

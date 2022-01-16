@@ -10,7 +10,7 @@ import {
 } from '@tc/blockchain/blockchain.events';
 import { ClientRedis } from '@nestjs/microservices';
 import { Socket as ClientSocket } from 'socket.io-client';
-import { Connection } from '../../../shared/connection';
+import { Connection } from '@shared/connection';
 import { EventEmitter } from 'events';
 import { HashService } from '@tc/blockchain/hash.service';
 import { Inject, Injectable } from '@nestjs/common';

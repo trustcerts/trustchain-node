@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { RateLimitCachedService } from '@tc/security/rate-limit/rate-limit-cached/rate-limit-cached.service';
 import { RoleManageAddEnum } from '@tc/did/constants';
 import { SecurityLimitTransactionDto } from '../../dto/security-limit.transaction.dto';
-import { TransactionCheck } from 'libs/transactions/transaction.check';
+import { TransactionCheck } from '@shared/transactions/transaction.check';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 

@@ -17,7 +17,7 @@ import {
   dbConnectionValidation,
   dynamicHttpValidation,
   httpValidation,
-} from '../../shared/validation-rules';
+} from '@shared/validation-rules';
 
 @Module({
   imports: [

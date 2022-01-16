@@ -1,4 +1,4 @@
-import { Connection } from '../../../shared/connection';
+import { Connection } from '@shared/connection';
 import { HttpService } from '@nestjs/axios';
 import { Inject } from '@nestjs/common';
 import { Logger } from 'winston';

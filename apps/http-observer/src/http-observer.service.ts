@@ -1,6 +1,6 @@
 import { ClientRedis, ClientTCP } from '@nestjs/microservices';
 import { ConfigService } from '@tc/config';
-import { HttpService } from '../../shared/http/http.service';
+import { HttpService } from '@shared/http/http.service';
 import { Inject, Injectable } from '@nestjs/common';
 import { InviteNode } from '@tc/invite/dto/invite-node.dto';
 import { Logger } from 'winston';

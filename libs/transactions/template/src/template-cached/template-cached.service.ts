@@ -2,7 +2,7 @@ import { CachedService } from '@shared/cache.service';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Model } from 'mongoose';
-import { ParsingService } from 'libs/transactions/parsing.service';
+import { ParsingService } from '@shared/transactions/parsing.service';
 import { Template, TemplateDocument } from '../schemas/template.schema';
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';

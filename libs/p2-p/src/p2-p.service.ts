@@ -34,7 +34,7 @@ import { SignatureService } from '@tc/blockchain/signature/signature.service';
 import { lastValueFrom } from 'rxjs';
 import { plainToClass } from 'class-transformer';
 import { validateSync } from 'class-validator';
-import { wait } from '@apps/shared/helpers';
+import { wait } from '@shared/helpers';
 
 /**
  * Handles the connections to the blockchain.

@@ -1,6 +1,6 @@
 import { CachedService } from '@shared/cache.service';
 import { Hash, HashDocument } from '@tc/hash/schemas/hash.schema';
-import { HashFilterDto } from '../../../../../apps/http-gateway/src/gateway-hash/hash-filter.dto';
+import { HashFilterDto } from '../dto/hash-filter.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';

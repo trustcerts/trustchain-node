@@ -6,7 +6,7 @@ import {
   addRedisEndpoint,
   addTCPEndpoint,
   getLogger,
-} from '../../shared/main-functions';
+} from '@shared/main-functions';
 
 /**
  * Function to configure and start a Validator node.

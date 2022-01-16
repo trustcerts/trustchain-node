@@ -4,7 +4,7 @@ import { GatewayBlockchainModule } from '../gateway-blockchain/gateway-blockchai
 import { GatewayHashController } from './gateway-hash.controller';
 import { GatewayHashService } from './gateway-hash.service';
 import { HashCachedModule } from '@tc/hash/hash-cached/hash-cached.module';
-import { HttpConfigService } from '../../../shared/http-config.service';
+import { HttpConfigService } from '@shared/http-config.service';
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { RateLimitCachedModule } from '@tc/security/rate-limit/rate-limit-cached/rate-limit-cached.module';

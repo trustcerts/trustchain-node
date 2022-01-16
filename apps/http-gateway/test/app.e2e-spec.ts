@@ -43,7 +43,7 @@ import {
   createTemplate,
 } from '@test/helpers';
 import { HttpGatewayService } from '../src/http-gateway.service';
-import { wait } from '@apps/shared/helpers';
+import { wait } from '@shared/helpers';
 import { InviteService } from '@tc/invite';
 import { TextEncoder } from 'util';
 

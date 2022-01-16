@@ -18,7 +18,7 @@ import { TemplateCachedModule } from '@tc/template/template-cached/template-cach
 import { TemplateParsingModule } from '@tc/template/template-parsing/template-parsing.module';
 import { TerminusModule } from '@nestjs/terminus';
 import { WinstonModule } from 'nest-winston';
-import { dbConnectionValidation } from '../../shared/validation-rules';
+import { dbConnectionValidation } from '@shared/validation-rules';
 @Module({
   imports: [
     ConfigModule.forRoot({

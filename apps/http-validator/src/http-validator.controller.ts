@@ -13,11 +13,11 @@ import {
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
-import { HttpController } from '../../shared/http/http.controller';
+import { HttpController } from '@shared/http/http.controller';
 import { HttpValidatorService } from './http-validator.service';
 import { InviteService } from '@tc/invite';
 import { Logger } from 'winston';
-import { NodeGuard } from '../../shared/guards/node-guard.service';
+import { NodeGuard } from '@shared/guards/node-guard.service';
 
 /**
  * Controller to handle requests to the Validator.

@@ -13,7 +13,7 @@ import {
   dbConnectionValidation,
   networkDynamicValidation,
   networkValidation,
-} from '../../shared/validation-rules';
+} from '@shared/validation-rules';
 
 @Module({
   imports: [

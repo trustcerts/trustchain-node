@@ -14,12 +14,12 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ConfigService } from '@tc/config';
-import { HttpController } from '../../shared/http/http.controller';
+import { HttpController } from '@shared/http/http.controller';
 import { HttpGatewayService } from './http-gateway.service';
 import { InviteNode } from '@tc/invite/dto/invite-node.dto';
 import { InviteService } from '@tc/invite';
 import { Logger } from 'winston';
-import { NodeGuard } from '../../shared/guards/node-guard.service';
+import { NodeGuard } from '@shared/guards/node-guard.service';
 
 /**
  * Controller to handle requests to the gateway.

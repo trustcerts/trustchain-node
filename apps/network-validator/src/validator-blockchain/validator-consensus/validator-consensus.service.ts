@@ -7,7 +7,7 @@ import {
   RESPONSE_ROUND_NUMBER,
 } from '@tc/blockchain/blockchain.events';
 import { ConfigService } from '@tc/config/config.service';
-import { Connection } from '../../../../shared/connection';
+import { Connection } from '@shared/connection';
 import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';

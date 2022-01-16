@@ -18,13 +18,13 @@ import {
   dbConnectionValidation,
   networkDynamicValidation,
   networkValidation,
-} from '../../shared/validation-rules';
+} from '@shared/validation-rules';
 
 import { BlockReceivedModule } from '@tc/p2-p/block-received/block-received.module';
 import { DidCachedModule } from '@tc/did/did-cached/did-cached.module';
 import { DidDbModule } from '@tc/did/did-db/did-db.module';
 import { EventClientModule } from '@tc/event-client';
-import { HttpConfigService } from '../../shared/http-config.service';
+import { HttpConfigService } from '@shared/http-config.service';
 import { HttpModule } from '@nestjs/axios';
 import { Identifier } from '@trustcerts/core';
 

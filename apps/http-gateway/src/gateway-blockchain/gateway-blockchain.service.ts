@@ -15,7 +15,7 @@ import { EventEmitter } from 'events';
 import { Gauge } from 'prom-client';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';
 import { Logger } from 'winston';
-import { PersistedTransaction } from '../../../shared/http/persisted-transaction';
+import { PersistedTransaction } from '@shared/http/persisted-transaction';
 import {
   REDIS_INJECTION,
   TRANSACTION_CREATED,

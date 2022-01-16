@@ -6,7 +6,7 @@ import { DidBlockchainModule } from '@tc/did/did-blockchain/did-blockchain.modul
 import { EventClientModule } from '@tc/event-client';
 import { HashBlockchainModule } from '@tc/hash/hash-blockchain/hash-blockchain.module';
 import { HashModule } from '@tc/blockchain';
-import { HttpConfigService } from '../../../shared/http-config.service';
+import { HttpConfigService } from '@shared/http-config.service';
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { P2PModule } from '@tc/p2-p';

@@ -1,7 +1,7 @@
 import { Block } from '@tc/blockchain/block/block.interface';
 import { BlockReceivedService } from '@tc/p2-p/block-received/block-received.service';
 import { ConfigService } from '@tc/config/config.service';
-import { Connection } from '../../../shared/connection';
+import { Connection } from '@shared/connection';
 import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
 import { DidCreation, VerificationRelationshipType } from '@trustcerts/core';
 import { DidIdRegister } from '@trustcerts/did-id-create';

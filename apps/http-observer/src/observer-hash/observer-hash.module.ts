@@ -1,6 +1,6 @@
 import { ConfigModule } from '@tc/config';
 import { HashCachedModule } from '@tc/hash/hash-cached/hash-cached.module';
-import { HttpConfigService } from '../../../shared/http-config.service';
+import { HttpConfigService } from '@shared/http-config.service';
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { ObserverHashController } from './observer-hash.controller';

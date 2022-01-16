@@ -9,7 +9,7 @@ import {
   WS_BLOCK_PROPOSE,
 } from '@tc/blockchain/blockchain.events';
 import { ConfigService } from '@tc/config';
-import { Connection } from '../../../../../shared/connection';
+import { Connection } from '@shared/connection';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
 import { ParticipantConsensus } from '../participant-consensus';

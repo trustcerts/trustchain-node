@@ -7,11 +7,11 @@ import {
 import { Body, Controller, Get, Inject, Post, UseGuards } from '@nestjs/common';
 import { ClientRedis } from '@nestjs/microservices';
 import { ConfigService } from '@tc/config';
-import { HttpController } from '../../shared/http/http.controller';
+import { HttpController } from '@shared/http/http.controller';
 import { HttpObserverService } from './http-observer.service';
 import { InviteNode } from '@tc/invite/dto/invite-node.dto';
 import { Logger } from 'winston';
-import { NodeGuard } from '../../shared/guards/node-guard.service';
+import { NodeGuard } from '@shared/guards/node-guard.service';
 import { REDIS_INJECTION } from '@tc/event-client/constants';
 
 /**
