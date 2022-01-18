@@ -14,7 +14,7 @@ import {
   Transport,
 } from '@nestjs/microservices';
 import { Hash } from '@tc/hash/schemas/hash.schema';
-import { Did } from '@tc/did/schemas/did.schema';
+import { DidId } from '@tc/did/schemas/did.schema';
 import { addRedisEndpoint, addTCPEndpoint } from '@shared/main-functions';
 import { PersistClientService } from '@tc/persist-client';
 import {
@@ -35,7 +35,7 @@ describe('AppController (e2e)', () => {
   let clientTCP: ClientTCP;
   let persistClientService: PersistClientService;
   let hashRepository: Model<Hash>;
-  let didRepository: Model<Did>;
+  let didRepository: Model<DidId>;
 
   beforeAll(async () => {
     if ((global as any).isE2E) {
@@ -59,7 +59,7 @@ describe('AppController (e2e)', () => {
     await app.startAllMicroservices();
     await app.init();
     hashRepository = app.get<Model<Hash>>(getModelToken(Hash.name));
-    didRepository = app.get<Model<Did>>(getModelToken(Did.name));
+    didRepository = app.get<Model<DidId>>(getModelToken(DidId.name));
     persistClientService = app.get(PersistClientService);
     clientRedis = app.get(REDIS_INJECTION);
     clientTCP = app.get('ParseClient');

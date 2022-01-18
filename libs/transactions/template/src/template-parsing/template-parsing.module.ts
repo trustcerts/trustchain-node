@@ -11,6 +11,10 @@ import { TEMPLATE_CONNECTION } from '../constants';
 import { Template, TemplateSchema } from '../schemas/template.schema';
 import { TemplateDbModule } from '../template-db/template-db.module';
 import { TemplateParsingService } from './template-parsing.service';
+import {
+  TemplateTransaction,
+  TemplateTransactionSchema,
+} from '../schemas/template-transaction.schema';
 
 @Module({
   imports: [
@@ -19,7 +23,10 @@ import { TemplateParsingService } from './template-parsing.service';
     HashModule,
     TemplateDbModule,
     MongooseModule.forFeature(
-      [{ name: Template.name, schema: TemplateSchema }],
+      [
+        { name: Template.name, schema: TemplateSchema },
+        { name: TemplateTransaction.name, schema: TemplateTransactionSchema },
+      ],
       TEMPLATE_CONNECTION,
     ),
     PrometheusModule.register({

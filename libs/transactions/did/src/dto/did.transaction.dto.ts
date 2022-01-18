@@ -1,16 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  DID_NAME,
-  DidPublicKeyTypeEnum,
-  RoleManageAddEnum,
-} from '@tc/did/constants';
-import {
-  IsArray,
-  IsOptional,
-  IsString,
-  Matches,
-  ValidateNested,
-} from 'class-validator';
+import { DidPublicKeyTypeEnum, RoleManageAddEnum } from '@tc/did/constants';
+import { DidStructure } from '@apps/shared/did/dto/did.transaction.dto';
+import { IsArray, IsOptional, IsString, ValidateNested } from 'class-validator';
 import { PublicKeyJwkDto } from '@tc/did/dto/public-key-jwk.dto';
 import {
   SignatureInfo,
@@ -20,7 +11,6 @@ import {
 } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 import { Type } from 'class-transformer';
-import { getDid } from '@shared/helpers';
 
 /**
  * Definition of the key.
@@ -162,37 +152,6 @@ class VerificationRelationshipManage extends DidManage {
 }
 
 /**
- * Manager class for the controllers.
- */
-class ControllerManage extends DidManage {
-  /**
-   * Id that should be removed from the list.
-   */
-  @ApiProperty({
-    description: 'id that should be added to the controller list.',
-    type: [String],
-    required: false,
-    example: ['did:example:12345'],
-  })
-  @IsOptional()
-  @IsString({ each: true })
-  add?: string[];
-
-  /**
-   * List of did that should be removed.
-   */
-  @ApiProperty({
-    description: 'id that should be removed from the controller list.',
-    type: [String],
-    required: false,
-    example: ['did:example:12345'],
-  })
-  @IsOptional()
-  @IsString({ each: true })
-  remove?: string[];
-}
-
-/**
  * Manger class for the roles.pa
  */
 class RoleManage extends DidManage {
@@ -234,7 +193,36 @@ export interface IVerificationRelationships {
 /**
  * Relationships of a verification key.
  */
-export class VerificationRelationships implements IVerificationRelationships {
+export class VerificationRelationships implements IVerificationRelationships {}
+
+/**
+ * Body structure of a did transaction.
+ */
+export class DidIdStructure
+  extends DidStructure
+  implements VerificationRelationships
+{
+  /**
+   * Roles that are assigned to a did.
+   */
+  @ValidateNested()
+  @Type(() => RoleManage)
+  role?: RoleManage;
+
+  /**
+   * public keys that are registered in the did document.
+   */
+  @ValidateNested()
+  @Type(() => VerificationMethod)
+  verificationMethod?: VerificationMethod;
+
+  /**
+   * Services that should be connected with the did.
+   */
+  @ValidateNested()
+  @Type(() => ServiceMange)
+  service?: ServiceMange;
+
   /**
    * Ids of the key that are used of authentication.
    */
@@ -279,59 +267,14 @@ export class VerificationRelationships implements IVerificationRelationships {
 }
 
 /**
- * Body structure of a did transaction.
- */
-export class DidStructure extends VerificationRelationships {
-  /**
-   * Unique identifier.
-   */
-  @ApiProperty({
-    // TODO set correct example
-    example: '123456789ABCDEFGHJKLMN',
-    description: 'unique identifier of a did',
-  })
-  @Matches(getDid(DID_NAME))
-  @IsString()
-  id!: string;
-
-  /**
-   * Did that controls this did.
-   */
-  @ValidateNested()
-  @Type(() => ControllerManage)
-  controller?: ControllerManage;
-
-  /**
-   * Roles that are assigned to a did.
-   */
-  @ValidateNested()
-  @Type(() => RoleManage)
-  role?: RoleManage;
-
-  /**
-   * public keys that are registered in the did document.
-   */
-  @ValidateNested()
-  @Type(() => VerificationMethod)
-  verificationMethod?: VerificationMethod;
-
-  /**
-   * Services that should be connected with the did.
-   */
-  @ValidateNested()
-  @Type(() => ServiceMange)
-  service?: ServiceMange;
-}
-
-/**
  * Body of a did transaction.
  */
 export class DidTransactionBody extends TransactionBody {
   /**
    * Elements of the did document.
    */
-  @Type(() => DidStructure)
-  value!: DidStructure;
+  @Type(() => DidIdStructure)
+  value!: DidIdStructure;
 
   /**
    * type of the transaction.
@@ -356,12 +299,12 @@ export class DidTransactionBody extends TransactionBody {
 /**
  * Datatransferobject for did transactions.
  */
-export class DidTransactionDto extends TransactionDto {
+export class DidIdTransactionDto extends TransactionDto {
   /**
    * Inits the type and the signature values.
    * @param value
    */
-  constructor(value: DidStructure, didDocSignature: SignatureInfo) {
+  constructor(value: DidIdStructure, didDocSignature: SignatureInfo) {
     super(TransactionType.Did, value);
     this.body.didDocSignature = didDocSignature;
     this.signature = {

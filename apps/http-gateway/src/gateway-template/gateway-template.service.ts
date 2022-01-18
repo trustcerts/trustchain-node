@@ -5,6 +5,7 @@ import { GatewayTransactionService } from '../gateway-transaction.service';
 import { HashService } from '@tc/blockchain';
 import { Logger } from 'winston';
 import { TemplateCachedService } from '@tc/template/template-cached/template-cached.service';
+import { TemplateTransactionCheckService } from '@tc/template/template-blockchain/template-transaction-check/template-transaction-check.service';
 import { TemplateTransactionDto } from '@tc/template/dto/template.transaction.dto';
 import { WalletClientService } from '@tc/wallet-client';
 
@@ -24,6 +25,7 @@ export class GatewayTemplateService extends GatewayTransactionService {
    */
   constructor(
     protected readonly gatewayBlockchainService: GatewayBlockchainService,
+    protected readonly templateTransactionCheckSerice: TemplateTransactionCheckService,
     protected readonly templateCachedService: TemplateCachedService,
     protected readonly hashService: HashService,
     protected readonly walletService: WalletClientService,
@@ -32,6 +34,7 @@ export class GatewayTemplateService extends GatewayTransactionService {
   ) {
     super(
       gatewayBlockchainService,
+      templateTransactionCheckSerice,
       templateCachedService,
       walletService,
       logger,
@@ -44,7 +47,7 @@ export class GatewayTemplateService extends GatewayTransactionService {
    * @param transaction
    */
   async addTemplate(transaction: TemplateTransactionDto) {
-    const template = await this.templateCachedService.getTemplate(
+    const template = await this.templateCachedService.getById(
       transaction.body.value.id,
     );
     if (template) {

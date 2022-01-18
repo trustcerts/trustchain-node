@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { BcEntity } from '@shared/transactions/bc-entity.schema';
 import { Compression } from '../dto/template.transaction.dto';
+import { Did } from '@apps/shared/did/schemas/did.schema';
 import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
@@ -10,14 +10,7 @@ export type TemplateDocument = Template & Document;
  * Describes the values of a template that is used for presentation.
  */
 @Schema()
-export class Template extends BcEntity {
-  /**
-   * Unique identifier, normally a did string
-   */
-  @Prop({ length: 50 })
-  @ApiProperty({ description: 'did of the template' })
-  id!: string;
-
+export class Template extends Did {
   /**
    * Information about the used compression.
    */

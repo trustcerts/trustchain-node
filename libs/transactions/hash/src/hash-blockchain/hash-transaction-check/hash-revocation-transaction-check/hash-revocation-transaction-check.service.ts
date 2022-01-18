@@ -23,13 +23,13 @@ export class HashRevocationTransactionCheckService extends HashTransactionCheckS
    * @param hashCachedService
    */
   constructor(
-    private readonly didCachedService: DidCachedService,
     @InjectModel(Hash.name)
     protected hashModel: Model<HashDocument>,
     protected readonly blockCheckService: BlockCheckService,
     protected readonly hashCachedService: HashCachedService,
+    protected readonly didCachedService: DidCachedService,
   ) {
-    super(hashModel, blockCheckService, hashCachedService);
+    super(hashModel, blockCheckService, hashCachedService, didCachedService);
   }
 
   /**

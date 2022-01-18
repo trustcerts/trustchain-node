@@ -8,6 +8,7 @@ import { HashCreationResponse, HashRevocationResponse } from './response';
 import { HashCreationTransactionDto } from '@tc/hash/dto/hash-creation.transaction.dto';
 import { HashRevocationTransactionDto } from '@tc/hash/dto/hash-revocation.transaction.dto';
 import { HashService } from '@tc/blockchain/hash.service';
+import { HashSignTransactionCheckService } from '@tc/hash/hash-blockchain/hash-transaction-check/hash-sign-transaction-check/hash-sign-transaction-check.service';
 import { Logger } from 'winston';
 import { WalletClientService } from '@tc/wallet-client';
 
@@ -27,6 +28,7 @@ export class GatewayHashService extends GatewayTransactionService {
    */
   constructor(
     protected readonly gatewayBlockchainService: GatewayBlockchainService,
+    protected readonly hashTransactionCheck: HashSignTransactionCheckService,
     private readonly hashCachedService: HashCachedService,
     protected readonly hashService: HashService,
     protected readonly walletService: WalletClientService,
@@ -36,6 +38,7 @@ export class GatewayHashService extends GatewayTransactionService {
   ) {
     super(
       gatewayBlockchainService,
+      hashTransactionCheck,
       hashCachedService,
       walletService,
       logger,
@@ -50,6 +53,7 @@ export class GatewayHashService extends GatewayTransactionService {
   async addHash(
     transaction: HashCreationTransactionDto,
   ): Promise<HashCreationResponse> {
+    // TODO move checks into transaction check
     const hash = await this.hashCachedService.getHash(
       transaction.body.value.hash,
     );
@@ -74,6 +78,7 @@ export class GatewayHashService extends GatewayTransactionService {
   async revokeHash(
     transaction: HashRevocationTransactionDto,
   ): Promise<HashRevocationResponse> {
+    // TODO move checks into transaction check
     const hash = await this.hashCachedService.getHash(
       transaction.body.value.hash,
     );

@@ -1,11 +1,11 @@
 import { DID_CONNECTION } from '@tc/did/constants';
-import { Did, DidSchema } from '../schemas/did.schema';
 import { DidDbModule } from '../did-db/did-db.module';
-import { DidParsingService } from './did-parsing.service';
+import { DidId, DidIdSchema } from '../schemas/did.schema';
 import {
-  DidTransaction,
+  DidIdTransaction,
   DidTransactionSchema,
 } from '@tc/did/schemas/did-transaction.schema';
+import { DidParsingService } from './did-parsing.service';
 import { EventClientModule } from '@tc/event-client';
 import { HashModule } from '@tc/blockchain';
 import { Module, forwardRef } from '@nestjs/common';
@@ -24,8 +24,8 @@ import {
     DidDbModule,
     MongooseModule.forFeature(
       [
-        { name: DidTransaction.name, schema: DidTransactionSchema },
-        { name: Did.name, schema: DidSchema },
+        { name: DidIdTransaction.name, schema: DidTransactionSchema },
+        { name: DidId.name, schema: DidIdSchema },
       ],
       DID_CONNECTION,
     ),

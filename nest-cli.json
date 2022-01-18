@@ -229,13 +229,13 @@
         "tsConfigPath": "libs/transactions/template/tsconfig.lib.json"
       }
     },
-    "security": {
+    "schema": {
       "type": "library",
-      "root": "libs/transactions/security",
+      "root": "libs/transactions/schema",
       "entryFile": "index",
-      "sourceRoot": "libs/transactions/security/src",
+      "sourceRoot": "libs/transactions/schema/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/transactions/security/tsconfig.lib.json"
+        "tsConfigPath": "libs/transactions/schema/tsconfig.lib.json"
       }
     }
   }

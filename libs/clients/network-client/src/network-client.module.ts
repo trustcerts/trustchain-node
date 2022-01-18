@@ -35,8 +35,8 @@ export class NetworkClientModule
     super(configService, httpService, logger);
   }
 
-  onApplicationBootstrap(): Promise<void> {
-    return this.isHealthy(
+  async onApplicationBootstrap(): Promise<void> {
+    await this.isHealthy(
       this.configService.getString(NETWORK_URL),
       this.configService.getNumber(NETWORK_PORT_HTTP),
     );

@@ -7,10 +7,10 @@ import {
 } from '@nestjs/swagger';
 import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
-import { DidDocumentMetaData } from '@tc/did/did-cached/DidDocumentMetaData';
-import { DidTransaction } from '@tc/did/schemas/did-transaction.schema';
-import { DocResponse } from '@tc/did/did-cached/DocResponse';
+import { DidDocumentMetaData } from '@apps/shared/did/did-document-meta-data';
+import { DidIdTransaction } from '@tc/did/schemas/did-transaction.schema';
 import { GenesisBlock } from '@tc/blockchain/block/genesis-block.dto';
+import { IdDocResponse } from '@tc/did/did-cached/doc-response';
 import { MaintenanceGuard } from '@tc/config/version/maintenance.guard';
 
 /**
@@ -66,7 +66,7 @@ export class ObserverDidController {
     @Param('id') identifier: string,
     @Query('versionTime') time: string,
     @Query('versionId') id: number,
-  ): Promise<DidTransaction[]> {
+  ): Promise<DidIdTransaction[]> {
     return this.didCachedService.getTransactions(identifier, {
       time,
       id,
@@ -96,7 +96,7 @@ export class ObserverDidController {
     @Param('id') identifier: string,
     @Query('versionTime') time: string,
     @Query('versionId') id: number,
-  ): Promise<DocResponse> {
+  ): Promise<IdDocResponse> {
     return this.didCachedService.getDocument(identifier, {
       time,
       id,

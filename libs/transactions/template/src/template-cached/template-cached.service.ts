@@ -4,6 +4,10 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { ParsingService } from '@shared/transactions/parsing.service';
 import { Template, TemplateDocument } from '../schemas/template.schema';
+import {
+  TemplateTransaction,
+  TemplateTransactionDocument,
+} from '../schemas/template-transaction.schema';
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 
@@ -14,21 +18,14 @@ import { join } from 'path';
 export class TemplateCachedService extends CachedService {
   /**
    * Injects required dependencies.
-   * @param templateModel
+   * @param didModel
    */
   constructor(
-    @InjectModel(Template.name) private templateModel: Model<TemplateDocument>,
+    @InjectModel(TemplateTransaction.name)
+    protected transactionModel: Model<TemplateTransactionDocument>,
+    @InjectModel(Template.name) protected didModel: Model<TemplateDocument>,
   ) {
-    super();
-  }
-
-  /**
-   * Requests a template by id.
-   * @param id
-   * @returns
-   */
-  async getTemplate(id: string) {
-    return this.templateModel.findOne({ id });
+    super(transactionModel, didModel);
   }
 
   /**
@@ -37,7 +34,7 @@ export class TemplateCachedService extends CachedService {
    * @returns
    */
   async getTemplateOrFail(id: string): Promise<Template> {
-    const template = await this.templateModel.findOne({ id });
+    const template = await this.getById(id);
     if (!template) {
       throw new NotFoundException('template not found');
     }

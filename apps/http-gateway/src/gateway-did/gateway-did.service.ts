@@ -11,7 +11,8 @@ import {
   importKey,
 } from '@trustcerts/core';
 import { DidIdRegister } from '@trustcerts/did-id-create';
-import { DidTransactionDto } from '@tc/did/dto/did.transaction.dto';
+import { DidIdTransactionDto } from '@tc/did/dto/did.transaction.dto';
+import { DidTransactionCheckService } from '@tc/did/did-blockchain/did-transaction-check/did-transaction-check.service';
 import { GatewayBlockchainService } from '../gateway-blockchain/gateway-blockchain.service';
 import { GatewayTransactionService } from '../gateway-transaction.service';
 import { HashService } from '@tc/blockchain';
@@ -40,6 +41,7 @@ export class GatewayDidService extends GatewayTransactionService {
    */
   constructor(
     protected readonly gatewayBlockchainService: GatewayBlockchainService,
+    protected readonly didTransactionCheckService: DidTransactionCheckService,
     private readonly didCachedService: DidCachedService,
     protected readonly walletService: WalletClientService,
     protected readonly hashService: HashService,
@@ -48,6 +50,7 @@ export class GatewayDidService extends GatewayTransactionService {
   ) {
     super(
       gatewayBlockchainService,
+      didTransactionCheckService,
       didCachedService,
       walletService,
       logger,
@@ -59,7 +62,7 @@ export class GatewayDidService extends GatewayTransactionService {
    * Validates the transaction. Makes sure it's identifier is unique.
    * @param transaction
    */
-  async updateDid(transaction: DidTransactionDto) {
+  async updateDid(transaction: DidIdTransactionDto) {
     // const did = await this.didCachedService.getDid(transaction.body.value.id);
     // if (did) {
     //   throw new ConflictException('id already in use');
@@ -177,7 +180,7 @@ export class GatewayDidService extends GatewayTransactionService {
         }),
       ],
     };
-    const transaction = new DidTransactionDto(
+    const transaction = new DidIdTransactionDto(
       did.getChanges(),
       didDocSignature,
     );

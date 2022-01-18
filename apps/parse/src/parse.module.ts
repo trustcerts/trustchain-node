@@ -11,9 +11,8 @@ import { ParseController } from './parse.controller';
 import { ParseService } from './parse.service';
 import { PersistClientModule } from '@tc/persist-client';
 import { PrometheusModule } from '@willsoto/nestjs-prometheus';
-import { RateLimitParsingModule } from '@tc/security/rate-limit/rate-limit-parsing/rate-limit-parsing.module';
-import { SecurityCachedModule } from '@tc/security/security-cached/security-cached.module';
-import { SecurityParsingModule } from '@tc/security/security-parsing/security-parsing.module';
+import { SchemaCachedModule } from '@tc/schema/schema-cached/schema-cached.module';
+import { SchemaParsingModule } from '@tc/schema/schema-parsing/schema-parsing.module';
 import { TemplateCachedModule } from '@tc/template/template-cached/template-cached.module';
 import { TemplateParsingModule } from '@tc/template/template-parsing/template-parsing.module';
 import { TerminusModule } from '@nestjs/terminus';
@@ -47,13 +46,11 @@ import { dbConnectionValidation } from '@shared/validation-rules';
     HashParsingModule,
     HashCachedModule,
 
-    SecurityParsingModule,
-    SecurityCachedModule,
-
-    RateLimitParsingModule,
-
     DidParsingModule,
     DidCachedModule,
+
+    SchemaParsingModule,
+    SchemaCachedModule,
 
     TemplateParsingModule,
     TemplateCachedModule,

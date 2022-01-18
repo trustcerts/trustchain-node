@@ -41,8 +41,8 @@
       "@tc/template/*": ["libs/transactions/template/src/*"],
       "@tc/hash": ["libs/transactions/hash/src"],
       "@tc/hash/*": ["libs/transactions/hash/src/*"],
-      "@tc/security": ["libs/transactions/security/src"],
-      "@tc/security/*": ["libs/transactions/security/src/*"]
+      "@tc/schema": ["libs/transactions/schema/src"],
+      "@tc/schema/*": ["libs/transactions/schema/src/*"]
     }
   },
   "exclude": ["node_modules", "dist", "sdk/**"]

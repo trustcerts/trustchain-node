@@ -14,7 +14,7 @@ import {
   Identifier,
 } from '@trustcerts/core';
 import { DidIdRegister } from '@trustcerts/did-id-create';
-import { DidTransactionDto } from '@tc/did/dto/did.transaction.dto';
+import { DidIdTransactionDto } from '@tc/did/dto/did.transaction.dto';
 import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
 import { HashCachedService } from '@tc/hash/hash-cached/hash-cached.service';
 import { WalletClientService } from '@tc/wallet-client';
@@ -180,7 +180,7 @@ describe('Http Gateway (e2e)', () => {
 
   // #Did_Section
   it('test documents bigger as 1mb', async () => {
-    const didDocTransaction: DidTransactionDto = {
+    const didDocTransaction: DidIdTransactionDto = {
       ...transactionProperties,
       body: {
         version: 1,
@@ -219,7 +219,7 @@ describe('Http Gateway (e2e)', () => {
   });
 
   it('should add a did document', async () => {
-    const didDocTransaction: DidTransactionDto = {
+    const didDocTransaction: DidIdTransactionDto = {
       ...transactionProperties,
       body: {
         version: 1,

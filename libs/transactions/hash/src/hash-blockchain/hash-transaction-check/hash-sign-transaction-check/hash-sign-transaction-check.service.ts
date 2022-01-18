@@ -29,7 +29,7 @@ export class HashSignTransactionCheckService extends HashTransactionCheckService
     protected readonly blockCheckService: BlockCheckService,
     protected readonly hashCachedService: HashCachedService,
   ) {
-    super(hashModel, blockCheckService, hashCachedService);
+    super(hashModel, blockCheckService, hashCachedService, didCachedService);
   }
 
   /**

@@ -6,6 +6,7 @@ import { HttpSharedModule } from '@shared/http/http-shared.module';
 import { Module } from '@nestjs/common';
 import { ObserverDidModule } from './observer-did/observer-did.module';
 import { ObserverHashModule } from './observer-hash/observer-hash.module';
+import { ObserverSchemaModule } from './observer-schema/observer-schema.module';
 import { ObserverTemplateModule } from './observer-template/observer-template.module';
 import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 import { TrackingModule } from './tracking/tracking.module';
@@ -51,6 +52,7 @@ import {
     TrackingModule,
     ObserverDidModule,
     ObserverTemplateModule,
+    ObserverSchemaModule,
   ],
   controllers: [HttpObserverController],
   providers: [HttpObserverService],

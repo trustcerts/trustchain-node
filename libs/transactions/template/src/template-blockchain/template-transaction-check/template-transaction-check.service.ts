@@ -1,4 +1,5 @@
 import { BlockCheckService } from '@tc/blockchain/block-check/block-check.service';
+import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
 import { Injectable } from '@nestjs/common';
 import { RoleManageAddEnum } from '@tc/did/constants';
 import { TemplateCachedService } from '@tc/template/template-cached/template-cached.service';
@@ -20,8 +21,9 @@ export class TemplateTransactionCheckService extends TransactionCheck {
   constructor(
     protected readonly blockCheckService: BlockCheckService,
     protected readonly templateCachedService: TemplateCachedService,
+    protected readonly didCachedService: DidCachedService,
   ) {
-    super(blockCheckService, templateCachedService);
+    super(blockCheckService, templateCachedService, didCachedService);
   }
 
   /**

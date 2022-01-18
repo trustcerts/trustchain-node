@@ -4,6 +4,7 @@ import { ConfigService } from '@tc/config';
 import { EventClientModule } from '@tc/event-client';
 import { GatewayDidModule } from './gateway-did/gateway-did.module';
 import { GatewayHashModule } from './gateway-hash/gateway-hash.module';
+import { GatewaySchemaModule } from './gateway-schema/gateway-schema.module';
 import { GatewayTemplateModule } from './gateway-template/gateway-template.module';
 import { HttpGatewayController } from './http-gateway.controller';
 import { HttpGatewayService } from './http-gateway.service';
@@ -55,6 +56,7 @@ import {
     WalletClientModule,
     GatewayDidModule,
     GatewayTemplateModule,
+    GatewaySchemaModule,
   ],
   controllers: [HttpGatewayController],
   providers: [HttpGatewayService],

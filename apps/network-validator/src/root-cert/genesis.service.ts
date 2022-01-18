@@ -5,7 +5,7 @@ import { Connection } from '@shared/connection';
 import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
 import { DidCreation, VerificationRelationshipType } from '@trustcerts/core';
 import { DidIdRegister } from '@trustcerts/did-id-create';
-import { DidTransactionDto } from '@tc/did/dto/did.transaction.dto';
+import { DidIdTransactionDto } from '@tc/did/dto/did.transaction.dto';
 import { HashService } from '@tc/blockchain';
 import { HttpService } from '@nestjs/axios';
 import { Inject, Injectable } from '@nestjs/common';
@@ -68,7 +68,8 @@ export class GenesisService {
     });
 
     // request all transactions
-    const transactions: DidTransactionDto[] = await this.requestTransactions();
+    const transactions: DidIdTransactionDto[] =
+      await this.requestTransactions();
 
     // build genesis block
     const proposedBlock: ProposedBlock = {
@@ -165,7 +166,7 @@ export class GenesisService {
   /**
    * Requests values from all validators.
    */
-  private requestTransactions(): Promise<DidTransactionDto[]> {
+  private requestTransactions(): Promise<DidIdTransactionDto[]> {
     return Promise.all(
       this.connections.map(async (connection: Connection) => {
         this.logger.debug({
@@ -173,7 +174,7 @@ export class GenesisService {
           labels: { source: this.constructor.name },
         });
         const response = await lastValueFrom(
-          this.httpService.get<DidTransactionDto>(
+          this.httpService.get<DidIdTransactionDto>(
             `${await connection.getHttpEndpoint()}/did/self`,
             {
               headers: {
@@ -245,7 +246,7 @@ export class GenesisService {
   /**
    * Returns a self signed certificate to put it in the first block.
    */
-  async getSelfSigned(): Promise<DidTransactionDto> {
+  async getSelfSigned(): Promise<DidIdTransactionDto> {
     // creates a new did
     const creation: DidCreation = {};
     if (this.configService.getString('DID') !== '') {
@@ -279,7 +280,7 @@ export class GenesisService {
       type: SignatureType.single,
       values: [await this.walletClientService.signIssuer(did.getDocument())],
     };
-    const transaction = new DidTransactionDto(
+    const transaction = new DidIdTransactionDto(
       did.getChanges(),
       didDocSignature,
     );

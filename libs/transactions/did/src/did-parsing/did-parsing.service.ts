@@ -1,12 +1,12 @@
 import { ClientRedis } from '@nestjs/microservices';
 import { Counter } from 'prom-client';
-import { Did, DidDocument } from '@tc/did/schemas/did.schema';
+import { DidId, DidIdDocument } from '@tc/did/schemas/did.schema';
 import {
-  DidTransaction,
+  DidIdTransaction,
   DidTransactionDocument,
 } from '../schemas/did-transaction.schema';
 import {
-  DidTransactionDto,
+  DidIdTransactionDto,
   IVerificationRelationships,
 } from '@tc/did/dto/did.transaction.dto';
 import { HashService } from '@tc/blockchain';
@@ -43,8 +43,8 @@ export class DidParsingService extends ParsingService {
     protected readonly hashService: HashService,
     @Inject(REDIS_INJECTION) protected readonly clientRedis: ClientRedis,
     @Inject('winston') protected readonly logger: Logger,
-    @InjectModel(Did.name) private didRepository: Model<DidDocument>,
-    @InjectModel(DidTransaction.name)
+    @InjectModel(DidId.name) private didRepository: Model<DidIdDocument>,
+    @InjectModel(DidIdTransaction.name)
     private didDocumentRepository: Model<DidTransactionDocument>,
     @InjectMetric('transactions')
     protected readonly transactionsCounter: Counter<string>,
@@ -63,7 +63,7 @@ export class DidParsingService extends ParsingService {
    * @param transaction
    * @private
    */
-  private async addDocument(transaction: DidTransactionDto) {
+  private async addDocument(transaction: DidIdTransactionDto) {
     const did = new this.didDocumentRepository({
       index: await this.hashService.hashTransaction(transaction),
       id: transaction.body.value.id,
@@ -83,7 +83,7 @@ export class DidParsingService extends ParsingService {
    * Adds the values to the database.
    * @param transaction
    */
-  async parseDid(transaction: DidTransactionDto) {
+  async parseDid(transaction: DidIdTransactionDto) {
     await this.addDocument(transaction);
     const did = await this.didRepository
       .findOne({ id: transaction.body.value.id })
@@ -117,7 +117,7 @@ export class DidParsingService extends ParsingService {
     // update the controllers
     if (transaction.body.value.controller) {
       if (transaction.body.value.controller!.remove) {
-        did.controllers = did.controllers.filter((controller: Did) =>
+        did.controllers = did.controllers.filter((controller: DidId) =>
           transaction.body.value.controller!.remove!.includes(controller.id),
         );
       }

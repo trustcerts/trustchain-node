@@ -17,7 +17,6 @@ export default {
     '@tc/hash(.*)': '<rootDir>/libs/transactions/hash/src$1',
     '@tc/invite(.*)': '<rootDir>/libs/invite/src$1',
     '@tc/p2-p(.*)': '<rootDir>/libs/p2-p/src$1',
-    '@tc/security(.*)': '<rootDir>/libs/transactions/security/src$1',
     '@tc/wallet-client(.*)': '<rootDir>/libs/clients/wallet-client/src$1',
     '@tc/persist-client(.*)': '<rootDir>/libs/clients/persist-client/src$1',
     '@tc/parse-client(.*)': '<rootDir>/libs/clients/parse-client/src$1',

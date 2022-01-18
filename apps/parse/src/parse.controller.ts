@@ -26,9 +26,6 @@ export class ParseController {
   /**
    * Inject required services.
    * @param appService
-   * @param hashCachedService
-   * @param securityCachedService
-   * @param didCachedService
    * @param client
    * @param logger
    */

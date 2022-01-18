@@ -6,5 +6,6 @@ import { TemplateTransactionCheckService } from './template-transaction-check/te
 @Module({
   imports: [BlockCheckModule, TemplateCachedModule],
   providers: [TemplateTransactionCheckService],
+  exports: [TemplateTransactionCheckService],
 })
 export class TemplateBlockchainModule {}

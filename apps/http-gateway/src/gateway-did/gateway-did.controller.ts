@@ -7,7 +7,7 @@ import {
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { CreateDidDto } from '@tc/did/dto/create-did.dto';
 import { DidCreationResponse } from './responses';
-import { DidTransactionDto } from '@tc/did/dto/did.transaction.dto';
+import { DidIdTransactionDto } from '@tc/did/dto/did.transaction.dto';
 import { GatewayDidService } from './gateway-did.service';
 import { InviteRequest } from '@tc/invite/schemas/invite-request.schema';
 import { InviteService } from '@tc/invite';
@@ -40,7 +40,7 @@ export class GatewayDidController {
     description: 'did document was created.',
   })
   @Post()
-  store(@Body() transaction: DidTransactionDto) {
+  store(@Body() transaction: DidIdTransactionDto) {
     return this.gatewayDidService.updateDid(transaction);
   }
 

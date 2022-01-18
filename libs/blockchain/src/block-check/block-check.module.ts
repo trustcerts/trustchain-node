@@ -13,6 +13,6 @@ import { WalletClientModule } from '@tc/wallet-client';
     PersistClientModule,
   ],
   providers: [BlockCheckService],
-  exports: [BlockCheckService],
+  exports: [BlockCheckService, DidCachedModule],
 })
 export class BlockCheckModule {}

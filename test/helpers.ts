@@ -13,7 +13,7 @@ import {
   SignatureContent,
   VerificationRelationshipType,
 } from '@trustcerts/core';
-import { DidTransactionDto } from '@tc/did/dto/did.transaction.dto';
+import { DidIdTransactionDto } from '@tc/did/dto/did.transaction.dto';
 import { HashCreationTransactionDto } from '@tc/hash/dto/hash-creation.transaction.dto';
 import { HashService } from '@tc/blockchain/hash.service';
 import { MESSAGE_EVENT } from '@nestjs/microservices/constants';
@@ -133,7 +133,7 @@ export function generateTestTransaction(transactionType: string) {
     },
   };
 
-  const didTransaction: DidTransactionDto = {
+  const didTransaction: DidIdTransactionDto = {
     ...metaData,
     body: {
       version: 1,
@@ -220,7 +220,7 @@ export async function createDidForTesting(
     type: SignatureType.single,
     values: [await walletService.signIssuer(did.getDocument())],
   };
-  const transaction: TransactionDto = new DidTransactionDto(
+  const transaction: TransactionDto = new DidIdTransactionDto(
     did.getChanges(),
     didDocSignature,
   );

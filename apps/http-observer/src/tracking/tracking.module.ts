@@ -1,10 +1,10 @@
 import { DID_CONNECTION } from '@tc/did/constants';
-import { Did, DidSchema } from '@tc/did/schemas/did.schema';
 import { DidDbModule } from '@tc/did/did-db/did-db.module';
+import { DidId, DidIdSchema } from '@tc/did/schemas/did.schema';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TRACKING_CONNECTION } from './constants';
-import { Tracking, TrackingSchema } from './tracking.entity';
+import { Tracking, TrackingSchema } from './schemas/tracking.schema';
 import { TrackingDbModule } from './tracking-db.module';
 import { TrackingService } from './tracking.service';
 
@@ -16,7 +16,7 @@ import { TrackingService } from './tracking.service';
       TRACKING_CONNECTION,
     ),
     MongooseModule.forFeature(
-      [{ name: Did.name, schema: DidSchema }],
+      [{ name: DidId.name, schema: DidIdSchema }],
       DID_CONNECTION,
     ),
     DidDbModule,

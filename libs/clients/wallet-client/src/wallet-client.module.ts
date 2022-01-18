@@ -36,8 +36,8 @@ export class WalletClientModule
     super(configService, httpService, logger);
   }
 
-  onApplicationBootstrap(): Promise<void> {
-    return this.isHealthy(
+  async onApplicationBootstrap(): Promise<void> {
+    await this.isHealthy(
       this.configService.getString(WALLET_URL),
       this.configService.getNumber(WALLET_PORT_HTTP),
     );

@@ -1,9 +1,9 @@
 import { DID_CONNECTION } from '@tc/did/constants';
-import { Did, DidSchema } from '../schemas/did.schema';
 import { DidCachedService } from './did-cached.service';
 import { DidDbModule } from '@tc/did/did-db/did-db.module';
+import { DidId, DidIdSchema } from '../schemas/did.schema';
 import {
-  DidTransaction,
+  DidIdTransaction,
   DidTransactionSchema,
 } from '@tc/did/schemas/did-transaction.schema';
 import { Module } from '@nestjs/common';
@@ -16,8 +16,8 @@ import { PersistClientModule } from '@tc/persist-client';
     PersistClientModule,
     MongooseModule.forFeature(
       [
-        { name: DidTransaction.name, schema: DidTransactionSchema },
-        { name: Did.name, schema: DidSchema },
+        { name: DidIdTransaction.name, schema: DidTransactionSchema },
+        { name: DidId.name, schema: DidIdSchema },
       ],
       DID_CONNECTION,
     ),

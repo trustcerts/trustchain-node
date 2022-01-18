@@ -1,7 +1,7 @@
 import { BlockCheckService } from '@tc/blockchain/block-check/block-check.service';
-import { Did } from '@tc/did/schemas/did.schema';
 import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
-import { DidTransactionDto } from '@tc/did/dto/did.transaction.dto';
+import { DidId } from '@tc/did/schemas/did.schema';
+import { DidIdTransactionDto } from '@tc/did/dto/did.transaction.dto';
 import { Injectable } from '@nestjs/common';
 import { RoleManageAddEnum } from '@tc/did/constants';
 import { TransactionCheck } from '../../../../../../apps/shared/transactions/transaction.check';
@@ -23,7 +23,7 @@ export class DidTransactionCheckService extends TransactionCheck {
     protected readonly blockCheckService: BlockCheckService,
     protected readonly didCachedService: DidCachedService,
   ) {
-    super(blockCheckService, didCachedService);
+    super(blockCheckService, didCachedService, didCachedService);
   }
 
   /**
@@ -45,14 +45,14 @@ export class DidTransactionCheckService extends TransactionCheck {
    * Checks if there is already a transaction that manipulates the did.
    */
   protected checkDouble(
-    newTransaction: DidTransactionDto,
+    newTransaction: DidIdTransactionDto,
     addedTransactions: Map<string, TransactionDto>,
   ) {
     addedTransactions.forEach((transaction: TransactionDto) => {
       if (
         [TransactionType.Did].includes(transaction.body.type) &&
         newTransaction.body.value.id ===
-          (transaction as DidTransactionDto).body.value.id
+          (transaction as DidIdTransactionDto).body.value.id
       ) {
         throw new Error('Double did manipulation');
       }
@@ -63,7 +63,7 @@ export class DidTransactionCheckService extends TransactionCheck {
    * Checks if the issuer of the transaction is authorized to manipulate the did.
    * @param transaction
    */
-  protected async checkAuthorization(transaction: DidTransactionDto) {
+  protected async checkAuthorization(transaction: DidIdTransactionDto) {
     // get the id of the did and compare its' level with the signer
     const id = transaction.body.value.id;
     const signerId = this.didCachedService.getIdentifierOfKey(
@@ -92,7 +92,7 @@ export class DidTransactionCheckService extends TransactionCheck {
       .then((roles) => roles[0]);
 
     // check if the client was signed by a listed controller
-    const controllers: Did[] = await this.didCachedService
+    const controllers: DidId[] = await this.didCachedService
       .getDid(id, 'controllers')
       .then(
         (did) => did.controllers,
@@ -135,7 +135,7 @@ export class DidTransactionCheckService extends TransactionCheck {
    * @protected
    */
   protected async getValidation(
-    transaction: DidTransactionDto,
+    transaction: DidIdTransactionDto,
     addedTransactions: Map<string, TransactionDto>,
   ): Promise<void> {
     this.checkDouble(transaction, addedTransactions);

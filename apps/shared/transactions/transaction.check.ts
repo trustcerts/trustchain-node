@@ -1,5 +1,6 @@
 import { BlockCheckService } from '@tc/blockchain/block-check/block-check.service';
 import { CachedService } from '../cache.service';
+import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
@@ -17,6 +18,7 @@ export abstract class TransactionCheck {
   constructor(
     blockCheckService: BlockCheckService,
     protected cachedService: CachedService,
+    protected didCachedService: DidCachedService,
   ) {
     if (blockCheckService.types.has(this.getType())) {
       throw Error(this.getType());
@@ -56,6 +58,31 @@ export abstract class TransactionCheck {
    */
   protected getSignatureAmount() {
     return 1;
+  }
+
+  /**
+   * In case the signer does not match with an already existing entry, throw an error.
+   * Check will pass if the transaction does not exists yet or the signer is authorized.
+   * @param transaction
+   */
+  async canUpdate(transaction: TransactionDto): Promise<void> {
+    const did = await this.didCachedService.getDid(
+      transaction.body.value.id,
+      'controller',
+    );
+    this.cachedService.getValues;
+    if (!did) {
+      return Promise.resolve();
+    }
+    transaction.signature.values.forEach((signer) => {
+      if (
+        did.controllers.find(
+          (controller) => controller.id === signer.identifier.split('#')[0],
+        )
+      ) {
+        return Promise.reject();
+      }
+    });
   }
 
   /**

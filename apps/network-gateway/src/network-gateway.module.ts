@@ -9,7 +9,6 @@ import { NetworkGatewayService } from './network-gateway.service';
 import { P2PModule } from '@tc/p2-p';
 import { PersistClientModule } from '@tc/persist-client';
 import { PrometheusModule } from '@willsoto/nestjs-prometheus';
-import { RateLimitBlockchainModule } from '@tc/security/rate-limit/rate-limit-blockchain/rate-limit-blockchain.module';
 import { TerminusModule } from '@nestjs/terminus';
 import { WinstonModule } from 'nest-winston';
 import {
@@ -47,7 +46,6 @@ import {
     EventClientModule,
     PersistClientModule,
     HashBlockchainModule,
-    RateLimitBlockchainModule,
   ],
   controllers: [NetworkGatewayController, HealthController],
   providers: [NetworkGatewayService],

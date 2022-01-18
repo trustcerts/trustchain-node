@@ -36,7 +36,7 @@ export class GatewayTemplateController {
   })
   @ApiResponse({
     status: 422,
-    description: 'The hash failed. The hash is already signed.',
+    description: 'Id is already taken.',
   })
   async create(
     @Body() transaction: TemplateTransactionDto,

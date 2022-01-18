@@ -17,8 +17,8 @@ export class EventClientModule implements OnApplicationBootstrap {
   /**
    * Called once the application has fully started and is bootstrapped.
    */
-  async onApplicationBootstrap() {
-    return this.isHealthy();
+  async onApplicationBootstrap(): Promise<void> {
+    await this.isHealthy();
   }
 
   async isHealthy(): Promise<void> {

@@ -35,8 +35,8 @@ export class ParseClientModule
     super(configService, httpService, logger);
   }
 
-  onApplicationBootstrap(): Promise<void> {
-    return this.isHealthy(
+  async onApplicationBootstrap(): Promise<void> {
+    await this.isHealthy(
       this.configService.getString(PARSE_URL),
       this.configService.getNumber(PARSE_PORT_HTTP),
     );

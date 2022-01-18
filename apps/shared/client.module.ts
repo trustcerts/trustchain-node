@@ -57,6 +57,7 @@ export class ClientModule {
                   labels: { source: this.constructor.name },
                 });
                 clearInterval(interval);
+                // TODO exit the process instead of waiting
                 reject(`${host} service not ready in time`);
               }
             },

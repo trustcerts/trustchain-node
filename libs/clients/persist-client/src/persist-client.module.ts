@@ -30,8 +30,8 @@ export class PersistClientModule
     super(configService, httpService, logger);
   }
 
-  onApplicationBootstrap(): any {
-    return this.isHealthy(
+  async onApplicationBootstrap(): Promise<void> {
+    await this.isHealthy(
       this.configService.getString(PERSIST_URL),
       this.configService.getNumber(PERSIST_PORT_HTTP),
     );

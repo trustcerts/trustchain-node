@@ -8,7 +8,8 @@ export class VerificationRelation {
   /**
    * Name of the method for which the key can be used like authentication or assertion.
    */
-  @Prop({ length: 20 })
+  // TODO check if type string is correct
+  @Prop({ length: 20, type: 'string' })
   method!: keyof IVerificationRelationships;
 
   /**

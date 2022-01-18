@@ -1,6 +1,10 @@
 import { CachedService } from '@shared/cache.service';
 import { Hash, HashDocument } from '@tc/hash/schemas/hash.schema';
 import { HashFilterDto } from '../dto/hash-filter.dto';
+import {
+  HashTransaction,
+  HashTransactionDocument,
+} from '../schemas/hash-transaction.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
@@ -11,10 +15,14 @@ import { Model } from 'mongoose';
 export class HashCachedService extends CachedService {
   /**
    * Injects the required services and repositories.
-   * @param hashModel
+   * @param didModel
    */
-  constructor(@InjectModel(Hash.name) private hashModel: Model<HashDocument>) {
-    super();
+  constructor(
+    @InjectModel(Hash.name) protected didModel: Model<HashDocument>,
+    @InjectModel(HashTransaction.name)
+    protected transactionModel: Model<HashTransactionDocument>,
+  ) {
+    super(transactionModel, didModel);
   }
 
   /**
@@ -22,7 +30,7 @@ export class HashCachedService extends CachedService {
    * @param hash
    */
   getHash(hash: string) {
-    return this.hashModel.findOne({ hash });
+    return this.didModel.findOne({ hash });
   }
 
   /**
@@ -31,7 +39,7 @@ export class HashCachedService extends CachedService {
    */
   async countHashes(filter: HashFilterDto) {
     const options = await this.setFilter(filter);
-    return this.hashModel.count(options);
+    return this.didModel.count(options);
   }
 
   // TODO implement rate limit
@@ -42,18 +50,6 @@ export class HashCachedService extends CachedService {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private async setFilter(filter: HashFilterDto) {
     const options: { signature?: any; createdAt?: any } = {};
-    throw new Error('not implemented yet');
-    // if (filter.client) {
-    //   const id = await this.didCachedService.getIdentifierOfKey(filter.client);
-    //   options.signature = Like(id);
-    // }
-    // if (filter.to && filter.from) {
-    //   options.createdAt = Between(filter.from, filter.to);
-    // } else if (filter.from) {
-    //   options.createdAt = MoreThanOrEqual(filter.from);
-    // } else if (filter.to) {
-    //   options.createdAt = LessThanOrEqual(filter.to);
-    // }
     return options;
   }
 }

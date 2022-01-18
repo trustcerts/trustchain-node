@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { BcEntity } from '@shared/transactions/bc-entity.schema';
+import { Did } from '@apps/shared/did/schemas/did.schema';
 import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
@@ -9,7 +9,7 @@ export type HashDocument = Hash & Document;
  * Entity that describes how signed hashes are stored on the database
  */
 @Schema()
-export class Hash extends BcEntity {
+export class Hash extends Did {
   /**
    * Hash of the hash to identify it.
    */

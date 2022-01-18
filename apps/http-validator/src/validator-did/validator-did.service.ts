@@ -2,7 +2,7 @@ import { ConfigService } from '@tc/config';
 import { CreateDidDto } from '@tc/did/dto/create-did.dto';
 import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
 import { DidIdRegister } from '@trustcerts/did-id-create';
-import { DidTransactionDto } from '@tc/did/dto/did.transaction.dto';
+import { DidIdTransactionDto } from '@tc/did/dto/did.transaction.dto';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
 import { PersistedTransaction } from '@shared/http/persisted-transaction';
@@ -101,7 +101,7 @@ export class ValidatorDidService {
         }),
       ],
     };
-    const transaction = new DidTransactionDto(
+    const transaction = new DidIdTransactionDto(
       did.getChanges(),
       didDocSignature,
     );

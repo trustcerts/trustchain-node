@@ -1,15 +1,14 @@
 import { CachedService } from '@shared/cache.service';
-import { Did, DidDocument } from '@tc/did/schemas/did.schema';
-import { DidIdDocument as DidDoc } from './DidDocument';
-import { DidDocumentMetaData } from './DidDocumentMetaData';
+import { DidId, DidIdDocument } from '@tc/did/schemas/did.schema';
+import { DidIdDocument as DidIdDoc } from './did-document';
 import { DidIdResolver } from '@trustcerts/core';
 import {
-  DidTransaction,
+  DidIdTransaction,
   DidTransactionDocument,
 } from '../schemas/did-transaction.schema';
-import { DocResponse } from './DocResponse';
 import { GenesisBlock } from '../../../../blockchain/src/block/genesis-block.dto';
 import { IVerificationRelationships } from '../dto/did.transaction.dto';
+import { IdDocResponse } from './doc-response';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Key } from '@tc/did/schemas/key.schema';
@@ -17,7 +16,7 @@ import { Model } from 'mongoose';
 import { PersistClientService } from '@tc/persist-client';
 import { RoleManageAddEnum } from '@tc/did/constants';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
-import { VersionInformation } from './VersionInformation';
+import { VersionInformation } from '../../../../../apps/shared/did/version-information';
 
 /**
  * Service to interact with cached dids.
@@ -26,19 +25,19 @@ import { VersionInformation } from './VersionInformation';
 export class DidCachedService extends CachedService {
   /**
    * Injects required services.
-   * @param didDocumentModel
+   * @param transactionModel
    * @param didModel
    * @param keyRepository
    * @param verificationRelationRepository
    */
   constructor(
-    @InjectModel(DidTransaction.name)
-    private didDocumentModel: Model<DidTransactionDocument>,
-    @InjectModel(Did.name)
-    private didModel: Model<DidDocument>,
+    @InjectModel(DidIdTransaction.name)
+    protected transactionModel: Model<DidTransactionDocument>,
+    @InjectModel(DidId.name)
+    protected didModel: Model<DidIdDocument>,
     private readonly persistClientService: PersistClientService,
   ) {
-    super();
+    super(transactionModel, didModel);
   }
 
   /**
@@ -53,36 +52,12 @@ export class DidCachedService extends CachedService {
    * Returns a did element. If not found it will throw an error
    * @param id
    */
-  async getDid(id: string, populate = '') {
-    const did = await this.didModel.findOne({ id }).populate(populate);
+  async getDid(id: string, populate = ''): Promise<DidId> {
+    const did = await this.didModel.findById(id).populate(populate);
     if (!did) {
       throw new Error('not found');
     }
     return did;
-  }
-
-  /**
-   * Returns all the transactions that belong to a did document.
-   * @param id
-   */
-  async getTransactions(
-    id: string,
-    version?: VersionInformation,
-  ): Promise<DidTransaction[]> {
-    const query = this.didDocumentModel
-      .find({
-        id,
-        createdAt: {
-          $lte: version?.time
-            ? new Date(version.time).toISOString()
-            : new Date().toISOString(),
-        },
-      })
-      .sort('createdAt');
-    if (version?.id) {
-      query.limit(version.id);
-    }
-    return query.exec();
   }
 
   /**
@@ -94,8 +69,8 @@ export class DidCachedService extends CachedService {
   async getDocument(
     id: string,
     version?: VersionInformation,
-  ): Promise<DocResponse> {
-    const query = this.didDocumentModel
+  ): Promise<IdDocResponse> {
+    const query = this.transactionModel
       .find({
         id,
         createdAt: {
@@ -113,62 +88,15 @@ export class DidCachedService extends CachedService {
       throw new NotFoundException();
     }
     const did = await DidIdResolver.load(id, {
-      transactions: transactions as DidTransaction[],
+      transactions: transactions as DidIdTransaction[],
       validateChainOfTrust: false,
       doc: false,
     });
     return {
-      document: did.getDocument() as DidDoc,
+      document: did.getDocument() as DidIdDoc,
       signatures: transactions[transactions.length - 1].didDocumentSignature,
       metaData: await this.getDocumentMetaData(id, version),
     };
-  }
-
-  /**
-   * Return the metadata to a did document.
-   * @param id
-   * @param until
-   */
-  async getDocumentMetaData(
-    id: string,
-    version?: VersionInformation,
-  ): Promise<DidDocumentMetaData> {
-    const transactions = await this.getTransactions(id, version);
-    if (transactions.length === 0) {
-      throw new NotFoundException('did not found');
-    }
-    const result: DidDocumentMetaData = {
-      created: new Date(transactions[0].createdAt).toISOString(),
-      versionId: transactions.length,
-    };
-    // set update if there are more transactions
-    if (transactions.length > 1) {
-      result.updated = new Date(
-        transactions[transactions.length - 1].createdAt,
-      ).toISOString();
-    }
-    if (version?.time || version?.id) {
-      // check if there are more elements
-      const next = await this.didDocumentModel
-        .find({
-          id,
-          createdAt: {
-            // TODO check if 0 is correct
-            $gte: version?.time
-              ? new Date(version.time).toISOString()
-              : new Date(0).toISOString(),
-          },
-        })
-        .sort('createdAt')
-        .limit(1)
-        .skip(version.id ?? 0);
-      if (next[0]) {
-        result.nextUpdate = new Date(next[0].createdAt).toISOString();
-        result.nextVersionId = transactions.length + 1;
-      }
-    }
-    // TODO set if did was deactivated
-    return result;
   }
 
   /**
@@ -238,7 +166,7 @@ export class DidCachedService extends CachedService {
    * Returns the did based on the key id.
    * @param keyIdentifier
    */
-  async getDidByKey(keyIdentifier: string): Promise<Did> {
+  async getDidByKey(keyIdentifier: string): Promise<DidId> {
     const id = this.getIdentifierOfKey(keyIdentifier);
     const did = await this.didModel.findOne({ id });
     if (!did) {

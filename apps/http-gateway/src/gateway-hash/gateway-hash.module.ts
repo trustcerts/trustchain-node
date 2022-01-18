@@ -3,11 +3,11 @@ import { DidCachedModule } from '@tc/did/did-cached/did-cached.module';
 import { GatewayBlockchainModule } from '../gateway-blockchain/gateway-blockchain.module';
 import { GatewayHashController } from './gateway-hash.controller';
 import { GatewayHashService } from './gateway-hash.service';
+import { HashBlockchainModule } from '@tc/hash/hash-blockchain/hash-blockchain.module';
 import { HashCachedModule } from '@tc/hash/hash-cached/hash-cached.module';
 import { HttpConfigService } from '@shared/http-config.service';
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
-import { RateLimitCachedModule } from '@tc/security/rate-limit/rate-limit-cached/rate-limit-cached.module';
 import { WalletClientModule } from '@tc/wallet-client';
 
 @Module({
@@ -19,9 +19,8 @@ import { WalletClientModule } from '@tc/wallet-client';
     WalletClientModule,
     GatewayBlockchainModule,
     HashCachedModule,
+    HashBlockchainModule,
     DidCachedModule,
-    // Import security module to protect hash routes
-    RateLimitCachedModule,
   ],
   controllers: [GatewayHashController],
   providers: [GatewayHashService],

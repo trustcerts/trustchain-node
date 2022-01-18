@@ -4,6 +4,10 @@ import { Hash, HashSchema } from '@tc/hash/schemas/hash.schema';
 import { HashDbModule } from '@tc/hash/hash-db/hash-db.module';
 import { HashModule } from '@tc/blockchain';
 import { HashParsingService } from '@tc/hash/hash-parsing/hash-parsing.service';
+import {
+  HashTransaction,
+  HashTransactionSchema,
+} from '../schemas/hash-transaction.schema';
 import { Module, forwardRef } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ParseModule } from '@apps/parse/src/parse.module';
@@ -19,7 +23,10 @@ import {
     HashDbModule,
     HashModule,
     MongooseModule.forFeature(
-      [{ name: Hash.name, schema: HashSchema }],
+      [
+        { name: Hash.name, schema: HashSchema },
+        { name: HashTransaction.name, schema: HashTransactionSchema },
+      ],
       HASH_CONNECTION,
     ),
     PrometheusModule.register({

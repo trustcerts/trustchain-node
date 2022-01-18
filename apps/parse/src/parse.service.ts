@@ -22,10 +22,6 @@ export class ParseService {
    * Import required services.
    * @param logger
    * @param persistClientService
-   * @param hashCachedService
-   * @param securityCachedService
-   * @param didCachedService
-   * @param parsingService
    */
   constructor(
     @Inject('winston') private readonly logger: Logger,

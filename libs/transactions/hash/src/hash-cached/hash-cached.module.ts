@@ -3,6 +3,10 @@ import { HASH_CONNECTION } from '@tc/hash/constants';
 import { Hash, HashSchema } from '@tc/hash/schemas/hash.schema';
 import { HashCachedService } from '@tc/hash/hash-cached/hash-cached.service';
 import { HashDbModule } from '@tc/hash/hash-db/hash-db.module';
+import {
+  HashTransaction,
+  HashTransactionSchema,
+} from '../schemas/hash-transaction.schema';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
@@ -11,7 +15,10 @@ import { MongooseModule } from '@nestjs/mongoose';
     DidCachedModule,
     HashDbModule,
     MongooseModule.forFeature(
-      [{ name: Hash.name, schema: HashSchema }],
+      [
+        { name: Hash.name, schema: HashSchema },
+        { name: HashTransaction.name, schema: HashTransactionSchema },
+      ],
       HASH_CONNECTION,
     ),
   ],

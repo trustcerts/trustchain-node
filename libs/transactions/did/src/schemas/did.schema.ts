@@ -1,36 +1,20 @@
-import { Document, Schema as MongooseSchema } from 'mongoose';
-import { IsString } from 'class-validator';
+import { Did } from '@shared/did/schemas/did.schema';
+import { Document } from 'mongoose';
 import { Key } from '@tc/did/schemas/key.schema';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { RoleManageAddEnum } from '@tc/did/constants';
 import { Service } from '@tc/did/schemas/service.schema';
 import { VerificationRelation } from './verification-relation.schema';
-
 /**
  * Did as a Document.
  */
-export type DidDocument = Did & Document;
+export type DidIdDocument = DidId & Document;
 
 /**
  * Describes an entity in form of a did object that can be connected with different values.
  */
 @Schema()
-export class Did {
-  /**
-   * DID Subject, only including the id of the document since method is defined by the system.
-   * https://www.w3.org/TR/did-core/#did-subject
-   */
-  @IsString()
-  @Prop({ index: true, length: 50, unique: true })
-  id!: string;
-
-  /**
-   * Controllers are authorized to make changes to the document.
-   * https://www.w3.org/TR/did-core/#control
-   */
-  @Prop({ type: [{ type: MongooseSchema.Types.ObjectId, ref: 'Did' }] })
-  controllers!: Did[];
-
+export class DidId extends Did {
   /**
    * Verification methods that can be used.
    * https://www.w3.org/TR/did-core/#verification-methods
@@ -62,4 +46,4 @@ export class Did {
 /**
  * Did Schema
  */
-export const DidSchema = SchemaFactory.createForClass(Did);
+export const DidIdSchema = SchemaFactory.createForClass(DidId);
