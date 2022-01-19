@@ -461,7 +461,7 @@ export class ValidatorConsensusService {
     const proposer = this.p2PService.connections.find(
       (connection) => connection.identifier === this.proposer,
     );
-    if (!proposer) {c
+    if (!proposer) {
       this.logger.warn({
         message: `round ${this.roundNumber}: no connection found for proposer`,
         labels: { source: this.constructor.name },
