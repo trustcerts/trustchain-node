@@ -6,24 +6,22 @@ import {
 } from '@tc/event-client/constants';
 import { Block } from '@tc/blockchain/block/block.interface';
 import { ClientRedis } from '@nestjs/microservices';
-import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
 import {
   DidId,
   Identifier,
   SignatureContent,
   VerificationRelationshipType,
 } from '@trustcerts/core';
-import { DidIdTransactionDto } from '@tc/did/dto/did.transaction.dto';
+import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
+import { DidIdTransactionDto } from '@tc/did-id/dto/did-id.transaction.dto';
 import { HashCreationTransactionDto } from '@tc/hash/dto/hash-creation.transaction.dto';
 import { HashService } from '@tc/blockchain/hash.service';
 import { MESSAGE_EVENT } from '@nestjs/microservices/constants';
 import { RedisClient } from '@nestjs/microservices/external/redis.interface';
-import {
-  SignatureInfo,
-  SignatureType,
-  TransactionDto,
-} from '@tc/blockchain/transaction/transaction.dto';
+import { SignatureInfo } from '@tc/blockchain/transaction/signature-info';
+import { SignatureType } from '@tc/blockchain/transaction/signature-type';
 import { Subject } from 'rxjs';
+import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 import { WalletClientService } from '@tc/wallet-client';
 import { exec } from 'child_process';
@@ -193,7 +191,7 @@ export function removeRedisSub(subClient: RedisClient, channel: string) {
  */
 export async function createDidForTesting(
   walletService: WalletClientService,
-  didCachedService: DidCachedService,
+  didCachedService: DidIdCachedService,
 ) {
   // create key for client
   Identifier.setNetwork('tc:test');
@@ -382,7 +380,7 @@ export function stopDependencies(
 export async function createTemplate(
   hash: string,
   walletClientService: WalletClientService,
-  didCachedService: DidCachedService,
+  didCachedService: DidIdCachedService,
   clientRedis: ClientRedis,
 ) {
   const didTransaction = await createDidForTesting(

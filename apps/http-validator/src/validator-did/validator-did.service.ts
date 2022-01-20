@@ -1,16 +1,14 @@
 import { ConfigService } from '@tc/config';
-import { CreateDidDto } from '@tc/did/dto/create-did.dto';
-import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
+import { CreateDidIdDto } from '@tc/did-id/dto/create-did-id.dto';
+import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
 import { DidIdRegister } from '@trustcerts/did-id-create';
-import { DidIdTransactionDto } from '@tc/did/dto/did.transaction.dto';
+import { DidIdTransactionDto } from '@tc/did-id/dto/did-id.transaction.dto';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
-import { PersistedTransaction } from '@shared/http/persisted-transaction';
-import { RoleManageAddEnum } from '@tc/did/constants';
-import {
-  SignatureInfo,
-  SignatureType,
-} from '@tc/blockchain/transaction/transaction.dto';
+import { PersistedTransaction } from '@shared/http/dto/persisted-transaction';
+import { RoleManageAddEnum } from '@tc/did-id/constants';
+import { SignatureInfo } from '@tc/blockchain/transaction/signature-info';
+import { SignatureType } from '@tc/blockchain/transaction/signature-type';
 import { ValidatorBlockchainService } from '../validator-blockchain/validator-blockchain.service';
 import {
   VerificationRelationshipType,
@@ -36,7 +34,7 @@ export class ValidatorDidService {
   constructor(
     private readonly validatorBlockchainService: ValidatorBlockchainService,
     private readonly walletService: WalletClientService,
-    private readonly didCachedService: DidCachedService,
+    private readonly didCachedService: DidIdCachedService,
     private readonly configService: ConfigService,
     @Inject('winston') private readonly logger: Logger,
   ) {}
@@ -47,7 +45,7 @@ export class ValidatorDidService {
    * @param role
    */
   createDid(
-    createCert: CreateDidDto,
+    createCert: CreateDidIdDto,
     role: RoleManageAddEnum,
   ): Promise<PersistedTransaction> {
     return this.setDid(createCert, [role]);
@@ -60,7 +58,7 @@ export class ValidatorDidService {
    * @param roles
    */
   private async setDid(
-    createCert: CreateDidDto,
+    createCert: CreateDidIdDto,
     roles: RoleManageAddEnum[] = [],
   ): Promise<PersistedTransaction> {
     // add the did

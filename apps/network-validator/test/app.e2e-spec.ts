@@ -26,10 +26,10 @@ import { Server } from 'socket.io';
 import { io } from 'socket.io-client';
 import { WS_TRANSACTION } from '@tc/blockchain/blockchain.events';
 import { WalletClientService } from '@tc/wallet-client/wallet-client.service';
-import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
+import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
 import { DidId } from '@trustcerts/core';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
-import { RoleManageAddEnum } from '@tc/did/constants';
+import { RoleManageAddEnum } from '@tc/did-id/constants';
 import { HttpService } from '@nestjs/axios';
 
 describe('AppController (e2e)', () => {
@@ -39,7 +39,7 @@ describe('AppController (e2e)', () => {
   let p2PService: P2PService;
   let clientRedis: ClientRedis;
   let walletClientService: WalletClientService;
-  let didCachedService: DidCachedService;
+  let didCachedService: DidIdCachedService;
   let didTransaction: { did: DidId; transaction: TransactionDto };
 
   beforeAll(async () => {
@@ -55,7 +55,7 @@ describe('AppController (e2e)', () => {
     await app.startAllMicroservices();
 
     walletClientService = app.get(WalletClientService);
-    didCachedService = app.get(DidCachedService);
+    didCachedService = app.get(DidIdCachedService);
     clientRedis = app.get<ClientRedis>(REDIS_INJECTION);
     p2PService = app.get(P2PService);
 

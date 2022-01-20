@@ -1,4 +1,4 @@
-import { DidCachedModule } from '@tc/did/did-cached/did-cached.module';
+import { DidIdCachedModule } from '@tc/did-id/did-id-cached/did-id-cached.module';
 import { HASH_CONNECTION } from '@tc/hash/constants';
 import { Hash, HashSchema } from '@tc/hash/schemas/hash.schema';
 import { HashCachedService } from '@tc/hash/hash-cached/hash-cached.service';
@@ -12,7 +12,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
-    DidCachedModule,
+    DidIdCachedModule,
     HashDbModule,
     MongooseModule.forFeature(
       [

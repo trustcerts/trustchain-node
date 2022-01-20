@@ -6,7 +6,7 @@ import { P2PService } from './p2-p.service';
 import { BlockReceivedModule } from './block-received/block-received.module';
 import { BlockchainSyncModule } from '@tc/p2-p/blockchain-sync/blockchain-sync.module';
 import { ConfigModule } from '@tc/config';
-import { DidCachedModule } from '@tc/did/did-cached/did-cached.module';
+import { DidIdCachedModule } from '@tc/did-id/did-id-cached/did-id-cached.module';
 import { HttpConfigService } from '@shared/http-config.service';
 import { HttpModule } from '@nestjs/axios';
 import { PersistClientModule } from '@tc/persist-client';
@@ -22,7 +22,7 @@ import { makeGaugeProvider } from '@willsoto/nestjs-prometheus';
     }),
     SignatureModule,
     BlockchainSyncModule,
-    DidCachedModule,
+    DidIdCachedModule,
     WalletClientModule,
     PersistClientModule,
     BlockReceivedModule,

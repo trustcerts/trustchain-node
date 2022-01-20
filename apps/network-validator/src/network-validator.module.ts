@@ -21,8 +21,8 @@ import {
 } from '@shared/validation-rules';
 
 import { BlockReceivedModule } from '@tc/p2-p/block-received/block-received.module';
-import { DidCachedModule } from '@tc/did/did-cached/did-cached.module';
-import { DidDbModule } from '@tc/did/did-db/did-db.module';
+import { DidIdCachedModule } from '@tc/did-id/did-id-cached/did-id-cached.module';
+import { DidIdDbModule } from '@tc/did-id/did-id-db/did-id-db.module';
 import { EventClientModule } from '@tc/event-client';
 import { HttpConfigService } from '@shared/http-config.service';
 import { HttpModule } from '@nestjs/axios';
@@ -72,9 +72,9 @@ import { Identifier } from '@trustcerts/core';
     WalletClientModule,
     PersistClientModule,
     ParseClientModule,
-    DidCachedModule,
-    DidDbModule,
-    DidCachedModule,
+    DidIdCachedModule,
+    DidIdDbModule,
+    DidIdCachedModule,
     BlockReceivedModule,
   ],
   controllers: [NetworkValidatorController, GenesisController],

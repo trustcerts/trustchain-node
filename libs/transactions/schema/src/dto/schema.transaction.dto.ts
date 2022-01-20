@@ -1,10 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsIn, IsString, Matches } from 'class-validator';
 import { SCHEMA_NAME } from '../constants';
-import {
-  TransactionBody,
-  TransactionDto,
-} from '@tc/blockchain/transaction/transaction.dto';
+import { TransactionBody } from '@tc/blockchain/transaction/transaction-body';
+import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 import { Type } from 'class-transformer';
 import { getDid } from '@shared/helpers';

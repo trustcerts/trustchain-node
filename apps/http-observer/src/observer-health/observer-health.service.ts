@@ -1,5 +1,5 @@
 import { Connection } from 'mongoose';
-import { DID_CONNECTION } from '@tc/did/constants';
+import { DID_ID_CONNECTION } from '@tc/did-id/constants';
 import { HASH_CONNECTION } from '@tc/hash/constants';
 import { InjectConnection } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
@@ -23,7 +23,7 @@ export class ObserverHealthService {
    */
   constructor(
     protected readonly db: MongooseHealthIndicator,
-    @InjectConnection(DID_CONNECTION)
+    @InjectConnection(DID_ID_CONNECTION)
     protected readonly didConnection: Connection,
     @InjectConnection(HASH_CONNECTION)
     protected readonly hashConnection: Connection,

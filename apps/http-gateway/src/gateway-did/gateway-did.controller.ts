@@ -5,9 +5,9 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
-import { CreateDidDto } from '@tc/did/dto/create-did.dto';
+import { CreateDidIdDto } from '@tc/did-id/dto/create-did-id.dto';
 import { DidCreationResponse } from './responses';
-import { DidIdTransactionDto } from '@tc/did/dto/did.transaction.dto';
+import { DidIdTransactionDto } from '@tc/did-id/dto/did-id.transaction.dto';
 import { GatewayDidService } from './gateway-did.service';
 import { InviteRequest } from '@tc/invite/schemas/invite-request.schema';
 import { InviteService } from '@tc/invite';
@@ -70,7 +70,9 @@ export class GatewayDidController {
     description: 'The hash was successful persisted.',
     type: DidCreationResponse,
   })
-  async create(@Body() createCert: CreateDidDto): Promise<DidCreationResponse> {
+  async create(
+    @Body() createCert: CreateDidIdDto,
+  ): Promise<DidCreationResponse> {
     const invite = await this.inviteService.isValidInvite(
       createCert.identifier,
       createCert.secret,

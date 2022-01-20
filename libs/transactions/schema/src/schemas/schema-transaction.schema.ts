@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { DidIdDocument } from '@tc/did/schemas/did.schema';
-import { DidTransaction } from '@apps/shared/did/schemas/did-transaction.schema';
+import { DidIdDocument } from '@tc/did-id/schemas/did-id.schema';
+import { DidTransaction } from '@shared/did/schemas/did-transaction.schema';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { SchemaStructure } from '../dto/schema.transaction.dto';
 import { Type } from 'class-transformer';

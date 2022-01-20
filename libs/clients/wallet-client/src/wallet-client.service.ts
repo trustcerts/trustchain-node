@@ -1,13 +1,13 @@
 import { ClientTCP, RpcException } from '@nestjs/microservices';
 import { ConfigService } from '@tc/config';
 import { Connection } from '@shared/connection';
-import { CreateDidDto } from '@tc/did/dto/create-did.dto';
+import { CreateDidIdDto } from '@tc/did-id/dto/create-did-id.dto';
 import { HttpService } from '@nestjs/axios';
 import { Inject, Injectable, OnModuleDestroy } from '@nestjs/common';
 import { InviteNode } from '@tc/invite/dto/invite-node.dto';
 import { Logger } from 'winston';
 import { PublicKeyInformation } from '@tc/wallet-client/constants';
-import { PublicKeyJwkDto } from '@tc/did/dto/public-key-jwk.dto';
+import { PublicKeyJwkDto } from '@tc/did-id/dto/public-key-jwk.dto';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
 import {
   WALLET_GET_ID,
@@ -130,7 +130,7 @@ export class WalletClientService implements OnModuleDestroy {
     await this.setOwnInformation(invite.id);
 
     const key = await this.getPublicKey();
-    const create: CreateDidDto = {
+    const create: CreateDidIdDto = {
       secret: invite.secret,
       identifier: await this.getOwnInformation(),
       publicKey: key.value,

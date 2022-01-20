@@ -1,6 +1,5 @@
 import { ConfigService } from '@tc/config';
-import { CreateDidDto } from '@tc/did/dto/create-did.dto';
-import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
+import { CreateDidIdDto } from '@tc/did-id/dto/create-did-id.dto';
 import { DidCreationResponse } from './responses';
 import {
   DidId,
@@ -10,19 +9,18 @@ import {
   getFingerPrint,
   importKey,
 } from '@trustcerts/core';
+import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
 import { DidIdRegister } from '@trustcerts/did-id-create';
-import { DidIdTransactionDto } from '@tc/did/dto/did.transaction.dto';
-import { DidTransactionCheckService } from '@tc/did/did-blockchain/did-transaction-check/did-transaction-check.service';
+import { DidIdTransactionCheckService } from '@tc/did-id/did-id-blockchain/did-id-transaction-check/did-id-transaction-check.service';
+import { DidIdTransactionDto } from '@tc/did-id/dto/did-id.transaction.dto';
 import { GatewayBlockchainService } from '../gateway-blockchain/gateway-blockchain.service';
 import { GatewayTransactionService } from '../gateway-transaction.service';
 import { HashService } from '@tc/blockchain';
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { Logger } from 'winston';
-import { RoleManageAddEnum } from '@tc/did/constants';
-import {
-  SignatureInfo,
-  SignatureType,
-} from '@tc/blockchain/transaction/transaction.dto';
+import { RoleManageAddEnum } from '@tc/did-id/constants';
+import { SignatureInfo } from '@tc/blockchain/transaction/signature-info';
+import { SignatureType } from '@tc/blockchain/transaction/signature-type';
 import { WalletClientService } from '@tc/wallet-client';
 
 /**
@@ -41,8 +39,8 @@ export class GatewayDidService extends GatewayTransactionService {
    */
   constructor(
     protected readonly gatewayBlockchainService: GatewayBlockchainService,
-    protected readonly didTransactionCheckService: DidTransactionCheckService,
-    private readonly didCachedService: DidCachedService,
+    protected readonly didTransactionCheckService: DidIdTransactionCheckService,
+    private readonly didCachedService: DidIdCachedService,
     protected readonly walletService: WalletClientService,
     protected readonly hashService: HashService,
     protected readonly configService: ConfigService,
@@ -76,7 +74,7 @@ export class GatewayDidService extends GatewayTransactionService {
    * @param role
    */
   createDid(
-    createCert: CreateDidDto,
+    createCert: CreateDidIdDto,
     role: RoleManageAddEnum,
   ): Promise<DidCreationResponse> {
     return this.didCachedService.getDid(createCert.identifier).then(
@@ -95,7 +93,7 @@ export class GatewayDidService extends GatewayTransactionService {
    * @private
    */
   private async resetModification(
-    createCert: CreateDidDto,
+    createCert: CreateDidIdDto,
   ): Promise<DidCreationResponse> {
     const transactions = await this.didCachedService.getTransactions(
       createCert.identifier,
@@ -132,7 +130,7 @@ export class GatewayDidService extends GatewayTransactionService {
    * @param roles
    */
   private async setDid(
-    createCert: CreateDidDto,
+    createCert: CreateDidIdDto,
     roles: RoleManageAddEnum[] = [],
   ): Promise<DidCreationResponse> {
     // add the did

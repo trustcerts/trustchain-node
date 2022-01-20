@@ -1,5 +1,5 @@
 import { BlockCheckService } from '@tc/blockchain/block-check/block-check.service';
-import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
+import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
 import { Hash, HashDocument } from '@tc/hash/schemas/hash.schema';
 import { HashCachedService } from '@tc/hash/hash-cached/hash-cached.service';
 import { HashCreationTransactionDto } from '@tc/hash/dto/hash-creation.transaction.dto';
@@ -7,7 +7,7 @@ import { HashTransactionCheckService } from '@tc/hash/hash-blockchain/hash-trans
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
-import { RoleManageAddEnum } from '@tc/did/constants';
+import { RoleManageAddEnum } from '@tc/did-id/constants';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 
@@ -23,7 +23,7 @@ export class HashSignTransactionCheckService extends HashTransactionCheckService
    * @param hashCachedService
    */
   constructor(
-    protected readonly didCachedService: DidCachedService,
+    protected readonly didCachedService: DidIdCachedService,
     @InjectModel(Hash.name)
     protected hashModel: Model<HashDocument>,
     protected readonly blockCheckService: BlockCheckService,

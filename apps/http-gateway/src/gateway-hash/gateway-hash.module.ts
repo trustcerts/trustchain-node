@@ -1,5 +1,5 @@
 import { ConfigModule } from '@tc/config';
-import { DidCachedModule } from '@tc/did/did-cached/did-cached.module';
+import { DidIdCachedModule } from '@tc/did-id/did-id-cached/did-id-cached.module';
 import { GatewayBlockchainModule } from '../gateway-blockchain/gateway-blockchain.module';
 import { GatewayHashController } from './gateway-hash.controller';
 import { GatewayHashService } from './gateway-hash.service';
@@ -20,7 +20,7 @@ import { WalletClientModule } from '@tc/wallet-client';
     GatewayBlockchainModule,
     HashCachedModule,
     HashBlockchainModule,
-    DidCachedModule,
+    DidIdCachedModule,
   ],
   controllers: [GatewayHashController],
   providers: [GatewayHashService],

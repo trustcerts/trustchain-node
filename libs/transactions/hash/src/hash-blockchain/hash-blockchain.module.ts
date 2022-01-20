@@ -1,5 +1,5 @@
 import { BlockCheckModule } from '@tc/blockchain/block-check/block-check.module';
-import { DidCachedModule } from '@tc/did/did-cached/did-cached.module';
+import { DidIdCachedModule } from '@tc/did-id/did-id-cached/did-id-cached.module';
 import { EventClientModule } from '@tc/event-client';
 import { HASH_CONNECTION } from '@tc/hash/constants';
 import { Hash, HashSchema } from '@tc/hash/schemas/hash.schema';
@@ -16,7 +16,7 @@ import { MongooseModule } from '@nestjs/mongoose';
     HashModule,
     BlockCheckModule,
     HashCachedModule,
-    DidCachedModule,
+    DidIdCachedModule,
     EventClientModule,
     HashDbModule,
     MongooseModule.forFeature(

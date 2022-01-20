@@ -1,9 +1,9 @@
-import { DidCachedModule } from '@tc/did/did-cached/did-cached.module';
+import { DidIdCachedModule } from '@tc/did-id/did-id-cached/did-id-cached.module';
 import { Module } from '@nestjs/common';
 import { ObserverDidController } from './observer-did.controller';
 
 @Module({
-  imports: [DidCachedModule],
+  imports: [DidIdCachedModule],
   controllers: [ObserverDidController],
 })
 export class ObserverDidModule {}

@@ -6,11 +6,11 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
-import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
-import { DidDocumentMetaData } from '@apps/shared/did/did-document-meta-data';
-import { DidIdTransaction } from '@tc/did/schemas/did-transaction.schema';
+import { DidDocumentMetaData } from '@shared/did/did-document-meta-data';
+import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
+import { DidIdTransaction } from '@tc/did-id/schemas/did-id-transaction.schema';
 import { GenesisBlock } from '@tc/blockchain/block/genesis-block.dto';
-import { IdDocResponse } from '@tc/did/did-cached/doc-response';
+import { IdDocResponse } from '@tc/did-id/dto/doc-response';
 import { MaintenanceGuard } from '@tc/config/version/maintenance.guard';
 
 /**
@@ -24,7 +24,7 @@ export class ObserverDidController {
    * Injects required services.
    * @param didCachedService
    */
-  constructor(private readonly didCachedService: DidCachedService) {}
+  constructor(private readonly didCachedService: DidIdCachedService) {}
 
   /**
    * Returns the genesis block to build the chain of trust.

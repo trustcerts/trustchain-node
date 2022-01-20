@@ -1,6 +1,6 @@
 import { BlockCheckService } from '@tc/blockchain/block-check/block-check.service';
 import { CachedService } from '../cache.service';
-import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
+import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
@@ -18,7 +18,7 @@ export abstract class TransactionCheck {
   constructor(
     blockCheckService: BlockCheckService,
     protected cachedService: CachedService,
-    protected didCachedService: DidCachedService,
+    protected didCachedService: DidIdCachedService,
   ) {
     if (blockCheckService.types.has(this.getType())) {
       throw Error(this.getType());

@@ -14,7 +14,7 @@ import {
   Transport,
 } from '@nestjs/microservices';
 import { Hash } from '@tc/hash/schemas/hash.schema';
-import { DidId } from '@tc/did/schemas/did.schema';
+import { DidId } from '@tc/did-id/schemas/did-id.schema';
 import { addRedisEndpoint, addTCPEndpoint } from '@shared/main-functions';
 import { PersistClientService } from '@tc/persist-client';
 import {

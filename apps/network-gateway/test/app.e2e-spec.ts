@@ -11,7 +11,7 @@ import {
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { DidId } from '@trustcerts/core';
 import { WalletClientService } from '@tc/wallet-client';
-import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
+import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
 import { wait } from '@shared/helpers';
 import { addRedisEndpoint } from '@shared/main-functions';
 import { P2PService } from '@tc/p2-p';
@@ -35,7 +35,7 @@ import { HttpService } from '@nestjs/axios';
 describe('Network Gateway (e2e)', () => {
   let app: INestApplication;
   let walletService: WalletClientService;
-  let didCachedService: DidCachedService;
+  let didCachedService: DidIdCachedService;
   let clientRedis: ClientRedis;
   let p2PService: P2PService;
   let httpService: HttpService;
@@ -54,7 +54,7 @@ describe('Network Gateway (e2e)', () => {
     httpService = app.get(HttpService);
     clientRedis = app.get<ClientRedis>(REDIS_INJECTION);
     walletService = app.get(WalletClientService);
-    didCachedService = app.get(DidCachedService);
+    didCachedService = app.get(DidIdCachedService);
     p2PService = app.get(P2PService);
   }, 15000);
 

@@ -2,10 +2,8 @@ import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { Test, TestingModule } from '@nestjs/testing';
 import { HttpGatewayModule } from '../src/http-gateway.module';
-import {
-  SignatureType,
-  TransactionDto,
-} from '@tc/blockchain/transaction/transaction.dto';
+import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
+import { SignatureType } from '@tc/blockchain/transaction/signature-type';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 import {
   Did,
@@ -14,8 +12,8 @@ import {
   Identifier,
 } from '@trustcerts/core';
 import { DidIdRegister } from '@trustcerts/did-id-create';
-import { DidIdTransactionDto } from '@tc/did/dto/did.transaction.dto';
-import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
+import { DidIdTransactionDto } from '@tc/did-id/dto/did-id.transaction.dto';
+import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
 import { HashCachedService } from '@tc/hash/hash-cached/hash-cached.service';
 import { WalletClientService } from '@tc/wallet-client';
 import { ClientRedis } from '@nestjs/microservices';
@@ -23,12 +21,12 @@ import { REDIS_INJECTION } from '@tc/event-client/constants';
 import { HashCreationTransactionDto } from '@tc/hash/dto/hash-creation.transaction.dto';
 import { addRedisEndpoint } from '@shared/main-functions';
 import { HashService } from '@tc/blockchain';
-import { RoleManageAddEnum } from '@tc/did/constants';
+import { RoleManageAddEnum } from '@tc/did-id/constants';
 import {
   CompressionType,
   TemplateTransactionDto,
 } from '@tc/template/dto/template.transaction.dto';
-import { CreateDidDto } from '@tc/did/dto/create-did.dto';
+import { CreateDidDto } from '@tc/did-id/dto/create-did.dto';
 import { InviteRequest } from '@tc/invite/schemas/invite-request.schema';
 import { InviteNode } from '@tc/invite/dto/invite-node.dto';
 import * as fs from 'fs';
@@ -49,7 +47,7 @@ import { TextEncoder } from 'util';
 
 describe('Http Gateway (e2e)', () => {
   let app: INestApplication;
-  let didCachedService: DidCachedService;
+  let didCachedService: DidIdCachedService;
   let hashCachedService: HashCachedService;
   let walletClientService: WalletClientService;
   let hashService: HashService;
@@ -71,7 +69,7 @@ describe('Http Gateway (e2e)', () => {
 
     clientRedis = app.get(REDIS_INJECTION);
     inviteService = app.get(InviteService);
-    didCachedService = app.get(DidCachedService);
+    didCachedService = app.get(DidIdCachedService);
     hashCachedService = app.get(HashCachedService);
     walletClientService = app.get(WalletClientService);
     hashService = app.get(HashService);

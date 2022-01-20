@@ -6,7 +6,7 @@ import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 
-import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
+import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
 import { PersistClientService } from '@tc/persist-client';
 import { TextEncoder } from 'util';
 import { TransactionChecks } from '@tc/blockchain/block-check/transaction-checks.interface';
@@ -42,7 +42,7 @@ export class BlockCheckService {
     private readonly hashService: HashService,
     private readonly persistClientService: PersistClientService,
     private readonly walletClientService: WalletClientService,
-    private readonly didCachedService: DidCachedService,
+    private readonly didCachedService: DidIdCachedService,
   ) {
     this.persistClientService
       .latestBlock()

@@ -20,7 +20,7 @@ import { BlockReceivedService } from './block-received/block-received.service';
 import { BlockchainSyncService } from '@tc/p2-p/blockchain-sync/blockchain-sync.service';
 import { ConnectDto } from '@tc/p2-p/dto/connect.dto';
 import { Connection } from '@shared/connection';
-import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
+import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
 import { Gauge } from 'prom-client';
 import { HandshakeService } from '@tc/p2-p/handshake/handshake.service';
 import { HttpService } from '@nestjs/axios';
@@ -28,7 +28,7 @@ import { InjectMetric } from '@willsoto/nestjs-prometheus';
 import { Logger } from 'winston';
 import { PersistClientService } from '@tc/persist-client';
 import { ProposedBlock } from '@tc/blockchain/block/proposed-block.dto';
-import { RoleManageAddEnum } from '@tc/did/constants';
+import { RoleManageAddEnum } from '@tc/did-id/constants';
 import { Socket as ServerSocket } from 'socket.io';
 import { SignatureService } from '@tc/blockchain/signature/signature.service';
 import { lastValueFrom } from 'rxjs';
@@ -86,7 +86,7 @@ export class P2PService implements BeforeApplicationShutdown {
     private readonly networkService: BlockReceivedService,
     private readonly blockchainSyncService: BlockchainSyncService,
     private readonly handshakeService: HandshakeService,
-    private readonly didCachedService: DidCachedService,
+    private readonly didCachedService: DidIdCachedService,
     private readonly persistClientService: PersistClientService,
     private readonly signatureService: SignatureService,
     @Inject('winston') private readonly logger: Logger,

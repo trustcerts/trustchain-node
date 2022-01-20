@@ -1,9 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsHash, IsIn } from 'class-validator';
-import {
-  TransactionBody,
-  TransactionDto,
-} from '@tc/blockchain/transaction/transaction.dto';
+import { TransactionBody } from '@tc/blockchain/transaction/transaction-body';
+import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { Type } from 'class-transformer';
 import { WalletClientService } from '@tc/wallet-client';
 

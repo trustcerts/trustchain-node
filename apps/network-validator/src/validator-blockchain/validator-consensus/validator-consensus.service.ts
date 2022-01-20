@@ -8,7 +8,7 @@ import {
 } from '@tc/blockchain/blockchain.events';
 import { ConfigService } from '@tc/config/config.service';
 import { Connection } from '@shared/connection';
-import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
+import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
 import { P2PService } from '@tc/p2-p';
@@ -85,7 +85,7 @@ export class ValidatorConsensusService {
     @Inject('winston') private readonly logger: Logger,
     private readonly validatorService: ValidatorService,
     private readonly proposerService: ProposerService,
-    private readonly didCachedService: DidCachedService,
+    private readonly didCachedService: DidIdCachedService,
     @InjectMetric('validator_min') private promValidatorMin: Gauge<string>,
     @InjectMetric('validator_max') private promValidatorMax: Gauge<string>,
   ) {

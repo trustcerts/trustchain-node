@@ -1,7 +1,7 @@
 import * as Joi from 'joi';
 import { ConfigModule, ConfigService } from '@tc/config';
-import { DidCachedModule } from '@tc/did/did-cached/did-cached.module';
-import { DidParsingModule } from '@tc/did/did-parsing/did-parsing.module';
+import { DidIdCachedModule } from '@tc/did-id/did-id-cached/did-id-cached.module';
+import { DidIdParsingModule } from '@tc/did-id/did-id-parsing/did-id-parsing.module';
 import { EventClientModule } from '@tc/event-client';
 import { HashCachedModule } from '@tc/hash/hash-cached/hash-cached.module';
 import { HashParsingModule } from '@tc/hash/hash-parsing/hash-parsing.module';
@@ -46,8 +46,8 @@ import { dbConnectionValidation } from '@shared/validation-rules';
     HashParsingModule,
     HashCachedModule,
 
-    DidParsingModule,
-    DidCachedModule,
+    DidIdParsingModule,
+    DidIdCachedModule,
 
     SchemaParsingModule,
     SchemaCachedModule,

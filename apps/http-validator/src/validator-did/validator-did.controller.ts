@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { ClientTCP } from '@nestjs/microservices';
 import { ConfigService } from '@tc/config';
-import { CreateDidDto } from '@tc/did/dto/create-did.dto';
+import { CreateDidIdDto } from '@tc/did-id/dto/create-did-id.dto';
 import { InviteRequest } from '@tc/invite/schemas/invite-request.schema';
 import { InviteService } from '@tc/invite/invite.service';
 import { MaintenanceGuard } from '@tc/config/version/maintenance.guard';
@@ -66,7 +66,7 @@ export class ValidatorDidController {
   @ApiOperation({
     summary: 'Signs the public key of the gateway.',
   })
-  async create(@Body() createCert: CreateDidDto) {
+  async create(@Body() createCert: CreateDidIdDto) {
     const invite = await this.inviteService.isValidInvite(
       createCert.identifier,
       createCert.secret,

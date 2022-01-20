@@ -1,10 +1,10 @@
 import { BlockCheckService } from '@tc/blockchain/block-check/block-check.service';
-import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
+import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
 import { HashCachedService } from '@tc/hash/hash-cached/hash-cached.service';
 import { HashDocument } from '@tc/hash/schemas/hash.schema';
 import { HashTransactionDto } from '@tc/hash/dto/hash.transaction.dto';
 import { Model } from 'mongoose';
-import { RoleManageAddEnum } from '@tc/did/constants';
+import { RoleManageAddEnum } from '@tc/did-id/constants';
 import { TransactionCheck } from '@shared/transactions/transaction.check';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
@@ -23,7 +23,7 @@ export abstract class HashTransactionCheckService extends TransactionCheck {
     protected readonly hashModel: Model<HashDocument>,
     protected readonly blockCheckService: BlockCheckService,
     protected readonly hashCachedService: HashCachedService,
-    protected readonly didCachedService: DidCachedService,
+    protected readonly didCachedService: DidIdCachedService,
   ) {
     super(blockCheckService, hashCachedService, didCachedService);
   }

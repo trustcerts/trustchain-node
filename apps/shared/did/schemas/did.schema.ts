@@ -1,5 +1,5 @@
-import { BcEntity } from '@apps/shared/transactions/bc-entity.schema';
-import { DidId } from '@tc/did/schemas/did.schema';
+import { BcEntity } from '@shared/transactions/bc-entity.schema';
+import { DidId } from '@tc/did-id/schemas/did-id.schema';
 import { Document, Schema as MongooseSchema } from 'mongoose';
 import { IsString } from 'class-validator';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';

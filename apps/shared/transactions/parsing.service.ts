@@ -2,7 +2,7 @@ import { ClientRedis } from '@nestjs/microservices';
 import { Counter } from 'prom-client';
 import { HashService } from '@tc/blockchain';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';
-import { PersistedTransaction } from '../http/persisted-transaction';
+import { PersistedTransaction } from '../http/dto/persisted-transaction';
 import { TRANSACTION_PARSED } from '@tc/event-client/constants';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 

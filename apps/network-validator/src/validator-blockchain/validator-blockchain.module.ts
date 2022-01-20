@@ -2,7 +2,7 @@ import { BlockCheckModule } from '@tc/blockchain/block-check/block-check.module'
 import { BlockReceivedModule } from '@tc/p2-p/block-received/block-received.module';
 import { BlockchainGateway } from './blockchain.gateway';
 import { ConfigModule } from '@tc/config';
-import { DidBlockchainModule } from '@tc/did/did-blockchain/did-blockchain.module';
+import { DidIdBlockchainModule } from '@tc/did-id/did-id-blockchain/did-id-blockchain.module';
 import { EventClientModule } from '@tc/event-client';
 import { HashBlockchainModule } from '@tc/hash/hash-blockchain/hash-blockchain.module';
 import { HashModule } from '@tc/blockchain';
@@ -21,7 +21,7 @@ import { ValidatorBlockchainService } from './validator-blockchain.service';
     }),
     HashModule,
     HashBlockchainModule,
-    DidBlockchainModule,
+    DidIdBlockchainModule,
     TemplateBlockchainModule,
     P2PModule,
     BlockCheckModule,

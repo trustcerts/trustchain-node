@@ -2,21 +2,19 @@ import { Block } from '@tc/blockchain/block/block.interface';
 import { BlockReceivedService } from '@tc/p2-p/block-received/block-received.service';
 import { ConfigService } from '@tc/config/config.service';
 import { Connection } from '@shared/connection';
-import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
 import { DidCreation, VerificationRelationshipType } from '@trustcerts/core';
+import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
 import { DidIdRegister } from '@trustcerts/did-id-create';
-import { DidIdTransactionDto } from '@tc/did/dto/did.transaction.dto';
+import { DidIdTransactionDto } from '@tc/did-id/dto/did-id.transaction.dto';
 import { HashService } from '@tc/blockchain';
 import { HttpService } from '@nestjs/axios';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
 import { ProposedBlock } from '@tc/blockchain/block/proposed-block.dto';
-import { RoleManageAddEnum } from '@tc/did/constants';
+import { RoleManageAddEnum } from '@tc/did-id/constants';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
-import {
-  SignatureInfo,
-  SignatureType,
-} from '@tc/blockchain/transaction/transaction.dto';
+import { SignatureInfo } from '@tc/blockchain/transaction/signature-info';
+import { SignatureType } from '@tc/blockchain/transaction/signature-type';
 import { WalletClientService } from '@tc/wallet-client';
 import { lastValueFrom } from 'rxjs';
 
@@ -43,7 +41,7 @@ export class GenesisService {
   constructor(
     private readonly configService: ConfigService,
     private readonly walletClientService: WalletClientService,
-    private readonly didCachedService: DidCachedService,
+    private readonly didCachedService: DidIdCachedService,
     @Inject('winston') private readonly logger: Logger,
     private readonly httpService: HttpService,
     private readonly hashService: HashService,

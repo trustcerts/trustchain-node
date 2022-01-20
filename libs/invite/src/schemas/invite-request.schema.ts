@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { RoleManageAddEnum } from '@tc/did/constants';
+import { RoleManageAddEnum } from '@tc/did-id/constants';
 
 export type InviteRequestDocument = InviteRequest & Document;
 

@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { DidIdTransactionDto } from '@tc/did/dto/did.transaction.dto';
-import { PersistedResponse } from '@shared/http/persisted-transaction';
+import { DidIdTransactionDto } from '@tc/did-id/dto/did-id.transaction.dto';
+import { PersistedResponse } from '@shared/http/dto/persisted-response';
 import { Type } from 'class-transformer';
 
 /**

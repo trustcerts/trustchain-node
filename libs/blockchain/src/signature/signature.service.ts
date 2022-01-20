@@ -1,5 +1,5 @@
 import { Block } from '@tc/blockchain/block/block.interface';
-import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
+import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
 import { Injectable } from '@nestjs/common';
 import { ProposedBlock } from '@tc/blockchain/block/proposed-block.dto';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
@@ -18,7 +18,7 @@ export class SignatureService {
    * @param logger
    */
   constructor(
-    private readonly didCachedService: DidCachedService,
+    private readonly didCachedService: DidIdCachedService,
     private readonly walletClientService: WalletClientService,
   ) {}
 

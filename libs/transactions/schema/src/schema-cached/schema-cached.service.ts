@@ -12,7 +12,7 @@ import {
   SchemaTransaction,
   SchemaTransactionDocument,
 } from '../schemas/schema-transaction.schema';
-import { VersionInformation } from '@apps/shared/did/version-information';
+import { VersionInformation } from '@shared/did/version-information';
 
 /**
  * Handles requests to get a cached schema.

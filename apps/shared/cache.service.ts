@@ -33,7 +33,7 @@ export abstract class CachedService {
    * @returns
    */
   public async getById<Type>(id: string): Promise<Type> {
-    const did = await this.didModel.findById(id);
+    const did = await this.didModel.findOne({ id });
     if (!did) {
       throw Error(`${id} not found`);
     }

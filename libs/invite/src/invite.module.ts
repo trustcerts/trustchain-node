@@ -1,4 +1,4 @@
-import { DidCachedModule } from '@tc/did/did-cached/did-cached.module';
+import { DidIdCachedModule } from '@tc/did-id/did-id-cached/did-id-cached.module';
 import { INVITE_CONNECTION } from './constants';
 import { InviteDbModule } from './invite-db/invite-db.module';
 import {
@@ -11,7 +11,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
-    DidCachedModule,
+    DidIdCachedModule,
     InviteDbModule,
     MongooseModule.forFeature(
       [{ name: InviteRequest.name, schema: InviteRequestSchema }],

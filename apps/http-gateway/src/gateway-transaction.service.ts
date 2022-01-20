@@ -3,12 +3,10 @@ import { ConfigService } from '@tc/config';
 import { ConflictException } from '@nestjs/common';
 import { GatewayBlockchainService } from './gateway-blockchain/gateway-blockchain.service';
 import { Logger } from 'winston';
-import { PersistedTransaction } from '@shared/http/persisted-transaction';
-import {
-  SignatureType,
-  TransactionDto,
-} from '@tc/blockchain/transaction/transaction.dto';
-import { TransactionCheck } from '@apps/shared/transactions/transaction.check';
+import { PersistedTransaction } from '@shared/http/dto/persisted-transaction';
+import { SignatureType } from '@tc/blockchain/transaction/signature-type';
+import { TransactionCheck } from '@shared/transactions/transaction.check';
+import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { WalletClientService } from '@tc/wallet-client';
 
 /**

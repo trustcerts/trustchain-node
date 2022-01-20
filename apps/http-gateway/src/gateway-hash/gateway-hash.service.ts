@@ -1,11 +1,12 @@
 import { ConfigService } from '@tc/config';
 import { ConflictException, Inject, Injectable } from '@nestjs/common';
-import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
+import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
 import { GatewayBlockchainService } from '../gateway-blockchain/gateway-blockchain.service';
 import { GatewayTransactionService } from '../gateway-transaction.service';
 import { HashCachedService } from '@tc/hash/hash-cached/hash-cached.service';
-import { HashCreationResponse, HashRevocationResponse } from './response';
+import { HashCreationResponse } from './dto/hash-creation.respnse';
 import { HashCreationTransactionDto } from '@tc/hash/dto/hash-creation.transaction.dto';
+import { HashRevocationResponse } from './dto/hash-revocation.response';
 import { HashRevocationTransactionDto } from '@tc/hash/dto/hash-revocation.transaction.dto';
 import { HashService } from '@tc/blockchain/hash.service';
 import { HashSignTransactionCheckService } from '@tc/hash/hash-blockchain/hash-transaction-check/hash-sign-transaction-check/hash-sign-transaction-check.service';
@@ -32,7 +33,7 @@ export class GatewayHashService extends GatewayTransactionService {
     private readonly hashCachedService: HashCachedService,
     protected readonly hashService: HashService,
     protected readonly walletService: WalletClientService,
-    private readonly didCachedService: DidCachedService,
+    private readonly didCachedService: DidIdCachedService,
     protected readonly configService: ConfigService,
     @Inject('winston') protected readonly logger: Logger,
   ) {

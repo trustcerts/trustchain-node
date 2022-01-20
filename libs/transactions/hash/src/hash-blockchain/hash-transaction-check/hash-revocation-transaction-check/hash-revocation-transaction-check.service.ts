@@ -1,5 +1,5 @@
 import { BlockCheckService } from '@tc/blockchain/block-check/block-check.service';
-import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
+import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
 import { Hash, HashDocument } from '../../../schemas/hash.schema';
 import { HashCachedService } from '../../../hash-cached/hash-cached.service';
 import { HashRevocationTransactionDto } from '@tc/hash/dto/hash-revocation.transaction.dto';
@@ -27,7 +27,7 @@ export class HashRevocationTransactionCheckService extends HashTransactionCheckS
     protected hashModel: Model<HashDocument>,
     protected readonly blockCheckService: BlockCheckService,
     protected readonly hashCachedService: HashCachedService,
-    protected readonly didCachedService: DidCachedService,
+    protected readonly didCachedService: DidIdCachedService,
   ) {
     super(hashModel, blockCheckService, hashCachedService, didCachedService);
   }

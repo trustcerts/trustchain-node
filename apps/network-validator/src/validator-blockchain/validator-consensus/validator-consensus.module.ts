@@ -1,6 +1,6 @@
 import { BlockCheckModule } from '@tc/blockchain/block-check/block-check.module';
 import { ConsensusHealthIndicator } from './consensus.health';
-import { DidCachedModule } from '@tc/did/did-cached/did-cached.module';
+import { DidIdCachedModule } from '@tc/did-id/did-id-cached/did-id-cached.module';
 import { Module } from '@nestjs/common';
 import { P2PModule } from '@tc/p2-p';
 import { PersistClientModule } from '@tc/persist-client/persist-client.module';
@@ -16,7 +16,7 @@ import { makeGaugeProvider } from '@willsoto/nestjs-prometheus';
   imports: [
     ValidatorBlockchainModule,
     SignatureModule,
-    DidCachedModule,
+    DidIdCachedModule,
     PersistClientModule,
     BlockCheckModule,
     WalletClientModule,

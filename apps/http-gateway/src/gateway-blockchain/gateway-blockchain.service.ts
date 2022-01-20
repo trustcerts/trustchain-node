@@ -10,12 +10,12 @@ import { HashService } from '@tc/blockchain/hash.service';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 
 import { ClientRedis } from '@nestjs/microservices';
-import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
+import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
 import { EventEmitter } from 'events';
 import { Gauge } from 'prom-client';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';
 import { Logger } from 'winston';
-import { PersistedTransaction } from '@shared/http/persisted-transaction';
+import { PersistedTransaction } from '@shared/http/dto/persisted-transaction';
 import {
   REDIS_INJECTION,
   TRANSACTION_CREATED,
@@ -56,7 +56,7 @@ export class GatewayBlockchainService {
    */
   constructor(
     private readonly hashService: HashService,
-    private readonly didCachedService: DidCachedService,
+    private readonly didCachedService: DidIdCachedService,
     @Inject('winston') private readonly logger: Logger,
     @Inject(REDIS_INJECTION) private readonly clientRedis: ClientRedis,
     @InjectMetric('gateway_transactionPool')

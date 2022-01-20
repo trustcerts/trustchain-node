@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { BcEntity } from '@shared/transactions/bc-entity.schema';
-import { DidIdStructure } from '@tc/did/dto/did.transaction.dto';
+import { DidIdStructure } from '@tc/did-id/dto/did-id-structure';
 import { Document } from 'mongoose';
 import { IsString } from 'class-validator';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';

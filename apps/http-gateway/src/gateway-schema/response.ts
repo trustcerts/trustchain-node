@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { PersistedResponse } from '@shared/http/persisted-transaction';
+import { PersistedResponse } from '@shared/http/dto/persisted-response';
 import { SchemaTransaction } from '@tc/schema/dto/schema.transaction.dto';
 import { Type } from 'class-transformer';
 
