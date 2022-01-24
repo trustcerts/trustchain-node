@@ -1,7 +1,6 @@
 import {
   BLOCK_CREATED,
   BLOCK_PERSISTED,
-  IS_BLOCK_PERSISTED,
   REDIS_INJECTION,
 } from '@tc/event-client/constants';
 import { Block } from '@tc/blockchain/block/block.interface';
@@ -9,7 +8,7 @@ import { ClientProxy, ClientRedis } from '@nestjs/microservices';
 import { EventEmitter } from 'events';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
-import { PERSIST_TCP_INJECTION } from '@tc/persist-client/constants';
+import { PersistClientService } from '@tc/persist-client/persist-client.service';
 
 /**
  * Responsible to share new blocks to the internal services.
@@ -35,8 +34,7 @@ export class BlockReceivedService {
   constructor(
     @Inject(REDIS_INJECTION) private readonly clientRedis: ClientRedis,
     @Inject('winston') private readonly logger: Logger,
-    @Inject(PERSIST_TCP_INJECTION)
-    private readonly persistTCpClient: ClientProxy,
+    private readonly persistClientService: PersistClientService,
   ) {}
 
   /**
@@ -52,40 +50,36 @@ export class BlockReceivedService {
       // TODO validate block based on validation level
       this.clientRedis.emit(BLOCK_CREATED, block);
       // Check if block was persisted
-      const pattern = { cmd: IS_BLOCK_PERSISTED };
-      const payload = block.index;
-      this.persistTCpClient
-        .send<boolean>(pattern, payload)
-        .subscribe((wasPersisted) => {
-          if (wasPersisted) {
-            // set listener for successful parsing.
-            this.parsed.on(`block-${block.index}`, () => {
-              this.logger.debug({
-                message: `parsed block: ${block.index}`,
-                labels: { source: this.constructor.name },
-              });
-              clearTimeout(timeout);
-              this.parsed.removeAllListeners(`block-${block.index}`);
-              resolve();
+      this.persistClientService.isBlockPersisted(block.index).then((wasPersisted) => {
+        if (wasPersisted) {
+          // set listener for successful parsing.
+          this.parsed.on(`block-${block.index}`, () => {
+            this.logger.debug({
+              message: `parsed block: ${block.index}`,
+              labels: { source: this.constructor.name },
             });
+            clearTimeout(timeout);
+            this.parsed.removeAllListeners(`block-${block.index}`);
+            resolve();
+          });
 
-            // Emit event that block was persisted so can be parsed.
-            this.clientRedis.emit(BLOCK_PERSISTED, block);
+          // Emit event that block was persisted so can be parsed.
+          this.clientRedis.emit(BLOCK_PERSISTED, block);
 
-            // Wait just a given time for the parsing
-            const timeout = setTimeout(() => {
-              // Parsing needed to long so remove listeners and reject promise
-              this.parsed.removeAllListeners(`block-${block.index}`);
-              this.logger.warn({
-                message: `block ${block.index} not parsed in given time`,
-                labels: { source: this.constructor.name },
-              });
-              reject(`block ${block.index} not parsed in given time`);
-            }, this.parsingTimeout);
-          } else {
-            reject(`block ${block.index} not persisted in given time`);
-          }
-        });
+          // Wait just a given time for the parsing
+          const timeout = setTimeout(() => {
+            // Parsing needed to long so remove listeners and reject promise
+            this.parsed.removeAllListeners(`block-${block.index}`);
+            this.logger.warn({
+              message: `block ${block.index} not parsed in given time`,
+              labels: { source: this.constructor.name },
+            });
+            reject(`block ${block.index} not parsed in given time`);
+          }, this.parsingTimeout);
+        } else {
+          reject(`block ${block.index} not persisted in given time`);
+        }
+      });
     });
   }
 }
