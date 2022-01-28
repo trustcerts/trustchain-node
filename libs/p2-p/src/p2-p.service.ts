@@ -67,6 +67,11 @@ export class P2PService implements BeforeApplicationShutdown {
   shutdown = false;
 
   /**
+   * Queue for incoming blocks
+   */
+  private queue : Block[] = [];
+
+  /**
    * Constructor to add a P2PService
    * @param httpService
    * @param configService
@@ -698,28 +703,23 @@ export class P2PService implements BeforeApplicationShutdown {
           });
           return;
         }
-        this.signatureService.validateSignatures(block).then(
-          () => {
-            this.networkService.addBlock(block);
-          },
-          (e) => {
-            this.logger.error({
-              message: JSON.stringify(block, null, 4),
-              labels: {
-                source: this.constructor.name,
-                identifier: endpoint.identifier,
-                rejected: true,
-              },
-            });
-            this.logger.error({
-              message: e,
-              labels: {
-                source: this.constructor.name,
-                identifier: endpoint.identifier,
-              },
-            });
-          },
-        );
+        // Check index
+        let blockCount = await this.persistClientService.getBlockCounter();
+        if (blockCount !== block.index - 1) {
+          // put in queue
+          this.queue.push(block);
+          // Were already blocks in queue?
+          if (this.queue.length == 1) {
+            // Get the missing blocks (and persist and parse them)
+            await this.blockchainSyncService.requestMissingBlocks(endpoint.socket, blockCount + 1, block.index - blockCount - 1);
+            // do for every block in queue:
+            for (let i = 0; i < this.queue.length; i++) {
+              this.processBlock(endpoint, this.queue[i]);
+            }
+          }
+        } else {
+          this.processBlock(endpoint, block);
+        }
       });
     } else {
       endpoint.socket.once(IS_ENDPOINT_LISTENING_FOR_VALIDATORS, () => {
@@ -734,6 +734,31 @@ export class P2PService implements BeforeApplicationShutdown {
       });
     }
     this.connectionChanges.emit(CONNECTION_ADDED, endpoint);
+  }
+
+  private processBlock(endpoint: Connection, block: Block) {
+    this.signatureService.validateSignatures(block).then(
+      () => {
+        this.networkService.addBlock(block);
+      },
+      (e) => {
+        this.logger.error({
+          message: JSON.stringify(block, null, 4),
+          labels: {
+            source: this.constructor.name,
+            identifier: endpoint.identifier,
+            rejected: true,
+          },
+        });
+        this.logger.error({
+          message: e,
+          labels: {
+            source: this.constructor.name,
+            identifier: endpoint.identifier,
+          },
+        });
+      },
+    );
   }
 
   /**
