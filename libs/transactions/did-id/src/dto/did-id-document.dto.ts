@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { DidDocument } from '@shared/did/did-document';
-import { DidPublicKey } from './did-public-key';
-import { DidService } from './did-service';
+import { DidPublicKey } from './did-public-key.dto';
+import { DidService } from './did-service.dto';
 import { IDidIdDocument } from '@trustcerts/core';
 import { RoleManageAddEnum } from '@tc/did-id/constants';
 

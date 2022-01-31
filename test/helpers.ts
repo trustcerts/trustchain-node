@@ -13,7 +13,7 @@ import {
   VerificationRelationshipType,
 } from '@trustcerts/core';
 import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
-import { DidIdTransactionDto } from '@tc/did-id/dto/did-id.transaction.dto';
+import { DidIdTransactionDto } from '@tc/did-id/dto/did-id-transaction.dto';
 import { HashCreationTransactionDto } from '@tc/hash/dto/hash-creation.transaction.dto';
 import { HashService } from '@tc/blockchain/hash.service';
 import { MESSAGE_EVENT } from '@nestjs/microservices/constants';
@@ -27,7 +27,7 @@ import { WalletClientService } from '@tc/wallet-client';
 import { exec } from 'child_process';
 import http = require('http');
 import express = require('express');
-import { CompressionType } from '@tc/template/dto/template.transaction.dto';
+import { CompressionType } from '@tc/template/dto/compressiontype.dto';
 import { DidIdRegister } from '@trustcerts/did-id-create';
 import { Server } from 'socket.io';
 

@@ -1,4 +1,5 @@
 import { CachedService } from '@shared/cache.service';
+import { DidResolver } from '@trustcerts/core';
 import { Hash, HashDocument } from '@tc/hash/schemas/hash.schema';
 import { HashFilterDto } from '../dto/hash-filter.dto';
 import {
@@ -22,7 +23,7 @@ export class HashCachedService extends CachedService {
     @InjectModel(HashTransaction.name)
     protected transactionModel: Model<HashTransactionDocument>,
   ) {
-    super(transactionModel, didModel);
+    super(transactionModel, didModel, DidResolver.load);
   }
 
   /**
@@ -30,7 +31,7 @@ export class HashCachedService extends CachedService {
    * @param hash
    */
   getHash(hash: string) {
-    return this.didModel.findOne({ hash });
+    return this.didModel.findOne({ id: hash });
   }
 
   /**

@@ -7,7 +7,7 @@ import {
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { CreateDidIdDto } from '@tc/did-id/dto/create-did-id.dto';
 import { DidCreationResponse } from './responses';
-import { DidIdTransactionDto } from '@tc/did-id/dto/did-id.transaction.dto';
+import { DidIdTransactionDto } from '@tc/did-id/dto/did-id-transaction.dto';
 import { GatewayDidService } from './gateway-did.service';
 import { InviteRequest } from '@tc/invite/schemas/invite-request.schema';
 import { InviteService } from '@tc/invite';

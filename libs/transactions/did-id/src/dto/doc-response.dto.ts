@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { DidIdDocument } from './did-id-document';
+import { DidIdDocument } from './did-id-document.dto';
 import { DocResponse } from '@shared/did/doc-response';
 
 /**

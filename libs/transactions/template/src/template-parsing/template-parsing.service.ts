@@ -1,5 +1,6 @@
 import { ClientRedis } from '@nestjs/microservices';
 import { Counter } from 'prom-client';
+import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
 import { HashService } from '@tc/blockchain';
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';
@@ -37,6 +38,7 @@ export class TemplateParsingService extends ParsingService {
     @InjectMetric('transactions')
     protected readonly transactionsCounter: Counter<string>,
     private readonly parseService: ParseService,
+    private readonly didIdCachedService: DidIdCachedService,
   ) {
     super(clientRedis, hashService, transactionsCounter);
 
@@ -52,23 +54,35 @@ export class TemplateParsingService extends ParsingService {
    */
   private async add(transaction: TemplateTransactionDto) {
     this.store(transaction.body.value.id, transaction.body.value.template);
-    const template = new this.templateModel({
+    new this.templateModel({
       id: transaction.body.value.id,
       compression: transaction.body.value.compression,
       schema: transaction.body.value.schema,
+      controllers: await Promise.all(
+        transaction.signature.values.map((value) =>
+          this.didIdCachedService.getById(value.identifier.split('#')[0]),
+        ),
+      ),
       block: {
         ...transaction.block,
         imported: transaction.metadata?.imported?.date,
       },
       signature: transaction.signature.values,
-    });
-    await template.save().catch((err: any) =>
-      this.logger.error({
-        message: err,
-        labels: { source: this.constructor.name },
-      }),
-    );
-    this.created(transaction);
+    })
+      .save()
+      .then(() => {
+        this.logger.debug({
+          message: `added template ${transaction.body.value.id}`,
+          labels: { source: this.constructor.name },
+        });
+        this.created(transaction);
+      })
+      .catch((err: any) =>
+        this.logger.error({
+          message: err,
+          labels: { source: this.constructor.name },
+        }),
+      );
   }
 
   /**

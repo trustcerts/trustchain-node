@@ -1,7 +1,7 @@
 import { BlockCheckService } from '@tc/blockchain/block-check/block-check.service';
 import { DidId } from '@tc/did-id/schemas/did-id.schema';
 import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
-import { DidIdTransactionDto } from '@tc/did-id/dto/did-id.transaction.dto';
+import { DidIdTransactionDto } from '@tc/did-id/dto/did-id-transaction.dto';
 import { Injectable } from '@nestjs/common';
 import { RoleManageAddEnum } from '@tc/did-id/constants';
 import { TransactionCheck } from '@shared/transactions/transaction.check';

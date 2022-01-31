@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { ImportedMetadata } from './imported-metadata';
 import { IsNumber, IsOptional, IsPositive } from 'class-validator';
+import { SignatureInfo } from './signature-info';
 import { Type } from 'class-transformer';
 
 /**
@@ -25,4 +26,11 @@ export class TransactionMetadata {
   @IsOptional()
   @Type(() => ImportedMetadata)
   imported?: ImportedMetadata;
+
+  /**
+   * Signature of the did document after applying the changes.
+   */
+  @IsOptional()
+  @Type(() => SignatureInfo)
+  didDocSignature?: SignatureInfo;
 }

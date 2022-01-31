@@ -12,7 +12,7 @@ import {
 import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
 import { DidIdRegister } from '@trustcerts/did-id-create';
 import { DidIdTransactionCheckService } from '@tc/did-id/did-id-blockchain/did-id-transaction-check/did-id-transaction-check.service';
-import { DidIdTransactionDto } from '@tc/did-id/dto/did-id.transaction.dto';
+import { DidIdTransactionDto } from '@tc/did-id/dto/did-id-transaction.dto';
 import { GatewayBlockchainService } from '../gateway-blockchain/gateway-blockchain.service';
 import { GatewayTransactionService } from '../gateway-transaction.service';
 import { HashService } from '@tc/blockchain';
@@ -28,6 +28,8 @@ import { WalletClientService } from '@tc/wallet-client';
  */
 @Injectable()
 export class GatewayDidService extends GatewayTransactionService {
+  protected didResolver: DidIdResolver;
+
   /**
    * Loads required services.
    * @param gatewayBlockchainService
@@ -54,6 +56,7 @@ export class GatewayDidService extends GatewayTransactionService {
       logger,
       configService,
     );
+    this.didResolver = new DidIdResolver();
   }
 
   /**
@@ -101,7 +104,7 @@ export class GatewayDidService extends GatewayTransactionService {
     if (transactions.length === 0) {
       throw new NotFoundException(`${createCert.identifier} not known`);
     }
-    const did = await DidIdResolver.load(createCert.identifier, {
+    const did = await this.didResolver.load(createCert.identifier, {
       validateChainOfTrust: false,
       transactions,
     });

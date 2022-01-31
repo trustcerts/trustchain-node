@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { DidManage } from '@shared/did/dto/did-manage';
-import { DidService } from './did-service';
+import { DidManage } from '@apps/shared/did/dto/did-manage.dto';
+import { DidService } from './did-service.dto';
 import { IsArray, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 

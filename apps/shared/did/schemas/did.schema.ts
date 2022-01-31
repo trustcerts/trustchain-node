@@ -19,7 +19,7 @@ export class Did extends BcEntity {
    * https://www.w3.org/TR/did-core/#did-subject
    */
   @IsString()
-  @Prop({ index: true, length: 50, unique: true })
+  @Prop({ index: true, length: 64, unique: true })
   id!: string;
 
   /**

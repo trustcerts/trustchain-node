@@ -1,6 +1,7 @@
 import { CachedService } from '@shared/cache.service';
 import { ConfigService } from '@tc/config';
 import { ConflictException } from '@nestjs/common';
+import { DidResolver } from '@trustcerts/core';
 import { GatewayBlockchainService } from './gateway-blockchain/gateway-blockchain.service';
 import { Logger } from 'winston';
 import { PersistedTransaction } from '@shared/http/dto/persisted-transaction';
@@ -13,6 +14,8 @@ import { WalletClientService } from '@tc/wallet-client';
  * Base Service to add a transaction.
  */
 export class GatewayTransactionService {
+  protected didResolver!: DidResolver;
+
   /**
    * Injects required services
    * @param gatewayBlockchainService
@@ -48,7 +51,8 @@ export class GatewayTransactionService {
     }
 
     //checks if signer is authorized
-    await this.transactionCheckService.canUpdate(transaction).catch(() => {
+    await this.transactionCheckService.canUpdate(transaction).catch((err) => {
+      console.log(err);
       throw new ConflictException('signer not authorized');
     });
 

@@ -1,22 +1,19 @@
 import { CachedService } from '@shared/cache.service';
 import { DidId, DidIdDocument } from '@tc/did-id/schemas/did-id.schema';
-import { DidIdDocument as DidIdDoc } from '../dto/did-id-document';
 import { DidIdResolver } from '@trustcerts/core';
 import {
   DidIdTransaction,
   DidTransactionDocument,
 } from '../schemas/did-id-transaction.schema';
 import { GenesisBlock } from '../../../../blockchain/src/block/genesis-block.dto';
-import { IVerificationRelationships } from '../dto/i-verification-relationships';
-import { IdDocResponse } from '../dto/doc-response';
+import { IVerificationRelationships } from '../dto/i-verification-relationships.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Key } from '@tc/did-id/schemas/key.schema';
 import { Model } from 'mongoose';
 import { PersistClientService } from '@tc/persist-client';
 import { RoleManageAddEnum } from '@tc/did-id/constants';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
-import { VersionInformation } from '../../../../../apps/shared/did/version-information';
 
 /**
  * Service to interact with cached dids.
@@ -37,7 +34,7 @@ export class DidIdCachedService extends CachedService {
     protected didModel: Model<DidIdDocument>,
     private readonly persistClientService: PersistClientService,
   ) {
-    super(transactionModel, didModel);
+    super(transactionModel, didModel, new DidIdResolver());
   }
 
   /**
@@ -60,44 +57,52 @@ export class DidIdCachedService extends CachedService {
     return did;
   }
 
-  /**
-   * Returns an assembled did document with the transaction
-   * @param id
-   * @param version
-   * @returns
-   */
-  async getDocument(
-    id: string,
-    version?: VersionInformation,
-  ): Promise<IdDocResponse> {
-    const query = this.transactionModel
-      .find({
-        id,
-        createdAt: {
-          $lte: version?.time
-            ? new Date(version.time).toISOString()
-            : new Date().toISOString(),
-        },
-      })
-      .sort('createdAt');
-    if (version?.id) {
-      query.limit(version.id);
-    }
-    const transactions = await query.exec();
-    if (transactions.length === 0) {
-      throw new NotFoundException();
-    }
-    const did = await DidIdResolver.load(id, {
-      transactions: transactions as DidIdTransaction[],
-      validateChainOfTrust: false,
-      doc: false,
-    });
-    return {
-      document: did.getDocument() as DidIdDoc,
-      signatures: transactions[transactions.length - 1].didDocumentSignature,
-      metaData: await this.getDocumentMetaData(id, version),
-    };
-  }
+  // /**
+  //  * Returns an assembled did document with the transaction
+  //  * @param id
+  //  * @param version
+  //  * @returns
+  //  */
+  // async getDocument(
+  //   id: string,
+  //   version?: VersionInformation,
+  // ): Promise<IdDocResponse> {
+  //   // catch timestamps that are in the future
+  //   if (version?.time) {
+  //     try {
+  //       new Date(version.time);
+  //     } catch {
+  //       version.time = new Date().toISOString();
+  //     }
+  //   }
+  //   const query = this.transactionModel
+  //     .find({
+  //       id,
+  //       createdAt: {
+  //         $lte: version?.time
+  //           ? new Date(version.time).toISOString()
+  //           : new Date().toISOString(),
+  //       },
+  //     })
+  //     .sort('createdAt');
+  //   if (version?.id) {
+  //     query.limit(version.id);
+  //   }
+  //   const transactions = await query.exec();
+  //   if (transactions.length === 0) {
+  //     throw new NotFoundException();
+  //   }
+  //   const did = await DidIdResolver.load(id, {
+  //     transactions: transactions as DidIdTransaction[],
+  //     validateChainOfTrust: false,
+  //     doc: false,
+  //   });
+  //   return {
+  //     document: did.getDocument() as DidIdDoc,
+  //     signatures: transactions[transactions.length - 1].didDocumentSignature,
+  //     metaData: await this.getDocumentMetaData(id, version),
+  //   };
+  // }
 
   /**
    * Maximum amount of validators regarding to the latest root certificate.

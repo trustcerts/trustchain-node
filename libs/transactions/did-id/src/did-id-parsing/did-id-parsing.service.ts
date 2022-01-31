@@ -5,9 +5,9 @@ import {
   DidIdTransaction,
   DidTransactionDocument,
 } from '../schemas/did-id-transaction.schema';
-import { DidIdTransactionDto } from '@tc/did-id/dto/did-id.transaction.dto';
+import { DidIdTransactionDto } from '@tc/did-id/dto/did-id-transaction.dto';
 import { HashService } from '@tc/blockchain';
-import { IVerificationRelationships } from '../dto/i-verification-relationships';
+import { IVerificationRelationships } from '../dto/i-verification-relationships.dto';
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';
 import { InjectModel } from '@nestjs/mongoose';
@@ -68,7 +68,7 @@ export class DidIdParsingService extends ParsingService {
       createdAt: transaction.body.date,
       values: transaction.body.value,
       signature: transaction.signature.values,
-      didDocumentSignature: transaction.body.didDocSignature.values,
+      didDocumentSignature: transaction.metadata.didDocSignature,
       block: {
         ...transaction.block,
         imported: transaction.metadata?.imported?.date,

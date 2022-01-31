@@ -37,7 +37,7 @@ export class TrackingService {
       throw new ConflictException('issuer not found');
     }
     const tracking = new this.trackingModel({
-      hash: hash.hash,
+      hash: hash.id,
       issuer: issuer.id,
       origin,
     });

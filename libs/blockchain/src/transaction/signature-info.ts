@@ -21,7 +21,10 @@ export class SignatureInfo {
   /**
    * Signature of the value and the date.
    */
-  @ApiProperty({ description: 'signature of the document values.' })
+  @ApiProperty({
+    description: 'signature of the document values',
+    type: [SignatureDto],
+  })
   @ValidateNested({ each: true })
   @Type(() => SignatureDto)
   values!: SignatureDto[];

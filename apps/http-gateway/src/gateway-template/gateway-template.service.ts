@@ -47,15 +47,14 @@ export class GatewayTemplateService extends GatewayTransactionService {
    * @param transaction
    */
   async addTemplate(transaction: TemplateTransactionDto) {
-    const template = await this.templateCachedService.getById(
-      transaction.body.value.id,
+    return this.templateCachedService.getById(transaction.body.value.id).then(
+      () => {
+        throw new ConflictException('id already taken');
+      },
+      async () => ({
+        metaData: await this.addTransaction(transaction),
+        transaction,
+      }),
     );
-    if (template) {
-      throw new ConflictException('id already taken');
-    }
-    return {
-      metaData: await this.addTransaction(transaction),
-      transaction,
-    };
   }
 }

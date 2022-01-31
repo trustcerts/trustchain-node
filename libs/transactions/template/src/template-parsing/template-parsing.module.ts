@@ -1,3 +1,4 @@
+import { DidIdCachedModule } from '@tc/did-id/did-id-cached/did-id-cached.module';
 import { EventClientModule } from '@tc/event-client';
 import { HashModule } from '@tc/blockchain';
 import { Module, forwardRef } from '@nestjs/common';
@@ -22,6 +23,7 @@ import {
     EventClientModule,
     HashModule,
     TemplateDbModule,
+    DidIdCachedModule,
     MongooseModule.forFeature(
       [
         { name: Template.name, schema: TemplateSchema },

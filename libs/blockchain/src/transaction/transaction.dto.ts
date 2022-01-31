@@ -2,7 +2,7 @@ import { ApiHideProperty, ApiProperty } from '@nestjs/swagger';
 import { IsNumber, IsPositive } from 'class-validator';
 import { PersistedBlock } from '@tc/blockchain/block/persisted-block.interface';
 import { SignatureInfo } from './signature-info';
-import { TransactionBody } from './transaction-body';
+import { TransactionBody } from './transaction-body.dto';
 import { TransactionMetadata } from './transaction-metadata';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 import { Type } from 'class-transformer';

@@ -1,4 +1,5 @@
 import { CachedService } from '@shared/cache.service';
+import { DidResolver } from '@trustcerts/core';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Model } from 'mongoose';
@@ -25,7 +26,7 @@ export class TemplateCachedService extends CachedService {
     protected transactionModel: Model<TemplateTransactionDocument>,
     @InjectModel(Template.name) protected didModel: Model<TemplateDocument>,
   ) {
-    super(transactionModel, didModel);
+    super(transactionModel, didModel, DidResolver.load);
   }
 
   /**

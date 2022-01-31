@@ -1,9 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Did } from '@shared/did/schemas/did.schema';
-import { Document } from 'mongoose';
+import { Did, DidDocument } from '@shared/did/schemas/did.schema';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-export type HashDocument = Hash & Document;
+export type HashDocument = Hash & DidDocument;
 
 /**
  * Entity that describes how signed hashes are stored on the database
@@ -14,9 +13,8 @@ export class Hash extends Did {
    * Hash of the hash to identify it.
    */
   // TODO use variable to define hash length
-  @Prop({ length: 64, index: true, unique: true })
   @ApiProperty({ description: 'Hash of the file.' })
-  hash!: string;
+  id!: string;
 
   /**
    * Used algorithm for the hash.

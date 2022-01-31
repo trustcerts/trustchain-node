@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ControllerManage } from './controller-manage';
+import { ControllerManage } from './controller-manage.dto';
 import { DID_ID_NAME } from '@tc/did-id/constants';
 import { IsString, Matches, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
@@ -25,6 +25,10 @@ export class DidStructure {
   /**
    * Did that controls this did.
    */
+  @ApiProperty({
+    description: 'Did that controls this did.',
+    type: ControllerManage,
+  })
   @ValidateNested()
   @Type(() => ControllerManage)
   controller?: ControllerManage;

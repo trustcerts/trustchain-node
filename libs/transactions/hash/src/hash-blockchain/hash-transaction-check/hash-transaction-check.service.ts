@@ -55,7 +55,7 @@ export abstract class HashTransactionCheckService extends TransactionCheck {
    * @param hash
    */
   protected async findHash(hash: string) {
-    return this.hashModel.findOne({ hash });
+    return this.hashModel.findOne({ id: hash });
   }
 
   /**

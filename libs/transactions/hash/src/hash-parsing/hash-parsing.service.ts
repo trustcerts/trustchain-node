@@ -1,5 +1,6 @@
 import { ClientRedis } from '@nestjs/microservices';
 import { Counter } from 'prom-client';
+import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
 import { Hash, HashDocument } from '@tc/hash/schemas/hash.schema';
 import { HashCreationTransactionDto } from '@tc/hash/dto/hash-creation.transaction.dto';
 import { HashRevocationTransactionDto } from '@tc/hash/dto/hash-revocation.transaction.dto';
@@ -36,6 +37,7 @@ export class HashParsingService extends ParsingService {
     @InjectMetric('transactions')
     protected readonly transactionsCounter: Counter<string>,
     private readonly parseService: ParseService,
+    private readonly didIdCachedService: DidIdCachedService,
   ) {
     super(clientRedis, hashService, transactionsCounter);
 
@@ -55,17 +57,21 @@ export class HashParsingService extends ParsingService {
    * @param transaction
    */
   async add(transaction: HashCreationTransactionDto) {
-    const hash = new this.hashModel({
-      hash: transaction.body.value.hash,
+    new this.hashModel({
+      id: transaction.body.value.hash,
       signature: transaction.signature.values,
       createdAt: transaction.body.date,
+      controllers: await Promise.all(
+        transaction.signature.values.map((value) =>
+          this.didIdCachedService.getById(value.identifier.split('#')[0]),
+        ),
+      ),
       block: {
         ...transaction.block,
         imported: transaction.metadata?.imported?.date,
       },
       hashAlgorithm: transaction.body.value.algorithm,
-    });
-    await hash
+    })
       .save()
       .then(() => {
         this.logger.debug({
@@ -89,7 +95,7 @@ export class HashParsingService extends ParsingService {
    */
   async revoke(transaction: HashRevocationTransactionDto) {
     await this.hashModel.findOneAndUpdate(
-      { hash: transaction.body.value.hash },
+      { id: transaction.body.value.hash },
       {
         revokedAt: new Date(transaction.body.date),
       },

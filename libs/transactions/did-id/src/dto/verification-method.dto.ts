@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { DidManage } from '@shared/did/dto/did-manage';
-import { DidPublicKey } from './did-public-key';
+import { DidManage } from '@apps/shared/did/dto/did-manage.dto';
+import { DidPublicKey } from './did-public-key.dto';
 import { IsArray, IsOptional, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 
@@ -14,6 +14,7 @@ export class VerificationMethod extends DidManage<DidPublicKey> {
   @ApiProperty({
     description:
       'List of public keys that should be added to the did document.',
+    type: [DidPublicKey],
   })
   @IsOptional()
   @ValidateNested({ each: true })

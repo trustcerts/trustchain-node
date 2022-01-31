@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Block } from '@tc/blockchain/block/block.interface';
-import { DidIdTransactionDto } from '../../../transactions/did-id/src/dto/did-id.transaction.dto';
+import { DidIdTransactionDto } from '../../../transactions/did-id/src/dto/did-id-transaction.dto';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
 
 /**

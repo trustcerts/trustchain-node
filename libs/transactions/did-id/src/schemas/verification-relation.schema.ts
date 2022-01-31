@@ -1,4 +1,4 @@
-import { IVerificationRelationships } from '../dto/i-verification-relationships';
+import { IVerificationRelationships } from '../dto/i-verification-relationships.dto';
 import { Prop } from '@nestjs/mongoose';
 
 /**

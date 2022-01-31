@@ -1,11 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { DidIdDocument } from '@tc/did-id/schemas/did-id.schema';
-import { DidTransaction } from '@shared/did/schemas/did-transaction.schema';
+import {
+  DidTransaction,
+  DidTransactionDocument,
+} from '@shared/did/schemas/did-transaction.schema';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { TemplateStructure } from '../dto/template.transaction.dto';
+import { TemplateStructure } from '../dto/templatestructure.dto';
 import { Type } from 'class-transformer';
 
-export type TemplateTransactionDocument = TemplateTransaction & DidIdDocument;
+export type TemplateTransactionDocument = TemplateTransaction &
+  DidTransactionDocument;
 
 /**
  * Entity that describes how dids are stored in the database.

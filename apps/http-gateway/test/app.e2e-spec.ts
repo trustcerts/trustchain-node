@@ -12,7 +12,7 @@ import {
   Identifier,
 } from '@trustcerts/core';
 import { DidIdRegister } from '@trustcerts/did-id-create';
-import { DidIdTransactionDto } from '@tc/did-id/dto/did-id.transaction.dto';
+import { DidIdTransactionDto } from '@tc/did-id/dto/did-id-transaction.dto';
 import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
 import { HashCachedService } from '@tc/hash/hash-cached/hash-cached.service';
 import { WalletClientService } from '@tc/wallet-client';
@@ -22,10 +22,8 @@ import { HashCreationTransactionDto } from '@tc/hash/dto/hash-creation.transacti
 import { addRedisEndpoint } from '@shared/main-functions';
 import { HashService } from '@tc/blockchain';
 import { RoleManageAddEnum } from '@tc/did-id/constants';
-import {
-  CompressionType,
-  TemplateTransactionDto,
-} from '@tc/template/dto/template.transaction.dto';
+import { TemplateTransactionDto } from '@tc/template/dto/template.transaction.dto';
+import { CompressionType } from '@tc/template/dto/compressiontype.dto';
 import { CreateDidDto } from '@tc/did-id/dto/create-did.dto';
 import { InviteRequest } from '@tc/invite/schemas/invite-request.schema';
 import { InviteNode } from '@tc/invite/dto/invite-node.dto';

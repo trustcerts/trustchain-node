@@ -1,5 +1,5 @@
-import { DidStructure } from './did-structure';
-import { DidTransactionBody } from './did-id-transaction-body';
+import { DidStructure } from './did-structure.dto';
+import { DidTransactionBody } from './did-transaction-body.dto';
 import { SignatureInfo } from '@tc/blockchain/transaction/signature-info';
 import { SignatureType } from '@tc/blockchain/transaction/signature-type';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
@@ -14,9 +14,8 @@ export class DidTransactionDto extends TransactionDto {
    * Inits the type and the signature values.
    * @param value
    */
-  constructor(value: DidStructure, didDocSignature: SignatureInfo) {
-    super(TransactionType.Did, value);
-    this.body.didDocSignature = didDocSignature;
+  constructor(transactionType: TransactionType, value: DidStructure) {
+    super(transactionType, value);
     this.signature = {
       type: SignatureType.single,
       values: [],

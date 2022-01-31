@@ -1,4 +1,4 @@
-import { IVerificationRelationships } from './i-verification-relationships';
+import { IVerificationRelationships } from './i-verification-relationships.dto';
 
 /**
  * Relationships of a verification key.

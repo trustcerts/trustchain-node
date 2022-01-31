@@ -1,15 +1,6 @@
 import { Prop } from '@nestjs/mongoose';
+import { Property } from './property.dto';
 
-/**
- * type of property
- */
-export class Property {
-  /**
-   * type of property
-   */
-  @Prop()
-  type!: string;
-}
 /**
  * Credential Schema
  */

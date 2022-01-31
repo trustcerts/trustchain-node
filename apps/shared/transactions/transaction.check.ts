@@ -66,23 +66,28 @@ export abstract class TransactionCheck {
    * @param transaction
    */
   async canUpdate(transaction: TransactionDto): Promise<void> {
-    const did = await this.didCachedService.getDid(
-      transaction.body.value.id,
-      'controller',
-    );
-    this.cachedService.getValues;
-    if (!did) {
-      return Promise.resolve();
-    }
-    transaction.signature.values.forEach((signer) => {
-      if (
-        did.controllers.find(
-          (controller) => controller.id === signer.identifier.split('#')[0],
-        )
-      ) {
-        return Promise.reject();
-      }
-    });
+    return this.didCachedService
+      .getDid(transaction.body.value.id, 'controller')
+      .then(
+        (did) => {
+          // this.cachedService.getValues;
+          transaction.signature.values.forEach((signer) => {
+            console.log(signer);
+            console.log(did.controllers);
+            if (
+              did.controllers.find(
+                (controller) =>
+                  controller.id === signer.identifier.split('#')[0],
+              )
+            ) {
+              console.log('reject');
+              return Promise.reject();
+            }
+          });
+        },
+        // did not found, so resolve it since there is no controller set yet
+        () => Promise.resolve(),
+      );
   }
 
   /**

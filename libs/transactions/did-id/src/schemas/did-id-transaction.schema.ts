@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { DidIdStructure } from '@tc/did-id/dto/did-id-structure';
+import { DidIdStructure } from '@tc/did-id/dto/did-id-structure.dto';
 import { DidTransaction } from '@shared/did/schemas/did-transaction.schema';
 import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';

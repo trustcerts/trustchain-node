@@ -1,3 +1,4 @@
+import { DidIdCachedModule } from '@tc/did-id/did-id-cached/did-id-cached.module';
 import { EventClientModule } from '@tc/event-client';
 import { HASH_CONNECTION } from '@tc/hash/constants';
 import { Hash, HashSchema } from '@tc/hash/schemas/hash.schema';
@@ -22,6 +23,7 @@ import {
     EventClientModule,
     HashDbModule,
     HashModule,
+    DidIdCachedModule,
     MongooseModule.forFeature(
       [
         { name: Hash.name, schema: HashSchema },

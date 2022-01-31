@@ -1,0 +1,21 @@
+import { ApiProperty } from '@nestjs/swagger';
+import { DidStructure } from '@apps/shared/did/dto/did-structure.dto';
+import { IsOptional, IsString } from 'class-validator';
+
+/**
+ * Describes the value of a schema.
+ */
+
+export class SchemaStructure extends DidStructure {
+  /**
+   * json schema to validate the data that should be parsed into the
+   */
+  @ApiProperty({
+    description:
+      'json schema to validate the data that should be parsed into the',
+    required: false,
+  })
+  @IsOptional()
+  @IsString()
+  schema?: string;
+}

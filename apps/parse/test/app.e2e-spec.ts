@@ -79,7 +79,7 @@ describe('AppController (e2e)', () => {
       const hashes = await hashRepository.find();
       const did = await didRepository.find();
       expect(hashes.length).toEqual(1);
-      expect(hashes[0].hash).toBe(hashTransaction.body.value.hash);
+      expect(hashes[0].id).toBe(hashTransaction.body.value.hash);
       expect(hashes[0].block.id).toBe(block.index);
       expect(did.length).toEqual(1);
       expect(did[0].id).toBe(didTransaction.body.value.id);
@@ -107,7 +107,7 @@ describe('AppController (e2e)', () => {
       expect(hashes.length).toEqual(1);
       expect(dids.length).toEqual(1);
       expect(hashes[0].block.id).toEqual(blocks[0].index);
-      expect(hashes[0].hash).toEqual(hashTransaction.body.value.hash);
+      expect(hashes[0].id).toEqual(hashTransaction.body.value.hash);
       expect(dids[0].id).toEqual(didTransaction.body.value.id);
     } else {
       fail("it didn't parsed the block successfully");

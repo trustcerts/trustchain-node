@@ -53,11 +53,11 @@ export class SchemaTransactionCheckService extends TransactionCheck {
   ) {
     addedTransactions.forEach((transaction) => {
       if (
-        transaction.body.type === TransactionType.Schema &&
-        newTransaction.body.value.schema ===
-          (transaction as SchemaTransaction).body.value.schema &&
+        // transaction.body.type === TransactionType.Schema &&
+        // newTransaction.body.value.schema ===
+        //   (transaction as SchemaTransaction).body.value.schema &&
         newTransaction.body.value.id ===
-          (transaction as SchemaTransaction).body.value.id
+        (transaction as SchemaTransaction).body.value.id
       ) {
         throw new Error('Double entry');
       }

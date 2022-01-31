@@ -1,5 +1,9 @@
+import { Did } from './did/schemas/did.schema';
 import { DidDocumentMetaData } from './did/did-document-meta-data';
+import { DidResolver } from '@trustcerts/core';
 import { DidTransaction } from './did/schemas/did-transaction.schema';
+import { DocResponse } from './did/doc-response';
+// TODO export
 import { Model } from 'mongoose';
 import { NotFoundException } from '@nestjs/common';
 import { SignatureContent } from '@trustcerts/core';
@@ -11,8 +15,11 @@ import { VersionInformation } from './did/version-information';
  */
 export abstract class CachedService {
   constructor(
+    // protected transactionModel: Model<DidTransaction>,
+    // protected didModel: Model<DidDocument>,
     protected transactionModel: Model<any>,
     protected didModel: Model<any>,
+    protected resolver: DidResolver,
   ) {}
 
   /**
@@ -32,7 +39,7 @@ export abstract class CachedService {
    * @param id
    * @returns
    */
-  public async getById<Type>(id: string): Promise<Type> {
+  public async getById(id: string): Promise<Did> {
     const did = await this.didModel.findOne({ id });
     if (!did) {
       throw Error(`${id} not found`);
@@ -65,7 +72,7 @@ export abstract class CachedService {
     }
     if (version?.time || version?.id) {
       // check if there are more elements
-      const next = await this.didModel
+      const next = await this.transactionModel
         .find({
           id,
           createdAt: {
@@ -79,7 +86,8 @@ export abstract class CachedService {
         .limit(1)
         .skip(version.id ?? 0);
       if (next[0]) {
-        result.nextUpdate = new Date(next[0].createdAt).toISOString();
+        // TODO check if block timestamp is correct
+        result.nextUpdate = new Date(next[0].block.createdAt).toISOString();
         result.nextVersionId = transactions.length + 1;
       }
     }
@@ -87,14 +95,56 @@ export abstract class CachedService {
     return result;
   }
 
+  async getDocument<T extends DocResponse>(
+    id: string,
+    version: { time: string; id: number },
+  ): Promise<T> {
+    // catch timestamps that are in the future
+    if (version?.time) {
+      try {
+        new Date(version.time);
+      } catch {
+        version.time = new Date().toISOString();
+      }
+    }
+    const query = this.transactionModel
+      .find({
+        id,
+        createdAt: {
+          $lte: version?.time
+            ? new Date(version.time).toISOString()
+            : new Date().toISOString(),
+        },
+      })
+      .sort('createdAt');
+    if (version?.id) {
+      query.limit(version.id);
+    }
+    const transactions = await query.exec();
+    if (transactions.length === 0) {
+      throw new NotFoundException();
+    }
+    const did = await this.resolver.load(id, {
+      transactions,
+      time: version.time,
+      validateChainOfTrust: false,
+      doc: false,
+    });
+    return {
+      document: did.getDocument(),
+      signatures: transactions[transactions.length - 1].didDocumentSignature,
+      metaData: await this.getDocumentMetaData(id, version),
+    } as T;
+  }
+
   /**
    * Returns all the transactions that belong to a did document.
    * @param id
    */
-  async getTransactions(
+  async getTransactions<B extends DidTransaction>(
     id: string,
     version?: VersionInformation,
-  ): Promise<DidTransaction[]> {
+  ): Promise<B[]> {
     const query = this.transactionModel
       .find({
         id,

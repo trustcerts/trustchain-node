@@ -1,13 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { BcEntity } from '@shared/transactions/bc-entity.schema';
-import { Document } from 'mongoose';
+import { DidTransactionDocument } from '@apps/shared/did/schemas/did-transaction.schema';
 import { IsString } from 'class-validator';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
-import { TransactionHashValue } from '../dto/hash.transaction.dto';
+import { TransactionHashValue } from '../dto/transaction-hash-value.dto';
 import { Type } from 'class-transformer';
 
-export type HashTransactionDocument = HashTransaction & Document;
+export type HashTransactionDocument = HashTransaction & DidTransactionDocument;
 
 /**
  * Entity that describes how dids are stored in the database.
