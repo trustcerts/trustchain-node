@@ -710,6 +710,13 @@ export class P2PService implements BeforeApplicationShutdown {
           this.queue.push(block);
           // Were already blocks in queue?
           if (this.queue.length == 1) {
+            this.logger.warn({
+              message: `request missing blocks: ${blockCount + 1} to ${block.index - 1}`,
+              labels: {
+                source: this.constructor.name,
+                identifier: endpoint.identifier,
+              },
+            });
             // Get the missing blocks (and persist and parse them)
             await this.blockchainSyncService.requestMissingBlocks(endpoint.socket, blockCount + 1, block.index - blockCount - 1);
             // do for every block in queue:
