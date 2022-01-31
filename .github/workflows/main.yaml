@@ -221,18 +221,13 @@ jobs:
       - name: load docker images
         run: node tools/load-docker-images.mjs
 
-      - name: Install trustcerts cli
-        run: npm install -g @trustcerts/cli
-
       - name: generate config folder
-        run: |
-          cd ./test/network
-          trusty generate -h localhost -v 4 -o 2 -g 2
+        run: npm run trusty-generate
 
       - name: Start blockchain-nodes
         run: |
           docker network create test-network
-          cd ./test/network/config
+          cd ./config
           ./all.sh up -d
           ./initNodes.sh
 

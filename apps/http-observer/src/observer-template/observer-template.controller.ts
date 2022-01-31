@@ -33,8 +33,8 @@ export class ObserverTemplateController {
   @ApiParam({ name: 'id', description: 'id of the template' })
   @ApiResponse({ status: 404, description: 'Nothing was found.' })
   async getTemplate(@Param('id') id: string): Promise<Template> {
-    return this.observerTemplateService.getTemplateOrFail(id).catch(() => {
-      throw new NotFoundException();
+    return this.observerTemplateService.getTemplateOrFail(id).catch((e) => {
+      throw new Error(e);
     });
   }
 }
