@@ -749,6 +749,11 @@ export class P2PService implements BeforeApplicationShutdown {
     this.connectionChanges.emit(CONNECTION_ADDED, endpoint);
   }
 
+  /**
+   * Validate and add block
+   * @param endpoint which sent the block 
+   * @param block block to validate and add
+   */
   private processBlock(endpoint: Connection, block: Block) {
     this.signatureService.validateSignatures(block).then(
       () => {
