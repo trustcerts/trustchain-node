@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { PersistedResponse } from '@shared/http/dto/persisted-response';
-import { SchemaTransaction } from '@tc/schema/dto/schema.transaction.dto';
+import { SchemaTransactionDto } from '@tc/schema/dto/schema.transaction.dto';
 import { Type } from 'class-transformer';
 
 /**
@@ -12,8 +12,8 @@ export class SchemaCreationResponse extends PersistedResponse {
    */
   @ApiProperty({
     description: 'transaction that was persisted.',
-    type: SchemaTransaction,
+    type: SchemaTransactionDto,
   })
-  @Type(() => SchemaTransaction)
-  transaction!: SchemaTransaction;
+  @Type(() => SchemaTransactionDto)
+  transaction!: SchemaTransactionDto;
 }

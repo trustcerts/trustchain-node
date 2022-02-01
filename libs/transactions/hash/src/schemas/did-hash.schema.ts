@@ -2,13 +2,13 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Did, DidDocument } from '@shared/did/schemas/did.schema';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-export type HashDocument = Hash & DidDocument;
+export type HashDocument = DidHash & DidDocument;
 
 /**
  * Entity that describes how signed hashes are stored on the database
  */
 @Schema()
-export class Hash extends Did {
+export class DidHash extends Did {
   /**
    * Hash of the hash to identify it.
    */
@@ -49,4 +49,4 @@ export class Hash extends Did {
 /**
  * Hash Schema
  */
-export const HashSchema = SchemaFactory.createForClass(Hash);
+export const HashSchema = SchemaFactory.createForClass(DidHash);

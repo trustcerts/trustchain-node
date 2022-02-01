@@ -1,14 +1,14 @@
+import { DidHash, HashSchema } from '@tc/hash/schemas/did-hash.schema';
+import {
+  DidHashTransaction,
+  HashTransactionSchema,
+} from '../schemas/did-hash-transaction.schema';
 import { DidIdCachedModule } from '@tc/did-id/did-id-cached/did-id-cached.module';
 import { EventClientModule } from '@tc/event-client';
 import { HASH_CONNECTION } from '@tc/hash/constants';
-import { Hash, HashSchema } from '@tc/hash/schemas/hash.schema';
 import { HashDbModule } from '@tc/hash/hash-db/hash-db.module';
 import { HashModule } from '@tc/blockchain';
 import { HashParsingService } from '@tc/hash/hash-parsing/hash-parsing.service';
-import {
-  HashTransaction,
-  HashTransactionSchema,
-} from '../schemas/hash-transaction.schema';
 import { Module, forwardRef } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ParseModule } from '@apps/parse/src/parse.module';
@@ -26,8 +26,8 @@ import {
     DidIdCachedModule,
     MongooseModule.forFeature(
       [
-        { name: Hash.name, schema: HashSchema },
-        { name: HashTransaction.name, schema: HashTransactionSchema },
+        { name: DidHash.name, schema: HashSchema },
+        { name: DidHashTransaction.name, schema: HashTransactionSchema },
       ],
       HASH_CONNECTION,
     ),

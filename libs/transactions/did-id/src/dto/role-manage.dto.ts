@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { DidManage } from '@apps/shared/did/dto/did-manage.dto';
+import { DidManage } from '@shared/did/dto/did-manage.dto';
 import { IsArray, IsOptional } from 'class-validator';
 import { RoleManageAddEnum } from '@tc/did-id/constants';
 

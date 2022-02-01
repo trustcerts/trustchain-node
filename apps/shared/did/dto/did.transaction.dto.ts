@@ -1,6 +1,5 @@
 import { DidStructure } from './did-structure.dto';
 import { DidTransactionBody } from './did-transaction-body.dto';
-import { SignatureInfo } from '@tc/blockchain/transaction/signature-info';
 import { SignatureType } from '@tc/blockchain/transaction/signature-type';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';

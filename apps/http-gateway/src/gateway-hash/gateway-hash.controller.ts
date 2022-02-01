@@ -6,10 +6,8 @@ import {
 } from '@nestjs/swagger';
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { GatewayHashService } from './gateway-hash.service';
-import { HashCreationResponse } from './dto/hash-creation.respnse';
-import { HashCreationTransactionDto } from '@tc/hash/dto/hash-creation.transaction.dto';
-import { HashRevocationResponse } from './dto/hash-revocation.response';
-import { HashRevocationTransactionDto } from '@tc/hash/dto/hash-revocation.transaction.dto';
+import { HashResponse } from './dto/hash.respnse';
+import { HashTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
 import { MaintenanceGuard } from '@tc/config/version/maintenance.guard';
 
 /**
@@ -29,31 +27,29 @@ export class GatewayHashController {
   @ApiOperation({ summary: 'Adds new hash to the chain.' })
   @ApiCreatedResponse({
     description: 'The hash was successful persisted.',
-    type: HashCreationResponse,
+    type: HashResponse,
   })
   @ApiResponse({
     status: 422,
     description: 'The hash failed. The hash is already signed.',
   })
-  async create(
-    @Body() transaction: HashCreationTransactionDto,
-  ): Promise<HashCreationResponse> {
+  async create(@Body() transaction: HashTransactionDto): Promise<HashResponse> {
     return this.gatewayHashService.addHash(transaction);
   }
 
-  /**
-   * Adds new transaction the the chain to revoke a hash. Check before if the hash is already signed and if the user is allowed to revoke it.
-   * @param transaction
-   */
-  @Post('revoke')
-  @ApiOperation({ summary: 'Revokes a hash.' })
-  @ApiCreatedResponse({
-    description: 'The hash was successfully revoked.',
-    type: HashRevocationResponse,
-  })
-  revoke(
-    @Body() transaction: HashRevocationTransactionDto,
-  ): Promise<HashRevocationResponse> {
-    return this.gatewayHashService.revokeHash(transaction);
-  }
+  // /**
+  //  * Adds new transaction the the chain to revoke a hash. Check before if the hash is already signed and if the user is allowed to revoke it.
+  //  * @param transaction
+  //  */
+  // @Post('revoke')
+  // @ApiOperation({ summary: 'Revokes a hash.' })
+  // @ApiCreatedResponse({
+  //   description: 'The hash was successfully revoked.',
+  //   type: HashRevocationResponse,
+  // })
+  // revoke(
+  //   @Body() transaction: HashRevocationTransactionDto,
+  // ): Promise<HashRevocationResponse> {
+  //   return this.gatewayHashService.revokeHash(transaction);
+  // }
 }

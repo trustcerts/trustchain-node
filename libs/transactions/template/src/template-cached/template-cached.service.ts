@@ -1,14 +1,13 @@
 import { CachedService } from '@shared/cache.service';
-import { DidResolver } from '@trustcerts/core';
+import { DidTemplate, TemplateDocument } from '../schemas/did-template.schema';
+import {
+  DidTemplateTransaction,
+  TemplateTransactionDocument,
+} from '../schemas/did-template-transaction.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { ParsingService } from '@shared/transactions/parsing.service';
-import { Template, TemplateDocument } from '../schemas/template.schema';
-import {
-  TemplateTransaction,
-  TemplateTransactionDocument,
-} from '../schemas/template-transaction.schema';
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 
@@ -22,11 +21,11 @@ export class TemplateCachedService extends CachedService {
    * @param didModel
    */
   constructor(
-    @InjectModel(TemplateTransaction.name)
+    @InjectModel(DidTemplateTransaction.name)
     protected transactionModel: Model<TemplateTransactionDocument>,
-    @InjectModel(Template.name) protected didModel: Model<TemplateDocument>,
+    @InjectModel(DidTemplate.name) protected didModel: Model<TemplateDocument>,
   ) {
-    super(transactionModel, didModel, DidResolver.load);
+    super(transactionModel, didModel);
   }
 
   /**
@@ -34,7 +33,7 @@ export class TemplateCachedService extends CachedService {
    * @param id
    * @returns
    */
-  async getTemplateOrFail(id: string): Promise<Template> {
+  async getTemplateOrFail(id: string): Promise<DidTemplate> {
     const template = await this.getById(id);
     if (!template) {
       throw new NotFoundException('template not found');

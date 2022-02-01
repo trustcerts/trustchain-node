@@ -15,7 +15,7 @@ describe('TransactionDto test', () => {
 
     classObj = module.get<TransactionDto>(TransactionDto);
     validTransaction = {
-      type: TransactionType.HashCreation,
+      type: TransactionType.Hash,
       date: Date.now(),
     };
   });
@@ -47,7 +47,7 @@ describe('TransactionDto test', () => {
 
   it('invalid transaction: signature is not a string.', () => {
     const invalidTransaction = {
-      type: TransactionType.HashCreation,
+      type: TransactionType.Hash,
       date: Date.now(),
       hash: '2c2390e239f7e6ee275dece461fad7794714f36ef64c5e1de0306593548d4c48',
       hashAlgorithm: 'sha256',
@@ -66,7 +66,7 @@ describe('TransactionDto test', () => {
 
   it('invalid transaction: identifier is not a string.', () => {
     const invalidTransaction = {
-      type: TransactionType.HashCreation,
+      type: TransactionType.Hash,
       date: Date.now(),
       hash: '2c2390e239f7e6ee275dece461fad7794714f36ef64c5e1de0306593548d4c48',
       hashAlgorithm: 'sha256',

@@ -1,7 +1,11 @@
 import { ClientRedis } from '@nestjs/microservices';
 import { Counter } from 'prom-client';
+import { Did } from '../did/schemas/did.schema';
+import { DidId, DidIdDocument } from '@tc/did-id/schemas/did-id.schema';
+import { DidTransactionDto } from '../did/dto/did.transaction.dto';
 import { HashService } from '@tc/blockchain';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';
+import { Model } from 'mongoose';
 import { PersistedTransaction } from '../http/dto/persisted-transaction';
 import { TRANSACTION_PARSED } from '@tc/event-client/constants';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
@@ -27,6 +31,9 @@ export abstract class ParsingService {
     protected readonly hashService: HashService,
     @InjectMetric('transactions')
     protected transactionsCounter: Counter<string>,
+    protected didIdRepository: Model<DidIdDocument>,
+    // TODO set DidTransactionDocument
+    protected didTransactionRepository: Model<any>,
   ) {}
 
   /**
@@ -58,6 +65,43 @@ export abstract class ParsingService {
         block: transaction.block,
       };
       this.clientRedis.emit(TRANSACTION_PARSED, persisted);
+    }
+  }
+
+  protected async addDocument(transaction: DidTransactionDto): Promise<void> {
+    const did = new this.didTransactionRepository({
+      index: await this.hashService.hashTransaction(transaction),
+      id: transaction.body.value.id,
+      createdAt: transaction.body.date,
+      values: transaction.body.value,
+      signature: transaction.signature.values,
+      didDocumentSignature: transaction.metadata.didDocSignature,
+      block: {
+        ...transaction.block,
+        imported: transaction.metadata?.imported?.date,
+      },
+    });
+    await did.save();
+  }
+
+  protected abstract parseDid(transaction: DidTransactionDto): Promise<void>;
+
+  protected async updateController(did: Did, transaction: DidTransactionDto) {
+    // update the controllers
+    if (transaction.body.value.controller) {
+      if (transaction.body.value.controller!.remove) {
+        did.controllers = did.controllers.filter((controller: DidId) =>
+          transaction.body.value.controller!.remove!.includes(controller.id),
+        );
+      }
+      if (transaction.body.value.controller!.add) {
+        const newDids = await this.didIdRepository.find({
+          id: { $in: transaction.body.value.controller!.add! },
+        });
+        if (newDids.length > 0) {
+          did.controllers.push(...newDids);
+        }
+      }
     }
   }
 

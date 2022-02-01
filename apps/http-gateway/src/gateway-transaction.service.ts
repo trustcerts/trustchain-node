@@ -52,7 +52,6 @@ export class GatewayTransactionService {
 
     //checks if signer is authorized
     await this.transactionCheckService.canUpdate(transaction).catch((err) => {
-      console.log(err);
       throw new ConflictException('signer not authorized');
     });
 

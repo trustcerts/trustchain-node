@@ -1,5 +1,12 @@
 import { ClientRedis } from '@nestjs/microservices';
 import { Counter } from 'prom-client';
+import { DidId } from '@trustcerts/core';
+import { DidIdDocument } from '@tc/did-id/schemas/did-id.schema';
+import { DidSchema, SchemaDocument } from '../schemas/did-schema.schema';
+import {
+  DidSchemaTransaction,
+  SchemaTransactionDocument,
+} from '../schemas/did-schema-transaction.schema';
 import { HashService } from '@tc/blockchain';
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';
@@ -9,8 +16,7 @@ import { Model } from 'mongoose';
 import { ParseService } from '@apps/parse/src/parse.service';
 import { ParsingService } from '@shared/transactions/parsing.service';
 import { REDIS_INJECTION } from '@tc/event-client/constants';
-import { Schema, SchemaDocument } from '../schemas/schema.schema';
-import { SchemaTransaction } from '../dto/schema.transaction.dto';
+import { SchemaTransactionDto } from '../dto/schema.transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 
 /**
@@ -22,7 +28,7 @@ export class SchemaParsingService extends ParsingService {
    * Creates a HashBlockchainService and places listeners for hashes on the blockchainService.
    * @param parser
    * @param clientRedis
-   * @param schemaModel
+   * @param didSchemaRepository
    * @param hashService
    * @param transactionsCounter
    */
@@ -30,16 +36,26 @@ export class SchemaParsingService extends ParsingService {
     protected readonly hashService: HashService,
     @Inject(REDIS_INJECTION) protected readonly clientRedis: ClientRedis,
     @Inject('winston') protected readonly logger: Logger,
-    @InjectModel(Schema.name)
-    private schemaModel: Model<SchemaDocument>,
+    @InjectModel(DidSchema.name)
+    private didSchemaRepository: Model<SchemaDocument>,
+    @InjectModel(DidSchemaTransaction.name)
+    didSchemaDocumentRepository: Model<SchemaTransactionDocument>,
     @InjectMetric('transactions')
     protected readonly transactionsCounter: Counter<string>,
     private readonly parseService: ParseService,
+    @InjectModel(DidId.name)
+    protected didIdRepository: Model<DidIdDocument>,
   ) {
-    super(clientRedis, hashService, transactionsCounter);
+    super(
+      clientRedis,
+      hashService,
+      transactionsCounter,
+      didIdRepository,
+      didSchemaDocumentRepository,
+    );
 
     this.parseService.parsers.set(TransactionType.Schema, {
-      parsing: this.add.bind(this),
+      parsing: this.parseDid.bind(this),
       reset: this.reset.bind(this),
     });
   }
@@ -48,30 +64,42 @@ export class SchemaParsingService extends ParsingService {
    * Adds a new entry to the database.
    * @param transaction
    */
-  private async add(transaction: SchemaTransaction) {
-    // TODO how to handle updates
-    const schema = new this.schemaModel({
-      id: transaction.body.value.id,
-      schema: transaction.body.value.schema,
-      block: {
-        ...transaction.block,
-        imported: transaction.metadata?.imported?.date,
-      },
-      signature: transaction.signature.values,
-    });
-    await schema.save().catch((err: any) =>
-      this.logger.error({
-        message: err,
-        labels: { source: this.constructor.name },
-      }),
-    );
-    this.created(transaction);
+  protected async parseDid(transaction: SchemaTransactionDto) {
+    await this.addDocument(transaction);
+    const did = await this.didSchemaRepository
+      .findOne({ id: transaction.body.value.id })
+      .then(async (did) => {
+        if (!did) {
+          did = new this.didSchemaRepository({
+            id: transaction.body.value.id,
+            schema: transaction.body.value.schema,
+          });
+        }
+        return did;
+      });
+
+    await this.updateController(did, transaction);
+    did
+      .save()
+      .then(() => {
+        this.logger.debug({
+          message: `added schema ${transaction.body.value.id}`,
+          labels: { source: this.constructor.name },
+        });
+        this.created(transaction);
+      })
+      .catch((err: any) =>
+        this.logger.error({
+          message: err,
+          labels: { source: this.constructor.name },
+        }),
+      );
   }
 
   /**
    * Resets the database
    */
   public async reset(): Promise<void> {
-    await this.schemaModel.deleteMany();
+    await this.didSchemaRepository.deleteMany();
   }
 }

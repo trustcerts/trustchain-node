@@ -1,10 +1,10 @@
+import { DidTransactionDto } from '@apps/shared/did/dto/did.transaction.dto';
 import { TemplateTransactionBody } from './template-transactionbody.dto';
-import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 
 /**
  * Class to handle templates
  */
-export class TemplateTransactionDto extends TransactionDto {
+export class TemplateTransactionDto extends DidTransactionDto {
   /**
    * Body of the transaction. Defined by each transaction type.
    */

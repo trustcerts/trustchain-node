@@ -4,13 +4,13 @@ import { Did } from '@shared/did/schemas/did.schema';
 import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-export type TemplateDocument = Template & Document;
+export type TemplateDocument = DidTemplate & Document;
 
 /**
  * Describes the values of a template that is used for presentation.
  */
 @Schema()
-export class Template extends Did {
+export class DidTemplate extends Did {
   /**
    * Information about the used compression.
    */
@@ -35,4 +35,4 @@ export class Template extends Did {
 /**
  * Template Schema
  */
-export const TemplateSchema = SchemaFactory.createForClass(Template);
+export const TemplateSchema = SchemaFactory.createForClass(DidTemplate);

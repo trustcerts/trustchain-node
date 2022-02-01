@@ -14,12 +14,13 @@ import { VersionInformation } from './did/version-information';
  * Base service to interact with cached transactions from the database.
  */
 export abstract class CachedService {
+  protected resolver!: DidResolver;
+
   constructor(
     // protected transactionModel: Model<DidTransaction>,
     // protected didModel: Model<DidDocument>,
     protected transactionModel: Model<any>,
     protected didModel: Model<any>,
-    protected resolver: DidResolver,
   ) {}
 
   /**

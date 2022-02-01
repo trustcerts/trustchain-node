@@ -123,7 +123,7 @@ export function generateTestTransaction(transactionType: string) {
     body: {
       version: 1,
       date: new Date().toISOString(),
-      type: TransactionType.HashCreation,
+      type: TransactionType.Hash,
       value: {
         hash: `${Math.random()}`,
         algorithm: 'TestA',
@@ -392,7 +392,7 @@ export async function createTemplate(
     body: {
       version: 1,
       date: new Date().toISOString(),
-      type: TransactionType.HashCreation,
+      type: TransactionType.Hash,
       value: {
         hash,
         algorithm: 'sha256',

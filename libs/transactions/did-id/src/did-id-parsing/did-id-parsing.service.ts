@@ -3,7 +3,7 @@ import { Counter } from 'prom-client';
 import { DidId, DidIdDocument } from '@tc/did-id/schemas/did-id.schema';
 import {
   DidIdTransaction,
-  DidTransactionDocument,
+  DidIdTransactionDocument,
 } from '../schemas/did-id-transaction.schema';
 import { DidIdTransactionDto } from '@tc/did-id/dto/did-id-transaction.dto';
 import { HashService } from '@tc/blockchain';
@@ -30,9 +30,9 @@ export class DidIdParsingService extends ParsingService {
    * @param hashService
    * @param clientRedis
    * @param logger
-   * @param didDocumentRepository
+   * @param didIdDocumentRepository
    * @param transactionsCounter
-   * @param didRepository
+   * @param didIdRepository
    * @param keyRepository
    * @param verificationRelationRepository
    * @param serviceRepository
@@ -41,14 +41,20 @@ export class DidIdParsingService extends ParsingService {
     protected readonly hashService: HashService,
     @Inject(REDIS_INJECTION) protected readonly clientRedis: ClientRedis,
     @Inject('winston') protected readonly logger: Logger,
-    @InjectModel(DidId.name) private didRepository: Model<DidIdDocument>,
+    @InjectModel(DidId.name) protected didIdRepository: Model<DidIdDocument>,
     @InjectModel(DidIdTransaction.name)
-    private didDocumentRepository: Model<DidTransactionDocument>,
+    protected didIdDocumentRepository: Model<DidIdTransactionDocument>,
     @InjectMetric('transactions')
     protected readonly transactionsCounter: Counter<string>,
     private readonly parseService: ParseService,
   ) {
-    super(clientRedis, hashService, transactionsCounter);
+    super(
+      clientRedis,
+      hashService,
+      transactionsCounter,
+      didIdRepository,
+      didIdDocumentRepository,
+    );
 
     this.parseService.parsers.set(TransactionType.Did, {
       parsing: this.parseDid.bind(this),
@@ -57,37 +63,16 @@ export class DidIdParsingService extends ParsingService {
   }
 
   /**
-   * Adds the document value to the chain.
-   * @param transaction
-   * @private
-   */
-  private async addDocument(transaction: DidIdTransactionDto) {
-    const did = new this.didDocumentRepository({
-      index: await this.hashService.hashTransaction(transaction),
-      id: transaction.body.value.id,
-      createdAt: transaction.body.date,
-      values: transaction.body.value,
-      signature: transaction.signature.values,
-      didDocumentSignature: transaction.metadata.didDocSignature,
-      block: {
-        ...transaction.block,
-        imported: transaction.metadata?.imported?.date,
-      },
-    });
-    await did.save();
-  }
-
-  /**
    * Adds the values to the database.
    * @param transaction
    */
   async parseDid(transaction: DidIdTransactionDto) {
     await this.addDocument(transaction);
-    const did = await this.didRepository
+    const did = await this.didIdRepository
       .findOne({ id: transaction.body.value.id })
       .then(async (did) => {
         if (!did) {
-          did = new this.didRepository({
+          did = new this.didIdRepository({
             id: transaction.body.value.id,
             roles: [],
             controllers: [],
@@ -96,9 +81,10 @@ export class DidIdParsingService extends ParsingService {
             services: [],
           });
         }
-        await did.save();
         return did;
       });
+
+    this.updateController(did, transaction);
 
     // update roles
     if (transaction.body.value.role) {
@@ -109,23 +95,6 @@ export class DidIdParsingService extends ParsingService {
       }
       if (transaction.body.value.role.add) {
         did.roles.push(...transaction.body.value.role.add);
-      }
-    }
-
-    // update the controllers
-    if (transaction.body.value.controller) {
-      if (transaction.body.value.controller!.remove) {
-        did.controllers = did.controllers.filter((controller: DidId) =>
-          transaction.body.value.controller!.remove!.includes(controller.id),
-        );
-      }
-      if (transaction.body.value.controller!.add) {
-        const newDids = await this.didRepository.find({
-          id: { $in: transaction.body.value.controller!.add! },
-        });
-        if (newDids.length > 0) {
-          did.controllers.push(...newDids);
-        }
       }
     }
 
@@ -188,8 +157,8 @@ export class DidIdParsingService extends ParsingService {
    */
   public async reset(): Promise<void> {
     await Promise.all([
-      this.didRepository.deleteMany(),
-      this.didDocumentRepository.deleteMany(),
+      this.didIdRepository.deleteMany(),
+      this.didIdDocumentRepository.deleteMany(),
     ]);
   }
 }

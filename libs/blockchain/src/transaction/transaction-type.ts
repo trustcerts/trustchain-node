@@ -1,7 +1,6 @@
 export enum TransactionType {
   // Done by clients
-  HashCreation = 'HashCreation',
-  HashRevocation = 'HashRevocation',
+  Hash = 'Hash',
 
   // DID
   Did = 'Did',

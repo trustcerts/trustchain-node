@@ -1,6 +1,6 @@
 import { ConflictException, Inject, Injectable } from '@nestjs/common';
+import { DidHash } from '@tc/hash/schemas/did-hash.schema';
 import { DidId, DidIdDocument } from '@tc/did-id/schemas/did-id.schema';
-import { Hash } from '@tc/hash/schemas/hash.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Logger } from 'winston';
 import { Model } from 'mongoose';
@@ -28,7 +28,7 @@ export class TrackingService {
    * Stores the result in a log to parse it later
    * @param hash
    */
-  public async save(hash: Hash, origin: string) {
+  public async save(hash: DidHash, origin: string) {
     // TODO implement again
     const issuer = await this.didModel.findOne({
       id: hash.signature[0].identifier.split('#')[0],

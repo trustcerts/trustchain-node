@@ -5,8 +5,8 @@ import { HashService } from '@tc/blockchain';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
 import { SchemaCachedService } from '@tc/schema/schema-cached/schema-cached.service';
-import { SchemaTransaction } from '@tc/schema/dto/schema.transaction.dto';
 import { SchemaTransactionCheckService } from '@tc/schema/schema-blockchain/schema-transaction-check/schema-transaction-check.service';
+import { SchemaTransactionDto } from '@tc/schema/dto/schema.transaction.dto';
 import { WalletClientService } from '@tc/wallet-client';
 
 /**
@@ -46,7 +46,7 @@ export class GatewaySchemaService extends GatewayTransactionService {
    * Persist a schema for vc.
    * @param transaction
    */
-  async addSchema(transaction: SchemaTransaction) {
+  async addSchema(transaction: SchemaTransactionDto) {
     return {
       metaData: await this.addTransaction(transaction),
       transaction,

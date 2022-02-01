@@ -3,13 +3,13 @@ import { Did } from '@shared/did/schemas/did.schema';
 import { Document } from 'mongoose';
 import { Schema as MongoSchema, Prop, SchemaFactory } from '@nestjs/mongoose';
 
-export type SchemaDocument = Schema & Document;
+export type SchemaDocument = DidSchema & Document;
 
 /**
  * Describes the values of a schema that is used for presentation.
  */
 @MongoSchema()
-export class Schema extends Did {
+export class DidSchema extends Did {
   /**
    * Value of the schema.
    */
@@ -21,4 +21,4 @@ export class Schema extends Did {
 /**
  * Schema Schema
  */
-export const SchemaSchema = SchemaFactory.createForClass(Schema);
+export const SchemaSchema = SchemaFactory.createForClass(DidSchema);

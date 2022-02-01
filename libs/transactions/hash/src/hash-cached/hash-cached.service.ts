@@ -1,11 +1,10 @@
+// import {} from '@trustcerts/signature-verify';
 import { CachedService } from '@shared/cache.service';
-import { DidResolver } from '@trustcerts/core';
-import { Hash, HashDocument } from '@tc/hash/schemas/hash.schema';
-import { HashFilterDto } from '../dto/hash-filter.dto';
+import { DidHash, HashDocument } from '@tc/hash/schemas/did-hash.schema';
 import {
-  HashTransaction,
+  DidHashTransaction,
   HashTransactionDocument,
-} from '../schemas/hash-transaction.schema';
+} from '../schemas/did-hash-transaction.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
@@ -14,16 +13,18 @@ import { Model } from 'mongoose';
  */
 @Injectable()
 export class HashCachedService extends CachedService {
+  // protected resolver = new DidHashResolver();
+
   /**
    * Injects the required services and repositories.
    * @param didModel
    */
   constructor(
-    @InjectModel(Hash.name) protected didModel: Model<HashDocument>,
-    @InjectModel(HashTransaction.name)
+    @InjectModel(DidHash.name) protected didModel: Model<HashDocument>,
+    @InjectModel(DidHashTransaction.name)
     protected transactionModel: Model<HashTransactionDocument>,
   ) {
-    super(transactionModel, didModel, DidResolver.load);
+    super(transactionModel, didModel);
   }
 
   /**
@@ -32,25 +33,5 @@ export class HashCachedService extends CachedService {
    */
   getHash(hash: string) {
     return this.didModel.findOne({ id: hash });
-  }
-
-  /**
-   * Counts the amount of hashes based on parameters
-   * @param filter
-   */
-  async countHashes(filter: HashFilterDto) {
-    const options = await this.setFilter(filter);
-    return this.didModel.count(options);
-  }
-
-  // TODO implement rate limit
-  /**
-   * Set filters depending on the given parameters.
-   * @param filter
-   */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private async setFilter(filter: HashFilterDto) {
-    const options: { signature?: any; createdAt?: any } = {};
-    return options;
   }
 }

@@ -1,6 +1,6 @@
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Controller, Get, UseGuards } from '@nestjs/common';
-import { DidControllerMixin } from '@apps/shared/did/did.controller';
+import { DidControllerMixin } from '@shared/did/did.controller';
 import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
 import { DidIdTransaction } from '@tc/did-id/schemas/did-id-transaction.schema';
 import { GenesisBlock } from '@tc/blockchain/block/genesis-block.dto';

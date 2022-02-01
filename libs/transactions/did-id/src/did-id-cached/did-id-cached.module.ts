@@ -23,6 +23,6 @@ import { PersistClientModule } from '@tc/persist-client';
     ),
   ],
   providers: [DidIdCachedService],
-  exports: [DidIdCachedService],
+  exports: [DidIdCachedService, MongooseModule],
 })
 export class DidIdCachedModule {}

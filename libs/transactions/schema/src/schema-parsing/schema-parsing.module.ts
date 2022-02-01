@@ -1,3 +1,9 @@
+import { DidIdCachedModule } from '@tc/did-id/did-id-cached/did-id-cached.module';
+import { DidSchema, SchemaSchema } from '../schemas/did-schema.schema';
+import {
+  DidSchemaTransaction,
+  SchemaTransactionSchema,
+} from '../schemas/did-schema-transaction.schema';
 import { EventClientModule } from '@tc/event-client';
 import { HashModule } from '@tc/blockchain';
 import { Module, forwardRef } from '@nestjs/common';
@@ -8,13 +14,8 @@ import {
   makeCounterProvider,
 } from '@willsoto/nestjs-prometheus';
 import { SCHEMA_CONNECTION } from '../constants';
-import { Schema, SchemaSchema } from '../schemas/schema.schema';
 import { SchemaDbModule } from '../schema-db/schema-db.module';
 import { SchemaParsingService } from './schema-parsing.service';
-import {
-  SchemaTransaction,
-  SchemaTransactionSchema,
-} from '../schemas/schema-transaction.schema';
 
 @Module({
   imports: [
@@ -22,10 +23,11 @@ import {
     EventClientModule,
     HashModule,
     SchemaDbModule,
+    DidIdCachedModule,
     MongooseModule.forFeature(
       [
-        { name: Schema.name, schema: SchemaSchema },
-        { name: SchemaTransaction.name, schema: SchemaTransactionSchema },
+        { name: DidSchema.name, schema: SchemaSchema },
+        { name: DidSchemaTransaction.name, schema: SchemaTransactionSchema },
       ],
       SCHEMA_CONNECTION,
     ),

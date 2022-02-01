@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { DidStructure } from './did-structure.dto';
-import { SignatureInfo } from '@tc/blockchain/transaction/signature-info';
 import { TransactionBody } from '@tc/blockchain/transaction/transaction-body.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 import { Type } from 'class-transformer';

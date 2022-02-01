@@ -1,6 +1,5 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { HashStructure } from './hash-structure.dto';
 import { TransactionBody } from '@tc/blockchain/transaction/transaction-body.dto';
-import { TransactionHashValue } from './transaction-hash-value.dto';
 import { Type } from 'class-transformer';
 
 /**
@@ -11,6 +10,6 @@ export class HashTransactionBody extends TransactionBody {
   /**
    * Values of a hash transaction.
    */
-  @Type(() => TransactionHashValue)
-  value!: TransactionHashValue;
+  @Type(() => HashStructure)
+  value!: HashStructure;
 }

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { DidStructure } from '@apps/shared/did/dto/did-structure.dto';
+import { DidStructure } from '@shared/did/dto/did-structure.dto';
 import { IsOptional, IsString } from 'class-validator';
 
 /**

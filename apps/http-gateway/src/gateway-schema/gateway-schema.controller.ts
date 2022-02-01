@@ -8,7 +8,7 @@ import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { GatewaySchemaService } from './gateway-schema.service';
 import { MaintenanceGuard } from '@tc/config/version/maintenance.guard';
 import { SchemaCreationResponse } from './response';
-import { SchemaTransaction } from '@tc/schema/dto/schema.transaction.dto';
+import { SchemaTransactionDto } from '@tc/schema/dto/schema.transaction.dto';
 
 /**
  * Stores new schema transactions.
@@ -37,7 +37,7 @@ export class GatewaySchemaController {
     description: 'Id already taken.',
   })
   async create(
-    @Body() transaction: SchemaTransaction,
+    @Body() transaction: SchemaTransactionDto,
   ): Promise<SchemaCreationResponse> {
     return this.gatewaySchemaService.addSchema(transaction);
   }

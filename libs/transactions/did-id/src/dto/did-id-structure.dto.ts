@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { DidStructure } from '@apps/shared/did/dto/did-structure.dto';
+import { DidStructure } from '@shared/did/dto/did-structure.dto';
 import { RoleManage } from './role-manage.dto';
 import { ServiceMange } from './service-mange.dto';
 import { Type } from 'class-transformer';

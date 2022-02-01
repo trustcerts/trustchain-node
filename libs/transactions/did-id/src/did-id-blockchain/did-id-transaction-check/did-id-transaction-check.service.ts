@@ -15,7 +15,6 @@ import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 export class DidIdTransactionCheckService extends TransactionCheck {
   /**
    * Injects required services
-   * @param didModel
    * @param blockCheckService
    * @param didCachedService
    */
@@ -109,7 +108,6 @@ export class DidIdTransactionCheckService extends TransactionCheck {
           }
         },
       );
-    console.log('found');
     const found = controllers.find((controller) => controller.id === signerId);
     if (found) {
       return Promise.resolve();

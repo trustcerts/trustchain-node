@@ -124,7 +124,7 @@ describe('Http Gateway (e2e)', () => {
       body: {
         version: 1,
         date: new Date().toISOString(),
-        type: TransactionType.HashCreation,
+        type: TransactionType.Hash,
         value: {
           hash: '9991d650bd700b85f15ec25e0d0275cfa988a4401378b9e3b95c8fe8d1a5b61e',
           algorithm: 'sha256',
@@ -145,7 +145,7 @@ describe('Http Gateway (e2e)', () => {
       body: {
         version: 1,
         date: new Date().toISOString(),
-        type: TransactionType.HashCreation,
+        type: TransactionType.Hash,
         value: {
           hash: '9991df50bd701b85f15ec25e0d0275cfas88a4401378b9e3b95c8fe9d1a5b61e',
           algorithm: 'sha256',

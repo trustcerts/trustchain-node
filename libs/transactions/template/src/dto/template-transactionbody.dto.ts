@@ -20,11 +20,11 @@ export class TemplateTransactionBody extends TransactionBody {
    * type of the transaction.
    */
   @ApiProperty({
-    default: TransactionType.HashCreation,
+    default: TransactionType.Template,
     description: 'type of the transaction.',
     enum: TransactionType,
     enumName: 'TransactionType',
   })
-  @IsIn([TransactionType.HashCreation])
+  @IsIn([TransactionType.Template])
   type!: TransactionType;
 }

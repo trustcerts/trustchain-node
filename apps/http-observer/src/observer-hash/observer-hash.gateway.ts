@@ -1,4 +1,4 @@
-import { Hash } from '@tc/hash/schemas/hash.schema';
+import { DidHash } from '@tc/hash/schemas/did-hash.schema';
 import { HashCachedService } from '@tc/hash/hash-cached/hash-cached.service';
 import {
   MessageBody,
@@ -28,7 +28,7 @@ export class ObserverHashGateway {
    * @param hash
    */
   @SubscribeMessage('hash')
-  async getHash(@MessageBody() hash: string): Promise<Hash> {
+  async getHash(@MessageBody() hash: string): Promise<DidHash> {
     const entry = await this.hashService.getHash(hash);
     if (!entry) {
       throw new NotFoundException();

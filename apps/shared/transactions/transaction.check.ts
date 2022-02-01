@@ -70,17 +70,13 @@ export abstract class TransactionCheck {
       .getDid(transaction.body.value.id, 'controller')
       .then(
         (did) => {
-          // this.cachedService.getValues;
           transaction.signature.values.forEach((signer) => {
-            console.log(signer);
-            console.log(did.controllers);
             if (
               did.controllers.find(
                 (controller) =>
                   controller.id === signer.identifier.split('#')[0],
               )
             ) {
-              console.log('reject');
               return Promise.reject();
             }
           });

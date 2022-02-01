@@ -3,7 +3,7 @@ import { DidId, DidIdDocument } from '@tc/did-id/schemas/did-id.schema';
 import { DidIdResolver } from '@trustcerts/core';
 import {
   DidIdTransaction,
-  DidTransactionDocument,
+  DidIdTransactionDocument,
 } from '../schemas/did-id-transaction.schema';
 import { GenesisBlock } from '../../../../blockchain/src/block/genesis-block.dto';
 import { IVerificationRelationships } from '../dto/i-verification-relationships.dto';
@@ -20,6 +20,8 @@ import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
  */
 @Injectable()
 export class DidIdCachedService extends CachedService {
+  protected resolver = new DidIdResolver();
+
   /**
    * Injects required services.
    * @param transactionModel
@@ -29,12 +31,12 @@ export class DidIdCachedService extends CachedService {
    */
   constructor(
     @InjectModel(DidIdTransaction.name)
-    protected transactionModel: Model<DidTransactionDocument>,
+    protected transactionModel: Model<DidIdTransactionDocument>,
     @InjectModel(DidId.name)
     protected didModel: Model<DidIdDocument>,
     private readonly persistClientService: PersistClientService,
   ) {
-    super(transactionModel, didModel, new DidIdResolver());
+    super(transactionModel, didModel);
   }
 
   /**

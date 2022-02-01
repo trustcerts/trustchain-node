@@ -5,7 +5,7 @@ import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Type } from 'class-transformer';
 
-export type DidTransactionDocument = DidIdTransaction & Document;
+export type DidIdTransactionDocument = DidIdTransaction & Document;
 
 /**
  * Entity that describes how dids are stored in the database.

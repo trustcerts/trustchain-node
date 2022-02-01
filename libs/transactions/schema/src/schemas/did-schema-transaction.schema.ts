@@ -5,13 +5,13 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { SchemaStructure } from '../dto/schema-structure.dto';
 import { Type } from 'class-transformer';
 
-export type SchemaTransactionDocument = SchemaTransaction & DidIdDocument;
+export type SchemaTransactionDocument = DidSchemaTransaction & DidIdDocument;
 
 /**
  * Entity that describes how dids are stored in the database.
  */
 @Schema()
-export class SchemaTransaction extends DidTransaction {
+export class DidSchemaTransaction extends DidTransaction {
   /**
    * Includes the changes of a did document as json object.
    */
@@ -28,4 +28,4 @@ export class SchemaTransaction extends DidTransaction {
  * Did Transaction Schema
  */
 export const SchemaTransactionSchema =
-  SchemaFactory.createForClass(SchemaTransaction);
+  SchemaFactory.createForClass(DidSchemaTransaction);

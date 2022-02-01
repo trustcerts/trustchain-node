@@ -1,10 +1,15 @@
 import { ClientRedis } from '@nestjs/microservices';
 import { Counter } from 'prom-client';
+import { DidHash, HashDocument } from '@tc/hash/schemas/did-hash.schema';
+import {
+  DidHashTransaction,
+  HashTransactionDocument,
+} from '../schemas/did-hash-transaction.schema';
+import { DidId } from '@trustcerts/core';
 import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
-import { Hash, HashDocument } from '@tc/hash/schemas/hash.schema';
-import { HashCreationTransactionDto } from '@tc/hash/dto/hash-creation.transaction.dto';
-import { HashRevocationTransactionDto } from '@tc/hash/dto/hash-revocation.transaction.dto';
+import { DidIdDocument } from '@tc/did-id/schemas/did-id.schema';
 import { HashService } from '@tc/blockchain';
+import { HashTransactionDto } from '../dto/hash-transaction.dto';
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';
 import { InjectModel } from '@nestjs/mongoose';
@@ -25,7 +30,7 @@ export class HashParsingService extends ParsingService {
    * @param parser
    * @param clientRedis
    * @param logger
-   * @param hashModel
+   * @param didSchemaRepository
    * @param hashService
    * @param transactionsCounter
    */
@@ -33,21 +38,26 @@ export class HashParsingService extends ParsingService {
     protected readonly hashService: HashService,
     @Inject(REDIS_INJECTION) protected readonly clientRedis: ClientRedis,
     @Inject('winston') protected readonly logger: Logger,
-    @InjectModel(Hash.name) private hashModel: Model<HashDocument>,
+    @InjectModel(DidHash.name) private didSchemaRepository: Model<HashDocument>,
+    @InjectModel(DidHashTransaction.name)
+    didHashDocumentRegistry: Model<HashTransactionDocument>,
     @InjectMetric('transactions')
     protected readonly transactionsCounter: Counter<string>,
     private readonly parseService: ParseService,
-    private readonly didIdCachedService: DidIdCachedService,
+    readonly didIdCachedService: DidIdCachedService,
+    @InjectModel(DidId.name)
+    protected didIdRepository: Model<DidIdDocument>,
   ) {
-    super(clientRedis, hashService, transactionsCounter);
+    super(
+      clientRedis,
+      hashService,
+      transactionsCounter,
+      didIdRepository,
+      didHashDocumentRegistry,
+    );
 
-    this.parseService.parsers.set(TransactionType.HashCreation, {
-      parsing: this.add.bind(this),
-      reset: this.reset.bind(this),
-    });
-
-    this.parseService.parsers.set(TransactionType.HashRevocation, {
-      parsing: this.revoke.bind(this),
+    this.parseService.parsers.set(TransactionType.Hash, {
+      parsing: this.parseDid.bind(this),
       reset: this.reset.bind(this),
     });
   }
@@ -56,61 +66,45 @@ export class HashParsingService extends ParsingService {
    * Adds a new hash from the given transaction.
    * @param transaction
    */
-  async add(transaction: HashCreationTransactionDto) {
-    new this.hashModel({
-      id: transaction.body.value.hash,
-      signature: transaction.signature.values,
-      createdAt: transaction.body.date,
-      controllers: await Promise.all(
-        transaction.signature.values.map((value) =>
-          this.didIdCachedService.getById(value.identifier.split('#')[0]),
-        ),
-      ),
-      block: {
-        ...transaction.block,
-        imported: transaction.metadata?.imported?.date,
-      },
-      hashAlgorithm: transaction.body.value.algorithm,
-    })
+  async parseDid(transaction: HashTransactionDto) {
+    await this.addDocument(transaction);
+    const did = await this.didSchemaRepository
+      .findOne({ id: transaction.body.value.id })
+      .then(async (did) => {
+        if (!did) {
+          did = new this.didSchemaRepository({
+            id: transaction.body.value.id,
+            algorithm: transaction.body.value.algorithm,
+          });
+        }
+        return did;
+      });
+
+    await this.updateController(did, transaction);
+    if (transaction.body.value.revoked) {
+      did.revokedAt = new Date(transaction.body.value.revoked);
+    }
+    did
       .save()
       .then(() => {
         this.logger.debug({
-          message: `added hash ${transaction.body.value.hash}`,
+          message: `added hash ${transaction.body.value.id}`,
           labels: { source: this.constructor.name },
         });
         this.created(transaction);
       })
-      .catch((err) => {
-        // TODO check if error is thrown
+      .catch((err: any) =>
         this.logger.error({
           message: err,
           labels: { source: this.constructor.name },
-        });
-      });
-  }
-
-  /**
-   * Revokes a hash from the given transaction.
-   * @param transaction
-   */
-  async revoke(transaction: HashRevocationTransactionDto) {
-    await this.hashModel.findOneAndUpdate(
-      { id: transaction.body.value.hash },
-      {
-        revokedAt: new Date(transaction.body.date),
-      },
-    );
-    this.logger.debug({
-      message: `revoked hash ${transaction.body.value.hash}`,
-      labels: { source: this.constructor.name },
-    });
-    this.created(transaction).then();
+        }),
+      );
   }
 
   /**
    * Resets a database.
    */
   public async reset(): Promise<void> {
-    await this.hashModel.deleteMany();
+    await this.didSchemaRepository.deleteMany();
   }
 }

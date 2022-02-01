@@ -7,14 +7,14 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { TemplateStructure } from '../dto/templatestructure.dto';
 import { Type } from 'class-transformer';
 
-export type TemplateTransactionDocument = TemplateTransaction &
+export type TemplateTransactionDocument = DidTemplateTransaction &
   DidTransactionDocument;
 
 /**
  * Entity that describes how dids are stored in the database.
  */
 @Schema()
-export class TemplateTransaction extends DidTransaction {
+export class DidTemplateTransaction extends DidTransaction {
   /**
    * Includes the changes of a did document as json object.
    */
@@ -30,5 +30,6 @@ export class TemplateTransaction extends DidTransaction {
 /**
  * Did Transaction Schema
  */
-export const TemplateTransactionSchema =
-  SchemaFactory.createForClass(TemplateTransaction);
+export const TemplateTransactionSchema = SchemaFactory.createForClass(
+  DidTemplateTransaction,
+);

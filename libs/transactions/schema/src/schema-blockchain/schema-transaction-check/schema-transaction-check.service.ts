@@ -3,7 +3,7 @@ import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.servi
 import { Injectable } from '@nestjs/common';
 import { RoleManageAddEnum } from '@tc/did-id/constants';
 import { SchemaCachedService } from '@tc/schema/schema-cached/schema-cached.service';
-import { SchemaTransaction } from '@tc/schema/dto/schema.transaction.dto';
+import { SchemaTransactionDto } from '@tc/schema/dto/schema.transaction.dto';
 import { TransactionCheck } from '@shared/transactions/transaction.check';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
@@ -48,7 +48,7 @@ export class SchemaTransactionCheckService extends TransactionCheck {
    * @param addedTransactions
    */
   public checkDoubleSchema(
-    newTransaction: SchemaTransaction,
+    newTransaction: SchemaTransactionDto,
     addedTransactions: Map<string, TransactionDto>,
   ) {
     addedTransactions.forEach((transaction) => {
@@ -57,7 +57,7 @@ export class SchemaTransactionCheckService extends TransactionCheck {
         // newTransaction.body.value.schema ===
         //   (transaction as SchemaTransaction).body.value.schema &&
         newTransaction.body.value.id ===
-        (transaction as SchemaTransaction).body.value.id
+        (transaction as SchemaTransactionDto).body.value.id
       ) {
         throw new Error('Double entry');
       }
@@ -71,7 +71,7 @@ export class SchemaTransactionCheckService extends TransactionCheck {
    * @returns
    */
   protected getValidation(
-    transaction: SchemaTransaction,
+    transaction: SchemaTransactionDto,
     addedTransactions: Map<string, TransactionDto>,
   ): Promise<void> {
     this.checkDoubleSchema(transaction, addedTransactions);
