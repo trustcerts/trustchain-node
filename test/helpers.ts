@@ -28,7 +28,6 @@ import http = require('http');
 import express = require('express');
 import { CompressionType } from '@tc/template/dto/compressiontype.dto';
 import { DidIdRegister } from '@trustcerts/did-id-create';
-import { DidTransaction } from '@apps/shared/did/schemas/did-transaction.schema';
 import { HashTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
 import { Server } from 'socket.io';
 
@@ -42,17 +41,6 @@ interface oneOrMoreArray<T> extends Array<T> {
    */
   0: T;
 }
-
-const metaData = {
-  version: 1,
-  metadata: {
-    version: 1,
-  },
-  signature: {
-    type: SignatureType.single,
-    values: [{ identifier: 'test_id', signature: 'test_signature' }],
-  },
-};
 
 /**
  * create block with given transactions.
@@ -121,7 +109,28 @@ export function sendBlock(
  */
 export function generateTestHashTransaction(): HashTransactionDto {
   return {
-    ...metaData,
+    version: 1,
+    signature: {
+      type: SignatureType.single,
+      values: [
+        {
+          identifier: 'id',
+          signature: 'signature',
+        },
+      ],
+    },
+    metadata: {
+      version: 1,
+      didDocSignature: {
+        type: SignatureType.single,
+        values: [
+          {
+            identifier: 'id',
+            signature: 'ddd',
+          },
+        ],
+      },
+    },
     body: {
       version: 1,
       date: new Date().toISOString(),
@@ -136,12 +145,15 @@ export function generateTestHashTransaction(): HashTransactionDto {
 
 export function generateTestDidIdTransaction(): DidIdTransactionDto {
   return {
-    ...metaData,
-    body: {
-      version: 1,
-      date: new Date().toISOString(),
-      type: TransactionType.Did,
-      value: { id: `${Math.random()}` },
+    version: 1,
+    signature: {
+      type: SignatureType.single,
+      values: [
+        {
+          identifier: 'id',
+          signature: 'signature',
+        },
+      ],
     },
     metadata: {
       version: 1,
@@ -154,6 +166,12 @@ export function generateTestDidIdTransaction(): DidIdTransactionDto {
           },
         ],
       },
+    },
+    body: {
+      version: 1,
+      date: new Date().toISOString(),
+      type: TransactionType.Did,
+      value: { id: `${Math.random()}` },
     },
   };
 }

@@ -71,6 +71,7 @@ export class HashParsingService extends ParsingService {
     const did = await this.didSchemaRepository
       .findOne({ id: transaction.body.value.id })
       .then(async (did) => {
+        console.log(transaction);
         if (!did) {
           did = new this.didSchemaRepository({
             id: transaction.body.value.id,

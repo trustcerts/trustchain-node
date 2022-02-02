@@ -30,6 +30,7 @@ import { wait } from '@shared/helpers';
 import { Model } from 'mongoose';
 import { getModelToken } from '@nestjs/mongoose';
 import { HashTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
+import { DidIdTransactionDto } from '@tc/did-id/dto/did-id-transaction.dto';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -91,8 +92,8 @@ describe('AppController (e2e)', () => {
   });
 
   it('Should remove from database and rebuild from persist', async () => {
-    const hashTransaction: TransactionDto = generateTestHashTransaction();
-    const didTransaction: TransactionDto = generateTestDidIdTransaction();
+    const hashTransaction: HashTransactionDto = generateTestHashTransaction();
+    const didTransaction: DidIdTransactionDto = generateTestDidIdTransaction();
     const block: Block = setBlock([hashTransaction, didTransaction], 1);
     if (await sendBlock(block, clientRedis)) {
       await new Promise<void>((resolve) => {
@@ -110,7 +111,7 @@ describe('AppController (e2e)', () => {
       expect(hashes.length).toEqual(1);
       expect(dids.length).toEqual(1);
       expect(hashes[0].block.id).toEqual(blocks[0].index);
-      expect(hashes[0].id).toEqual(hashTransaction.body.value.hash);
+      expect(hashes[0].id).toEqual(hashTransaction.body.value.id);
       expect(dids[0].id).toEqual(didTransaction.body.value.id);
     } else {
       fail("it didn't parsed the block successfully");
