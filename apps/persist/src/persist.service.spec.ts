@@ -5,16 +5,12 @@ import { Block } from '@tc/blockchain/block/block.interface';
 import * as fs from 'fs';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { generateTestTransaction, setBlock } from '@test/helpers';
-import { getSupportInfo } from 'prettier';
 import { getToken } from '@willsoto/nestjs-prometheus';
-import { Counter } from 'prom-client';
-import jestSharedConfig from 'jest.sharedConfig';
 
 describe('PersistService', () => {
   let service: PersistService;
   let configServiceMock: ConfigService = new ConfigService({}, {}, {});
   let _path: string;
-  let promBlockCounter: Counter<string>;
   const hashTransaction: TransactionDto = generateTestTransaction('hash');
 
   beforeAll(async () => {

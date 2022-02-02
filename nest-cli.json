@@ -206,7 +206,7 @@
       "type": "library",
       "root": "libs/transactions/did",
       "entryFile": "index",
-      "sourceRoot": "libs/transactions/did/src",
+      "sourceRoot": "libs/transactions/did-id/src",
       "compilerOptions": {
         "tsConfigPath": "libs/transactions/did/tsconfig.lib.json"
       }

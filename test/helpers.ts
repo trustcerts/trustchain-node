@@ -14,7 +14,6 @@ import {
 } from '@trustcerts/core';
 import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
 import { DidIdTransactionDto } from '@tc/did-id/dto/did-id-transaction.dto';
-import { HashCreationTransactionDto } from '@tc/hash/dto/hash-creation.transaction.dto';
 import { HashService } from '@tc/blockchain/hash.service';
 import { MESSAGE_EVENT } from '@nestjs/microservices/constants';
 import { RedisClient } from '@nestjs/microservices/external/redis.interface';
@@ -29,6 +28,7 @@ import http = require('http');
 import express = require('express');
 import { CompressionType } from '@tc/template/dto/compressiontype.dto';
 import { DidIdRegister } from '@trustcerts/did-id-create';
+import { HashTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
 import { Server } from 'socket.io';
 
 /**
@@ -118,14 +118,14 @@ export function generateTestTransaction(transactionType: string) {
       values: [{ identifier: 'test_id', signature: 'test_signature' }],
     },
   };
-  const hashTransaction: HashCreationTransactionDto = {
+  const hashTransaction: HashTransactionDto = {
     ...metaData,
     body: {
       version: 1,
       date: new Date().toISOString(),
       type: TransactionType.Hash,
       value: {
-        hash: `${Math.random()}`,
+        id: 'hello',
         algorithm: 'TestA',
       },
     },
@@ -138,9 +138,17 @@ export function generateTestTransaction(transactionType: string) {
       date: new Date().toISOString(),
       type: TransactionType.Did,
       value: { id: `${Math.random()}` },
+    },
+    metadata: {
+      version: 1,
       didDocSignature: {
         type: SignatureType.single,
-        values: [{ identifier: 'test_id', signature: 'test_signature' }],
+        values: [
+          {
+            identifier: 'id',
+            signature: 'ddd',
+          },
+        ],
       },
     },
   };
