@@ -28,6 +28,7 @@ import http = require('http');
 import express = require('express');
 import { CompressionType } from '@tc/template/dto/compressiontype.dto';
 import { DidIdRegister } from '@trustcerts/did-id-create';
+import { DidTransaction } from '@apps/shared/did/schemas/did-transaction.schema';
 import { HashTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
 import { Server } from 'socket.io';
 
@@ -41,6 +42,17 @@ interface oneOrMoreArray<T> extends Array<T> {
    */
   0: T;
 }
+
+const metaData = {
+  version: 1,
+  metadata: {
+    version: 1,
+  },
+  signature: {
+    type: SignatureType.single,
+    values: [{ identifier: 'test_id', signature: 'test_signature' }],
+  },
+};
 
 /**
  * create block with given transactions.
@@ -107,18 +119,8 @@ export function sendBlock(
  * choose one of the following or it will return hash transaction by default
  * 'did' , 'hash'
  */
-export function generateTestTransaction(transactionType: string) {
-  const metaData = {
-    version: 1,
-    metadata: {
-      version: 1,
-    },
-    signature: {
-      type: SignatureType.single,
-      values: [{ identifier: 'test_id', signature: 'test_signature' }],
-    },
-  };
-  const hashTransaction: HashTransactionDto = {
+export function generateTestHashTransaction(): HashTransactionDto {
+  return {
     ...metaData,
     body: {
       version: 1,
@@ -130,8 +132,10 @@ export function generateTestTransaction(transactionType: string) {
       },
     },
   };
+}
 
-  const didTransaction: DidIdTransactionDto = {
+export function generateTestDidIdTransaction(): DidIdTransactionDto {
+  return {
     ...metaData,
     body: {
       version: 1,
@@ -152,9 +156,6 @@ export function generateTestTransaction(transactionType: string) {
       },
     },
   };
-
-  if (transactionType === 'did') return didTransaction;
-  else return hashTransaction;
 }
 
 /**

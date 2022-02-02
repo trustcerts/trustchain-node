@@ -18,7 +18,8 @@ import { DidId } from '@tc/did-id/schemas/did-id.schema';
 import { addRedisEndpoint, addTCPEndpoint } from '@shared/main-functions';
 import { PersistClientService } from '@tc/persist-client';
 import {
-  generateTestTransaction,
+  generateTestDidIdTransaction,
+  generateTestHashTransaction,
   sendBlock,
   setBlock,
   startDependencies,
@@ -28,6 +29,7 @@ import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { wait } from '@shared/helpers';
 import { Model } from 'mongoose';
 import { getModelToken } from '@nestjs/mongoose';
+import { HashTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -72,14 +74,14 @@ describe('AppController (e2e)', () => {
   });
 
   it('Should parse and persist a block', async () => {
-    const hashTransaction: TransactionDto = generateTestTransaction('hash');
-    const didTransaction: TransactionDto = generateTestTransaction('did');
+    const hashTransaction: HashTransactionDto = generateTestHashTransaction();
+    const didTransaction: TransactionDto = generateTestDidIdTransaction();
     const block: Block = setBlock([hashTransaction, didTransaction], 1);
     if (await sendBlock(block, clientRedis)) {
       const hashes = await hashRepository.find();
       const did = await didRepository.find();
       expect(hashes.length).toEqual(1);
-      expect(hashes[0].id).toBe(hashTransaction.body.value.hash);
+      expect(hashes[0].id).toBe(hashTransaction.body.value.id);
       expect(hashes[0].block.id).toBe(block.index);
       expect(did.length).toEqual(1);
       expect(did[0].id).toBe(didTransaction.body.value.id);
@@ -89,8 +91,8 @@ describe('AppController (e2e)', () => {
   });
 
   it('Should remove from database and rebuild from persist', async () => {
-    const hashTransaction: TransactionDto = generateTestTransaction('hash');
-    const didTransaction: TransactionDto = generateTestTransaction('did');
+    const hashTransaction: TransactionDto = generateTestHashTransaction();
+    const didTransaction: TransactionDto = generateTestDidIdTransaction();
     const block: Block = setBlock([hashTransaction, didTransaction], 1);
     if (await sendBlock(block, clientRedis)) {
       await new Promise<void>((resolve) => {
@@ -101,6 +103,7 @@ describe('AppController (e2e)', () => {
         });
       });
       const hashes = await hashRepository.find();
+      hashes[0].block;
       const dids = await didRepository.find();
       const blocks = await persistClientService.getBlocks(1, 10);
       expect(blocks.length).toEqual(1);
@@ -115,8 +118,8 @@ describe('AppController (e2e)', () => {
   });
 
   it('Should reset the system and clean the database', async () => {
-    const hashTransaction: TransactionDto = generateTestTransaction('hash');
-    const didTransaction: TransactionDto = generateTestTransaction('did');
+    const hashTransaction: TransactionDto = generateTestHashTransaction();
+    const didTransaction: TransactionDto = generateTestDidIdTransaction();
     const block: Block = setBlock([hashTransaction, didTransaction], 1);
     if (await sendBlock(block, clientRedis)) {
       clientRedis.emit(SYSTEM_RESET, {});

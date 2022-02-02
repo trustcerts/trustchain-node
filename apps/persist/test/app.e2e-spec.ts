@@ -20,7 +20,7 @@ import { join } from 'path';
 import { Block } from '@tc/blockchain/block/block.interface';
 import { wait } from '@shared/helpers';
 import {
-  generateTestTransaction,
+  generateTestHashTransaction,
   sendBlock,
   setBlock,
   startDependencies,
@@ -70,7 +70,7 @@ describe('AppController (e2e)', () => {
   });
 
   it('should create a block', async () => {
-    const hashTransaction: TransactionDto = generateTestTransaction('hash');
+    const hashTransaction: TransactionDto = generateTestHashTransaction();
     const block: Block = setBlock([hashTransaction], 1);
     await sendBlock(block, clientRedis, true);
     expect(fs.existsSync(path)).toBeTruthy();
@@ -82,7 +82,7 @@ describe('AppController (e2e)', () => {
   }, 10000);
 
   it('should request a block', async () => {
-    const hashTransaction: TransactionDto = generateTestTransaction('hash');
+    const hashTransaction: TransactionDto = generateTestHashTransaction();
     const block: Block = setBlock([hashTransaction], 1);
     await sendBlock(block, clientRedis, true);
     const savedBlock: Block = await lastValueFrom(
@@ -92,7 +92,7 @@ describe('AppController (e2e)', () => {
   });
 
   it('should request many blocks', async () => {
-    const hashTransaction: TransactionDto = generateTestTransaction('hash');
+    const hashTransaction: TransactionDto = generateTestHashTransaction();
     const blocks: Block[] = [
       setBlock([hashTransaction], 1),
       setBlock([hashTransaction], 2),
@@ -118,7 +118,7 @@ describe('AppController (e2e)', () => {
   }, 15000);
 
   it('should count the blocks', async () => {
-    const hashTransaction: TransactionDto = generateTestTransaction('hash');
+    const hashTransaction: TransactionDto = generateTestHashTransaction();
     const blocks: Block[] = [
       setBlock([hashTransaction], 1),
       setBlock([hashTransaction], 2),
@@ -134,7 +134,7 @@ describe('AppController (e2e)', () => {
   });
 
   it('should reset the system', async () => {
-    const hashTransaction: TransactionDto = generateTestTransaction('hash');
+    const hashTransaction: TransactionDto = generateTestHashTransaction();
     const blocks: Block[] = [
       setBlock([hashTransaction], 1),
       setBlock([hashTransaction], 2),

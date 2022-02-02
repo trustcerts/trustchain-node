@@ -24,5 +24,6 @@ export default {
     '@tc/event-client(.*)': '<rootDir>/libs/clients/event-client/src$1',
     '@tc/did-id(.*)': '<rootDir>/libs/transactions/did-id/src$1',
     '@tc/template(.*)': '<rootDir>/libs/transactions/template/src$1',
+    '@tc/schema(.*)': '<rootDir>/libs/transactions/schema/src$1',
   },
 };
