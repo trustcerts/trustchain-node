@@ -76,14 +76,15 @@ export class HashParsingService extends ParsingService {
           did = new this.didSchemaRepository({
             id: transaction.body.value.id,
             createdAt: transaction.body.date,
-            values: transaction.body.value,
+            controllers: [],
+            hashAlgorithm: transaction.body.value.algorithm,
             didDocumentSignature: transaction.metadata!.didDocSignature!.values,
             signature: transaction.signature.values,
             block: {
               ...transaction.block,
               imported: transaction.metadata?.imported?.date,
             },
-          } as DidHashTransaction);
+          } as DidHash);
         }
         return did;
       });

@@ -30,6 +30,7 @@ import { CompressionType } from '@tc/template/dto/compressiontype.dto';
 import { DidIdRegister } from '@trustcerts/did-id-create';
 import { HashTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
 import { Server } from 'socket.io';
+import { TransactionMetadata } from '@tc/blockchain/transaction/transaction-metadata';
 
 /**
  * at least one array should be given
@@ -109,28 +110,7 @@ export function sendBlock(
  */
 export function generateTestHashTransaction(): HashTransactionDto {
   return {
-    version: 1,
-    signature: {
-      type: SignatureType.single,
-      values: [
-        {
-          identifier: 'id',
-          signature: 'signature',
-        },
-      ],
-    },
-    metadata: {
-      version: 1,
-      didDocSignature: {
-        type: SignatureType.single,
-        values: [
-          {
-            identifier: 'id',
-            signature: 'ddd',
-          },
-        ],
-      },
-    },
+    ...transactionProperties,
     body: {
       version: 1,
       date: new Date().toISOString(),
@@ -145,28 +125,7 @@ export function generateTestHashTransaction(): HashTransactionDto {
 
 export function generateTestDidIdTransaction(): DidIdTransactionDto {
   return {
-    version: 1,
-    signature: {
-      type: SignatureType.single,
-      values: [
-        {
-          identifier: 'id',
-          signature: 'signature',
-        },
-      ],
-    },
-    metadata: {
-      version: 1,
-      didDocSignature: {
-        type: SignatureType.single,
-        values: [
-          {
-            identifier: 'id',
-            signature: 'ddd',
-          },
-        ],
-      },
-    },
+    ...transactionProperties,
     body: {
       version: 1,
       date: new Date().toISOString(),
@@ -278,10 +237,11 @@ export async function signContent(
   transaction.signature.values = [await walletService.signIssuer(content)];
 }
 
-/**
- * Shared transaction Properties for testing purposes
- */
-export const transactionProperties = {
+export const transactionProperties: {
+  metadata: TransactionMetadata;
+  version: number;
+  signature: SignatureInfo;
+} = {
   version: 1,
   metadata: {
     version: 1,
@@ -293,7 +253,15 @@ export const transactionProperties = {
       },
     },
   },
-  signature: { type: SignatureType.single, values: [] },
+  signature: {
+    type: SignatureType.single,
+    values: [
+      {
+        identifier: `${Identifier.generate('id')}#key1`,
+        signature: 'ddd',
+      },
+    ],
+  },
 };
 
 /**
@@ -414,14 +382,14 @@ export async function createTemplate(
     walletClientService,
     didCachedService,
   );
-  const hashCreation = {
+  const hashCreation: HashTransactionDto = {
     ...transactionProperties,
     body: {
       version: 1,
       date: new Date().toISOString(),
       type: TransactionType.Hash,
       value: {
-        hash,
+        id: hash,
         algorithm: 'sha256',
       },
     },

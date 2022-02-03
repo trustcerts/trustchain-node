@@ -3,7 +3,6 @@ import * as request from 'supertest';
 import { Test, TestingModule } from '@nestjs/testing';
 import { HttpGatewayModule } from '../src/http-gateway.module';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
-import { SignatureType } from '@tc/blockchain/transaction/signature-type';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 import {
   Did,
@@ -18,13 +17,11 @@ import { HashCachedService } from '@tc/hash/hash-cached/hash-cached.service';
 import { WalletClientService } from '@tc/wallet-client';
 import { ClientRedis } from '@nestjs/microservices';
 import { REDIS_INJECTION } from '@tc/event-client/constants';
-import { HashCreationTransactionDto } from '@tc/hash/dto/hash-creation.transaction.dto';
 import { addRedisEndpoint } from '@shared/main-functions';
 import { HashService } from '@tc/blockchain';
 import { RoleManageAddEnum } from '@tc/did-id/constants';
 import { TemplateTransactionDto } from '@tc/template/dto/template.transaction.dto';
 import { CompressionType } from '@tc/template/dto/compressiontype.dto';
-import { CreateDidDto } from '@tc/did-id/dto/create-did.dto';
 import { InviteRequest } from '@tc/invite/schemas/invite-request.schema';
 import { InviteNode } from '@tc/invite/dto/invite-node.dto';
 import * as fs from 'fs';
@@ -33,15 +30,17 @@ import {
   createDidForTesting,
   setBlock,
   sendBlock,
-  transactionProperties,
   signContent,
   addListenerToTransactionParsed,
   createTemplate,
+  transactionProperties,
 } from '@test/helpers';
 import { HttpGatewayService } from '../src/http-gateway.service';
 import { wait } from '@shared/helpers';
 import { InviteService } from '@tc/invite';
 import { TextEncoder } from 'util';
+import { HashTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
+import { CreateDidIdDto } from '@tc/did-id/dto/create-did-id.dto';
 
 describe('Http Gateway (e2e)', () => {
   let app: INestApplication;
@@ -119,14 +118,14 @@ describe('Http Gateway (e2e)', () => {
 
   //#Hash_Section
   it('should create a hash', async () => {
-    const hashCreation: HashCreationTransactionDto = {
+    const hashCreation: HashTransactionDto = {
       ...transactionProperties,
       body: {
         version: 1,
         date: new Date().toISOString(),
         type: TransactionType.Hash,
         value: {
-          hash: '9991d650bd700b85f15ec25e0d0275cfa988a4401378b9e3b95c8fe8d1a5b61e',
+          id: '9991d650bd700b85f15ec25e0d0275cfa988a4401378b9e3b95c8fe8d1a5b61e',
           algorithm: 'sha256',
         },
       },
@@ -134,42 +133,43 @@ describe('Http Gateway (e2e)', () => {
     await signContent(hashCreation, walletClientService),
       addListenerToTransactionParsed(clientRedis, hashService);
     return request(app.getHttpServer())
-      .post('/hash/create')
+      .post('/hash')
       .send(hashCreation)
       .expect(201);
   }, 10000);
 
   it('should revoke a hash', async () => {
-    const hashCreation: HashCreationTransactionDto = {
+    const hashCreation: HashTransactionDto = {
       ...transactionProperties,
       body: {
         version: 1,
         date: new Date().toISOString(),
         type: TransactionType.Hash,
         value: {
-          hash: '9991df50bd701b85f15ec25e0d0275cfas88a4401378b9e3b95c8fe9d1a5b61e',
+          id: '9991df50bd701b85f15ec25e0d0275cfas88a4401378b9e3b95c8fe9d1a5b61e',
           algorithm: 'sha256',
         },
       },
     };
     await signContent(hashCreation, walletClientService);
     await sendBlock(setBlock([hashCreation], 2), clientRedis, true);
-    const hashRevocation: HashCreationTransactionDto = {
+    const hashRevocation: HashTransactionDto = {
       ...transactionProperties,
       body: {
         version: 1,
         date: new Date().toISOString(),
-        type: TransactionType.HashRevocation,
+        type: TransactionType.Hash,
         value: {
-          hash: '9991df50bd701b85f15ec25e0d0275cfas88a4401378b9e3b95c8fe9d1a5b61e',
+          id: '9991df50bd701b85f15ec25e0d0275cfas88a4401378b9e3b95c8fe9d1a5b61e',
           algorithm: 'sha256',
+          revoked: new Date().toString(),
         },
       },
     };
     await signContent(hashRevocation, walletClientService),
       addListenerToTransactionParsed(clientRedis, hashService);
     return request(app.getHttpServer())
-      .post('/hash/revoke')
+      .post('/hash')
       .send(hashRevocation)
       .expect(201);
   }, 7000);
@@ -181,10 +181,6 @@ describe('Http Gateway (e2e)', () => {
       body: {
         version: 1,
         date: new Date().toISOString(),
-        didDocSignature: {
-          type: SignatureType.single,
-          values: [],
-        },
         type: TransactionType.Did,
         value: {
           id: Identifier.generate('id'),
@@ -220,10 +216,6 @@ describe('Http Gateway (e2e)', () => {
       body: {
         version: 1,
         date: new Date().toISOString(),
-        didDocSignature: {
-          type: SignatureType.single,
-          values: [],
-        },
         type: TransactionType.Did,
         value: {
           id: Identifier.generate('id'),
@@ -262,14 +254,14 @@ describe('Http Gateway (e2e)', () => {
     };
     await inviteService.createInvite(invite);
     const pair = await generateCryptoKeyPair();
-    const testCerts: CreateDidDto = {
+    const testCerts: CreateDidIdDto = {
       identifier: did.id,
       secret: 'test_secret',
       publicKey: await exportKey(pair.publicKey!),
     };
     addListenerToTransactionParsed(clientRedis, hashService);
     return request(app.getHttpServer())
-      .post('/did/create')
+      .post('/did')
       .send(testCerts)
       .set('authorization', 'Bearer ' + process.env.NODE_SECRET)
       .expect(201);
@@ -319,6 +311,7 @@ describe('Http Gateway (e2e)', () => {
       didCachedService,
       clientRedis,
     );
+    console.log(await hashCachedService.getHash(hash));
     expect(await hashCachedService.getHash(hash)).toHaveProperty(`block`);
     await request(app.getHttpServer())
       .post(`/reset`)

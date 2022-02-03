@@ -1,5 +1,6 @@
 import { ConfigService } from '@tc/config';
 import { ConflictException, Inject, Injectable } from '@nestjs/common';
+import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
 import { GatewayBlockchainService } from '../gateway-blockchain/gateway-blockchain.service';
 import { GatewayTransactionService } from '../gateway-transaction.service';
 import { HashCachedService } from '@tc/hash/hash-cached/hash-cached.service';
@@ -31,6 +32,7 @@ export class GatewayHashService extends GatewayTransactionService {
     protected readonly hashService: HashService,
     protected readonly walletService: WalletClientService,
     protected readonly configService: ConfigService,
+    private readonly didCachedService: DidIdCachedService,
     @Inject('winston') protected readonly logger: Logger,
   ) {
     super(
@@ -48,7 +50,6 @@ export class GatewayHashService extends GatewayTransactionService {
    * @param transaction
    */
   async addHash(transaction: HashTransactionDto): Promise<HashResponse> {
-    // TODO move checks into transaction check
     const hash = await this.hashCachedService.getHash(
       transaction.body.value.id,
     );
@@ -57,6 +58,7 @@ export class GatewayHashService extends GatewayTransactionService {
         `hash already signed: ${transaction.body.value.id}`,
       );
     }
+
     return {
       metaData: await this.addTransaction(transaction),
       transaction,
@@ -70,36 +72,34 @@ export class GatewayHashService extends GatewayTransactionService {
    * - Client that wants to revoke the hash created it
    * @param transaction
    */
-  // async revokeHash(
-  //   transaction: HashTransactionDto,
-  // ): Promise<HashRevocationResponse> {
-  //   // TODO move checks into transaction check
-  //   const hash = await this.hashCachedService.getHash(
-  //     transaction.body.value.hash,
-  //   );
-  //   if (!hash) {
-  //     throw new ConflictException(`Hash to revoke doesn't exist.`);
-  //   }
-  //   if (hash.revokedAt !== undefined) {
-  //     throw new ConflictException('Hash already revoked.');
-  //   }
+  async revokeHash(transaction: HashTransactionDto): Promise<HashResponse> {
+    // TODO move checks into transaction check
+    const hash = await this.hashCachedService.getHash(
+      transaction.body.value.id,
+    );
+    if (!hash) {
+      throw new ConflictException(`Hash to revoke doesn't exist.`);
+    }
+    if (hash.revokedAt !== undefined) {
+      throw new ConflictException('Hash already revoked.');
+    }
 
-  //   const idSignature = this.didCachedService.getIdentifierOfKey(
-  //     transaction.signature.values[0].identifier,
-  //   );
+    const idSignature = this.didCachedService.getIdentifierOfKey(
+      transaction.signature.values[0].identifier,
+    );
 
-  //   const idHash = this.didCachedService.getIdentifierOfKey(
-  //     hash.signature[0].identifier,
-  //   );
+    const idHash = this.didCachedService.getIdentifierOfKey(
+      hash.signature[0].identifier,
+    );
 
-  //   if (idSignature !== idHash) {
-  //     throw new ConflictException(
-  //       'Only the original issuer can revoke the hash.',
-  //     );
-  //   }
-  //   return {
-  //     metaData: await this.addTransaction(transaction),
-  //     transaction,
-  //   };
-  // }
+    if (idSignature !== idHash) {
+      throw new ConflictException(
+        'Only the original issuer can revoke the hash.',
+      );
+    }
+    return {
+      metaData: await this.addTransaction(transaction),
+      transaction,
+    };
+  }
 }
