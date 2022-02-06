@@ -75,7 +75,8 @@ export class ConfigService {
   public getValidationSchema(): Joi.SchemaMap {
     return {
       //MAIN PORTS
-      TCP_PORT: Joi.number().default(3001),
+      TCP_URL: Joi.number().default('localhost'),
+      TCP_PORT: Joi.number().default(27017),
       IDENTIFIER: Joi.string(),
       //LOKI
       LOKI_URL: Joi.string(),
@@ -274,12 +275,17 @@ export class ConfigService {
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public db(module: string) {
-    // TODO add port
-    // TODO pass type of db
+    console.log(
+      `mongodb://${this.getString('DB_USERNAME')}:${this.getString(
+        'DB_PASSWORD',
+      )}@${this.getString('DB_HOST')}:${this.getString(
+        'DB_PORT',
+      )}/${this.getString('DB_DATABASE')}?authSource=admin`,
+    );
     return `mongodb://${this.getString('DB_USERNAME')}:${this.getString(
       'DB_PASSWORD',
-    )}@${this.getString('DB_HOST')}/${this.getString(
-      'DB_DATABASE',
-    )}?authSource=admin`;
+    )}@${this.getString('DB_HOST')}:${this.getString(
+      'DB_PORT',
+    )}/${this.getString('DB_DATABASE')}?authSource=admin`;
   }
 }

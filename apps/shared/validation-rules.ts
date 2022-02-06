@@ -4,25 +4,25 @@ import * as Joi from 'joi';
  * validation rules for the database connection values.
  */
 export const dbConnectionValidation = {
-  DB_DATABASE: Joi.string(),
-  DB_TYPE: Joi.string().valid('mysql').default('mysql'),
+  DB_DATABASE: Joi.string().default('nest'),
+  DB_TYPE: Joi.string().valid('mongo').default('mongo'),
   DB_HOST: Joi.when('DB_TYPE', {
-    is: Joi.equal('mysql'),
+    is: Joi.equal('mongo'),
     then: Joi.string().default('db'),
     otherwise: Joi.optional(),
   }),
   DB_PORT: Joi.when('DB_TYPE', {
-    is: Joi.equal('mysql'),
-    then: Joi.number().default(3306),
+    is: Joi.equal('mongo'),
+    then: Joi.number().default(3009),
     otherwise: Joi.optional(),
   }),
   DB_USERNAME: Joi.when('DB_TYPE', {
-    is: Joi.equal('mysql'),
+    is: Joi.equal('mongo'),
     then: Joi.string(),
     otherwise: Joi.optional(),
   }),
   DB_PASSWORD: Joi.when('DB_TYPE', {
-    is: Joi.equal('mysql'),
+    is: Joi.equal('mongo'),
     then: Joi.string(),
     otherwise: Joi.optional(),
   }),

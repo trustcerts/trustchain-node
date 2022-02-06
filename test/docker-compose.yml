@@ -13,7 +13,7 @@ volumes:
   db_shared:
 
 x-db-custom: &db-variables
-  DB_TYPE: mysql
+  DB_TYPE: mongo
   DB_HOST: ${DB_HOST-db}  
   DB_USERNAME: ${DB_USERNAME-root}
   DB_PASSWORD: ${DB_PASSWORD-rootpw}
@@ -231,10 +231,11 @@ services:
       <<: *db-variables
     volumes:
       - ../:/app
-      - /app/node_modules
+      - /app/node_modules       
     networks:
       internal:
 
+  
   test-wallet:
     image: trustcerts/trustchain-dev:${IMAGE_TAG-dev}
     command: npm run test:e2e-wallet
@@ -278,6 +279,8 @@ services:
       - db_shared:/app/db_shared
     networks:
       internal:
+    ports:
+      - ${PORT_PERSIST}:3000
 
   persist:
     image: trustcerts/trustchain-persist:${IMAGE_TAG-dev}
@@ -291,6 +294,9 @@ services:
       - persist:/app/storage
     networks:
       internal:
+    ports:
+      - ${PERSIST_PORT_HTTP}:3000
+      - ${PERSIST_PORT_TCP}:3001
 
   http:
     image: trustcerts/trustchain-http-${NODE_TYPE}:${IMAGE_TAG-dev}
@@ -344,11 +350,13 @@ services:
     volumes:
       - db:/data/db
       - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
-    networks:
-      internal:
+    ports:
+      - ${DB_PORT}:27017
 
   redis:
     image: redis
     restart: ${RESTART-always}
+    ports:
+     - ${REDIS_PORT}:6379
     networks:
       internal:

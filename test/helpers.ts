@@ -33,17 +33,6 @@ import { Server } from 'socket.io';
 import { TransactionMetadata } from '@tc/blockchain/transaction/transaction-metadata';
 
 /**
- * at least one array should be given
- *
- */
-interface oneOrMoreArray<T> extends Array<T> {
-  /**
-   * included elements
-   */
-  0: T;
-}
-
-/**
  * create block with given transactions.
  * @param transactions Transactions to create a block with
  * @param index index of the block
@@ -325,13 +314,12 @@ export function closeServer(server: Server): void {
  * @param services an array of services
  * @returns
  */
-export function startDependencies(
-  services: oneOrMoreArray<string>,
-): Promise<void> {
-  const renameServices = services.map((service) => `testing_${service}_1`);
+export function startDependencies(services: string[]): Promise<void> {
   return new Promise((resolve, reject) => {
     exec(
-      `docker start ${renameServices.toString().replaceAll(',', ' ')}`,
+      `docker-compose -f test/docker-compose.yml --env-file test/.env up -d ${services.join(
+        ' ',
+      )}`,
       (err) => {
         if (err) {
           reject(err);
@@ -347,13 +335,12 @@ export function startDependencies(
  * @param services an array of services
  * @returns
  */
-export function stopDependencies(
-  services: oneOrMoreArray<string>,
-): Promise<void> {
-  const renameServices = services.map((service) => `testing_${service}_1`);
+export function stopDependencies(services: string[]): Promise<void> {
   return new Promise((resolve, reject) => {
     exec(
-      `docker stop ${renameServices.toString().replaceAll(',', ' ')}`,
+      `docker-compose -f test/docker-compose.yml --env-file test/.env down -v ${services.join(
+        ' ',
+      )}`,
       (err) => {
         if (err) {
           reject(err);

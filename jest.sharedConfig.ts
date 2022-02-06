@@ -8,6 +8,8 @@ export default {
   },
   verbose: false,
   testEnvironment: 'node',
+  detectOpenHandles: true,
+  forceExit: true,
   moduleNameMapper: {
     '@apps/(.*)': '<rootDir>/apps/$1',
     '@shared/(.*)': '<rootDir>/apps/shared/$1',

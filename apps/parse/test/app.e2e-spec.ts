@@ -31,6 +31,8 @@ import { Model } from 'mongoose';
 import { getModelToken } from '@nestjs/mongoose';
 import { HashTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
 import { DidIdTransactionDto } from '@tc/did-id/dto/did-id-transaction.dto';
+import { config } from 'dotenv';
+import { ConfigService } from '@tc/config';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -39,10 +41,12 @@ describe('AppController (e2e)', () => {
   let persistClientService: PersistClientService;
   let hashRepository: Model<DidHash>;
   let didRepository: Model<DidId>;
+  let dockerDeps: string[] = ['persist', 'db'];
 
   beforeAll(async () => {
+    config({ path: 'test/.env' });
     if ((global as any).isE2E) {
-      await stopDependencies(['parse']);
+      await startDependencies(dockerDeps);
     }
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
@@ -56,6 +60,7 @@ describe('AppController (e2e)', () => {
         ]),
       ],
     }).compile();
+
     app = moduleFixture.createNestApplication();
     await addRedisEndpoint(app);
     await addTCPEndpoint(app);
@@ -67,7 +72,7 @@ describe('AppController (e2e)', () => {
     clientRedis = app.get(REDIS_INJECTION);
     clientTCP = app.get('ParseClient');
     await clientTCP.connect();
-  }, 15000);
+  }, 35000);
 
   beforeEach(async () => {
     clientRedis.emit(SYSTEM_RESET, {});
@@ -139,10 +144,10 @@ describe('AppController (e2e)', () => {
   afterAll(async () => {
     await wait(3000);
     if ((global as any).isE2E) {
-      await startDependencies(['parse']);
+      // await stopDependencies(dockerDeps);
     }
-    clientRedis.close();
-    clientTCP.close();
-    await app.close().catch(() => {});
+    // clientRedis.close();
+    // clientTCP.close();
+    // await app.close().catch(() => {});
   }, 15000);
 });

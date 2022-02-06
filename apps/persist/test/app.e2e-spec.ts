@@ -29,16 +29,19 @@ import {
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { lastValueFrom } from 'rxjs';
 import { ConfigService } from '@tc/config/config.service';
+import { config } from 'dotenv';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
   let clientRedis: ClientRedis;
   let clientTCP: ClientTCP;
   let path: string;
+  let dockerDeps: string[] = ['redis'];
 
   beforeAll(async () => {
+    config({ path: 'test/.env' });
     if ((global as any).isE2E) {
-      await stopDependencies(['parse', 'persist']);
+      await startDependencies(dockerDeps);
     }
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
@@ -47,7 +50,7 @@ describe('AppController (e2e)', () => {
           {
             name: 'PersistClient',
             transport: Transport.TCP,
-            options: { port: 3001 },
+            options: { port: 3001, host: 'localhost' },
           },
         ]),
       ],
@@ -62,7 +65,7 @@ describe('AppController (e2e)', () => {
     clientTCP = app.get('PersistClient');
     path = join(`${app.get(ConfigService).storagePath}`, 'bc');
     await clientTCP.connect();
-  }, 15000);
+  }, 25000);
 
   beforeEach(async () => {
     clientRedis.emit(SYSTEM_RESET, {});
@@ -151,7 +154,7 @@ describe('AppController (e2e)', () => {
   afterAll(async () => {
     fs.rmdirSync(app.get(ConfigService).storagePath, { recursive: true });
     if ((global as any).isE2E) {
-      await startDependencies(['parse', 'persist']);
+      await stopDependencies(dockerDeps);
     }
     clientRedis.close();
     clientTCP.close();
