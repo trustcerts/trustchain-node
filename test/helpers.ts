@@ -31,7 +31,8 @@ import { DidIdRegister } from '@trustcerts/did-id-create';
 import { HashTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
 import { Server } from 'socket.io';
 import { TransactionMetadata } from '@tc/blockchain/transaction/transaction-metadata';
-
+import * as fs from 'fs';
+import {join} from 'path';
 /**
  * create block with given transactions.
  * @param transactions Transactions to create a block with
@@ -241,6 +242,15 @@ export const transactionProperties: {
         values: [],
       },
     },
+    didDocSignature: {
+      type: SignatureType.single,
+      values: [
+        {
+          identifier: `${Identifier.generate('id')}#key1`,
+          signature: 'ddd',
+        },
+      ],
+    },
   },
   signature: {
     type: SignatureType.single,
@@ -297,6 +307,7 @@ export function createWSServer(port: number): Promise<Server> {
   });
 }
 
+
 /**
  * close an opened Server
  * @param server a server to close
@@ -314,8 +325,92 @@ export function closeServer(server: Server): void {
  * @param services an array of services
  * @returns
  */
-export function startDependencies(services: string[]): Promise<void> {
-  return new Promise((resolve, reject) => {
+export async function startDependencies(services: string[]){
+  let path = join(__dirname , '.env');
+  if(services.includes('parse')){
+    addOrOverwriteEnvVars(path, { DB_HOST: "172.17.0.1" , REDIS_URL:"172.17.0.1" , PERSIST_URL:"172.17.0.1" });
+    await new Promise((resolve, reject) => {
+      exec(
+        `docker-compose -f test/docker-compose.yml --env-file test/.env up -d parse`,
+        async (err) => {
+          if (err) {
+            reject(err);
+          }
+          addOrOverwriteEnvVars(path, { DB_HOST: "localhost", REDIS_URL:"localhost", PERSIST_URL:"localhost"});
+          services = removeStringsFromArr(services , ['parse']); 
+          resolve(true);
+        },
+      );
+    });
+  }
+  if(services.includes('network')){
+    addOrOverwriteEnvVars(path, { OWN_PEER:"network:3000" , DB_HOST: "172.17.0.1" , REDIS_URL:"172.17.0.1" , PERSIST_URL:"172.17.0.1" , PARSE_URL:"172.17.0.1" , WALLET_URL:"172.17.0.1" });
+    await new Promise((resolve, reject) => {
+      exec(
+        `docker-compose -f test/docker-compose.yml --env-file test/.env up -d network`,
+        async (err) => {
+          if (err) {
+            reject(err);
+          }
+          addOrOverwriteEnvVars(path, { OWN_PEER:"localhost:3508" , DB_HOST: "localhost" , REDIS_URL:"localhost" , PERSIST_URL:"localhost" , PARSE_URL:"localhost" , WALLET_URL:"localhost" });
+          services = removeStringsFromArr(services , ['network']); 
+          resolve(true);
+        },
+      );
+    });
+  }
+  if(services.includes('http')){
+    addOrOverwriteEnvVars(path, { DB_HOST: "172.17.0.1" , REDIS_URL:"172.17.0.1" , PARSE_URL:"172.17.0.1" , WALLET_URL:"172.17.0.1" });
+    await new Promise((resolve, reject) => {
+      exec(
+        `docker-compose -f test/docker-compose.yml --env-file test/.env up -d http`,
+        async (err) => {
+          if (err) {
+            reject(err);
+          }
+          addOrOverwriteEnvVars(path, { DB_HOST: "localhost" , REDIS_URL:"localhost" , PARSE_URL:"localhost" , WALLET_URL:"localhost" });
+          services = removeStringsFromArr(services , ['http']); 
+          resolve(true);
+        },
+      );
+    });
+  }
+  if(services.includes('wallet')){
+    addOrOverwriteEnvVars(path, {REDIS_URL:"172.17.0.1"});
+    await new Promise((resolve, reject) => {
+      exec(
+        `docker-compose -f test/docker-compose.yml --env-file test/.env up -d wallet`,
+        async (err) => {
+          if (err) {
+            reject(err);
+          }
+          addOrOverwriteEnvVars(path, {REDIS_URL:"localhost"});
+          services = removeStringsFromArr(services , ['wallet']); 
+          resolve(true);
+        },
+      );
+    });
+  }
+  if(services.includes('persist')){
+    addOrOverwriteEnvVars(path, {REDIS_URL:"172.17.0.1"});
+    await new Promise((resolve, reject) => {
+      exec(
+        `docker-compose -f test/docker-compose.yml --env-file test/.env up -d persist`,
+        async (err) => {
+          if (err) {
+            reject(err);
+          }
+          addOrOverwriteEnvVars(path, {REDIS_URL:"localhost"});
+          services = removeStringsFromArr(services , ['persist']); 
+          resolve(true);
+        },
+      );
+    });
+  }
+
+
+  await new Promise((resolve, reject) => {
+    console.log(services)
     exec(
       `docker-compose -f test/docker-compose.yml --env-file test/.env up -d ${services.join(
         ' ',
@@ -324,7 +419,7 @@ export function startDependencies(services: string[]): Promise<void> {
         if (err) {
           reject(err);
         }
-        resolve();
+        resolve(true);
       },
     );
   });
@@ -338,9 +433,26 @@ export function startDependencies(services: string[]): Promise<void> {
 export function stopDependencies(services: string[]): Promise<void> {
   return new Promise((resolve, reject) => {
     exec(
-      `docker-compose -f test/docker-compose.yml --env-file test/.env down -v ${services.join(
+      `docker-compose -f test/docker-compose.yml --env-file test/.env stop ${services.join(
         ' ',
       )}`,
+      (err) => {
+        if (err) {
+          reject(err);
+        }
+        resolve();
+      },
+    );
+  });
+}
+
+/**
+ * stop and remove all dependencies and volumes of a test.
+ */
+export function stopAndRemoveAllDeps(): Promise<void> {
+  return new Promise((resolve, reject) => {
+    exec(
+      `docker-compose -f test/docker-compose.yml --env-file test/.env down -v`,
       (err) => {
         if (err) {
           reject(err);
@@ -413,3 +525,41 @@ export async function createTemplate(
     templateTransaction,
   };
 }
+
+
+
+/**
+ * Change the env
+ * @param path path to Env file
+ * @param obj
+ */
+function addOrOverwriteEnvVars(path: string, obj: any): string {
+  let data = fs.readFileSync(path, 'utf8');
+  let dataToArr = data.split('\n');
+  Object.keys(obj).forEach(variable => {
+    let index = dataToArr.findIndex(element => element.includes(variable));
+    if (index != -1) {
+      dataToArr[index] = `${variable}=${obj[variable]}\r`
+    } else {
+      dataToArr.push(`${variable}=${obj[variable]}\r`)
+    }
+  });
+  fs.writeFileSync(path , dataToArr.join('\n'));
+  return dataToArr.join('\n');
+};
+
+function removeStringsFromArr(arr: string[], target: string[]): string[] {
+  return arr.filter(val => {
+    return !target.includes(val)
+  });
+}
+
+
+function getStringsfromArr(arr: string[], target: string[]): string[] {
+  return arr.filter(val => {
+    return target.includes(val)
+  });
+}
+
+
+

@@ -11,10 +11,11 @@ import * as fs from 'fs';
 import { Logger } from 'winston';
 import { ConfigService } from '@tc/config/config.service';
 import { Connection } from '@shared/connection';
-import { closeServer, createWSServer } from '@test/helpers';
+import { closeServer, createWSServer, startDependencies, stopAndRemoveAllDeps } from '@test/helpers';
 import { Server } from 'socket.io';
 import { io } from 'socket.io-client';
 import { HttpService } from '@nestjs/axios';
+import { config } from 'dotenv';
 
 describe('Network Observer (e2e)', () => {
   let app: INestApplication;
@@ -22,8 +23,11 @@ describe('Network Observer (e2e)', () => {
   let p2PService: P2PService;
   let httpService: HttpService;
   let logger: Logger;
+  let dockerDeps: string[] = ['db' , 'wallet' , 'persist' , 'redis'];
 
   beforeAll(async () => {
+    config({ path: 'test/.env' });
+    await startDependencies(dockerDeps);
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [NetworkObserverModule],
     }).compile();
@@ -63,7 +67,9 @@ describe('Network Observer (e2e)', () => {
   });
 
   afterAll(async () => {
-    fs.rmdirSync(app.get(ConfigService).storagePath, { recursive: true });
-    await app.close().catch(() => {});
+    fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
+    clientRedis.close();
+    await app.close();
+    await stopAndRemoveAllDeps()
   }, 15000);
 });

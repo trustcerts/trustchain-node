@@ -23,6 +23,8 @@ import {
   closeServer,
   createDidForTesting,
   createWSServer,
+  startDependencies,
+  stopAndRemoveAllDeps,
 } from '@test/helpers';
 import { Server } from 'socket.io';
 import { io } from 'socket.io-client';
@@ -31,6 +33,7 @@ import {
   WS_TRANSACTION_REJECTED,
 } from '@tc/blockchain/blockchain.events';
 import { HttpService } from '@nestjs/axios';
+import { config } from 'dotenv';
 
 describe('Network Gateway (e2e)', () => {
   let app: INestApplication;
@@ -41,8 +44,11 @@ describe('Network Gateway (e2e)', () => {
   let httpService: HttpService;
   let logger: Logger;
   let didTransaction: { did: DidId; transaction: TransactionDto };
+  let dockerDeps: string[] = ['db' ,  'wallet' , 'persist' , 'redis'];
 
   beforeAll(async () => {
+    config({ path: 'test/.env' });
+    await startDependencies(dockerDeps);
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [NetworkGatewayModule],
     }).compile();
@@ -155,8 +161,10 @@ describe('Network Gateway (e2e)', () => {
   });
 
   afterAll(async () => {
-    fs.rmdirSync(app.get(ConfigService).storagePath, { recursive: true });
+    fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
     clientRedis.close();
     await app.close().catch(() => {});
+    await stopAndRemoveAllDeps();
+
   });
 });

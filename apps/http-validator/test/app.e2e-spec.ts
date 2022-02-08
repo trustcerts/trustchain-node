@@ -13,10 +13,11 @@ import { ClientRedis } from '@nestjs/microservices';
 import { HashService } from '@tc/blockchain';
 import { addRedisEndpoint } from '@shared/main-functions';
 import { ConfigService } from '@tc/config/config.service';
-import { addListenerToTransactionParsed } from '@test/helpers';
+import { addListenerToTransactionParsed, startDependencies, stopAndRemoveAllDeps } from '@test/helpers';
 import { HttpValidatorService } from '../src/http-validator.service';
 import { wait } from '@shared/helpers';
 import { DidIdRegister } from '@trustcerts/did-id-create';
+import { config } from 'dotenv';
 
 describe('ValidatorController (e2e)', () => {
   let app: INestApplication;
@@ -24,10 +25,12 @@ describe('ValidatorController (e2e)', () => {
   let clientRedis: ClientRedis;
   let hashService: HashService;
   let httpValidatorService: HttpValidatorService;
+  let dockerDeps: string[] = ['db' ,  'wallet' , 'parse', 'persist' , 'redis' , 'network'];
+
+
   beforeAll(async () => {
-    process.env.NODE_SECRET = 'iAmJustASecret';
-    process.env.NETWORK_SECRET = 'iAmJustASecret';
-    process.env.RESET = 'true';
+    config({ path: 'test/.env' });
+    await startDependencies(dockerDeps);
     Identifier.setNetwork('tc:test');
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [HttpValidatorModule],
@@ -176,8 +179,9 @@ describe('ValidatorController (e2e)', () => {
   });
 
   afterAll(async () => {
-    fs.rmdirSync(app.get(ConfigService).storagePath, { recursive: true });
+    fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
     clientRedis.close();
     await app.close().catch(() => {});
+    await stopAndRemoveAllDeps();
   }, 15000);
 });

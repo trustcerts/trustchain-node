@@ -34,6 +34,8 @@ import {
   addListenerToTransactionParsed,
   createTemplate,
   transactionProperties,
+  startDependencies,
+  stopAndRemoveAllDeps,
 } from '@test/helpers';
 import { HttpGatewayService } from '../src/http-gateway.service';
 import { wait } from '@shared/helpers';
@@ -41,6 +43,7 @@ import { InviteService } from '@tc/invite';
 import { TextEncoder } from 'util';
 import { HashTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
 import { CreateDidIdDto } from '@tc/did-id/dto/create-did-id.dto';
+import { config } from 'dotenv';
 
 describe('Http Gateway (e2e)', () => {
   let app: INestApplication;
@@ -52,10 +55,11 @@ describe('Http Gateway (e2e)', () => {
   let httpGateWayService: HttpGatewayService;
   let didTransaction: { did: Did; transaction: TransactionDto };
   let inviteService: InviteService;
+  let dockerDeps: string[] = ['db' ,  'wallet' , 'parse', 'persist' , 'redis' , 'network'];
 
   beforeAll(async () => {
-    process.env.NODE_SECRET = 'iAmJustASecret';
-    process.env.RESET = 'true';
+    config({ path: 'test/.env' });
+    await startDependencies(dockerDeps);
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [HttpGatewayModule],
     }).compile();
@@ -71,7 +75,7 @@ describe('Http Gateway (e2e)', () => {
     walletClientService = app.get(WalletClientService);
     hashService = app.get(HashService);
     httpGateWayService = app.get(HttpGatewayService);
-  }, 15000);
+  }, 60000);
 
   beforeEach(async () => {
     httpGateWayService.reset();
@@ -322,9 +326,9 @@ describe('Http Gateway (e2e)', () => {
   });
 
   afterAll(async () => {
-    fs.rmdirSync(app.get(ConfigService).storagePath, { recursive: true });
+    fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
     clientRedis.close();
     await app.close().catch(() => {});
-  }),
-    15000;
+    await stopAndRemoveAllDeps();
+  }, 15000);
 });

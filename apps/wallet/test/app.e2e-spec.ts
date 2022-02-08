@@ -19,22 +19,23 @@ import * as fs from 'fs';
 import { join } from 'path';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
 import { wait } from '@shared/helpers';
-import { startDependencies, stopDependencies } from '@test/helpers';
+import { startDependencies, stopAndRemoveAllDeps, stopDependencies } from '@test/helpers';
 import { ConfigService } from '@tc/config/config.service';
 import { DidId } from '@trustcerts/core';
 import { lastValueFrom } from 'rxjs';
 import { DidIdRegister } from '@trustcerts/did-id-create';
+import { config } from 'dotenv';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
   let clientRedis: ClientRedis;
   let clientTCP: ClientTCP;
   let path: string;
+  let dockerDeps: string[] = ['redis'];
 
   beforeAll(async () => {
-    if ((global as any).isE2E) {
-      await stopDependencies(['parse', 'persist', 'wallet']);
-    }
+    config({ path: 'test/.env' });
+    await startDependencies(dockerDeps);
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
         WalletModule,
@@ -144,10 +145,8 @@ describe('AppController (e2e)', () => {
   });
 
   afterAll(async () => {
-    fs.rmdirSync(app.get(ConfigService).storagePath, { recursive: true });
-    if ((global as any).isE2E) {
-      await startDependencies(['parse', 'persist', 'wallet']);
-    }
+    fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
+    await stopAndRemoveAllDeps();
     clientRedis.close();
     clientTCP.close();
     await app.close();

@@ -12,7 +12,8 @@ on:
 # TODO evaluate if we need the pr number since we store the images in the cicd cache and not in a registry during the branches
 # env:
 #   PR_NUMBER: ${{ github.event.pull_request.number }}
-
+ 
+ 
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -125,6 +126,7 @@ jobs:
           path: ./*.xml
 
   # TODO check if containers have to be build before the e2e test
+  # TODO check if we moved completely to npm run test
   e2e:
     needs: build-packages
     runs-on: ubuntu-latest
@@ -166,10 +168,7 @@ jobs:
         run: node tools/load-docker-images.mjs
 
       - name: e2e test
-        run: |
-          printf "\nIMAGE_TAG=latest\n" >> test/.env
-          cat test/.env
-          docker-compose -f test/docker-compose.yml --env-file test/.env run test-${{ matrix.services }} npm run test:e2e-${{ matrix.services }}-ci
+        run: npm run test:e2e-${{ matrix.services }}
 
       - name: Upload E2E Test Results
         if: always()

@@ -24,7 +24,7 @@ import {
   sendBlock,
   setBlock,
   startDependencies,
-  stopDependencies,
+  stopAndRemoveAllDeps,
 } from '@test/helpers';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { lastValueFrom } from 'rxjs';
@@ -40,9 +40,7 @@ describe('AppController (e2e)', () => {
 
   beforeAll(async () => {
     config({ path: 'test/.env' });
-    if ((global as any).isE2E) {
-      await startDependencies(dockerDeps);
-    }
+    await startDependencies(dockerDeps);
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
         PersistModule,
@@ -151,13 +149,11 @@ describe('AppController (e2e)', () => {
     expect(fs.readdirSync(path).length).toBe(0);
   }, 10000);
 
-  afterAll(async () => {
-    fs.rmdirSync(app.get(ConfigService).storagePath, { recursive: true });
-    if ((global as any).isE2E) {
-      await stopDependencies(dockerDeps);
-    }
-    clientRedis.close();
-    clientTCP.close();
-    await app.close();
-  }, 15000);
+    afterAll(async () => {
+      fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
+      await stopAndRemoveAllDeps();
+      clientRedis.close();
+      clientTCP.close();
+      await app.close();
+    }, 15000);
 });

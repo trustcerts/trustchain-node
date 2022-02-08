@@ -10,9 +10,10 @@ import { InviteNode } from '@tc/invite/dto/invite-node.dto';
 import { addRedisEndpoint } from '@shared/main-functions';
 import * as fs from 'fs';
 import { ConfigService } from '@tc/config/config.service';
-import { createTemplate } from '@test/helpers';
+import { createTemplate, startDependencies, stopAndRemoveAllDeps } from '@test/helpers';
 import { HttpObserverService } from '../src/http-observer.service';
 import { wait } from '@shared/helpers';
+import { config } from 'dotenv';
 
 describe('ObserverController (e2e)', () => {
   let app: INestApplication;
@@ -20,11 +21,11 @@ describe('ObserverController (e2e)', () => {
   let walletClientService: WalletClientService;
   let clientRedis: ClientRedis;
   let httpObserverService: HttpObserverService;
+  let dockerDeps: string[] = ['db' ,  'wallet' , 'parse', 'persist' , 'redis' , 'network'];
 
   beforeAll(async () => {
-    // TODO better set variables in .env file and pass it to the container. this allows the test to share an env variable
-    process.env.NODE_SECRET = 'iAmJustASecret';
-    process.env.RESET = 'true';
+    config({ path: 'test/.env' });
+    await startDependencies(dockerDeps);
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [HttpObserverModule],
     }).compile();
@@ -32,12 +33,11 @@ describe('ObserverController (e2e)', () => {
     await addRedisEndpoint(app);
     await app.startAllMicroservices();
     await app.init();
-
     clientRedis = app.get(REDIS_INJECTION);
     didCachedService = app.get(DidIdCachedService);
     walletClientService = app.get(WalletClientService);
     httpObserverService = app.get(HttpObserverService);
-  }, 15000);
+  }, 60000);
 
   beforeEach(async () => {
     httpObserverService.reset();
@@ -171,7 +171,9 @@ describe('ObserverController (e2e)', () => {
   }, 15000);
 
   afterAll(async () => {
-    fs.rmdirSync(app.get(ConfigService).storagePath, { recursive: true });
+    fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
+    clientRedis.close();
     await app.close().catch(() => {});
+    await stopAndRemoveAllDeps();
   }, 15000);
 });

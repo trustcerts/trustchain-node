@@ -21,6 +21,9 @@ import {
   setBlock,
   sendBlock,
   closeServer,
+  startDependencies,
+  stopDependencies,
+  stopAndRemoveAllDeps,
 } from '@test/helpers';
 import { Server } from 'socket.io';
 import { io } from 'socket.io-client';
@@ -31,6 +34,7 @@ import { DidId } from '@trustcerts/core';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { RoleManageAddEnum } from '@tc/did-id/constants';
 import { HttpService } from '@nestjs/axios';
+import { config } from 'dotenv';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -41,10 +45,11 @@ describe('AppController (e2e)', () => {
   let walletClientService: WalletClientService;
   let didCachedService: DidIdCachedService;
   let didTransaction: { did: DidId; transaction: TransactionDto };
+  let dockerDeps: string[] = ['db' , 'parse' , 'wallet' , 'network' , 'persist' , 'redis'];
 
   beforeAll(async () => {
-    process.env.OWN_PEER = 'network:3000';
-    process.env.NETWORK_SECRET = 'iAmJustASecret';
+    config({ path: 'test/.env' });
+    await startDependencies(dockerDeps);
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [NetworkValidatorModule],
     }).compile();
@@ -58,13 +63,16 @@ describe('AppController (e2e)', () => {
     didCachedService = app.get(DidIdCachedService);
     clientRedis = app.get<ClientRedis>(REDIS_INJECTION);
     p2PService = app.get(P2PService);
-
+    
+    console.log('test1')
     didTransaction = await createDidForTesting(
       walletClientService,
       didCachedService,
     );
     sendBlock(setBlock([didTransaction.transaction], 1), clientRedis, true);
-  }, 15000);
+    console.log('test2')
+
+  }, 60000);
 
   it('Returns the type of the node and the service that was exposed', () => {
     return request(app.getHttpServer()).get('/').expect(200).expect({
@@ -148,6 +156,8 @@ describe('AppController (e2e)', () => {
   afterAll(async () => {
     await wait(5000);
     fs.rmdirSync(app.get(ConfigService).storagePath, { recursive: true });
+    clientRedis.close();
     await app.close().catch(() => {});
+    await stopAndRemoveAllDeps();
   }, 15000);
 });

@@ -23,6 +23,7 @@ import {
   sendBlock,
   setBlock,
   startDependencies,
+  stopAndRemoveAllDeps,
   stopDependencies,
 } from '@test/helpers';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
@@ -32,7 +33,6 @@ import { getModelToken } from '@nestjs/mongoose';
 import { HashTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
 import { DidIdTransactionDto } from '@tc/did-id/dto/did-id-transaction.dto';
 import { config } from 'dotenv';
-import { ConfigService } from '@tc/config';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -41,13 +41,11 @@ describe('AppController (e2e)', () => {
   let persistClientService: PersistClientService;
   let hashRepository: Model<DidHash>;
   let didRepository: Model<DidId>;
-  let dockerDeps: string[] = ['persist', 'db'];
+  let dockerDeps: string[] = ['persist', 'db' , 'redis'];
 
   beforeAll(async () => {
     config({ path: 'test/.env' });
-    if ((global as any).isE2E) {
-      await startDependencies(dockerDeps);
-    }
+    await startDependencies(dockerDeps);
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
         ParseModule,
@@ -94,7 +92,7 @@ describe('AppController (e2e)', () => {
     } else {
       fail("it didn't parsed the block successfully");
     }
-  });
+  }, 15000);
 
   it('Should remove from database and rebuild from persist', async () => {
     const hashTransaction: HashTransactionDto = generateTestHashTransaction();
@@ -121,7 +119,7 @@ describe('AppController (e2e)', () => {
     } else {
       fail("it didn't parsed the block successfully");
     }
-  });
+  } , 15000);
 
   it('Should reset the system and clean the database', async () => {
     const hashTransaction: TransactionDto = generateTestHashTransaction();
@@ -139,15 +137,13 @@ describe('AppController (e2e)', () => {
     } else {
       fail("it didn't parsed the block successfully");
     }
-  });
+  }, 15000);
 
   afterAll(async () => {
     await wait(3000);
-    if ((global as any).isE2E) {
-      // await stopDependencies(dockerDeps);
-    }
-    // clientRedis.close();
-    // clientTCP.close();
-    // await app.close().catch(() => {});
+    clientRedis.close();
+    clientTCP.close();
+    await app.close();
+    await stopAndRemoveAllDeps();
   }, 15000);
 });
