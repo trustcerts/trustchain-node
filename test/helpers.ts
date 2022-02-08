@@ -548,18 +548,15 @@ function addOrOverwriteEnvVars(path: string, obj: any): string {
   return dataToArr.join('\n');
 };
 
-function removeStringsFromArr(arr: string[], target: string[]): string[] {
+/**
+ * remove list of strings from an array
+ * @param arr the list that contain the strings
+ * @param target list of strings to get rid of
+ * @returns new array
+ */
+function removeStringsFromArr(arr: string[], targets: string[]): string[] {
   return arr.filter(val => {
-    return !target.includes(val)
+    return !targets.includes(val)
   });
 }
-
-
-function getStringsfromArr(arr: string[], target: string[]): string[] {
-  return arr.filter(val => {
-    return target.includes(val)
-  });
-}
-
-
 
