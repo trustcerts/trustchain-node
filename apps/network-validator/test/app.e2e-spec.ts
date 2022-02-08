@@ -45,10 +45,18 @@ describe('AppController (e2e)', () => {
   let walletClientService: WalletClientService;
   let didCachedService: DidIdCachedService;
   let didTransaction: { did: DidId; transaction: TransactionDto };
-  let dockerDeps: string[] = ['db' , 'parse' , 'wallet' , 'network' , 'persist' , 'redis'];
+  let dockerDeps: string[] = [
+    'db',
+    'parse',
+    'wallet',
+    'network',
+    'persist',
+    'redis',
+  ];
 
   beforeAll(async () => {
-    config({ path: 'test/.env' });
+    console.log(config({ path: 'test/.env' }));
+    console.log(config({ path: 'test/test.env', override: true }));
     await startDependencies(dockerDeps);
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [NetworkValidatorModule],
@@ -63,15 +71,14 @@ describe('AppController (e2e)', () => {
     didCachedService = app.get(DidIdCachedService);
     clientRedis = app.get<ClientRedis>(REDIS_INJECTION);
     p2PService = app.get(P2PService);
-    
-    console.log('test1')
+
+    console.log('test1');
     didTransaction = await createDidForTesting(
       walletClientService,
       didCachedService,
     );
     sendBlock(setBlock([didTransaction.transaction], 1), clientRedis, true);
-    console.log('test2')
-
+    console.log('test2');
   }, 60000);
 
   it('Returns the type of the node and the service that was exposed', () => {

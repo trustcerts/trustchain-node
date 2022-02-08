@@ -14,7 +14,7 @@ volumes:
 
 x-db-custom: &db-variables
   DB_TYPE: mongo
-  DB_HOST: ${DB_HOST-db}  
+  DB_HOST: ${DB_HOST-db}
   DB_USERNAME: ${DB_USERNAME-root}
   DB_PASSWORD: ${DB_PASSWORD-rootpw}
   DB_DATABASE: ${DB_DATABASE-trustchain}
@@ -31,8 +31,8 @@ services:
     networks:
       internal:
     ports:
-      - ${WALLET_PORT_HTTP}:3000
-      - ${WALLET_PORT_TCP}:3001
+      - ${PUBLISH_WALLET_PORT_HTTP}:3000
+      - ${PUBLISH_WALLET_PORT_TCP}:3001
 
   parse:
     image: trustcerts/trustchain-parse:${IMAGE_TAG-dev}
@@ -47,8 +47,8 @@ services:
     networks:
       internal:
     ports:
-      - ${PARSE_PORT_HTTP}:3000
-      - ${PARSE_PORT_TCP}:3001
+      - ${PUBLISH_PARSE_PORT_HTTP}:3000
+      - ${PUBLISH_PARSE_PORT_TCP}:3001
 
   persist:
     image: trustcerts/trustchain-persist:${IMAGE_TAG-dev}
@@ -61,8 +61,8 @@ services:
     networks:
       internal:
     ports:
-      - ${PERSIST_PORT_HTTP}:3000
-      - ${PERSIST_PORT_TCP}:3001
+      - ${PUBLISH_PERSIST_PORT_HTTP}:3000
+      - ${PUBLISH_PERSIST_PORT_TCP}:3001
 
   http:
     image: trustcerts/trustchain-http-${NODE_TYPE}:${IMAGE_TAG-dev}
@@ -79,13 +79,13 @@ services:
     networks:
       internal:
     ports:
-      - ${HTTP_PORT_HTTP}:3000
-      - ${HTTP_PORT_TCP}:3001
+      - ${PUBLISH_HTTP_PORT_HTTP}:3000
+      - ${PUBLISH_HTTP_PORT_TCP}:3001
   network:
     image: trustcerts/trustchain-network-${NODE_TYPE}:${IMAGE_TAG-dev}
     restart: ${RESTART-always}
     environment:
-      OWN_PEER: ${OWN_PEER-info}    
+      OWN_PEER: ${OWN_PEER-info}
       NETWORK_SECRET: ${NETWORK_SECRET}
       CHUNK_SIZE: ${CHUNK_SIZE-100}
       IDENTIFIER: ${IDENTIFIER}
@@ -97,8 +97,8 @@ services:
     networks:
       internal:
     ports:
-    - ${NETWORK_PORT_HTTP}:3000
-    - ${NETWORK_PORT_TCP}:3001
+      - ${PUBLISH_NETWORK_PORT_HTTP}:3000
+      - ${PUBLISH_NETWORK_PORT_TCP}:3001
   db:
     image: mongo
     restart: ${RESTART-always}
@@ -110,14 +110,12 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD-rootpw}
       MONGO_INITDB_DATABASE: ${DB_DATABASE-trustchain}
     ports:
-      - ${DB_PORT}:27017
-    extra_hosts:
-      - "host.docker.internal:172.17.0.1"
-      
+      - ${PUBLISH_DB_PORT}:27017
+
   redis:
     image: redis
     restart: ${RESTART-always}
     ports:
-     - ${REDIS_PORT}:6379
+      - ${PUBLISH_REDIS_PORT}:6379
     networks:
       internal:

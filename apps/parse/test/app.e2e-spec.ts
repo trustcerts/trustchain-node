@@ -2,6 +2,7 @@ import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ParseModule } from '../src/parse.module';
 import {
+  BLOCK_COUNTER,
   CHAIN_REBUILD,
   REDIS_INJECTION,
   SYSTEM_RESET,
@@ -33,6 +34,8 @@ import { getModelToken } from '@nestjs/mongoose';
 import { HashTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
 import { DidIdTransactionDto } from '@tc/did-id/dto/did-id-transaction.dto';
 import { config } from 'dotenv';
+import { PERSIST_TCP_INJECTION } from '@tc/persist-client/constants';
+import { lastValueFrom } from 'rxjs';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -41,10 +44,11 @@ describe('AppController (e2e)', () => {
   let persistClientService: PersistClientService;
   let hashRepository: Model<DidHash>;
   let didRepository: Model<DidId>;
-  let dockerDeps: string[] = ['persist', 'db' , 'redis'];
+  let dockerDeps: string[] = ['persist', 'db', 'redis'];
 
   beforeAll(async () => {
     config({ path: 'test/.env' });
+    config({ path: 'test/test.env', override: true });
     await startDependencies(dockerDeps);
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
@@ -119,7 +123,7 @@ describe('AppController (e2e)', () => {
     } else {
       fail("it didn't parsed the block successfully");
     }
-  } , 15000);
+  }, 15000);
 
   it('Should reset the system and clean the database', async () => {
     const hashTransaction: TransactionDto = generateTestHashTransaction();

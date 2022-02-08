@@ -3,17 +3,11 @@ import {
   BLOCK_COUNTER,
   BLOCK_CREATED,
   BLOCK_REQUEST,
-  REDIS_INJECTION,
   SYSTEM_RESET,
 } from '@tc/event-client/constants';
 import { Block } from '@tc/blockchain/block/block.interface';
-import {
-  ClientRedis,
-  EventPattern,
-  MessagePattern,
-  Transport,
-} from '@nestjs/microservices';
 import { Controller, Inject } from '@nestjs/common';
+import { EventPattern, MessagePattern, Transport } from '@nestjs/microservices';
 import { Logger } from 'winston';
 import { PersistService } from './persist.service';
 
@@ -30,7 +24,6 @@ export class PersistController {
    */
   constructor(
     private readonly persistService: PersistService,
-    @Inject(REDIS_INJECTION) private client: ClientRedis,
     @Inject('winston') private readonly logger: Logger,
   ) {}
 
