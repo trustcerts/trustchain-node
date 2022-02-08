@@ -31,7 +31,7 @@
     "test:unit-persist": "jest ./apps/persist/src",
     "doc": "compodoc -p tsconfig.json -w --theme material -s -r 8000",
     "doc:build": "compodoc -p tsconfig.json -w --theme material",
-    "coverage": "compodoc --coverageTest",
+    "coverage": "compodoc -p tsconfig.json --coverageTest 95 --coverageTestShowOnlyFailed",
     "watch:wallet": "nest build wallet --watch",
     "watch:parse": "nest build parse --watch",
     "watch:persist": "nest build persist --watch",

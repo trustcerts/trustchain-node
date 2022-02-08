@@ -292,9 +292,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      # TODO include the --unitTestCoverage [json-summary] from the tests above
       - name: Install and Build
         run: |
-          npm install -g @compodoc/compodoc
+          npm install -g @compodoc/compodoc          
           npm run doc
 
       - name: Deploy
