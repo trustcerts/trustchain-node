@@ -53,7 +53,8 @@ describe('AppController (e2e)', () => {
           {
             name: 'ParseClient',
             transport: Transport.TCP,
-            options: { port: 3001 },
+            // use 127.0.0.1 since localhost makes some problems
+            options: { port: 3001, host: '127.0.0.1' },
           },
         ]),
       ],
@@ -74,7 +75,7 @@ describe('AppController (e2e)', () => {
 
   beforeEach(async () => {
     clientRedis.emit(SYSTEM_RESET, {});
-    await wait(2000);
+    await wait(1000);
   });
 
   it('Should parse and persist a block', async () => {
@@ -144,5 +145,5 @@ describe('AppController (e2e)', () => {
     clientTCP.close();
     await app.close();
     await stopAndRemoveAllDeps();
-  }, 15000);
+  }, 30000);
 });

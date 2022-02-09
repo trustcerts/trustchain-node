@@ -2,6 +2,7 @@ import { ClientRedis } from '@nestjs/microservices';
 import { Counter } from 'prom-client';
 import { DidId } from '@trustcerts/core';
 import { DidIdDocument } from '@tc/did-id/schemas/did-id.schema';
+import { DidSchema } from '@tc/schema/schemas/did-schema.schema';
 import { DidTemplate, TemplateDocument } from '../schemas/did-template.schema';
 import {
   DidTemplateTransaction,
@@ -16,6 +17,7 @@ import { Model } from 'mongoose';
 import { ParseService } from '@apps/parse/src/parse.service';
 import { ParsingService } from '@shared/transactions/parsing.service';
 import { REDIS_INJECTION } from '@tc/event-client/constants';
+import { SchemaCachedService } from '@tc/schema/schema-cached/schema-cached.service';
 import { TemplateTransactionDto } from '../dto/template.transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
@@ -42,6 +44,7 @@ export class TemplateParsingService extends ParsingService {
     private didTemplateRepository: Model<TemplateDocument>,
     @InjectModel(DidTemplateTransaction.name)
     didTemplateDocumentRepository: Model<TemplateTransactionDocument>,
+    private readonly schemaCachedService: SchemaCachedService,
     @InjectMetric('transactions')
     protected readonly transactionsCounter: Counter<string>,
     private readonly parseService: ParseService,
@@ -69,20 +72,22 @@ export class TemplateParsingService extends ParsingService {
   protected async parseDid(transaction: TemplateTransactionDto) {
     await this.addDocument(transaction);
     this.store(transaction.body.value.id, transaction.body.value.template);
-    const did = await this.didTemplateRepository
-      .findOne({ id: transaction.body.value.id })
-      .then(async (did) => {
-        if (!did) {
-          did = new this.didTemplateRepository({
-            id: transaction.body.value.id,
-          });
-        }
-        return did;
-      });
-
-    await this.updateController(did, transaction);
-    did
-      .save()
+    const schema = await this.schemaCachedService.getById<DidSchema>(
+      transaction.body.value.schemaId,
+    );
+    this.didTemplateRepository
+      .findOneAndUpdate(
+        { id: transaction.body.value.id },
+        {
+          schema,
+          $pull: {
+            controllers: { $in: [transaction.body.value.controller?.remove] },
+          },
+          $push: {
+            controllers: { $in: [transaction.body.value.controller?.add] },
+          },
+        },
+      )
       .then(() => {
         this.logger.debug({
           message: `added template ${transaction.body.value.id}`,

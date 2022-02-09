@@ -386,7 +386,7 @@ export async function createTemplate(
       date: new Date().toISOString(),
       type: TransactionType.Template,
       value: {
-        schema: schemaId,
+        schemaId,
         id: Identifier.generate('tmp'),
         template,
         compression: {

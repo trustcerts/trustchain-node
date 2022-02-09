@@ -1,14 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Did } from '@shared/did/schemas/did.schema';
 import { Document } from 'mongoose';
-import { Schema as MongoSchema, Prop, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 export type SchemaDocument = DidSchema & Document;
 
 /**
  * Describes the values of a schema that is used for presentation.
  */
-@MongoSchema()
+@Schema()
 export class DidSchema extends Did {
   /**
    * Value of the schema.

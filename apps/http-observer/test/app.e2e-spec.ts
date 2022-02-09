@@ -109,7 +109,7 @@ describe('ObserverController (e2e)', () => {
       clientRedis,
     );
     return request(app.getHttpServer())
-      .get(`/template/${templateTransaction.body.value.id}`)
+      .get(`/template/did/${templateTransaction.body.value.id}`)
       .expect(200);
   });
 

@@ -1,5 +1,6 @@
 import { ConfigService } from '@tc/config';
 import { ConflictException, Inject, Injectable } from '@nestjs/common';
+import { DidTemplate } from '@tc/template/schemas/did-template.schema';
 import { GatewayBlockchainService } from '../gateway-blockchain/gateway-blockchain.service';
 import { GatewayTransactionService } from '../gateway-transaction.service';
 import { HashService } from '@tc/blockchain';
@@ -47,14 +48,16 @@ export class GatewayTemplateService extends GatewayTransactionService {
    * @param transaction
    */
   async addTemplate(transaction: TemplateTransactionDto) {
-    return this.templateCachedService.getById(transaction.body.value.id).then(
-      () => {
-        throw new ConflictException('id already taken');
-      },
-      async () => ({
-        metaData: await this.addTransaction(transaction),
-        transaction,
-      }),
-    );
+    return this.templateCachedService
+      .getById<DidTemplate>(transaction.body.value.id)
+      .then(
+        () => {
+          throw new ConflictException('id already taken');
+        },
+        async () => ({
+          metaData: await this.addTransaction(transaction),
+          transaction,
+        }),
+      );
   }
 }

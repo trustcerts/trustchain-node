@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Compression } from './compression.dto';
+import { DidStructure } from '@apps/shared/did/dto/did-structure.dto';
 import { IsString, Matches } from 'class-validator';
 import { TEMPLATE_NAME } from '../constants';
 import { Type } from 'class-transformer';
@@ -9,7 +10,7 @@ import { getDid } from '@shared/helpers';
  * Describes the value of a template.
  */
 
-export class TemplateStructure {
+export class TemplateStructure extends DidStructure {
   /**
    * Unique identifier.
    */
@@ -32,14 +33,13 @@ export class TemplateStructure {
   template!: string;
 
   /**
-   * json schema to validate the data that should be parsed into the
+   * did of the schema the template is based on
    */
   @ApiProperty({
-    description:
-      'json schema to validate the data that should be parsed into the',
+    description: 'did of the schema the template is based on',
   })
   @IsString()
-  schema!: string;
+  schemaId!: string;
 
   /**
    * Information about the used compression algorithm.

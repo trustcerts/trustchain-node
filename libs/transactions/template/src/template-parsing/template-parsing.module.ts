@@ -13,6 +13,7 @@ import {
   PrometheusModule,
   makeCounterProvider,
 } from '@willsoto/nestjs-prometheus';
+import { SchemaCachedModule } from '@tc/schema/schema-cached/schema-cached.module';
 import { TEMPLATE_CONNECTION } from '../constants';
 import { TemplateDbModule } from '../template-db/template-db.module';
 import { TemplateParsingService } from './template-parsing.service';
@@ -24,6 +25,7 @@ import { TemplateParsingService } from './template-parsing.service';
     HashModule,
     TemplateDbModule,
     DidIdCachedModule,
+    SchemaCachedModule,
     MongooseModule.forFeature(
       [
         { name: DidTemplate.name, schema: TemplateSchema },

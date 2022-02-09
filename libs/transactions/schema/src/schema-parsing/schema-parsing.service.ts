@@ -66,21 +66,20 @@ export class SchemaParsingService extends ParsingService {
    */
   protected async parseDid(transaction: SchemaTransactionDto) {
     await this.addDocument(transaction);
-    const did = await this.didSchemaRepository
-      .findOne({ id: transaction.body.value.id })
-      .then(async (did) => {
-        if (!did) {
-          did = new this.didSchemaRepository({
-            id: transaction.body.value.id,
-            schema: transaction.body.value.schema,
-          });
-        }
-        return did;
-      });
-
-    await this.updateController(did, transaction);
-    did
-      .save()
+    this.didSchemaRepository
+      .findOneAndUpdate(
+        { id: transaction.body.value.id },
+        {
+          // TODO check what happens if value is zero
+          schema: transaction.body.value.schema,
+          $pull: {
+            controllers: { $in: [transaction.body.value.controller?.remove] },
+          },
+          $push: {
+            controllers: { $in: [transaction.body.value.controller?.add] },
+          },
+        },
+      )
       .then(() => {
         this.logger.debug({
           message: `added schema ${transaction.body.value.id}`,

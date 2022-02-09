@@ -26,7 +26,9 @@ export class Did extends BcEntity {
    * Controllers are authorized to make changes to the document.
    * https://www.w3.org/TR/did-core/#control
    */
-  @Prop({ type: [{ type: MongooseSchema.Types.ObjectId, ref: 'DidId' }] })
+  @Prop({
+    type: [{ type: MongooseSchema.Types.ObjectId, ref: 'DidId' }],
+  })
   controllers!: DidId[];
 }
 

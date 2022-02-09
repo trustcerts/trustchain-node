@@ -34,7 +34,7 @@ export class TemplateCachedService extends CachedService {
    * @returns
    */
   async getTemplateOrFail(id: string): Promise<DidTemplate> {
-    const template = await this.getById(id);
+    const template = await this.getById<DidTemplate>(id);
     if (!template) {
       throw new NotFoundException('template not found');
     }

@@ -40,7 +40,7 @@ export abstract class CachedService {
    * @param id
    * @returns
    */
-  public async getById(id: string): Promise<Did> {
+  public async getById<T extends Did>(id: string): Promise<T> {
     const did = await this.didModel.findOne({ id });
     if (!did) {
       throw Error(`${id} not found`);
