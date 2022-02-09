@@ -88,7 +88,9 @@ describe('ObserverController (e2e)', () => {
     const hash =
       '9991d650bd700b85f15ec25e0df27gcfa988a4401378b9e3b95c8fe8d1a5b61e';
     await createTemplate(
-      hash,
+      '<h1>Hello there</h1>',
+      '',
+      '',
       walletClientService,
       didCachedService,
       clientRedis,
@@ -99,7 +101,9 @@ describe('ObserverController (e2e)', () => {
   //#Template_Section
   it('should look for an entry to the template', async () => {
     let { templateTransaction } = await createTemplate(
-      '9991d650bd700b85f15ec25e0df27gcfa988a4401378b9e3b95c8fe8d1a5b61e',
+      '<h1>Hello there</h1>',
+      '',
+      '',
       walletClientService,
       didCachedService,
       clientRedis,
@@ -112,7 +116,9 @@ describe('ObserverController (e2e)', () => {
   //#Did_Section
   it('should return transaction to assemble a did document', async () => {
     let { didTransaction } = await createTemplate(
-      '9991d650bd700b85f15ec2ase0d0275cfa988a4401378b9e3b95c8fe8d1a5b61e',
+      '<h1>Hello there</h1>',
+      '',
+      '',
       walletClientService,
       didCachedService,
       clientRedis,
@@ -124,7 +130,9 @@ describe('ObserverController (e2e)', () => {
 
   it('should return the did document to a did', async () => {
     let { didTransaction } = await createTemplate(
-      '9991d650bd700b85f15ec2523d0275cfa988a4401378b9e3b95c8fe8d1a5b61e',
+      '<h1>Hello there</h1>',
+      '',
+      '',
       walletClientService,
       didCachedService,
       clientRedis,
@@ -136,7 +144,9 @@ describe('ObserverController (e2e)', () => {
 
   it('should return the diddocument-metadata to a did', async () => {
     let { didTransaction } = await createTemplate(
-      '9991d650bd700b85f15ec25ecd0275cfa988a4401378b9e3b95c8fe8d1a5b61e',
+      '<h1>Hello there</h1>',
+      '',
+      '',
       walletClientService,
       didCachedService,
       clientRedis,
@@ -149,7 +159,9 @@ describe('ObserverController (e2e)', () => {
   //#Rebuild&Reset_Section
   it('should rebuild the pki and hash database based on local blockchain', async () => {
     await createTemplate(
-      '9991d650bd700b85f15ec25efd0275cfa988a4401378b9e3b95c8fe8d1a5b61e',
+      '<h1>Hello there</h1>',
+      '',
+      '',
       walletClientService,
       didCachedService,
       clientRedis,
@@ -162,7 +174,9 @@ describe('ObserverController (e2e)', () => {
 
   it('should clean and reset', async () => {
     let { didTransaction } = await createTemplate(
-      '9991d650bd700b85f15ec25e1d0275cfa988a4401378b9e3b95c8fe8d1a5b61e',
+      '<h1>Hello there</h1>',
+      '',
+      '',
       walletClientService,
       didCachedService,
       clientRedis,

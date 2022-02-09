@@ -26,8 +26,6 @@ import { WalletClientService } from '@tc/wallet-client';
 import { exec } from 'child_process';
 import http = require('http');
 import express = require('express');
-import * as fs from 'fs';
-import { Compression } from '@tc/template/dto/compression.dto';
 import { CompressionType } from '@tc/template/dto/compressiontype.dto';
 import { DidIdRegister } from '@trustcerts/did-id-create';
 import { HashTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
@@ -97,9 +95,9 @@ export function sendBlock(
  * generate a dummy transaction for testing purposes only
  * @param transactionType Type of a transaction
  * choose one of the following or it will return hash transaction by default
- * 'did' , 'hash'
+ * did:trust:tc:dev:hash:2309udslknsdlvkjnakldjv
  */
-export function generateTestHashTransaction(): HashTransactionDto {
+export function generateTestHashTransaction(id = '1'): HashTransactionDto {
   return {
     ...transactionProperties,
     body: {
@@ -107,8 +105,8 @@ export function generateTestHashTransaction(): HashTransactionDto {
       date: new Date().toISOString(),
       type: TransactionType.Hash,
       value: {
-        id: 'hello',
-        algorithm: 'TestA',
+        id,
+        algorithm: 'SHA256',
       },
     },
   };
@@ -378,37 +376,21 @@ export async function createTemplate(
     walletClientService,
     didCachedService,
   );
-  const hashCreation: TemplateTransactionDto = {
-    ...transactionProperties,
-    body: {
-      version: 1,
-      date: new Date().toISOString(),
-      type: TransactionType.Hash,
-      value: {
-        id,
-        compression: {
-          type: CompressionType.JSON,
-        },
-        template,
-        schema: schemaId,
-      },
-    },
-  };
+  const hashCreation = generateTestHashTransaction(id);
   await signContent(hashCreation, walletClientService);
 
-  const templateTransaction = {
+  const templateTransaction: TemplateTransactionDto = {
     ...transactionProperties,
     body: {
       version: 1,
       date: new Date().toISOString(),
       type: TransactionType.Template,
       value: {
-        schema: 'test',
+        schema: schemaId,
         id: Identifier.generate('tmp'),
-        template: 'string',
+        template,
         compression: {
           type: CompressionType.JSON,
-          value: 'string',
         },
       },
     },

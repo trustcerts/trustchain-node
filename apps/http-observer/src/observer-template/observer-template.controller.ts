@@ -1,8 +1,11 @@
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Controller, Get, Param, UseGuards } from '@nestjs/common';
+import { DidControllerMixin } from '@apps/shared/did/did.controller';
 import { DidTemplate } from '@tc/template/schemas/did-template.schema';
+import { DidTemplateTransaction } from '@tc/template/schemas/did-template-transaction.schema';
 import { MaintenanceGuard } from '@tc/config/version/maintenance.guard';
 import { TemplateCachedService } from '@tc/template/template-cached/template-cached.service';
+import { TemplateDocResponse } from '@tc/template/dto/doc-response.dto';
 
 /**
  * Controls template requests.
@@ -10,14 +13,19 @@ import { TemplateCachedService } from '@tc/template/template-cached/template-cac
 @ApiTags('template')
 @UseGuards(MaintenanceGuard)
 @Controller('template')
-export class ObserverTemplateController {
+export class ObserverTemplateController extends DidControllerMixin<
+  TemplateDocResponse,
+  DidTemplateTransaction
+>({ doc: TemplateDocResponse, trans: DidTemplateTransaction }) {
   /**
    * Injects required services
    * @param observerTemplateService
    */
   constructor(
-    private readonly observerTemplateService: TemplateCachedService,
-  ) {}
+    protected readonly observerTemplateService: TemplateCachedService,
+  ) {
+    super(observerTemplateService);
+  }
   /**
    * Looks for an entry to the template. Returns a 404 if there was nothing found.
    * @param template

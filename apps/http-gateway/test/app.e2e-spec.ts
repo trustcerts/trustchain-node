@@ -55,7 +55,14 @@ describe('Http Gateway (e2e)', () => {
   let httpGateWayService: HttpGatewayService;
   let didTransaction: { did: Did; transaction: TransactionDto };
   let inviteService: InviteService;
-  let dockerDeps: string[] = ['db' ,  'wallet' , 'parse', 'persist' , 'redis' , 'network'];
+  let dockerDeps: string[] = [
+    'db',
+    'wallet',
+    'parse',
+    'persist',
+    'redis',
+    'network',
+  ];
 
   beforeAll(async () => {
     config({ path: 'test/.env' });
@@ -311,7 +318,9 @@ describe('Http Gateway (e2e)', () => {
     const hash =
       '9991d650bd700b85f15ec25e1d0275cfa988a4401378b9e3b95c8fe8d1a5b61e';
     await createTemplate(
-      hash,
+      '<h1>Hello there</h1>',
+      '',
+      '',
       walletClientService,
       didCachedService,
       clientRedis,
