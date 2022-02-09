@@ -11,7 +11,7 @@ describe('PersistService', () => {
   let service: PersistService;
   let configServiceMock: ConfigService = new ConfigService({}, {}, {});
   let _path: string;
-  const hashTransaction: TransactionDto = generateTestHashTransaction('hash');
+  const hashTransaction: TransactionDto = generateTestHashTransaction();
 
   beforeAll(async () => {
     if (!fs.existsSync(process.env.STORAGE!)) {

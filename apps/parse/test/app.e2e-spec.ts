@@ -2,7 +2,6 @@ import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ParseModule } from '../src/parse.module';
 import {
-  BLOCK_COUNTER,
   CHAIN_REBUILD,
   REDIS_INJECTION,
   SYSTEM_RESET,
@@ -25,7 +24,6 @@ import {
   setBlock,
   startDependencies,
   stopAndRemoveAllDeps,
-  stopDependencies,
 } from '@test/helpers';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { wait } from '@shared/helpers';
@@ -34,8 +32,6 @@ import { getModelToken } from '@nestjs/mongoose';
 import { HashTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
 import { DidIdTransactionDto } from '@tc/did-id/dto/did-id-transaction.dto';
 import { config } from 'dotenv';
-import { PERSIST_TCP_INJECTION } from '@tc/persist-client/constants';
-import { lastValueFrom } from 'rxjs';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -144,7 +140,6 @@ describe('AppController (e2e)', () => {
   }, 15000);
 
   afterAll(async () => {
-    await wait(3000);
     clientRedis.close();
     clientTCP.close();
     await app.close();

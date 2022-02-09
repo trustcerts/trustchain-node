@@ -48,6 +48,7 @@ describe('Network Gateway (e2e)', () => {
 
   beforeAll(async () => {
     config({ path: 'test/.env' });
+    config({ path: 'test/test.env', override: true });
     await startDependencies(dockerDeps);
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [NetworkGatewayModule],
@@ -163,8 +164,7 @@ describe('Network Gateway (e2e)', () => {
   afterAll(async () => {
     fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
     clientRedis.close();
-    await app.close().catch(() => {});
+    await app.close().catch((e) => console.log(e));
     await stopAndRemoveAllDeps();
-
-  });
+  }, 25000);
 });

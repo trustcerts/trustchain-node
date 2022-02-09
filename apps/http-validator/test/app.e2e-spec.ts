@@ -5,7 +5,6 @@ import * as request from 'supertest';
 import * as fs from 'fs';
 import { InviteRequest } from '@tc/invite/schemas/invite-request.schema';
 import { RoleManageAddEnum } from '@tc/did-id/constants';
-import { CreateDidDto } from '@tc/did-id/dto/create-did.dto';
 import { WalletClientService } from '@tc/wallet-client';
 import { Identifier } from '@trustcerts/core';
 import { REDIS_INJECTION } from '@tc/event-client/constants';
@@ -18,6 +17,7 @@ import { HttpValidatorService } from '../src/http-validator.service';
 import { wait } from '@shared/helpers';
 import { DidIdRegister } from '@trustcerts/did-id-create';
 import { config } from 'dotenv';
+import { CreateDidIdDto } from '@tc/did-id/dto/create-did-id.dto';
 
 describe('ValidatorController (e2e)', () => {
   let app: INestApplication;
@@ -30,6 +30,7 @@ describe('ValidatorController (e2e)', () => {
 
   beforeAll(async () => {
     config({ path: 'test/.env' });
+    config({ path: 'test/test.env', override: true });
     await startDependencies(dockerDeps);
     Identifier.setNetwork('tc:test');
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -91,7 +92,7 @@ describe('ValidatorController (e2e)', () => {
     const did = DidIdRegister.create();
     await walletClientService.setOwnInformation(did.id);
     const pair = await walletClientService.getPublicKey();
-    const testCert: CreateDidDto = {
+    const testCert: CreateDidIdDto = {
       identifier: did.id,
       secret: 'test_secret',
       publicKey: pair.value,
@@ -141,7 +142,7 @@ describe('ValidatorController (e2e)', () => {
     const did = DidIdRegister.create();
     await walletClientService.setOwnInformation(did.id);
     const pair = await walletClientService.getPublicKey();
-    const testCert: CreateDidDto = {
+    const testCert: CreateDidIdDto = {
       identifier: did.id,
       secret: 'test_secret',
       publicKey: pair.value,
@@ -183,5 +184,5 @@ describe('ValidatorController (e2e)', () => {
     clientRedis.close();
     await app.close().catch(() => {});
     await stopAndRemoveAllDeps();
-  }, 15000);
+  }, 25000);
 });

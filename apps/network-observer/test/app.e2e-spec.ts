@@ -27,6 +27,7 @@ describe('Network Observer (e2e)', () => {
 
   beforeAll(async () => {
     config({ path: 'test/.env' });
+    config({ path: 'test/test.env', override: true });
     await startDependencies(dockerDeps);
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [NetworkObserverModule],
@@ -71,5 +72,5 @@ describe('Network Observer (e2e)', () => {
     clientRedis.close();
     await app.close();
     await stopAndRemoveAllDeps()
-  }, 15000);
+  }, 25000);
 });

@@ -25,6 +25,7 @@ describe('ObserverController (e2e)', () => {
 
   beforeAll(async () => {
     config({ path: 'test/.env' });
+    config({ path: 'test/test.env', override: true });
     await startDependencies(dockerDeps);
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [HttpObserverModule],

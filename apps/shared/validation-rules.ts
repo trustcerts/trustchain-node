@@ -13,7 +13,7 @@ export const dbConnectionValidation = {
   }),
   DB_PORT: Joi.when('DB_TYPE', {
     is: Joi.equal('mongo'),
-    then: Joi.number().default(3009),
+    then: Joi.number().default(27017),
     otherwise: Joi.optional(),
   }),
   DB_USERNAME: Joi.when('DB_TYPE', {

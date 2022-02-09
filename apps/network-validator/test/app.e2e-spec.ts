@@ -49,14 +49,13 @@ describe('AppController (e2e)', () => {
     'db',
     'parse',
     'wallet',
-    'network',
     'persist',
     'redis',
   ];
 
   beforeAll(async () => {
-    console.log(config({ path: 'test/.env' }));
-    console.log(config({ path: 'test/test.env', override: true }));
+    config({ path: 'test/.env' });
+    config({ path: 'test/test.env', override: true });
     await startDependencies(dockerDeps);
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [NetworkValidatorModule],
@@ -161,10 +160,9 @@ describe('AppController (e2e)', () => {
   }, 10000);
 
   afterAll(async () => {
-    await wait(5000);
-    fs.rmdirSync(app.get(ConfigService).storagePath, { recursive: true });
+    fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
     clientRedis.close();
-    await app.close().catch(() => {});
+    await app.close().catch(e => console.log(e));
     await stopAndRemoveAllDeps();
-  }, 15000);
+  }, 25000);
 });

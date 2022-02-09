@@ -111,6 +111,10 @@ services:
       MONGO_INITDB_DATABASE: ${DB_DATABASE-trustchain}
     ports:
       - ${PUBLISH_DB_PORT}:27017
+    networks:
+      internal:
+
+
 
   redis:
     image: redis

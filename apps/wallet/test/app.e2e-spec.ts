@@ -35,6 +35,7 @@ describe('AppController (e2e)', () => {
 
   beforeAll(async () => {
     config({ path: 'test/.env' });
+    config({ path: 'test/test.env', override: true });
     await startDependencies(dockerDeps);
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
@@ -146,9 +147,9 @@ describe('AppController (e2e)', () => {
 
   afterAll(async () => {
     fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
-    await stopAndRemoveAllDeps();
     clientRedis.close();
     clientTCP.close();
     await app.close();
+    await stopAndRemoveAllDeps();
   }, 10000);
 });
