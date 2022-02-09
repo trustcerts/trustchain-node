@@ -229,7 +229,7 @@ jobs:
       - name: Start blockchain-nodes
         run: |
           docker network create test-network
-          cd ./config
+          cd ./test/network/config
           ./all.sh up -d
           ./initNodes.sh
 
