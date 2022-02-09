@@ -19,7 +19,7 @@ import * as fs from 'fs';
 import { join } from 'path';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
 import { wait } from '@shared/helpers';
-import { startDependencies, stopAndRemoveAllDeps, stopDependencies } from '@test/helpers';
+import { startDependencies, stopAndRemoveAllDeps } from '@test/helpers';
 import { ConfigService } from '@tc/config/config.service';
 import { DidId } from '@trustcerts/core';
 import { lastValueFrom } from 'rxjs';

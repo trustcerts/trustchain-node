@@ -4,7 +4,7 @@ import { join } from 'path';
 import * as fs from 'fs';
 import { WalletModule } from './wallet.module';
 import { INestApplication } from '@nestjs/common';
-import { startDependencies, stopDependencies } from '../../../test/helpers';
+import { startDependencies, stopAndRemoveAllDeps } from '../../../test/helpers';
 import { wait } from '@shared/helpers';
 
 describe('MyService', () => {
@@ -71,6 +71,6 @@ describe('MyService', () => {
   });
   afterAll(async () => {
     await app.close();
-    await stopDependencies(['redis']);
+    await stopAndRemoveAllDeps();
   });
 });

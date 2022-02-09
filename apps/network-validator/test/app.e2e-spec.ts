@@ -21,8 +21,7 @@ import {
   setBlock,
   sendBlock,
   closeServer,
-  startDependencies,
-  stopDependencies,
+  startDependencies,  
   stopAndRemoveAllDeps,
 } from '@test/helpers';
 import { Server } from 'socket.io';
@@ -51,6 +50,7 @@ describe('AppController (e2e)', () => {
     'wallet',
     'persist',
     'redis',
+    'network',
   ];
 
   beforeAll(async () => {
@@ -71,13 +71,11 @@ describe('AppController (e2e)', () => {
     clientRedis = app.get<ClientRedis>(REDIS_INJECTION);
     p2PService = app.get(P2PService);
 
-    console.log('test1');
     didTransaction = await createDidForTesting(
       walletClientService,
       didCachedService,
     );
     sendBlock(setBlock([didTransaction.transaction], 1), clientRedis, true);
-    console.log('test2');
   }, 60000);
 
   it('Returns the type of the node and the service that was exposed', () => {
@@ -99,7 +97,7 @@ describe('AppController (e2e)', () => {
       .get('/mashed?amount=1')
       .set('authorization', 'Bearer ' + process.env.NETWORK_SECRET)
       .expect(200);
-    connection.disconnect;
+    connection.disconnect();
     p2PService.removeConnection(connection.identifier);
   });
 
@@ -162,7 +160,7 @@ describe('AppController (e2e)', () => {
   afterAll(async () => {
     fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
     clientRedis.close();
-    await app.close().catch(e => console.log(e));
+    await app.close();
     await stopAndRemoveAllDeps();
   }, 25000);
 });

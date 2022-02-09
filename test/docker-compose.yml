@@ -81,6 +81,7 @@ services:
     ports:
       - ${PUBLISH_HTTP_PORT_HTTP}:3000
       - ${PUBLISH_HTTP_PORT_TCP}:3001
+
   network:
     image: trustcerts/trustchain-network-${NODE_TYPE}:${IMAGE_TAG-dev}
     restart: ${RESTART-always}
@@ -99,6 +100,7 @@ services:
     ports:
       - ${PUBLISH_NETWORK_PORT_HTTP}:3000
       - ${PUBLISH_NETWORK_PORT_TCP}:3001
+
   db:
     image: mongo
     restart: ${RESTART-always}
@@ -113,8 +115,6 @@ services:
       - ${PUBLISH_DB_PORT}:27017
     networks:
       internal:
-
-
 
   redis:
     image: redis

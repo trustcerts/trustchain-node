@@ -27,10 +27,12 @@ import { exec } from 'child_process';
 import http = require('http');
 import express = require('express');
 import * as fs from 'fs';
+import { Compression } from '@tc/template/dto/compression.dto';
 import { CompressionType } from '@tc/template/dto/compressiontype.dto';
 import { DidIdRegister } from '@trustcerts/did-id-create';
 import { HashTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
 import { Server } from 'socket.io';
+import { TemplateTransactionDto } from '@tc/template/dto/template.transaction.dto';
 import { TransactionMetadata } from '@tc/blockchain/transaction/transaction-metadata';
 /**
  * create block with given transactions.
@@ -340,27 +342,6 @@ export function startDependencies(services: string[]): Promise<void> {
 }
 
 /**
- * Stops the dependencies of a test.
- * @param services an array of services
- * @returns
- */
-export function stopDependencies(services: string[]): Promise<void> {
-  return new Promise((resolve, reject) => {
-    exec(
-      `docker-compose -f test/docker-compose.yml --env-file test/.env stop ${services.join(
-        ' ',
-      )}`,
-      (err) => {
-        if (err) {
-          reject(err);
-        }
-        resolve();
-      },
-    );
-  });
-}
-
-/**
  * stop and remove all dependencies and volumes of a test.
  */
 export function stopAndRemoveAllDeps(): Promise<void> {
@@ -379,14 +360,16 @@ export function stopAndRemoveAllDeps(): Promise<void> {
 
 /**
  * Creates a template transaction parse and persist it
- * @param hash transaction hash
+ * @param id transaction hash
  * @param walletClientService wallet client service
  * @param didCachedService did cached service
  * @param clientRedis redis client
  * @returns
  */
 export async function createTemplate(
-  hash: string,
+  id: string,
+  template: string,
+  schemaId: string,
   walletClientService: WalletClientService,
   didCachedService: DidIdCachedService,
   clientRedis: ClientRedis,
@@ -395,15 +378,19 @@ export async function createTemplate(
     walletClientService,
     didCachedService,
   );
-  const hashCreation: HashTransactionDto = {
+  const hashCreation: TemplateTransactionDto = {
     ...transactionProperties,
     body: {
       version: 1,
       date: new Date().toISOString(),
       type: TransactionType.Hash,
       value: {
-        id: hash,
-        algorithm: 'sha256',
+        id,
+        compression: {
+          type: CompressionType.JSON,
+        },
+        template,
+        schema: schemaId,
       },
     },
   };

@@ -44,7 +44,7 @@ describe('Network Gateway (e2e)', () => {
   let httpService: HttpService;
   let logger: Logger;
   let didTransaction: { did: DidId; transaction: TransactionDto };
-  let dockerDeps: string[] = ['db' ,  'wallet' , 'persist' , 'redis'];
+  let dockerDeps: string[] = ['db', 'wallet', 'persist', 'redis'];
 
   beforeAll(async () => {
     config({ path: 'test/.env' });
@@ -164,7 +164,7 @@ describe('Network Gateway (e2e)', () => {
   afterAll(async () => {
     fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
     clientRedis.close();
-    await app.close().catch((e) => console.log(e));
+    await app.close();
     await stopAndRemoveAllDeps();
   }, 25000);
 });

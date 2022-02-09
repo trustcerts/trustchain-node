@@ -10,7 +10,11 @@ import { InviteNode } from '@tc/invite/dto/invite-node.dto';
 import { addRedisEndpoint } from '@shared/main-functions';
 import * as fs from 'fs';
 import { ConfigService } from '@tc/config/config.service';
-import { createTemplate, startDependencies, stopAndRemoveAllDeps } from '@test/helpers';
+import {
+  createTemplate,
+  startDependencies,
+  stopAndRemoveAllDeps,
+} from '@test/helpers';
 import { HttpObserverService } from '../src/http-observer.service';
 import { wait } from '@shared/helpers';
 import { config } from 'dotenv';
@@ -21,7 +25,14 @@ describe('ObserverController (e2e)', () => {
   let walletClientService: WalletClientService;
   let clientRedis: ClientRedis;
   let httpObserverService: HttpObserverService;
-  let dockerDeps: string[] = ['db' ,  'wallet' , 'parse', 'persist' , 'redis' , 'network'];
+  let dockerDeps: string[] = [
+    'db',
+    'wallet',
+    'parse',
+    'persist',
+    'redis',
+    'network',
+  ];
 
   beforeAll(async () => {
     config({ path: 'test/.env' });
@@ -175,6 +186,6 @@ describe('ObserverController (e2e)', () => {
     fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
     clientRedis.close();
     await app.close().catch(() => {});
-    await stopAndRemoveAllDeps();
+    // await stopAndRemoveAllDeps();
   }, 15000);
 });

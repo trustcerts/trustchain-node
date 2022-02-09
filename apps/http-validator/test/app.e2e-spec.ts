@@ -12,7 +12,11 @@ import { ClientRedis } from '@nestjs/microservices';
 import { HashService } from '@tc/blockchain';
 import { addRedisEndpoint } from '@shared/main-functions';
 import { ConfigService } from '@tc/config/config.service';
-import { addListenerToTransactionParsed, startDependencies, stopAndRemoveAllDeps } from '@test/helpers';
+import {
+  addListenerToTransactionParsed,
+  startDependencies,
+  stopAndRemoveAllDeps,
+} from '@test/helpers';
 import { HttpValidatorService } from '../src/http-validator.service';
 import { wait } from '@shared/helpers';
 import { DidIdRegister } from '@trustcerts/did-id-create';
@@ -25,8 +29,14 @@ describe('ValidatorController (e2e)', () => {
   let clientRedis: ClientRedis;
   let hashService: HashService;
   let httpValidatorService: HttpValidatorService;
-  let dockerDeps: string[] = ['db' ,  'wallet' , 'parse', 'persist' , 'redis' , 'network'];
-
+  let dockerDeps: string[] = [
+    'db',
+    'wallet',
+    'parse',
+    'persist',
+    'redis',
+    'network',
+  ];
 
   beforeAll(async () => {
     config({ path: 'test/.env' });
@@ -44,7 +54,7 @@ describe('ValidatorController (e2e)', () => {
     walletClientService = app.get(WalletClientService);
     hashService = app.get(HashService);
     httpValidatorService = app.get(HttpValidatorService);
-  }, 15000);
+  }, 20000);
 
   beforeEach(async () => {
     httpValidatorService.reset();
@@ -180,9 +190,14 @@ describe('ValidatorController (e2e)', () => {
   });
 
   afterAll(async () => {
-    fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
-    clientRedis.close();
-    await app.close().catch(() => {});
-    await stopAndRemoveAllDeps();
+    try {
+      fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
+      clientRedis.close();
+      await app.close();
+    } catch (e) {
+      console.log(e);
+    } finally {
+      await stopAndRemoveAllDeps();
+    }
   }, 25000);
 });
