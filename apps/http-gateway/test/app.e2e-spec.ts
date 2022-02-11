@@ -288,7 +288,7 @@ describe('Http Gateway (e2e)', () => {
         date: new Date().toISOString(),
         type: TransactionType.Template,
         value: {
-          schema: 'test',
+          schemaId: 'test',
           id: Identifier.generate('tmp'),
           template: 'string',
           compression: {

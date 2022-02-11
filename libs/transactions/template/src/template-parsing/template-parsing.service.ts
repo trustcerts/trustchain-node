@@ -81,10 +81,10 @@ export class TemplateParsingService extends ParsingService {
         {
           schema,
           $pull: {
-            controllers: { $in: [transaction.body.value.controller?.remove] },
+            controllers: { $in: transaction.body.value.controller?.remove },
           },
           $push: {
-            controllers: { $in: [transaction.body.value.controller?.add] },
+            controllers: { $in: transaction.body.value.controller?.add },
           },
         },
       )
