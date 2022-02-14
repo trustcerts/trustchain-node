@@ -150,11 +150,11 @@ describe('AppController (e2e)', () => {
     expect(fs.readdirSync(path).length).toBe(0);
   }, 10000);
 
-    afterAll(async () => {
-      fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
-      await stopAndRemoveAllDeps();
-      clientRedis.close();
-      clientTCP.close();
-      await app.close();
-    }, 15000);
+  afterAll(async () => {
+    fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
+    await stopAndRemoveAllDeps();
+    clientRedis.close();
+    clientTCP.close();
+    await app.close();
+  }, 15000);
 });
