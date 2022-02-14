@@ -29,8 +29,9 @@
     "test:unit": "jest -c jest.unit.ts --coverage",
     "test:unit-ci": "jest -c jest.unit.ts --coverage --ci --reporters=default --reporters=jest-junit",
     "test:unit-persist": "jest ./apps/persist/src",
-    "doc": "npx compodoc -p tsconfig.json -w --theme material -s -r 8000",
-    "doc:build": "npx compodoc -p tsconfig.json",
+    "doc": "compodoc -p tsconfig.json -w --theme material -s -r 8000",
+    "doc:build": "compodoc -p tsconfig.json -w --theme material",
+    "coverage": "compodoc -p tsconfig.json --coverageTest 95 --coverageTestShowOnlyFailed",
     "watch:wallet": "nest build wallet --watch",
     "watch:parse": "nest build parse --watch",
     "watch:persist": "nest build persist --watch",
@@ -42,6 +43,7 @@
     "watch:network-validator": "nest build network-validator --watch"
   },
   "dependencies": {
+    "@compodoc/compodoc": "^1.1.18",
     "@nestjs/axios": "^0.0.4",
     "@nestjs/common": "^8.2.4",
     "@nestjs/core": "^8.2.4",
@@ -63,6 +65,7 @@
     "helmet": "^5.0.1",
     "inquirer": "^8.2.0",
     "joi": "^17.5.0",
+    "lint-staged": "^12.3.3",
     "mongoose": "^6.1.5",
     "nest-winston": "^1.6.2",
     "prom-client": "^14.0.1",
@@ -107,5 +110,12 @@
     "tsconfig-paths": "^3.12.0",
     "typescript": "^4.5.4",
     "webpack-node-externals": "^3.0.0"
+  },
+  "lint-staged": {
+    "linters": {
+      "*.ts": [
+        "compodoc --coverageMinimumPerFile 95"
+      ]
+    }
   }
 }
