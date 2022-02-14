@@ -142,10 +142,15 @@ describe('AppController (e2e)', () => {
   }, 60000);
 
   afterAll(async () => {
-    clientRedis.close();
-    clientTCP.close();
-    await printDepsLogs(dockerDeps);
-    await app.close();
-    await stopAndRemoveAllDeps();
+    try {
+      clientTCP.close();
+      clientRedis.close();
+      await app.close();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      await printDepsLogs(dockerDeps);
+      await stopAndRemoveAllDeps();
+    }
   }, 60000);
 });

@@ -21,6 +21,7 @@ import { Block } from '@tc/blockchain/block/block.interface';
 import { wait } from '@shared/helpers';
 import {
   generateTestHashTransaction,
+  printDepsLogs,
   sendBlock,
   setBlock,
   startDependencies,
@@ -151,10 +152,16 @@ describe('AppController (e2e)', () => {
   }, 10000);
 
   afterAll(async () => {
-    fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
-    await stopAndRemoveAllDeps();
-    clientRedis.close();
-    clientTCP.close();
-    await app.close();
+    try {
+      fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
+      clientTCP.close();
+      clientRedis.close();
+      await app.close();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      await printDepsLogs(dockerDeps);
+      await stopAndRemoveAllDeps();
+    }
   }, 60000);
 });

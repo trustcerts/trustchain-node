@@ -19,7 +19,11 @@ import * as fs from 'fs';
 import { join } from 'path';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
 import { wait } from '@shared/helpers';
-import { startDependencies, stopAndRemoveAllDeps } from '@test/helpers';
+import {
+  printDepsLogs,
+  startDependencies,
+  stopAndRemoveAllDeps,
+} from '@test/helpers';
 import { ConfigService } from '@tc/config/config.service';
 import { DidId } from '@trustcerts/core';
 import { lastValueFrom } from 'rxjs';
@@ -146,10 +150,16 @@ describe('AppController (e2e)', () => {
   });
 
   afterAll(async () => {
-    fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
-    clientRedis.close();
-    clientTCP.close();
-    await app.close();
-    await stopAndRemoveAllDeps();
+    try {
+      fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
+      clientTCP.close();
+      clientRedis.close();
+      await app.close();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      await printDepsLogs(dockerDeps);
+      await stopAndRemoveAllDeps();
+    }
   }, 10000);
 });

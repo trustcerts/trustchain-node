@@ -167,10 +167,15 @@ describe('Network Gateway (e2e)', () => {
   });
 
   afterAll(async () => {
-    fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
-    clientRedis.close();
-    await app.close();
-    await printDepsLogs(dockerDeps);
-    await stopAndRemoveAllDeps();
+    try {
+      fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
+      clientRedis.close();
+      await app.close();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      await printDepsLogs(dockerDeps);
+      await stopAndRemoveAllDeps();
+    }
   }, 25000);
 });

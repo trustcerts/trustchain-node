@@ -196,10 +196,15 @@ describe('ObserverController (e2e)', () => {
   }, 60000);
 
   afterAll(async () => {
-    fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
-    clientRedis.close();
-    await printDepsLogs(dockerDeps);
-    await app.close();
-    await stopAndRemoveAllDeps();
+    try {
+      fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
+      clientRedis.close();
+      await app.close();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      await printDepsLogs(dockerDeps);
+      await stopAndRemoveAllDeps();
+    }
   }, 60000);
 });

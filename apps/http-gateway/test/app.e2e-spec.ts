@@ -321,14 +321,15 @@ describe('Http Gateway (e2e)', () => {
   }, 60000);
 
   afterAll(async () => {
-    fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
-    if (clientRedis) {
+    try {
+      fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
       clientRedis.close();
-    } else {
-      // app didn't start, print the logs
+      await app.close();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      await printDepsLogs(dockerDeps);
+      await stopAndRemoveAllDeps();
     }
-    await printDepsLogs(dockerDeps);
-    await app.close();
-    // await stopAndRemoveAllDeps();
   }, 60000);
 });

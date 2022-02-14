@@ -160,10 +160,15 @@ describe('AppController (e2e)', () => {
   }, 10000);
 
   afterAll(async () => {
+    try {
     fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
     clientRedis.close();
     await app.close();
-    await printDepsLogs(dockerDeps);
-    await stopAndRemoveAllDeps();
+    } catch(e) {
+      console.error(e);
+    } finally {
+      await printDepsLogs(dockerDeps);
+      await stopAndRemoveAllDeps();
+    }
   }, 25000);
 });

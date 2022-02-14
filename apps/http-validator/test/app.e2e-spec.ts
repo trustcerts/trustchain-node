@@ -196,7 +196,7 @@ describe('ValidatorController (e2e)', () => {
       clientRedis.close();
       await app.close();
     } catch (e) {
-      console.log(e);
+      console.error(e);
     } finally {
       await printDepsLogs(dockerDeps);
       await stopAndRemoveAllDeps();
