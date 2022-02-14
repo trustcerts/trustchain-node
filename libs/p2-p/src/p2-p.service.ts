@@ -69,7 +69,7 @@ export class P2PService implements BeforeApplicationShutdown {
   /**
    * Queue for incoming blocks
    */
-  private queue : Block[] = [];
+  private queue: Block[] = [];
 
   /**
    * Constructor to add a P2PService
@@ -704,21 +704,27 @@ export class P2PService implements BeforeApplicationShutdown {
           return;
         }
         // Check index
-        let blockCount = await this.persistClientService.getBlockCounter();
+        const blockCount = await this.persistClientService.getBlockCounter();
         if (blockCount !== block.index - 1) {
           // put in queue
           this.queue.push(block);
           // Were already blocks in queue?
           if (this.queue.length == 1) {
             this.logger.warn({
-              message: `request missing blocks: ${blockCount + 1} to ${block.index - 1}`,
+              message: `request missing blocks: ${blockCount + 1} to ${
+                block.index - 1
+              }`,
               labels: {
                 source: this.constructor.name,
                 identifier: endpoint.identifier,
               },
             });
             // Get the missing blocks (and persist and parse them)
-            await this.blockchainSyncService.requestMissingBlocks(endpoint.socket, blockCount + 1, block.index - blockCount - 1);
+            await this.blockchainSyncService.requestMissingBlocks(
+              endpoint.socket,
+              blockCount + 1,
+              block.index - blockCount - 1,
+            );
             // do for every block in queue:
             for (let i = 0; i < this.queue.length; i++) {
               this.processBlock(endpoint, this.queue[i]);
