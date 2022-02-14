@@ -3,7 +3,7 @@ import { Block } from '@tc/blockchain/block/block.interface';
 import { ConfigService } from '@tc/config';
 import { Counter } from 'prom-client';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { GatewayTimeoutException, Injectable, NotFoundException } from '@nestjs/common';
 
 /**
  * Service to organize the chain.
@@ -100,5 +100,40 @@ export class PersistService {
       fs.unlinkSync(path.concat('/', file));
     });
     this.promBlockCounter.reset();
+  }
+
+  /**
+   * Checks if a block is persisted.
+   * @param blockId of the checked block
+   */
+  private isBlockPersisted(blockId : number) : boolean{
+    try {
+      this.getBlock(blockId);
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }
+
+  /**
+   * Check if a block is persisted for a maxium number of times. Wait between
+   * the checks.
+   * @param blockId Id of the block that is checked.
+   */
+  waitForPersistOfBlock(blockId: number): boolean {
+    let numberOfRequests: number = 0;
+    const maxNumberOfRequests = 3;
+
+    while ((numberOfRequests <= maxNumberOfRequests)) {
+      if (this.isBlockPersisted(blockId)) {
+        return true;
+      }
+      numberOfRequests++;
+      setTimeout(
+        () => numberOfRequests++,
+        1000,
+      );
+    }
+    return false;
   }
 }

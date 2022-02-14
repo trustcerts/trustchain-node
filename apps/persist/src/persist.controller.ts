@@ -3,6 +3,7 @@ import {
   BLOCK_COUNTER,
   BLOCK_CREATED,
   BLOCK_REQUEST,
+  IS_BLOCK_PERSISTED,
   SYSTEM_RESET,
 } from '@tc/event-client/constants';
 import { Block } from '@tc/blockchain/block/block.interface';
@@ -64,6 +65,14 @@ export class PersistController {
   @MessagePattern(BLOCK_COUNTER, Transport.TCP)
   getBlockCounter(): number {
     return this.persistService.blockCounter;
+  }
+
+  /**
+   * Returns current amount of blocks.
+   */
+  @MessagePattern(IS_BLOCK_PERSISTED, Transport.TCP)
+  checkIfBlockIsPersisted(blockId: number): boolean {
+    return this.persistService.waitForPersistOfBlock(blockId);
   }
 
   /**

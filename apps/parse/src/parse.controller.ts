@@ -1,6 +1,7 @@
 import {
   BLOCK_CREATED,
   BLOCK_PARSED,
+  BLOCK_PERSISTED,
   CHAIN_REBUILD,
   REDIS_INJECTION,
   SYSTEM_RESET,
@@ -39,7 +40,7 @@ export class ParseController {
    * Listens for new blocks and parses them. Emits an event when the job is done.
    * @param block
    */
-  @EventPattern(BLOCK_CREATED, Transport.REDIS)
+  @EventPattern(BLOCK_PERSISTED, Transport.REDIS)
   async blockCreated(block: Block) {
     this.logger.info({
       message: `parse block: ${block.index}`,
