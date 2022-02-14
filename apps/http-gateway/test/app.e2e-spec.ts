@@ -317,12 +317,12 @@ describe('Http Gateway (e2e)', () => {
 
   it('should clean and reset', async () => {
     // TODO implement besser case
-  }, 15000);
+  }, 30000);
 
   afterAll(async () => {
     fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
     clientRedis.close();
     await app.close().catch(() => {});
     await stopAndRemoveAllDeps();
-  }, 15000);
+  }, 30000);
 });

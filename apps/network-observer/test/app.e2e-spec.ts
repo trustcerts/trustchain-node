@@ -11,7 +11,12 @@ import * as fs from 'fs';
 import { Logger } from 'winston';
 import { ConfigService } from '@tc/config/config.service';
 import { Connection } from '@shared/connection';
-import { closeServer, createWSServer, startDependencies, stopAndRemoveAllDeps } from '@test/helpers';
+import {
+  closeServer,
+  createWSServer,
+  startDependencies,
+  stopAndRemoveAllDeps,
+} from '@test/helpers';
 import { Server } from 'socket.io';
 import { io } from 'socket.io-client';
 import { HttpService } from '@nestjs/axios';
@@ -23,7 +28,7 @@ describe('Network Observer (e2e)', () => {
   let p2PService: P2PService;
   let httpService: HttpService;
   let logger: Logger;
-  let dockerDeps: string[] = ['db' , 'wallet' , 'persist' , 'redis'];
+  let dockerDeps: string[] = ['db', 'wallet', 'persist', 'redis'];
 
   beforeAll(async () => {
     config({ path: 'test/.env' });
@@ -39,7 +44,7 @@ describe('Network Observer (e2e)', () => {
 
     clientRedis = app.get<ClientRedis>(REDIS_INJECTION);
     p2PService = app.get(P2PService);
-  }, 15000);
+  }, 30000);
 
   it('should return the type of the node and the service that was exposed', () => {
     return request(app.getHttpServer()).get('/').expect(200).expect({
@@ -71,6 +76,6 @@ describe('Network Observer (e2e)', () => {
     fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
     clientRedis.close();
     await app.close();
-    await stopAndRemoveAllDeps()
+    await stopAndRemoveAllDeps();
   }, 25000);
 });

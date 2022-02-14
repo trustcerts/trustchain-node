@@ -93,7 +93,7 @@ describe('AppController (e2e)', () => {
     } else {
       fail("it didn't parsed the block successfully");
     }
-  }, 15000);
+  }, 30000);
 
   it('Should remove from database and rebuild from persist', async () => {
     const hashTransaction: HashTransactionDto = generateTestHashTransaction();
@@ -120,7 +120,7 @@ describe('AppController (e2e)', () => {
     } else {
       fail("it didn't parsed the block successfully");
     }
-  }, 15000);
+  }, 30000);
 
   it('Should reset the system and clean the database', async () => {
     const hashTransaction: TransactionDto = generateTestHashTransaction();
@@ -138,7 +138,7 @@ describe('AppController (e2e)', () => {
     } else {
       fail("it didn't parsed the block successfully");
     }
-  }, 15000);
+  }, 30000);
 
   afterAll(async () => {
     clientRedis.close();

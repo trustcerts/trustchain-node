@@ -58,7 +58,7 @@ describe('AppController (e2e)', () => {
     clientRedis = app.get(REDIS_INJECTION);
     clientTCP = app.get('WalletClient');
     await clientTCP.connect();
-  }, 15000);
+  }, 30000);
 
   beforeEach(async () => {
     clientRedis.emit(SYSTEM_RESET, {});

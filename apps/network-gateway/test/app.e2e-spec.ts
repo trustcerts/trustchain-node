@@ -47,14 +47,17 @@ describe('Network Gateway (e2e)', () => {
   let dockerDeps: string[] = ['db', 'wallet', 'persist', 'redis'];
 
   beforeAll(async () => {
+    console.time('before');
     config({ path: 'test/.env' });
     config({ path: 'test/test.env', override: true });
     await startDependencies(dockerDeps);
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [NetworkGatewayModule],
     }).compile();
+    console.timeLog('before', 'compiled');
     app = moduleFixture.createNestApplication();
     await app.init();
+    console.timeLog('before', 'inited');
     await addRedisEndpoint(app);
     await app.startAllMicroservices();
 
@@ -63,7 +66,8 @@ describe('Network Gateway (e2e)', () => {
     walletService = app.get(WalletClientService);
     didCachedService = app.get(DidIdCachedService);
     p2PService = app.get(P2PService);
-  }, 15000);
+    console.timeEnd('before');
+  }, 30000);
 
   it('should return the type of the node and the service that was exposed', () => {
     return request(app.getHttpServer()).get('/').expect(200).expect({

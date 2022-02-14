@@ -168,7 +168,7 @@ describe('ObserverController (e2e)', () => {
       .post(`/rebuild`)
       .set('authorization', 'Bearer ' + process.env.NODE_SECRET)
       .expect(201);
-  }, 15000);
+  }, 30000);
 
   it('should clean and reset', async () => {
     // TODO use Identifier.generate('hash', 'foobar')
@@ -192,12 +192,12 @@ describe('ObserverController (e2e)', () => {
     return request(app.getHttpServer())
       .get(`/did/${didTransaction.did.id}`)
       .expect(404);
-  }, 15000);
+  }, 30000);
 
   afterAll(async () => {
     fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
     clientRedis.close();
     await app.close().catch(() => {});
     await stopAndRemoveAllDeps();
-  }, 15000);
+  }, 30000);
 });
