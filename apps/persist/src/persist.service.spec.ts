@@ -86,6 +86,13 @@ describe('PersistService', () => {
     expect(service.getBlocks(obj2.start, obj2.size)).toEqual([]);
   });
 
+  test('isBlockPersisted(blockId) should return if a block with a given index is persisted or not.', async () => {
+    const persitedTrue = await service.waitForPersistOfBlock(2);
+    expect(persitedTrue).toBe(true);
+    const persitedFalse = await service.waitForPersistOfBlock(6);
+    expect(persitedFalse).toBe(false);
+  });
+  
   it('clearBlockchain() should delete the blockchain of the node', () => {
     service.clearBlockchain();
     expect(fs.readdirSync(_path).length).toBe(0);

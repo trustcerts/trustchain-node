@@ -4,6 +4,8 @@ import { ConfigService } from '@tc/config';
 import { Counter } from 'prom-client';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';
 import { GatewayTimeoutException, Injectable, NotFoundException } from '@nestjs/common';
+import { resolve } from 'path/posix';
+import { rejects } from 'assert';
 
 /**
  * Service to organize the chain.
@@ -120,20 +122,25 @@ export class PersistService {
    * the checks.
    * @param blockId Id of the block that is checked.
    */
-  waitForPersistOfBlock(blockId: number): boolean {
-    let numberOfRequests: number = 0;
-    const maxNumberOfRequests = 3;
+  async waitForPersistOfBlock(blockId: number): Promise<boolean> {
+    return new Promise(async (resolve) => {
+      let numberOfRequests = 0;
+      const maxNumberOfRequests = 3;
+      const waitingTime = 500;
 
-    while ((numberOfRequests <= maxNumberOfRequests)) {
-      if (this.isBlockPersisted(blockId)) {
-        return true;
+      while ((numberOfRequests <= maxNumberOfRequests)) {
+        if (this.isBlockPersisted(blockId)) {
+          resolve(true);
+          return;
+        }
+        await this.timeout(waitingTime);
+        numberOfRequests++;
       }
-      numberOfRequests++;
-      setTimeout(
-        () => numberOfRequests++,
-        1000,
-      );
-    }
-    return false;
+      resolve(false);
+    })    
+  }
+
+  private timeout(ms: number) { //pass a time in milliseconds to this function
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 }
