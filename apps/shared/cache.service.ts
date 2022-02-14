@@ -121,7 +121,7 @@ export abstract class CachedService {
     if (version?.id) {
       query.limit(version.id);
     }
-    const transactions = await query.exec();
+    const transactions: DidTransaction[] = await query.exec();
     if (transactions.length === 0) {
       throw new NotFoundException();
     }
