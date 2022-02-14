@@ -37,6 +37,7 @@ import {
   startDependencies,
   stopAndRemoveAllDeps,
   createHash,
+  printDepsLogs,
 } from '@test/helpers';
 import { HttpGatewayService } from '../src/http-gateway.service';
 import { wait } from '@shared/helpers';
@@ -321,8 +322,13 @@ describe('Http Gateway (e2e)', () => {
 
   afterAll(async () => {
     fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
-    clientRedis.close();
-    await app.close().catch(() => {});
-    await stopAndRemoveAllDeps();
+    if (clientRedis) {
+      clientRedis.close();
+    } else {
+      // app didn't start, print the logs
+    }
+    await printDepsLogs(dockerDeps);
+    await app.close();
+    // await stopAndRemoveAllDeps();
   }, 60000);
 });

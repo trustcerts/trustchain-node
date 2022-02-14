@@ -358,6 +358,28 @@ export function stopAndRemoveAllDeps(): Promise<void> {
 }
 
 /**
+ * Prints the logs of the dependent docker containers.
+ */
+export async function printDepsLogs(services: string[]): Promise<void> {
+  const exludedServices = ['db', 'redis'];
+  services = services.filter((service) => !exludedServices.includes(service));
+  for (const service of services) {
+    const res = await new Promise((resolve, reject) => {
+      exec(
+        `docker-compose -f test/docker-compose.yml --env-file test/.env logs ${service}`,
+        (err, stdout) => {
+          if (err) {
+            reject(err);
+          }
+          resolve(stdout);
+        },
+      );
+    });
+    console.log(res);
+  }
+}
+
+/**
  * Creates a hash transaction parse and persist it
  * @param id transaction hash
  * @param walletClientService wallet client service

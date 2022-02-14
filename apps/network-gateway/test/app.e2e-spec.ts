@@ -23,6 +23,7 @@ import {
   closeServer,
   createDidForTesting,
   createWSServer,
+  printDepsLogs,
   startDependencies,
   stopAndRemoveAllDeps,
 } from '@test/helpers';
@@ -169,6 +170,7 @@ describe('Network Gateway (e2e)', () => {
     fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
     clientRedis.close();
     await app.close();
+    await printDepsLogs(dockerDeps);
     await stopAndRemoveAllDeps();
   }, 25000);
 });

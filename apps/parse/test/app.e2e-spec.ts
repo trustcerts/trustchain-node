@@ -20,6 +20,7 @@ import { PersistClientService } from '@tc/persist-client';
 import {
   generateTestDidIdTransaction,
   generateTestHashTransaction,
+  printDepsLogs,
   sendBlock,
   setBlock,
   startDependencies,
@@ -143,6 +144,7 @@ describe('AppController (e2e)', () => {
   afterAll(async () => {
     clientRedis.close();
     clientTCP.close();
+    await printDepsLogs(dockerDeps);
     await app.close();
     await stopAndRemoveAllDeps();
   }, 60000);

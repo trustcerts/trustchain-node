@@ -14,6 +14,7 @@ import { Connection } from '@shared/connection';
 import {
   closeServer,
   createWSServer,
+  printDepsLogs,
   startDependencies,
   stopAndRemoveAllDeps,
 } from '@test/helpers';
@@ -76,6 +77,7 @@ describe('Network Observer (e2e)', () => {
     fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
     clientRedis.close();
     await app.close();
+    await printDepsLogs(dockerDeps);
     await stopAndRemoveAllDeps();
   }, 25000);
 });

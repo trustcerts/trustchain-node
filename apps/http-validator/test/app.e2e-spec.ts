@@ -14,6 +14,7 @@ import { addRedisEndpoint } from '@shared/main-functions';
 import { ConfigService } from '@tc/config/config.service';
 import {
   addListenerToTransactionParsed,
+  printDepsLogs,
   startDependencies,
   stopAndRemoveAllDeps,
 } from '@test/helpers';
@@ -197,6 +198,7 @@ describe('ValidatorController (e2e)', () => {
     } catch (e) {
       console.log(e);
     } finally {
+      await printDepsLogs(dockerDeps);
       await stopAndRemoveAllDeps();
     }
   }, 25000);

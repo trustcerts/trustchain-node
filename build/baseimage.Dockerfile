@@ -1,4 +1,4 @@
-FROM node:17-alpine
+FROM node:17.5.0-alpine3.15
 ARG app
 
 ## Install build toolchain, install node deps and compile native add-ons

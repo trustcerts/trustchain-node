@@ -23,6 +23,7 @@ import {
   closeServer,
   startDependencies,
   stopAndRemoveAllDeps,
+  printDepsLogs,
 } from '@test/helpers';
 import { Server } from 'socket.io';
 import { io } from 'socket.io-client';
@@ -162,6 +163,7 @@ describe('AppController (e2e)', () => {
     fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
     clientRedis.close();
     await app.close();
+    await printDepsLogs(dockerDeps);
     await stopAndRemoveAllDeps();
   }, 25000);
 });

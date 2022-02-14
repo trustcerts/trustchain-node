@@ -14,6 +14,7 @@ import {
   createHash,
   createSchema,
   createTemplate,
+  printDepsLogs,
   startDependencies,
   stopAndRemoveAllDeps,
 } from '@test/helpers';
@@ -197,7 +198,8 @@ describe('ObserverController (e2e)', () => {
   afterAll(async () => {
     fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
     clientRedis.close();
-    await app.close().catch(() => {});
+    await printDepsLogs(dockerDeps);
+    await app.close();
     await stopAndRemoveAllDeps();
   }, 60000);
 });
