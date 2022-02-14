@@ -67,7 +67,7 @@ describe('Network Gateway (e2e)', () => {
     didCachedService = app.get(DidIdCachedService);
     p2PService = app.get(P2PService);
     console.timeEnd('before');
-  }, 30000);
+  }, 60000);
 
   it('should return the type of the node and the service that was exposed', () => {
     return request(app.getHttpServer()).get('/').expect(200).expect({

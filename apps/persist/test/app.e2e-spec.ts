@@ -117,7 +117,7 @@ describe('AppController (e2e)', () => {
       i++;
       ind++;
     }
-  }, 30000);
+  }, 60000);
 
   it('should count the blocks', async () => {
     const hashTransaction: TransactionDto = generateTestHashTransaction();
@@ -156,5 +156,5 @@ describe('AppController (e2e)', () => {
     clientRedis.close();
     clientTCP.close();
     await app.close();
-  }, 30000);
+  }, 60000);
 });
