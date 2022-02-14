@@ -15,7 +15,7 @@ export class DidSchema extends Did {
    */
   @ApiProperty({ description: 'value of the schema' })
   @Prop()
-  schema!: string;
+  values!: string;
 }
 
 /**

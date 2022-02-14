@@ -64,26 +64,64 @@ services:
       - ${PUBLISH_PERSIST_PORT_HTTP}:3000
       - ${PUBLISH_PERSIST_PORT_TCP}:3001
 
-  http:
-    image: trustcerts/trustchain-http-${NODE_TYPE}:${IMAGE_TAG-dev}
+  # http:
+  #   image: trustcerts/trustchain-http-${NODE_TYPE}:${IMAGE_TAG-dev}
+  #   restart: ${RESTART-always}
+  #   environment:
+  #     NODE_SECRET: ${NODE_SECRET}
+  #     NETWORK_SECRET: ${NETWORK_SECRET}
+  #     IDENTIFIER: ${IDENTIFIER}
+  #     LOG_LEVEL: ${LOG_LEVEL-info}
+  #     RESET: ${RESET-false}
+  #     <<: *db-variables
+  #   volumes:
+  #     - http:/app/storage
+  #   networks:
+  #     internal:
+  #   ports:
+  #     - ${PUBLISH_HTTP_PORT_HTTP}:3000
+  #     - ${PUBLISH_HTTP_PORT_TCP}:3001
+
+  network-validator:
+    image: trustcerts/trustchain-network-validator:${IMAGE_TAG-dev}
     restart: ${RESTART-always}
     environment:
-      NODE_SECRET: ${NODE_SECRET}
+      OWN_PEER: ${OWN_PEER-info}
       NETWORK_SECRET: ${NETWORK_SECRET}
+      CHUNK_SIZE: ${CHUNK_SIZE-100}
       IDENTIFIER: ${IDENTIFIER}
       LOG_LEVEL: ${LOG_LEVEL-info}
-      RESET: ${RESET-false}
+      RECONNECT: ${RECONNECT-true}
       <<: *db-variables
     volumes:
-      - http:/app/storage
+      - network:/app/storage
     networks:
       internal:
     ports:
-      - ${PUBLISH_HTTP_PORT_HTTP}:3000
-      - ${PUBLISH_HTTP_PORT_TCP}:3001
+      - ${PUBLISH_NETWORK_PORT_HTTP}:3000
+      - ${PUBLISH_NETWORK_PORT_TCP}:3001
 
-  network:
-    image: trustcerts/trustchain-network-${NODE_TYPE}:${IMAGE_TAG-dev}
+  network-gateway:
+    image: trustcerts/trustchain-network-gateway:${IMAGE_TAG-dev}
+    restart: ${RESTART-always}
+    environment:
+      OWN_PEER: ${OWN_PEER-info}
+      NETWORK_SECRET: ${NETWORK_SECRET}
+      CHUNK_SIZE: ${CHUNK_SIZE-100}
+      IDENTIFIER: ${IDENTIFIER}
+      LOG_LEVEL: ${LOG_LEVEL-info}
+      RECONNECT: ${RECONNECT-true}
+      <<: *db-variables
+    volumes:
+      - network:/app/storage
+    networks:
+      internal:
+    ports:
+      - ${PUBLISH_NETWORK_PORT_HTTP}:3000
+      - ${PUBLISH_NETWORK_PORT_TCP}:3001
+
+  network-observer:
+    image: trustcerts/trustchain-network-observer:${IMAGE_TAG-dev}
     restart: ${RESTART-always}
     environment:
       OWN_PEER: ${OWN_PEER-info}

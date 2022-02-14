@@ -3,7 +3,7 @@ import { CachedService } from '@shared/cache.service';
 import { DidDocumentMetaData } from './did-document-meta-data';
 import { DidTransaction } from './schemas/did-transaction.schema';
 import { DocResponse } from './doc-response';
-import { Get, Param, Query } from '@nestjs/common';
+import { Get, NotFoundException, Param, Query } from '@nestjs/common';
 
 export function DidControllerMixin<
   D extends DocResponse,
@@ -43,10 +43,18 @@ export function DidControllerMixin<
       @Query('versionTime') time: string,
       @Query('versionId') id: number,
     ): Promise<T[]> {
-      return this.didCachedService.getTransactions<T>(identifier, {
-        time,
-        id,
-      });
+      console.log('get transactions');
+      return this.didCachedService
+        .getTransactions<T>(identifier, {
+          time,
+          id,
+        })
+        .then((transactions) => {
+          if (transactions.length === 0) {
+            throw new NotFoundException();
+          }
+          return transactions;
+        });
     }
 
     /**

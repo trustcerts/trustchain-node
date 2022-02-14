@@ -21,7 +21,7 @@ import {
   setBlock,
   sendBlock,
   closeServer,
-  startDependencies,  
+  startDependencies,
   stopAndRemoveAllDeps,
 } from '@test/helpers';
 import { Server } from 'socket.io';
@@ -50,7 +50,7 @@ describe('AppController (e2e)', () => {
     'wallet',
     'persist',
     'redis',
-    'network',
+    'network-validator',
   ];
 
   beforeAll(async () => {
@@ -92,6 +92,7 @@ describe('AppController (e2e)', () => {
   it('should Checks if the node has amount of Validator', async () => {
     const connection = new Connection(logger, httpService);
     connection.type = RoleManageAddEnum.Validator;
+    connection.socket = io('ws://localhost:4000');
     await p2PService.addConnection(connection);
     await request(app.getHttpServer())
       .get('/mashed?amount=1')

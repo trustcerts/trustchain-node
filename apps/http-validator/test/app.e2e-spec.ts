@@ -35,7 +35,7 @@ describe('ValidatorController (e2e)', () => {
     'parse',
     'persist',
     'redis',
-    'network',
+    'network-validator',
   ];
 
   beforeAll(async () => {

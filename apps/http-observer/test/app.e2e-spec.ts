@@ -11,6 +11,8 @@ import { addRedisEndpoint } from '@shared/main-functions';
 import * as fs from 'fs';
 import { ConfigService } from '@tc/config/config.service';
 import {
+  createHash,
+  createSchema,
   createTemplate,
   startDependencies,
   stopAndRemoveAllDeps,
@@ -31,7 +33,7 @@ describe('ObserverController (e2e)', () => {
     'parse',
     'persist',
     'redis',
-    'network',
+    'network-observer',
   ];
 
   beforeAll(async () => {
@@ -85,32 +87,28 @@ describe('ObserverController (e2e)', () => {
   });
 
   it('should look for an entry to the hash', async () => {
+    // TODO use Identifier.generate('hash', 'foobar')
     const hash =
-      '9991d650bd700b85f15ec25e0df27gcfa988a4401378b9e3b95c8fe8d1a5b61e';
-    await createTemplate(
-      '<h1>Hello there</h1>',
-      '',
-      '',
-      walletClientService,
-      didCachedService,
-      clientRedis,
-    );
+      'did:trust:tc:dev:hash:9991d650bd700b85f15ec25e0df27gcfa988a4401378b9e3b95c8fe8d1a5b61e';
+    await createHash(hash, walletClientService, didCachedService, clientRedis);
     return request(app.getHttpServer()).get(`/hash/${hash}`).expect(200);
   });
 
-  //#Template_Section
-  it('should look for an entry to the template', async () => {
-    let { templateTransaction } = await createTemplate(
+  //#Schema_Section
+  it('should look for an entry to the schema', async () => {
+    let { schemaTransaction } = await createSchema(
       '<h1>Hello there</h1>',
-      '',
-      '',
       walletClientService,
       didCachedService,
       clientRedis,
     );
-    return request(app.getHttpServer())
-      .get(`/template/did/${templateTransaction.body.value.id}`)
+    request(app.getHttpServer())
+      .get(`/schema/${schemaTransaction.body.value.id}`)
       .expect(200);
+
+    request(app.getHttpServer())
+      .get(`/schema/${schemaTransaction.body.value.id}12322`)
+      .expect(404);
   });
 
   //#Did_Section
@@ -173,10 +171,11 @@ describe('ObserverController (e2e)', () => {
   }, 15000);
 
   it('should clean and reset', async () => {
-    let { didTransaction } = await createTemplate(
-      '<h1>Hello there</h1>',
-      '',
-      '',
+    // TODO use Identifier.generate('hash', 'foobar')
+    const hash =
+      'did:trust:tc:dev:hash:9991d650bd700b85f15ec25e0df27gcfa988a4401378b9e3b95c8fe8d1a5b61e';
+    let { didTransaction } = await createHash(
+      hash,
       walletClientService,
       didCachedService,
       clientRedis,
@@ -192,14 +191,13 @@ describe('ObserverController (e2e)', () => {
     await wait(2000);
     return request(app.getHttpServer())
       .get(`/did/${didTransaction.did.id}`)
-      .expect(200)
-      .expect([]);
+      .expect(404);
   }, 15000);
 
   afterAll(async () => {
     fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
     clientRedis.close();
     await app.close().catch(() => {});
-    // await stopAndRemoveAllDeps();
+    await stopAndRemoveAllDeps();
   }, 15000);
 });

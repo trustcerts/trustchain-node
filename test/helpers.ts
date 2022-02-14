@@ -29,6 +29,7 @@ import express = require('express');
 import { CompressionType } from '@tc/template/dto/compressiontype.dto';
 import { DidIdRegister } from '@trustcerts/did-id-create';
 import { HashTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
+import { SchemaTransactionDto } from '@tc/schema/dto/schema.transaction.dto';
 import { Server } from 'socket.io';
 import { TemplateTransactionDto } from '@tc/template/dto/template.transaction.dto';
 import { TransactionMetadata } from '@tc/blockchain/transaction/transaction-metadata';
@@ -354,6 +355,102 @@ export function stopAndRemoveAllDeps(): Promise<void> {
       },
     );
   });
+}
+
+/**
+ * Creates a hash transaction parse and persist it
+ * @param id transaction hash
+ * @param walletClientService wallet client service
+ * @param didCachedService did cached service
+ * @param clientRedis redis client
+ * @returns
+ */
+export async function createHash(
+  hash: string,
+  walletClientService: WalletClientService,
+  didCachedService: DidIdCachedService,
+  clientRedis: ClientRedis,
+) {
+  const didTransaction = await createDidForTesting(
+    walletClientService,
+    didCachedService,
+  );
+  const hhashTransaction: HashTransactionDto = {
+    ...transactionProperties,
+    body: {
+      version: 1,
+      date: new Date().toISOString(),
+      type: TransactionType.Hash,
+      value: {
+        controller: {
+          add: [],
+          remove: [],
+        },
+        algorithm: 'SHA256',
+        id: hash,
+      },
+    },
+  };
+  await signContent(hhashTransaction, walletClientService);
+  // make block
+  const block: Block = setBlock(
+    [didTransaction.transaction, hhashTransaction],
+    1,
+  );
+  // send block via redis
+  await sendBlock(block, clientRedis, true);
+  return {
+    didTransaction,
+    schemaTransaction: hhashTransaction,
+  };
+}
+
+/**
+ * Creates a schema transaction parse and persist it
+ * @param id transaction hash
+ * @param walletClientService wallet client service
+ * @param didCachedService did cached service
+ * @param clientRedis redis client
+ * @returns
+ */
+export async function createSchema(
+  schema: string,
+  walletClientService: WalletClientService,
+  didCachedService: DidIdCachedService,
+  clientRedis: ClientRedis,
+) {
+  const didTransaction = await createDidForTesting(
+    walletClientService,
+    didCachedService,
+  );
+  const schemaTransaction: SchemaTransactionDto = {
+    ...transactionProperties,
+    body: {
+      version: 1,
+      date: new Date().toISOString(),
+      type: TransactionType.Schema,
+      value: {
+        controller: {
+          add: [],
+          remove: [],
+        },
+        schema,
+        id: Identifier.generate('sch'),
+      },
+    },
+  };
+  await signContent(schemaTransaction, walletClientService);
+  // make block
+  const block: Block = setBlock(
+    [didTransaction.transaction, schemaTransaction],
+    1,
+  );
+  // send block via redis
+  await sendBlock(block, clientRedis, true);
+  return {
+    didTransaction,
+    schemaTransaction,
+  };
 }
 
 /**
