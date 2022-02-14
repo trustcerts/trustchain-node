@@ -1,4 +1,4 @@
-import { DidTransactionDto } from '@apps/shared/did/dto/did.transaction.dto';
+import { DidTransactionDto } from '@shared/did/dto/did.transaction.dto';
 import { SchemaTransactionBody } from './schema-transaction-body.dto';
 
 /**

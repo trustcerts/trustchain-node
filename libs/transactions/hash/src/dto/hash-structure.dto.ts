@@ -3,7 +3,7 @@ import { DID_ID_NAME } from '@tc/did-id/constants';
 import { DidStructure } from '@shared/did/dto/did-structure.dto';
 import { IsIn, IsString, Matches } from 'class-validator';
 import { WalletClientService } from '@tc/wallet-client';
-import { getDid } from '@apps/shared/helpers';
+import { getDid } from '@shared/helpers';
 
 /**
  * Describes the value of a schema.

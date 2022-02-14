@@ -224,9 +224,6 @@ jobs:
       - name: load docker images
         run: node tools/load-docker-images.mjs
 
-      - name: generate config folder
-        run: npm run trusty-generate
-
       - name: Start blockchain-nodes
         run: |
           docker network create test-network

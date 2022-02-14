@@ -1,6 +1,6 @@
 import { ApiTags } from '@nestjs/swagger';
 import { Controller, UseGuards } from '@nestjs/common';
-import { DidControllerMixin } from '@apps/shared/did/did.controller';
+import { DidControllerMixin } from '@shared/did/did.controller';
 import { DidHashTransaction } from '@tc/hash/schemas/did-hash-transaction.schema';
 import { HashCachedService } from '@tc/hash/hash-cached/hash-cached.service';
 import { HashDocResponse } from '@tc/hash/dto/hash-doc-response.dto';

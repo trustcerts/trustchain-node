@@ -1,4 +1,5 @@
 import {
+  ApiExtraModels,
   ApiOperation,
   ApiParam,
   ApiQuery,
@@ -8,13 +9,14 @@ import {
 import { CachedService } from '@shared/cache.service';
 import { DidDocumentMetaData } from './did-document-meta-data';
 import { DidTransaction } from './schemas/did-transaction.schema';
-import { DocResponse } from './doc-response';
+import { DocResponse } from './doc-response.dto';
 import { Get, NotFoundException, Param, Query } from '@nestjs/common';
 
 export function DidControllerMixin<
   D extends DocResponse,
   T extends DidTransaction,
 >(options: { doc: typeof DocResponse; trans: typeof DidTransaction }): any {
+  @ApiExtraModels(DocResponse)
   class DidController {
     constructor(protected didCachedService: CachedService) {}
 
@@ -83,10 +85,8 @@ export function DidControllerMixin<
       description: 'return the did document with this version',
     })
     @ApiResponse({
+      // TODO extend doc with getSchemaPath(DocResponse)
       type: options.doc,
-      schema: {
-        $ref: getSchemaPath(DocResponse),
-      },
       status: 200,
     })
     getDoc(

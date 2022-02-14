@@ -1,6 +1,6 @@
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Controller, Get, Param, UseGuards } from '@nestjs/common';
-import { DidControllerMixin } from '@apps/shared/did/did.controller';
+import { DidControllerMixin } from '@shared/did/did.controller';
 import { DidTemplate } from '@tc/template/schemas/did-template.schema';
 import { DidTemplateTransaction } from '@tc/template/schemas/did-template-transaction.schema';
 import { MaintenanceGuard } from '@tc/config/version/maintenance.guard';

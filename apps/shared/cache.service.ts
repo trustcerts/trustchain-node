@@ -2,7 +2,7 @@ import { Did } from './did/schemas/did.schema';
 import { DidDocumentMetaData } from './did/did-document-meta-data';
 import { DidResolver } from '@trustcerts/core';
 import { DidTransaction } from './did/schemas/did-transaction.schema';
-import { DocResponse } from './did/doc-response';
+import { DocResponse } from './did/doc-response.dto';
 // TODO export
 import { Model } from 'mongoose';
 import { NotFoundException } from '@nestjs/common';

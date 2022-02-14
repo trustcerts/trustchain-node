@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Compression } from './compression.dto';
-import { DidStructure } from '@apps/shared/did/dto/did-structure.dto';
+import { DidStructure } from '@shared/did/dto/did-structure.dto';
 import { IsString, Matches } from 'class-validator';
 import { TEMPLATE_NAME } from '../constants';
 import { Type } from 'class-transformer';

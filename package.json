@@ -21,7 +21,6 @@
     "build": "nest build",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "trusty-generate": "trusty generate -h localhost -v 4 -o 2 -g 2",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
