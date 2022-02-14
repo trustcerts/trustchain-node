@@ -29,8 +29,9 @@
     "test:unit": "jest -c jest.unit.ts --coverage",
     "test:unit-ci": "jest -c jest.unit.ts --coverage --ci --reporters=default --reporters=jest-junit",
     "test:unit-persist": "jest ./apps/persist/src",
-    "doc": "npx compodoc -p tsconfig.json -w --theme material -s -r 8000",
-    "doc:build": "npx compodoc -p tsconfig.json -w --theme material",
+    "doc": "compodoc -p tsconfig.json -w --theme material -s -r 8000",
+    "doc:build": "compodoc -p tsconfig.json -w --theme material",
+    "coverage": "compodoc --coverageTest",
     "watch:wallet": "nest build wallet --watch",
     "watch:parse": "nest build parse --watch",
     "watch:persist": "nest build persist --watch",
@@ -42,6 +43,7 @@
     "watch:network-validator": "nest build network-validator --watch"
   },
   "dependencies": {
+    "@compodoc/compodoc": "^1.1.18",
     "@nestjs/axios": "^0.0.4",
     "@nestjs/common": "^8.2.4",
     "@nestjs/core": "^8.2.4",

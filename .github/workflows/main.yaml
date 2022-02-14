@@ -38,7 +38,7 @@ jobs:
         run: npm ci --ignore-scripts
 
       - name: Check commit coverage
-        run: compodoc --coverageTest
+        run: npm run coverage
 
       - name: Cache build node
         uses: actions/cache@v2
