@@ -10,6 +10,11 @@ export const BLOCK_CREATED = 'block_created';
 /**
  * Event is fired when a block was parsed.
  */
+export const BLOCK_PERSISTED = 'block_persisted';
+
+/**
+ * Event is fired when a block was parsed.
+ */
 export const BLOCK_PARSED = 'block_parsed';
 
 /**
@@ -26,6 +31,11 @@ export const BLOCKS_REQUEST = 'blocks_request';
  * Message request to receive the current block counter.
  */
 export const BLOCK_COUNTER = 'block_counter';
+
+/**
+ * Message request to check if a block is persisted.
+ */
+export const IS_BLOCK_PERSISTED = 'is_block_persisted';
 
 /**
  * Event is fired when a transaction was created.

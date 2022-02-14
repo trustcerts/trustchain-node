@@ -2,6 +2,7 @@ import {
   BLOCKS_REQUEST,
   BLOCK_COUNTER,
   BLOCK_REQUEST,
+  IS_BLOCK_PERSISTED,
 } from '@tc/event-client/constants';
 import { Block } from '@tc/blockchain/block/block.interface';
 import { ClientTCP } from '@nestjs/microservices';
@@ -57,5 +58,14 @@ export class PersistClientService {
       return Promise.reject();
     }
     return this.getBlock(latest);
+  }
+
+  /**
+   * Returns if the block with the given ID was persisted
+   * @param blockId 
+   * @returns 
+   */
+  isBlockPersisted(blockId: number): Promise<boolean> {
+    return lastValueFrom(this.clientTCP.send<boolean>(IS_BLOCK_PERSISTED, blockId));
   }
 }

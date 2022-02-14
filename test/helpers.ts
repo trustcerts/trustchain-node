@@ -1,6 +1,7 @@
 import {
   BLOCK_CREATED,
   BLOCK_PARSED,
+  BLOCK_PERSISTED,
   TRANSACTION_CREATED,
   TRANSACTION_PARSED,
 } from '@tc/event-client/constants';
@@ -69,6 +70,7 @@ export function sendBlock(
   if (direct) {
     return new Promise((resolve) => {
       clientRedis.emit(BLOCK_CREATED, block);
+      clientRedis.emit(BLOCK_PERSISTED, block);
       setTimeout(() => {
         resolve(true);
       }, 1500);
@@ -88,6 +90,7 @@ export function sendBlock(
         }
       });
       clientRedis.emit(BLOCK_CREATED, block);
+      clientRedis.emit(BLOCK_PERSISTED, block);
     });
   }
 }

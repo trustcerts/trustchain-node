@@ -3,7 +3,8 @@ import { Block } from '@tc/blockchain/block/block.interface';
 import { ConfigService } from '@tc/config';
 import { Counter } from 'prom-client';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { GatewayTimeoutException, Injectable, NotFoundException } from '@nestjs/common';
+import { resolve } from 'path/posix';
 
 /**
  * Service to organize the chain.
@@ -100,5 +101,45 @@ export class PersistService {
       fs.unlinkSync(path.concat('/', file));
     });
     this.promBlockCounter.reset();
+  }
+
+  /**
+   * Checks if a block is persisted.
+   * @param blockId of the checked block
+   */
+  private isBlockPersisted(blockId : number) : boolean{
+    try {
+      this.getBlock(blockId);
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }
+
+  /**
+   * Check if a block is persisted for a maxium number of times. Wait between
+   * the checks.
+   * @param blockId Id of the block that is checked.
+   */
+  async waitForPersistOfBlock(blockId: number): Promise<boolean> {
+    return new Promise(async (resolve) => {
+      let numberOfRequests = 0;
+      const maxNumberOfRequests = 3;
+      const waitingTime = 500;
+
+      while ((numberOfRequests <= maxNumberOfRequests)) {
+        if (this.isBlockPersisted(blockId)) {
+          resolve(true);
+          return;
+        }
+        await this.timeout(waitingTime);
+        numberOfRequests++;
+      }
+      resolve(false);
+    })    
+  }
+
+  private timeout(ms: number) { //pass a time in milliseconds to this function
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 }
