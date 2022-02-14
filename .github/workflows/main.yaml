@@ -86,7 +86,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ./docker-dist
-          key: build-${{ hashFiles('./apps') }}-${{ hashFiles('./libs') }}-${{ hashFiles('package-lock.json')-${{ hashFiles('./build') }}
+          key: build-${{ hashFiles('./apps') }}-${{ hashFiles('./libs') }}-${{ hashFiles('package-lock.json') }}-${{ hashFiles('./build') }}
           restore-keys: buildDocker-
 
       - name: Save Docker Image
