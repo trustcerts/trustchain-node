@@ -54,7 +54,7 @@ describe('ValidatorController (e2e)', () => {
     walletClientService = app.get(WalletClientService);
     hashService = app.get(HashService);
     httpValidatorService = app.get(HttpValidatorService);
-  }, 20000);
+  }, 60000);
 
   beforeEach(async () => {
     httpValidatorService.reset();
