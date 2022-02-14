@@ -28,7 +28,7 @@ import { WalletClientService } from '@tc/wallet-client';
  */
 @Injectable()
 export class GatewayDidService extends GatewayTransactionService {
-  protected didResolver: DidIdResolver;
+  private resolver = new DidIdResolver();
 
   /**
    * Loads required services.
@@ -104,7 +104,7 @@ export class GatewayDidService extends GatewayTransactionService {
     if (transactions.length === 0) {
       throw new NotFoundException(`${createCert.identifier} not known`);
     }
-    const did = await this.didResolver.load(createCert.identifier, {
+    const did = await this.resolver.load(createCert.identifier, {
       validateChainOfTrust: false,
       transactions,
     });

@@ -5,7 +5,6 @@ import { Counter } from 'prom-client';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';
 import { GatewayTimeoutException, Injectable, NotFoundException } from '@nestjs/common';
 import { resolve } from 'path/posix';
-import { rejects } from 'assert';
 
 /**
  * Service to organize the chain.
