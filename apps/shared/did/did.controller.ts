@@ -1,4 +1,10 @@
-import { ApiOperation, ApiParam, ApiQuery, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiOperation,
+  ApiParam,
+  ApiQuery,
+  ApiResponse,
+  getSchemaPath,
+} from '@nestjs/swagger';
 import { CachedService } from '@shared/cache.service';
 import { DidDocumentMetaData } from './did-document-meta-data';
 import { DidTransaction } from './schemas/did-transaction.schema';
@@ -78,6 +84,9 @@ export function DidControllerMixin<
     })
     @ApiResponse({
       type: options.doc,
+      schema: {
+        $ref: getSchemaPath(DocResponse),
+      },
       status: 200,
     })
     getDoc(

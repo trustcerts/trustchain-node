@@ -1,7 +1,7 @@
 import { projects, run } from './functions.mjs';
 
 const CONTAINER = process.env.CI_REGISTRY_IMAGE || 'trustcerts/trustchain';
-const CI_TAG = process.env.CI_COMMIT_BRANCH || 'dev';
+const CI_TAG = process.env.CI_COMMIT_BRANCH || 'latest';
 
 // build the images in parallel to speed up script.
 (async () => {
