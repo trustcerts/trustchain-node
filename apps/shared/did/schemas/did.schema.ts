@@ -1,18 +1,12 @@
 import { BcEntity } from '@shared/transactions/bc-entity.schema';
 import { DidId } from '@tc/did-id/schemas/did-id.schema';
-import { Document, Schema as MongooseSchema } from 'mongoose';
 import { IsString } from 'class-validator';
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-
-/**
- * Did as a Document.
- */
-export type DidDocument = Did & Document;
+import { Schema as MongooseSchema } from 'mongoose';
+import { Prop } from '@nestjs/mongoose';
 
 /**
  * Describes an entity in form of a did object that can be connected with different values.
  */
-@Schema()
 export class Did extends BcEntity {
   /**
    * DID Subject, only including the id of the document since method is defined by the system.
@@ -23,6 +17,14 @@ export class Did extends BcEntity {
   id!: string;
 
   /**
+   * Context of a did document
+   */
+  // @Prop()
+  // @IsArray()
+  // @IsString()
+  // '@context'!: string[];
+
+  /**
    * Controllers are authorized to make changes to the document.
    * https://www.w3.org/TR/did-core/#control
    */
@@ -31,8 +33,3 @@ export class Did extends BcEntity {
   })
   controllers!: DidId[];
 }
-
-/**
- * Did Schema
- */
-export const DidSchema = SchemaFactory.createForClass(Did);

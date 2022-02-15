@@ -87,6 +87,7 @@ export abstract class ParsingService {
   protected abstract parseDid(transaction: DidTransactionDto): Promise<void>;
 
   protected async updateController(did: Did, transaction: DidTransactionDto) {
+    console.log(transaction);
     // update the controllers
     if (transaction.body.value.controller) {
       if (transaction.body.value.controller!.remove) {
@@ -94,13 +95,18 @@ export abstract class ParsingService {
           transaction.body.value.controller!.remove!.includes(controller.id),
         );
       }
+      console.log(transaction.body.value.id);
       if (transaction.body.value.controller!.add) {
+        console.log('got controllers');
+        console.log(transaction.body.value.controller!.add);
         const newDids = await this.didIdRepository.find({
           id: { $in: transaction.body.value.controller!.add! },
         });
+        console.log(newDids);
         if (newDids.length > 0) {
           did.controllers.push(...newDids);
         }
+        console.log(did.controllers);
       }
     }
   }

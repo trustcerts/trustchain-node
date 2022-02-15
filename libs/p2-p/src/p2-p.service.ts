@@ -28,7 +28,7 @@ import { InjectMetric } from '@willsoto/nestjs-prometheus';
 import { Logger } from 'winston';
 import { PersistClientService } from '@tc/persist-client';
 import { ProposedBlock } from '@tc/blockchain/block/proposed-block.dto';
-import { RoleManageAddEnum } from '@tc/did-id/constants';
+import { RoleManageType } from '@tc/did-id/constants';
 import { Socket as ServerSocket } from 'socket.io';
 import { SignatureService } from '@tc/blockchain/signature/signature.service';
 import { lastValueFrom } from 'rxjs';
@@ -251,10 +251,10 @@ export class P2PService implements BeforeApplicationShutdown {
         (roles) => roles[0],
         () => {
           // return Validator because the blockchain is empty and the first connection is always a Validator
-          return RoleManageAddEnum.Validator;
+          return RoleManageType.Validator;
         },
       )
-      .then((type: RoleManageAddEnum) => {
+      .then((type: RoleManageType) => {
         endpoint.type = type;
         if (
           !this.connections.find(
@@ -588,7 +588,7 @@ export class P2PService implements BeforeApplicationShutdown {
       // wait one second so the Validator can register the required events.
       await this.addConnection(endpoint);
       setTimeout(() => {
-        endpoint.type = RoleManageAddEnum.Validator;
+        endpoint.type = RoleManageType.Validator;
         this.addListeners(endpoint);
       }, 1000);
     } else {
@@ -751,7 +751,7 @@ export class P2PService implements BeforeApplicationShutdown {
 
   /**
    * Validate and add block
-   * @param endpoint which sent the block 
+   * @param endpoint which sent the block
    * @param block block to validate and add
    */
   private processBlock(endpoint: Connection, block: Block) {

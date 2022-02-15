@@ -4,7 +4,6 @@ import {
   ApiParam,
   ApiQuery,
   ApiResponse,
-  getSchemaPath,
 } from '@nestjs/swagger';
 import { CachedService } from '@shared/cache.service';
 import { DidDocumentMetaData } from './did-document-meta-data';
@@ -16,7 +15,7 @@ export function DidControllerMixin<
   D extends DocResponse,
   T extends DidTransaction,
 >(options: { doc: typeof DocResponse; trans: typeof DidTransaction }): any {
-  @ApiExtraModels(DocResponse)
+  @ApiExtraModels(DocResponse, DidTransaction)
   class DidController {
     constructor(protected didCachedService: CachedService) {}
 

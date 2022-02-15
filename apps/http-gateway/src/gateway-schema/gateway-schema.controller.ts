@@ -7,7 +7,7 @@ import {
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { GatewaySchemaService } from './gateway-schema.service';
 import { MaintenanceGuard } from '@tc/config/version/maintenance.guard';
-import { SchemaCreationResponse } from './response';
+import { SchemaResponse } from './response';
 import { SchemaTransactionDto } from '@tc/schema/dto/schema.transaction.dto';
 
 /**
@@ -30,7 +30,7 @@ export class GatewaySchemaController {
   @ApiOperation({ summary: 'Adds new schema to the chain.' })
   @ApiCreatedResponse({
     description: 'The hash was successful persisted.',
-    type: SchemaCreationResponse,
+    type: SchemaResponse,
   })
   @ApiResponse({
     status: 422,
@@ -38,7 +38,7 @@ export class GatewaySchemaController {
   })
   async create(
     @Body() transaction: SchemaTransactionDto,
-  ): Promise<SchemaCreationResponse> {
+  ): Promise<SchemaResponse> {
     return this.gatewaySchemaService.addSchema(transaction);
   }
 }

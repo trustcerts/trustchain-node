@@ -99,8 +99,12 @@ export class BlockchainSyncService {
    * @param start index of first block to get
    * @param size number of blocks to get
    */
-  async requestMissingBlocks(client: ClientSocket | ServerSocket, start: number, size: number) {
-    let blocks = await this.getMissingBlocks(client, start, size);
+  async requestMissingBlocks(
+    client: ClientSocket | ServerSocket,
+    start: number,
+    size: number,
+  ) {
+    const blocks = await this.getMissingBlocks(client, start, size);
     for (const block of blocks) {
       await this.networkService.addBlock(block);
     }
@@ -111,9 +115,13 @@ export class BlockchainSyncService {
    * @param client given node to get the blocks from
    * @param start start index of first block to get
    * @param size size number of blocks to get
-   * @returns 
+   * @returns
    */
-  private getMissingBlocks(client: ClientSocket | ServerSocket, start: number, size: number): Promise<Block[]>{
+  private getMissingBlocks(
+    client: ClientSocket | ServerSocket,
+    start: number,
+    size: number,
+  ): Promise<Block[]> {
     return new Promise((resolve) => {
       client.emit(
         WS_BLOCK_MISSING,

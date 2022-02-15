@@ -1,14 +1,16 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IDidDocument } from '@trustcerts/core';
 
 /**
  * Did document based on the transactions.
  */
 
-export class DidDocument implements IDidDocument {
+export class DidDocument {
   /**
    * schemas that define the document.
    */
+  @ApiProperty({
+    description: 'schemas that define the document.',
+  })
   '@context'!: string[];
 
   /**

@@ -1,15 +1,20 @@
-import { HashStructure } from './hash-structure.dto';
-import { TransactionBody } from '@tc/blockchain/transaction/transaction-body.dto';
+import { ApiProperty } from '@nestjs/swagger';
+import { DidHashStructure } from './hash-structure.dto';
+import { DidTransactionBody } from '@apps/shared/did/dto/did-transaction-body.dto';
 import { Type } from 'class-transformer';
 
 /**
  * Body of a hash transaction.
  */
 
-export class HashTransactionBody extends TransactionBody {
+export class HashTransactionBody extends DidTransactionBody {
   /**
-   * Values of a hash transaction.
+   * Elements of the did document.
    */
-  @Type(() => HashStructure)
-  value!: HashStructure;
+  @ApiProperty({
+    description: 'elements of the did document',
+    type: DidHashStructure,
+  })
+  @Type(() => DidHashStructure)
+  value!: DidHashStructure;
 }

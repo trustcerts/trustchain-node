@@ -6,7 +6,7 @@ import { Type } from 'class-transformer';
 /**
  * Response of a schema creation request.
  */
-export class SchemaCreationResponse extends PersistedResponse {
+export class SchemaResponse extends PersistedResponse {
   /**
    * Transaction that was persisted.
    */

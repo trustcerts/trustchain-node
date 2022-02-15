@@ -12,7 +12,7 @@ import { Injectable } from '@nestjs/common';
 import { Key } from '@tc/did-id/schemas/key.schema';
 import { Model } from 'mongoose';
 import { PersistClientService } from '@tc/persist-client';
-import { RoleManageAddEnum } from '@tc/did-id/constants';
+import { RoleManageType } from '@tc/did-id/constants';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 
 /**
@@ -59,53 +59,6 @@ export class DidIdCachedService extends CachedService {
     return did;
   }
 
-  // /**
-  //  * Returns an assembled did document with the transaction
-  //  * @param id
-  //  * @param version
-  //  * @returns
-  //  */
-  // async getDocument(
-  //   id: string,
-  //   version?: VersionInformation,
-  // ): Promise<IdDocResponse> {
-  //   // catch timestamps that are in the future
-  //   if (version?.time) {
-  //     try {
-  //       new Date(version.time);
-  //     } catch {
-  //       version.time = new Date().toISOString();
-  //     }
-  //   }
-  //   const query = this.transactionModel
-  //     .find({
-  //       id,
-  //       createdAt: {
-  //         $lte: version?.time
-  //           ? new Date(version.time).toISOString()
-  //           : new Date().toISOString(),
-  //       },
-  //     })
-  //     .sort('createdAt');
-  //   if (version?.id) {
-  //     query.limit(version.id);
-  //   }
-  //   const transactions = await query.exec();
-  //   if (transactions.length === 0) {
-  //     throw new NotFoundException();
-  //   }
-  //   const did = await DidIdResolver.load(id, {
-  //     transactions: transactions as DidIdTransaction[],
-  //     validateChainOfTrust: false,
-  //     doc: false,
-  //   });
-  //   return {
-  //     document: did.getDocument() as DidIdDoc,
-  //     signatures: transactions[transactions.length - 1].didDocumentSignature,
-  //     metaData: await this.getDocumentMetaData(id, version),
-  //   };
-  // }
-
   /**
    * Maximum amount of validators regarding to the latest root certificate.
    */
@@ -120,7 +73,7 @@ export class DidIdCachedService extends CachedService {
   async getValidatorIdentifiers(): Promise<string[]> {
     return this.didModel.find().then((did) =>
       did
-        .filter((did) => did.roles.includes(RoleManageAddEnum.Validator))
+        .filter((did) => did.roles.includes(RoleManageType.Validator))
         .map((did) => did.id)
         .sort(),
     );
@@ -164,7 +117,7 @@ export class DidIdCachedService extends CachedService {
    * Returns the roles of a did. Normally there is only one role
    * @param keyIdentifier
    */
-  async getRole(keyIdentifier: string): Promise<RoleManageAddEnum[]> {
+  async getRole(keyIdentifier: string): Promise<RoleManageType[]> {
     const did = await this.getDidByKey(keyIdentifier);
     return did!.roles;
   }

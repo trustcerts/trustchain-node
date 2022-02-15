@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { HashTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
+import { HashDidTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
 import { PersistedResponse } from '@shared/http/dto/persisted-response';
 import { Type } from 'class-transformer';
 
@@ -12,8 +12,8 @@ export class HashResponse extends PersistedResponse {
    */
   @ApiProperty({
     description: 'transaction that was persisted.',
-    type: HashTransactionDto,
+    type: HashDidTransactionDto,
   })
-  @Type(() => HashTransactionDto)
-  transaction!: HashTransactionDto;
+  @Type(() => HashDidTransactionDto)
+  transaction!: HashDidTransactionDto;
 }

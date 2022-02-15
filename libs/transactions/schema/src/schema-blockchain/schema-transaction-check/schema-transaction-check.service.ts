@@ -1,7 +1,7 @@
 import { BlockCheckService } from '@tc/blockchain/block-check/block-check.service';
 import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
 import { Injectable } from '@nestjs/common';
-import { RoleManageAddEnum } from '@tc/did-id/constants';
+import { RoleManageType } from '@tc/did-id/constants';
 import { SchemaCachedService } from '@tc/schema/schema-cached/schema-cached.service';
 import { SchemaTransactionDto } from '@tc/schema/dto/schema.transaction.dto';
 import { TransactionCheck } from '@shared/transactions/transaction.check';
@@ -38,8 +38,8 @@ export class SchemaTransactionCheckService extends TransactionCheck {
    * Returns the identifier that is allowed to make these kind of transactions.
    * @returns
    */
-  protected getIdentifier(): RoleManageAddEnum {
-    return RoleManageAddEnum.Client;
+  protected getIdentifier(): RoleManageType {
+    return RoleManageType.Client;
   }
 
   /**

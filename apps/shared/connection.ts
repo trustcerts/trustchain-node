@@ -1,7 +1,7 @@
 import { Socket as ClientSocket } from 'socket.io-client';
 import { HttpService } from '@nestjs/axios';
 import { Logger } from 'winston';
-import { RoleManageAddEnum } from '@tc/did-id/constants';
+import { RoleManageType } from '@tc/did-id/constants';
 import { Socket as ServerSocket } from 'socket.io';
 import { lastValueFrom } from 'rxjs';
 import { wait } from './helpers';
@@ -39,7 +39,7 @@ export class Connection {
   /**
    * Type of the connection
    */
-  public type!: RoleManageAddEnum;
+  public type!: RoleManageType;
 
   /**
    * Injects required services.

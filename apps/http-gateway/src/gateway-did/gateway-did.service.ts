@@ -18,7 +18,7 @@ import { GatewayTransactionService } from '../gateway-transaction.service';
 import { HashService } from '@tc/blockchain';
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { Logger } from 'winston';
-import { RoleManageAddEnum } from '@tc/did-id/constants';
+import { RoleManageType } from '@tc/did-id/constants';
 import { SignatureInfo } from '@tc/blockchain/transaction/signature-info';
 import { SignatureType } from '@tc/blockchain/transaction/signature-type';
 import { WalletClientService } from '@tc/wallet-client';
@@ -78,7 +78,7 @@ export class GatewayDidService extends GatewayTransactionService {
    */
   createDid(
     createCert: CreateDidIdDto,
-    role: RoleManageAddEnum,
+    role: RoleManageType,
   ): Promise<DidCreationResponse> {
     return this.didCachedService.getDid(createCert.identifier).then(
       () => {
@@ -106,7 +106,8 @@ export class GatewayDidService extends GatewayTransactionService {
     }
     const did = await this.resolver.load(createCert.identifier, {
       validateChainOfTrust: false,
-      transactions,
+      // TODO remove after correction
+      transactions: transactions as unknown as any,
     });
     did.getDocument().modification.forEach((id) => {
       did.removeVerificationRelationship(
@@ -134,7 +135,7 @@ export class GatewayDidService extends GatewayTransactionService {
    */
   private async setDid(
     createCert: CreateDidIdDto,
-    roles: RoleManageAddEnum[] = [],
+    roles: RoleManageType[] = [],
   ): Promise<DidCreationResponse> {
     // add the did
     const did = DidIdRegister.create({

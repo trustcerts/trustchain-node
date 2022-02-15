@@ -32,7 +32,7 @@ import { WalletClientService } from '@tc/wallet-client/wallet-client.service';
 import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
 import { DidId } from '@trustcerts/core';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
-import { RoleManageAddEnum } from '@tc/did-id/constants';
+import { RoleManage } from '@tc/did-id/constants';
 import { HttpService } from '@nestjs/axios';
 import { config } from 'dotenv';
 
@@ -92,7 +92,7 @@ describe('AppController (e2e)', () => {
 
   it('should Checks if the node has amount of Validator', async () => {
     const connection = new Connection(logger, httpService);
-    connection.type = RoleManageAddEnum.Validator;
+    connection.type = RoleManage.Validator;
     connection.socket = io('ws://localhost:4000');
     await p2PService.addConnection(connection);
     await request(app.getHttpServer())
@@ -161,10 +161,10 @@ describe('AppController (e2e)', () => {
 
   afterAll(async () => {
     try {
-    fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
-    clientRedis.close();
-    await app.close();
-    } catch(e) {
+      fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
+      clientRedis.close();
+      await app.close();
+    } catch (e) {
       console.error(e);
     } finally {
       await printDepsLogs(dockerDeps);

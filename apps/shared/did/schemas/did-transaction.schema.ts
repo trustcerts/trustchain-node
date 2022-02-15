@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { BcEntity } from '@shared/transactions/bc-entity.schema';
-import { DidIdStructure } from '@tc/did-id/dto/did-id-structure.dto';
+import { DidStructure } from '../dto/did-structure.dto';
 import { Document } from 'mongoose';
 import { IsString } from 'class-validator';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
+import { SignatureInfo } from '@tc/blockchain/transaction/signature-info';
 import { Type } from 'class-transformer';
 
 export type DidTransactionDocument = DidTransaction & Document;
@@ -35,18 +35,18 @@ export class DidTransaction extends BcEntity {
   @Prop()
   @ApiProperty({
     description: 'Values of the transaction',
-    type: DidIdStructure,
+    type: DidStructure,
   })
-  @Type(() => DidIdStructure)
-  values!: DidIdStructure;
+  @Type(() => DidStructure)
+  values!: DidStructure;
 
   /**
    * Signature of the current did document.
    */
-  @ApiProperty({ description: 'Signature of the hash.', type: [SignatureDto] })
+  @ApiProperty({ description: 'Signature of the hash.', type: [SignatureInfo] })
   @Prop()
-  @Type(() => SignatureDto)
-  didDocumentSignature!: SignatureDto[];
+  @Type(() => SignatureInfo)
+  didDocumentSignature!: SignatureInfo[];
 }
 
 /**

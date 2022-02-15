@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { DidDocument } from './did-document';
+import { DidDocument } from './did-document.dto';
 import { DidDocumentMetaData } from './did-document-meta-data';
-import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
+import { SignatureInfo } from '@tc/blockchain/transaction/signature-info';
 
 /**
  * Response of a parsed did document.
@@ -19,9 +19,9 @@ export class DocResponse {
    */
   @ApiProperty({
     description: 'signatures of the parsed document',
-    type: [SignatureDto],
+    type: [SignatureInfo],
   })
-  signatures!: SignatureDto[];
+  signatures!: SignatureInfo[];
 
   /**
    * metadata of the document.

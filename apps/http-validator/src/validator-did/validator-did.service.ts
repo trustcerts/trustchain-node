@@ -6,7 +6,7 @@ import { DidIdTransactionDto } from '@tc/did-id/dto/did-id-transaction.dto';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
 import { PersistedTransaction } from '@shared/http/dto/persisted-transaction';
-import { RoleManageAddEnum } from '@tc/did-id/constants';
+import { RoleManageType } from '@tc/did-id/constants';
 import { SignatureInfo } from '@tc/blockchain/transaction/signature-info';
 import { SignatureType } from '@tc/blockchain/transaction/signature-type';
 import { ValidatorBlockchainService } from '../validator-blockchain/validator-blockchain.service';
@@ -46,7 +46,7 @@ export class ValidatorDidService {
    */
   createDid(
     createCert: CreateDidIdDto,
-    role: RoleManageAddEnum,
+    role: RoleManageType,
   ): Promise<PersistedTransaction> {
     return this.setDid(createCert, [role]);
   }
@@ -59,7 +59,7 @@ export class ValidatorDidService {
    */
   private async setDid(
     createCert: CreateDidIdDto,
-    roles: RoleManageAddEnum[] = [],
+    roles: RoleManageType[] = [],
   ): Promise<PersistedTransaction> {
     // add the did
     const did = DidIdRegister.create({
@@ -99,6 +99,7 @@ export class ValidatorDidService {
         }),
       ],
     };
+    console.log(JSON.stringify(did.getChanges(), null, 4));
     const transaction = new DidIdTransactionDto(
       did.getChanges(),
       didDocSignature,

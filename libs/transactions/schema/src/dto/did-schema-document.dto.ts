@@ -1,16 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { DidDocument } from '@shared/did/did-document';
+import { DidDocument } from '@apps/shared/did/did-document.dto';
 
 /**
  * Did document based on the transactions.
  */
-// TODO define implements IDidSchemaDocument
 export class DidSchemaDocument extends DidDocument {
   /**
-   * array of keys that belong to the did document.
+   * jsonld schema thsat defines a data structure
    */
   @ApiProperty({
-    description: 'array of keys that belong to the did document.',
+    description: 'jsonld schema thsat defines a data structure',
   })
-  value: any;
+  value!: string;
 }

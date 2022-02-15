@@ -16,7 +16,7 @@ import { Model } from 'mongoose';
 import { ParseService } from '@apps/parse/src/parse.service';
 import { ParsingService } from '@shared/transactions/parsing.service';
 import { REDIS_INJECTION } from '@tc/event-client/constants';
-import { RoleManageAddEnum } from '../constants';
+import { RoleManageType } from '../constants';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 
 /**
@@ -89,7 +89,7 @@ export class DidIdParsingService extends ParsingService {
     // update roles
     if (transaction.body.value.role) {
       if (transaction.body.value.role.remove) {
-        did.roles = did.roles!.filter((role: RoleManageAddEnum) =>
+        did.roles = did.roles!.filter((role: RoleManageType) =>
           transaction.body.value.role!.remove!.includes(role),
         );
       }

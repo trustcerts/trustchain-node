@@ -8,8 +8,8 @@ import {
 import { DidId } from '@trustcerts/core';
 import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
 import { DidIdDocument } from '@tc/did-id/schemas/did-id.schema';
+import { HashDidTransactionDto } from '../dto/hash-transaction.dto';
 import { HashService } from '@tc/blockchain';
-import { HashTransactionDto } from '../dto/hash-transaction.dto';
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';
 import { InjectModel } from '@nestjs/mongoose';
@@ -66,25 +66,25 @@ export class HashParsingService extends ParsingService {
    * Adds a new hash from the given transaction.
    * @param transaction
    */
-  async parseDid(transaction: HashTransactionDto) {
+  async parseDid(transaction: HashDidTransactionDto) {
     await this.addDocument(transaction);
     const did = await this.didSchemaRepository
       .findOne({ id: transaction.body.value.id })
       .then(async (did) => {
         console.log(transaction);
         if (!did) {
-          did = new this.didSchemaRepository({
+          const hash: DidHash = {
             id: transaction.body.value.id,
             createdAt: transaction.body.date,
             controllers: [],
             hashAlgorithm: transaction.body.value.algorithm,
-            didDocumentSignature: transaction.metadata!.didDocSignature!.values,
             signature: transaction.signature.values,
             block: {
-              ...transaction.block,
+              ...transaction.block!,
               imported: transaction.metadata?.imported?.date,
             },
-          } as DidHash);
+          };
+          did = new this.didSchemaRepository(hash);
         }
         return did;
       });

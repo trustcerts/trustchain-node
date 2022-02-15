@@ -2,7 +2,7 @@ import { Did } from '@shared/did/schemas/did.schema';
 import { Document } from 'mongoose';
 import { Key } from '@tc/did-id/schemas/key.schema';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { RoleManageAddEnum } from '@tc/did-id/constants';
+import { RoleManageType } from '@tc/did-id/constants';
 import { Service } from '@tc/did-id/schemas/service.schema';
 import { VerificationRelation } from './verification-relation.schema';
 /**
@@ -40,7 +40,7 @@ export class DidId extends Did {
    * Roles that are connected with this did, e.g. is this did authorized
    */
   @Prop()
-  roles!: RoleManageAddEnum[];
+  roles!: RoleManageType[];
 }
 
 /**

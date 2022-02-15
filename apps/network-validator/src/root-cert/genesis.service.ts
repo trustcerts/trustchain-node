@@ -11,7 +11,7 @@ import { HttpService } from '@nestjs/axios';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
 import { ProposedBlock } from '@tc/blockchain/block/proposed-block.dto';
-import { RoleManageAddEnum } from '@tc/did-id/constants';
+import { RoleManageType } from '@tc/did-id/constants';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
 import { SignatureInfo } from '@tc/blockchain/transaction/signature-info';
 import { SignatureType } from '@tc/blockchain/transaction/signature-type';
@@ -265,7 +265,7 @@ export class GenesisService {
       key.id.split('#')[1],
       VerificationRelationshipType.authentication,
     );
-    did.addRole(RoleManageAddEnum.Validator);
+    did.addRole(RoleManageType.Validator);
     // TODO update endpoint if microservice is not api.
     did.addService(
       'name',

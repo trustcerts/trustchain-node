@@ -29,7 +29,7 @@ import http = require('http');
 import express = require('express');
 import { CompressionType } from '@tc/template/dto/compressiontype.dto';
 import { DidIdRegister } from '@trustcerts/did-id-create';
-import { HashTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
+import { HashDidTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
 import { SchemaTransactionDto } from '@tc/schema/dto/schema.transaction.dto';
 import { Server } from 'socket.io';
 import { TemplateTransactionDto } from '@tc/template/dto/template.transaction.dto';
@@ -101,7 +101,7 @@ export function sendBlock(
  * choose one of the following or it will return hash transaction by default
  * did:trust:tc:dev:hash:2309udslknsdlvkjnakldjv
  */
-export function generateTestHashTransaction(id = '1'): HashTransactionDto {
+export function generateTestHashTransaction(id = '1'): HashDidTransactionDto {
   return {
     ...transactionProperties,
     body: {
@@ -400,7 +400,7 @@ export async function createHash(
     walletClientService,
     didCachedService,
   );
-  const hhashTransaction: HashTransactionDto = {
+  const hhashTransaction: HashDidTransactionDto = {
     ...transactionProperties,
     body: {
       version: 1,

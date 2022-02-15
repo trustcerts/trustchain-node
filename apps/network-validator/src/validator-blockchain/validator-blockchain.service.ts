@@ -17,7 +17,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
 import { P2PService } from '@tc/p2-p';
 import { REDIS_INJECTION } from '@tc/event-client/constants';
-import { RoleManageAddEnum } from '@tc/did-id/constants';
+import { RoleManageType } from '@tc/did-id/constants';
 import { Socket as ServerSocket } from 'socket.io';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 
@@ -144,9 +144,9 @@ export class ValidatorBlockchainService {
       message: 'add listeners',
       labels: { source: this.constructor.name },
     });
-    const allowedToWrite: RoleManageAddEnum[] = [
-      RoleManageAddEnum.Validator,
-      RoleManageAddEnum.Gateway,
+    const allowedToWrite: RoleManageType[] = [
+      RoleManageType.Validator,
+      RoleManageType.Gateway,
     ];
     if (allowedToWrite.includes(connection.type)) {
       this.logger.debug({

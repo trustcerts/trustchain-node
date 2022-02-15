@@ -30,7 +30,7 @@ import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { wait } from '@shared/helpers';
 import { Model } from 'mongoose';
 import { getModelToken } from '@nestjs/mongoose';
-import { HashTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
+import { HashDidTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
 import { DidIdTransactionDto } from '@tc/did-id/dto/did-id-transaction.dto';
 import { config } from 'dotenv';
 
@@ -80,7 +80,8 @@ describe('AppController (e2e)', () => {
   });
 
   it('Should parse and persist a block', async () => {
-    const hashTransaction: HashTransactionDto = generateTestHashTransaction();
+    const hashTransaction: HashDidTransactionDto =
+      generateTestHashTransaction();
     const didTransaction: TransactionDto = generateTestDidIdTransaction();
     const block: Block = setBlock([hashTransaction, didTransaction], 1);
     if (await sendBlock(block, clientRedis)) {
@@ -97,7 +98,8 @@ describe('AppController (e2e)', () => {
   }, 60000);
 
   it('Should remove from database and rebuild from persist', async () => {
-    const hashTransaction: HashTransactionDto = generateTestHashTransaction();
+    const hashTransaction: HashDidTransactionDto =
+      generateTestHashTransaction();
     const didTransaction: DidIdTransactionDto = generateTestDidIdTransaction();
     const block: Block = setBlock([hashTransaction, didTransaction], 1);
     if (await sendBlock(block, clientRedis)) {

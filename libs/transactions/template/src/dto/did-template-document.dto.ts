@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Compression } from './compression.dto';
-import { DidDocument } from '@shared/did/did-document';
+import { DidDocument } from '@apps/shared/did/did-document.dto';
 import { Type } from 'class-transformer';
 
 /**

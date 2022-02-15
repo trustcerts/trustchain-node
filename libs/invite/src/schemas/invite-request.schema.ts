@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { RoleManageAddEnum } from '@tc/did-id/constants';
+import { RoleManageType } from '@tc/did-id/constants';
 
 export type InviteRequestDocument = InviteRequest & Document;
 
@@ -50,7 +50,7 @@ export class InviteRequest {
       'Describes for what type of role in the network the secret is allowed to be used',
   })
   @Prop({ length: 20 })
-  role!: RoleManageAddEnum;
+  role!: RoleManageType;
 
   /**
    * If set to true a new secret will be set for an existing entry

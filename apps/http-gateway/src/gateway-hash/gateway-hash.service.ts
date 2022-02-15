@@ -4,10 +4,10 @@ import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.servi
 import { GatewayBlockchainService } from '../gateway-blockchain/gateway-blockchain.service';
 import { GatewayTransactionService } from '../gateway-transaction.service';
 import { HashCachedService } from '@tc/hash/hash-cached/hash-cached.service';
+import { HashDidTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
 import { HashResponse } from './dto/hash.respnse';
 import { HashService } from '@tc/blockchain/hash.service';
 import { HashTransactionCheckService } from '@tc/hash/hash-blockchain/hash-transaction-check/hash-transaction-check.service';
-import { HashTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
 import { Logger } from 'winston';
 import { WalletClientService } from '@tc/wallet-client';
 
@@ -49,7 +49,7 @@ export class GatewayHashService extends GatewayTransactionService {
    * Passes a transaction to the blockchain service if there isn't already one hash with the same hash.
    * @param transaction
    */
-  async addHash(transaction: HashTransactionDto): Promise<HashResponse> {
+  async addHash(transaction: HashDidTransactionDto): Promise<HashResponse> {
     const hash = await this.hashCachedService.getHash(
       transaction.body.value.id,
     );
@@ -72,7 +72,7 @@ export class GatewayHashService extends GatewayTransactionService {
    * - Client that wants to revoke the hash created it
    * @param transaction
    */
-  async revokeHash(transaction: HashTransactionDto): Promise<HashResponse> {
+  async revokeHash(transaction: HashDidTransactionDto): Promise<HashResponse> {
     // TODO move checks into transaction check
     const hash = await this.hashCachedService.getHash(
       transaction.body.value.id,

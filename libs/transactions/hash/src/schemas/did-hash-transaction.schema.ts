@@ -1,9 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { DidHashStructure } from '../dto/hash-structure.dto';
 import {
   DidTransaction,
   DidTransactionDocument,
 } from '@shared/did/schemas/did-transaction.schema';
-import { HashStructure } from '../dto/hash-structure.dto';
 import { IsString } from 'class-validator';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Type } from 'class-transformer';
@@ -37,10 +37,10 @@ export class DidHashTransaction extends DidTransaction {
   @Prop()
   @ApiProperty({
     description: 'Values of the transaction',
-    type: HashStructure,
+    type: DidHashStructure,
   })
-  @Type(() => HashStructure)
-  values!: HashStructure;
+  @Type(() => DidHashStructure)
+  values!: DidHashStructure;
 }
 
 /**

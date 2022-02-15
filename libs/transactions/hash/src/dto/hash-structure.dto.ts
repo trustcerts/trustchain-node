@@ -9,7 +9,7 @@ import { getDid } from '@shared/helpers';
  * Describes the value of a schema.
  */
 
-export class HashStructure extends DidStructure {
+export class DidHashStructure extends DidStructure {
   /**
    * Unique identifier.
    */

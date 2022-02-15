@@ -19,7 +19,7 @@ import { ClientRedis } from '@nestjs/microservices';
 import { REDIS_INJECTION } from '@tc/event-client/constants';
 import { addRedisEndpoint } from '@shared/main-functions';
 import { HashService } from '@tc/blockchain';
-import { RoleManageAddEnum } from '@tc/did-id/constants';
+import { RoleManage } from '@tc/did-id/constants';
 import { TemplateTransactionDto } from '@tc/template/dto/template.transaction.dto';
 import { CompressionType } from '@tc/template/dto/compressiontype.dto';
 import { InviteRequest } from '@tc/invite/schemas/invite-request.schema';
@@ -43,7 +43,7 @@ import { HttpGatewayService } from '../src/http-gateway.service';
 import { wait } from '@shared/helpers';
 import { InviteService } from '@tc/invite';
 import { TextEncoder } from 'util';
-import { HashTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
+import { HashDidTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
 import { CreateDidIdDto } from '@tc/did-id/dto/create-did-id.dto';
 import { config } from 'dotenv';
 
@@ -132,7 +132,7 @@ describe('Http Gateway (e2e)', () => {
 
   //#Hash_Section
   it('should create a hash', async () => {
-    const hashCreation: HashTransactionDto = {
+    const hashCreation: HashDidTransactionDto = {
       ...transactionProperties,
       body: {
         version: 1,
@@ -153,7 +153,7 @@ describe('Http Gateway (e2e)', () => {
   }, 10000);
 
   it('should revoke a hash', async () => {
-    const hashCreation: HashTransactionDto = {
+    const hashCreation: HashDidTransactionDto = {
       ...transactionProperties,
       body: {
         version: 1,
@@ -167,7 +167,7 @@ describe('Http Gateway (e2e)', () => {
     };
     await signContent(hashCreation, walletClientService);
     await sendBlock(setBlock([hashCreation], 2), clientRedis, true);
-    const hashRevocation: HashTransactionDto = {
+    const hashRevocation: HashDidTransactionDto = {
       ...transactionProperties,
       body: {
         version: 1,
@@ -249,7 +249,7 @@ describe('Http Gateway (e2e)', () => {
       id: didTransaction.did.id,
       secret: 'test_secret',
       name: 'test_name',
-      role: RoleManageAddEnum.Validator,
+      role: RoleManage.Validator,
     };
     return request(app.getHttpServer())
       .post('/did/invite')
@@ -264,7 +264,7 @@ describe('Http Gateway (e2e)', () => {
       id: did.id,
       secret: 'test_secret',
       name: 'test_name',
-      role: RoleManageAddEnum.Gateway,
+      role: RoleManage.Gateway,
     };
     await inviteService.createInvite(invite);
     const pair = await generateCryptoKeyPair();

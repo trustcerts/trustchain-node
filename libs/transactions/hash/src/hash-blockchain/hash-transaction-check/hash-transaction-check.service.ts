@@ -2,9 +2,9 @@ import { BlockCheckService } from '@tc/blockchain/block-check/block-check.servic
 import { DidHash } from '@tc/hash/schemas/did-hash.schema';
 import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
 import { HashCachedService } from '@tc/hash/hash-cached/hash-cached.service';
-import { HashTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
+import { HashDidTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
 import { Injectable } from '@nestjs/common';
-import { RoleManageAddEnum } from '@tc/did-id/constants';
+import { RoleManageType } from '@tc/did-id/constants';
 import { TransactionCheck } from '@shared/transactions/transaction.check';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
@@ -34,14 +34,14 @@ export class HashTransactionCheckService extends TransactionCheck {
    * @param addedTransactions
    */
   public checkDoubleHash(
-    newTransaction: HashTransactionDto,
+    newTransaction: HashDidTransactionDto,
     addedTransactions: Map<string, TransactionDto>,
   ) {
     addedTransactions.forEach((transaction: TransactionDto) => {
       if (
         TransactionType.Hash === transaction.body.type &&
         newTransaction.body.value.id ===
-          (transaction as HashTransactionDto).body.value.id
+          (transaction as HashDidTransactionDto).body.value.id
       ) {
         throw new Error('Double hash creation');
       }
@@ -52,7 +52,7 @@ export class HashTransactionCheckService extends TransactionCheck {
    * Checks if hash is already in the database.
    * @param transaction
    */
-  public async checkDoubleHashDB(transaction: HashTransactionDto) {
+  public async checkDoubleHashDB(transaction: HashDidTransactionDto) {
     const hash = await this.findHash(transaction.body.value.id);
     if (hash) {
       throw new Error(`Hash already signed: ${transaction.body.value.id}`);
@@ -62,12 +62,12 @@ export class HashTransactionCheckService extends TransactionCheck {
   /**
    * Checks if the issuer is authorized to perform this action.
    */
-  private async isIssuerAuthorized(transaction: HashTransactionDto) {
+  private async isIssuerAuthorized(transaction: HashDidTransactionDto) {
     // check if the identifier is authorized.
     const issuer = await this.didCachedService.getDidByKey(
       transaction.signature.values[0].identifier,
     );
-    if (!issuer.roles.includes(RoleManageAddEnum.Client)) {
+    if (!issuer.roles.includes(RoleManageType.Client)) {
       throw Error('issuer is not authorized to create hash transactions');
     }
   }
@@ -76,7 +76,7 @@ export class HashTransactionCheckService extends TransactionCheck {
    * Checks if the hash with the given hash is in the database and is not revoked.
    * @param transaction
    */
-  public async checkRevocation(transaction: HashTransactionDto) {
+  public async checkRevocation(transaction: HashDidTransactionDto) {
     const hash = await this.findHash(transaction.body.value.id);
     if (!hash) {
       throw new Error(`Hash to revoke doesn't exist.`);
@@ -125,8 +125,8 @@ export class HashTransactionCheckService extends TransactionCheck {
   /**
    * Authorized identifier that is able to add this type of transaction.
    */
-  protected getIdentifier(): RoleManageAddEnum {
-    return RoleManageAddEnum.Client;
+  protected getIdentifier(): RoleManageType {
+    return RoleManageType.Client;
   }
 
   /**
@@ -135,10 +135,13 @@ export class HashTransactionCheckService extends TransactionCheck {
    * @param addedTransactions
    */
   getValidation(
-    transaction: HashTransactionDto,
+    transaction: HashDidTransactionDto,
     addedTransactions: Map<string, TransactionDto>,
   ): Promise<void> {
-    this.checkDoubleHash(transaction as HashTransactionDto, addedTransactions);
+    this.checkDoubleHash(
+      transaction as HashDidTransactionDto,
+      addedTransactions,
+    );
     return Promise.resolve();
   }
 }

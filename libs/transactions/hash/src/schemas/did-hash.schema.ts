@@ -1,8 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Did, DidDocument } from '@shared/did/schemas/did.schema';
+import { Did } from '@shared/did/schemas/did.schema';
+import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-export type HashDocument = DidHash & DidDocument;
+export type HashDocument = DidHash & Document;
 
 /**
  * Entity that describes how signed hashes are stored on the database
