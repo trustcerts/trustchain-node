@@ -19,7 +19,7 @@ import { ClientRedis } from '@nestjs/microservices';
 import { REDIS_INJECTION } from '@tc/event-client/constants';
 import { addRedisEndpoint } from '@shared/main-functions';
 import { HashService } from '@tc/blockchain';
-import { RoleManage } from '@tc/did-id/constants';
+import { RoleManageType } from '@tc/did-id/constants';
 import { TemplateTransactionDto } from '@tc/template/dto/template.transaction.dto';
 import { CompressionType } from '@tc/template/dto/compressiontype.dto';
 import { InviteRequest } from '@tc/invite/schemas/invite-request.schema';
@@ -249,7 +249,7 @@ describe('Http Gateway (e2e)', () => {
       id: didTransaction.did.id,
       secret: 'test_secret',
       name: 'test_name',
-      role: RoleManage.Validator,
+      role: RoleManageType.Validator,
     };
     return request(app.getHttpServer())
       .post('/did/invite')
@@ -264,7 +264,7 @@ describe('Http Gateway (e2e)', () => {
       id: did.id,
       secret: 'test_secret',
       name: 'test_name',
-      role: RoleManage.Gateway,
+      role: RoleManageType.Gateway,
     };
     await inviteService.createInvite(invite);
     const pair = await generateCryptoKeyPair();

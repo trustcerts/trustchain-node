@@ -65,9 +65,9 @@ export class PersistClientService {
    * @param blockId
    * @returns
    */
-  isBlockPersisted(blockId: number): Promise<boolean> {
+  isBlockPersisted(blockId: number): Promise<void> {
     return lastValueFrom(
-      this.clientTCP.send<boolean>(IS_BLOCK_PERSISTED, blockId),
+      this.clientTCP.send<void>(IS_BLOCK_PERSISTED, blockId),
     );
   }
 }

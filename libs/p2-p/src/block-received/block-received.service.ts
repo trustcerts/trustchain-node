@@ -52,35 +52,34 @@ export class BlockReceivedService {
       // Check if block was persisted
       this.persistClientService
         .isBlockPersisted(block.index)
-        .then((wasPersisted) => {
-          if (wasPersisted) {
-            // set listener for successful parsing.
-            this.parsed.on(`block-${block.index}`, () => {
-              this.logger.debug({
-                message: `parsed block: ${block.index}`,
-                labels: { source: this.constructor.name },
-              });
-              clearTimeout(timeout);
-              this.parsed.removeAllListeners(`block-${block.index}`);
-              resolve();
+        .then(() => {
+     
+          // set listener for successful parsing.
+          this.parsed.on(`block-${block.index}`, () => {
+            this.logger.debug({
+              message: `parsed block: ${block.index}`,
+              labels: { source: this.constructor.name },
             });
+            clearTimeout(timeout);
+            this.parsed.removeAllListeners(`block-${block.index}`);
+            resolve();
+          });
 
-            // Emit event that block was persisted so can be parsed.
-            this.clientRedis.emit(BLOCK_PERSISTED, block);
+          // Emit event that block was persisted so can be parsed.
+          this.clientRedis.emit(BLOCK_PERSISTED, block);
 
-            // Wait just a given time for the parsing
-            const timeout = setTimeout(() => {
-              // Parsing needed to long so remove listeners and reject promise
-              this.parsed.removeAllListeners(`block-${block.index}`);
-              this.logger.warn({
-                message: `block ${block.index} not parsed in given time`,
-                labels: { source: this.constructor.name },
-              });
-              reject(`block ${block.index} not parsed in given time`);
-            }, this.parsingTimeout);
-          } else {
-            reject(`block ${block.index} not persisted in given time`);
-          }
+          // Wait just a given time for the parsing
+          const timeout = setTimeout(() => {
+            // Parsing needed to long so remove listeners and reject promise
+            this.parsed.removeAllListeners(`block-${block.index}`);
+            this.logger.warn({
+              message: `block ${block.index} not parsed in given time`,
+              labels: { source: this.constructor.name },
+            });
+            reject(`block ${block.index} not parsed in given time`);
+          }, this.parsingTimeout);
+        }).catch(() => {
+          reject(`block ${block.index} not persisted in given time`);
         });
     });
   }

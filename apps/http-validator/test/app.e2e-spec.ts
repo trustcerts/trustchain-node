@@ -4,7 +4,7 @@ import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import * as fs from 'fs';
 import { InviteRequest } from '@tc/invite/schemas/invite-request.schema';
-import { RoleManage } from '@tc/did-id/constants';
+import { RoleManageType } from '@tc/did-id/constants';
 import { WalletClientService } from '@tc/wallet-client';
 import { Identifier } from '@trustcerts/core';
 import { REDIS_INJECTION } from '@tc/event-client/constants';
@@ -90,7 +90,7 @@ describe('ValidatorController (e2e)', () => {
       id: did.id,
       secret: 'test_secret',
       name: 'test_name',
-      role: RoleManage.Validator,
+      role: RoleManageType.Validator,
     };
     return request(app.getHttpServer())
       .post('/did/invite')
@@ -113,7 +113,7 @@ describe('ValidatorController (e2e)', () => {
       id: did.id,
       secret: 'test_secret',
       name: 'test_name',
-      role: RoleManage.Validator,
+      role: RoleManageType.Validator,
     };
     await request(app.getHttpServer())
       .post('/did/invite')
@@ -135,7 +135,7 @@ describe('ValidatorController (e2e)', () => {
       id: did.id,
       secret: 'test_secret',
       name: 'test_name',
-      role: RoleManage.Validator,
+      role: RoleManageType.Validator,
     };
     await request(app.getHttpServer())
       .post('/did/invite')
@@ -163,7 +163,7 @@ describe('ValidatorController (e2e)', () => {
       id: did.id,
       secret: 'test_secret',
       name: 'test_name',
-      role: RoleManage.Validator,
+      role: RoleManageType.Validator,
     };
     await request(app.getHttpServer())
       .post('/did/invite')

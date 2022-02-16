@@ -88,9 +88,9 @@ describe('PersistService', () => {
 
   test('isBlockPersisted(blockId) should return if a block with a given index is persisted or not.', async () => {
     const persitedTrue = await service.waitForPersistOfBlock(2);
-    expect(persitedTrue).toBe(true);
+    expect(persitedTrue).resolves;
     const persitedFalse = await service.waitForPersistOfBlock(6);
-    expect(persitedFalse).toBe(false);
+    expect(persitedFalse).rejects;
   });
   
   it('clearBlockchain() should delete the blockchain of the node', () => {

@@ -71,7 +71,7 @@ export class PersistController {
    * Returns current amount of blocks.
    */
   @MessagePattern(IS_BLOCK_PERSISTED, Transport.TCP)
-  async checkIfBlockIsPersisted(blockId: number): Promise<boolean> {
+  async checkIfBlockIsPersisted(blockId: number): Promise<void> {
     return this.persistService.waitForPersistOfBlock(blockId);
   }
 

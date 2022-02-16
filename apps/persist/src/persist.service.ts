@@ -4,6 +4,7 @@ import { ConfigService } from '@tc/config';
 import { Counter } from 'prom-client';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { resolve } from 'path/posix';
 
 /**
  * Service to organize the chain.
@@ -120,19 +121,20 @@ export class PersistService {
    * the checks.
    * @param blockId Id of the block that is checked.
    */
-  async waitForPersistOfBlock(blockId: number): Promise<boolean> {
-    let numberOfRequests = 0;
-    const maxNumberOfRequests = 3;
-    const waitingTime = 500;
-
-    while (numberOfRequests <= maxNumberOfRequests) {
-      if (this.isBlockPersisted(blockId)) {
-        return Promise.resolve(true);
+  async waitForPersistOfBlock(blockId: number): Promise<void> {
+    return new Promise(async (resolve, reject) => {
+      let numberOfRequests = 0;
+      const maxNumberOfRequests = 3;
+      const waitingTime = 500;
+      while (numberOfRequests <= maxNumberOfRequests) {
+        if (this.isBlockPersisted(blockId)) {
+          resolve();
+        }
+        await this.timeout(waitingTime);
+        numberOfRequests++;
       }
-      await this.timeout(waitingTime);
-      numberOfRequests++;
-    }
-    return Promise.reject(false);
+      reject();
+    })
   }
 
   private timeout(ms: number) {

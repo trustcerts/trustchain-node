@@ -32,7 +32,7 @@ import { WalletClientService } from '@tc/wallet-client/wallet-client.service';
 import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
 import { DidId } from '@trustcerts/core';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
-import { RoleManage } from '@tc/did-id/constants';
+import { RoleManageType } from '@tc/did-id/constants';
 import { HttpService } from '@nestjs/axios';
 import { config } from 'dotenv';
 
@@ -92,7 +92,7 @@ describe('AppController (e2e)', () => {
 
   it('should Checks if the node has amount of Validator', async () => {
     const connection = new Connection(logger, httpService);
-    connection.type = RoleManage.Validator;
+    connection.type = RoleManageType.Validator;
     connection.socket = io('ws://localhost:4000');
     await p2PService.addConnection(connection);
     await request(app.getHttpServer())
