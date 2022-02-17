@@ -1,21 +1,11 @@
-import {
-  BLOCK_PARSED,
-  BLOCK_PERSISTED,
-  CHAIN_REBUILD,
-  REDIS_INJECTION,
-  SYSTEM_RESET,
-} from '@tc/event-client/constants';
+import { BLOCK_PARSE, CHAIN_REBUILD } from '@tc/parse-client/constants';
 import { Block } from '@tc/blockchain/block/block.interface';
-import {
-  ClientRedis,
-  EventPattern,
-  MessagePattern,
-  Transport,
-} from '@nestjs/microservices';
 import { Controller, Inject } from '@nestjs/common';
+import { EventPattern, MessagePattern, Transport } from '@nestjs/microservices';
 import { Logger } from 'winston';
 import { ParseService } from './parse.service';
 import { ParsingService } from '@shared/transactions/parsing.service';
+import { SYSTEM_RESET } from '@tc/event-client/constants';
 import { existsSync, rmSync } from 'fs';
 import { join } from 'path';
 /**
@@ -31,7 +21,6 @@ export class ParseController {
    */
   constructor(
     private readonly appService: ParseService,
-    @Inject(REDIS_INJECTION) private client: ClientRedis,
     @Inject('winston') private readonly logger: Logger,
   ) {}
 
@@ -39,8 +28,8 @@ export class ParseController {
    * Listens for new blocks and parses them. Emits an event when the job is done.
    * @param block
    */
-  @EventPattern(BLOCK_PERSISTED, Transport.REDIS)
-  async blockCreated(block: Block) {
+  @MessagePattern(BLOCK_PARSE, Transport.TCP)
+  async blockParse(block: Block) {
     this.logger.info({
       message: `parse block: ${block.index}`,
       labels: { source: this.constructor.name },
@@ -50,7 +39,6 @@ export class ParseController {
       message: `parsed block: ${block.index}`,
       labels: { source: this.constructor.name },
     });
-    this.client.emit(BLOCK_PARSED, block.index);
   }
 
   /**

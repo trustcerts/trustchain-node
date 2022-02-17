@@ -5,6 +5,7 @@ import { HttpModule, HttpService } from '@nestjs/axios';
 import { Inject, Module, OnApplicationBootstrap } from '@nestjs/common';
 import { Logger } from 'winston';
 import { PARSE_PORT_HTTP, PARSE_URL } from './constants';
+import { ParseClientService } from './parse-client.service';
 import { parseTcpProvider } from '@tc/parse-client/parse.provider';
 
 @Module({
@@ -14,8 +15,8 @@ import { parseTcpProvider } from '@tc/parse-client/parse.provider';
       useClass: HttpConfigService,
     }),
   ],
-  providers: [parseTcpProvider],
-  exports: [parseTcpProvider],
+  providers: [parseTcpProvider, ParseClientService],
+  exports: [parseTcpProvider, ParseClientService],
 })
 export class ParseClientModule
   extends ClientModule

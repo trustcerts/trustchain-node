@@ -99,7 +99,7 @@ export class ValidatorDidService {
         }),
       ],
     };
-    console.log(JSON.stringify(did.getChanges(), null, 4));
+    // console.log(JSON.stringify(did.getChanges(), null, 4));
     const transaction = new DidIdTransactionDto(
       did.getChanges(),
       didDocSignature,

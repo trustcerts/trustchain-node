@@ -2,19 +2,24 @@ import {
   BLOCKS_REQUEST,
   BLOCK_COUNTER,
   BLOCK_REQUEST,
-  IS_BLOCK_PERSISTED,
-} from '@tc/event-client/constants';
+  PERSIST_TCP_INJECTION,
+} from './constants';
+import { BLOCK_PERSIST } from '@apps/persist/src/constants';
 import { Block } from '@tc/blockchain/block/block.interface';
 import { ClientTCP } from '@nestjs/microservices';
 import { Inject, Injectable } from '@nestjs/common';
-import { PERSIST_TCP_INJECTION } from './constants';
-import { lastValueFrom } from 'rxjs';
+import { Observable, lastValueFrom, timeout } from 'rxjs';
 
 /**
  * Client to interact with the service that is responsible for the persist actions.
  */
 @Injectable()
 export class PersistClientService {
+  /**
+   * timeout in ms when to cancel the persist request.
+   */
+  private persistTimeout = 2000;
+
   /**
    * Inject required services.
    * @param clientTCP
@@ -28,6 +33,16 @@ export class PersistClientService {
    */
   async getBlockCounter(): Promise<number> {
     return lastValueFrom(this.clientTCP.send<number>(BLOCK_COUNTER, {}));
+  }
+
+  /**
+   * Returns the block with the given index.
+   * @param index
+   */
+  setBlock(block: Block): Observable<void> {
+    return this.clientTCP
+      .send(BLOCK_PERSIST, block)
+      .pipe(timeout(this.persistTimeout));
   }
 
   /**
@@ -58,16 +73,5 @@ export class PersistClientService {
       return Promise.reject();
     }
     return this.getBlock(latest);
-  }
-
-  /**
-   * Returns if the block with the given ID was persisted
-   * @param blockId
-   * @returns
-   */
-  isBlockPersisted(blockId: number): Promise<void> {
-    return lastValueFrom(
-      this.clientTCP.send<void>(IS_BLOCK_PERSISTED, blockId),
-    );
   }
 }

@@ -1,10 +1,16 @@
-import * as fs from 'fs';
 import { Block } from '@tc/blockchain/block/block.interface';
 import { ConfigService } from '@tc/config';
 import { Counter } from 'prom-client';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { resolve } from 'path/posix';
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  readdirSync,
+  unlinkSync,
+  writeFileSync,
+} from 'fs';
 
 /**
  * Service to organize the chain.
@@ -25,8 +31,8 @@ export class PersistService {
     private readonly configService: ConfigService,
     @InjectMetric('blockchainLength') private promBlockCounter: Counter<string>,
   ) {
-    if (!fs.existsSync(this.path)) {
-      fs.mkdirSync(this.path);
+    if (!existsSync(this.path)) {
+      mkdirSync(this.path);
     }
     this.promBlockCounter.inc(this.blockCounter);
   }
@@ -35,7 +41,7 @@ export class PersistService {
    * Returns the amount of blocks that are locally stored.
    */
   get blockCounter(): number {
-    const files = fs.readdirSync(`${this.path}`);
+    const files = readdirSync(`${this.path}`);
     return files.length;
   }
 
@@ -44,7 +50,7 @@ export class PersistService {
    * @param block given block
    */
   setBlock(block: Block): void {
-    fs.writeFileSync(`${this.path}/${block.index}.json`, JSON.stringify(block));
+    writeFileSync(`${this.path}/${block.index}.json`, JSON.stringify(block));
     this.promBlockCounter.inc();
   }
 
@@ -64,7 +70,7 @@ export class PersistService {
    */
   getBlock(index: number): Block {
     try {
-      const file = fs.readFileSync(`${this.path}/${index}.json`, 'utf8');
+      const file = readFileSync(`${this.path}/${index}.json`, 'utf8');
       return JSON.parse(file);
     } catch (e) {
       throw new NotFoundException(`block ${index} not found`);
@@ -96,9 +102,9 @@ export class PersistService {
    */
   public clearBlockchain() {
     const path = `${this.configService.storagePath}/bc`;
-    const files = fs.readdirSync(path);
+    const files = readdirSync(path);
     files.forEach((file) => {
-      fs.unlinkSync(path.concat('/', file));
+      unlinkSync(path.concat('/', file));
     });
     this.promBlockCounter.reset();
   }
@@ -114,31 +120,5 @@ export class PersistService {
       return false;
     }
     return true;
-  }
-
-  /**
-   * Check if a block is persisted for a maxium number of times. Wait between
-   * the checks.
-   * @param blockId Id of the block that is checked.
-   */
-  async waitForPersistOfBlock(blockId: number): Promise<void> {
-    return new Promise(async (resolve, reject) => {
-      let numberOfRequests = 0;
-      const maxNumberOfRequests = 3;
-      const waitingTime = 500;
-      while (numberOfRequests <= maxNumberOfRequests) {
-        if (this.isBlockPersisted(blockId)) {
-          resolve();
-        }
-        await this.timeout(waitingTime);
-        numberOfRequests++;
-      }
-      reject();
-    })
-  }
-
-  private timeout(ms: number) {
-    //pass a time in milliseconds to this function
-    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 }

@@ -50,7 +50,7 @@ export function DidControllerMixin<
       @Query('versionTime') time: string,
       @Query('versionId') id: number,
     ): Promise<T[]> {
-      console.log('get transactions');
+      // console.log('get transactions');
       return this.didCachedService
         .getTransactions<T>(identifier, {
           time,

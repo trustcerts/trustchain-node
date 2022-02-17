@@ -9,3 +9,13 @@ export const PARSE_URL = 'PARSE_URL',
  * name of the parse injection.
  */
 export const PARSE_TCP_INJECTION = 'PARSE_TCP';
+
+/**
+ * Event to parse a block
+ */
+export const BLOCK_PARSE = 'block_parse';
+
+/**
+ * Message request to rebuild the chain.
+ */
+export const CHAIN_REBUILD = 'chain_rebuild';

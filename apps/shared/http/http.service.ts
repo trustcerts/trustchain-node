@@ -1,12 +1,8 @@
-import {
-  CHAIN_REBUILD,
-  REDIS_INJECTION,
-  SYSTEM_RESET,
-} from '@tc/event-client/constants';
+import { CHAIN_REBUILD, PARSE_TCP_INJECTION } from '@tc/parse-client/constants';
 import { ClientRedis, ClientTCP } from '@nestjs/microservices';
 import { ConfigService } from '@tc/config';
 import { Inject } from '@nestjs/common';
-import { PARSE_TCP_INJECTION } from '@tc/parse-client/constants';
+import { REDIS_INJECTION, SYSTEM_RESET } from '@tc/event-client/constants';
 
 /**
  * Base class for http services.

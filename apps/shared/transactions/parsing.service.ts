@@ -55,6 +55,7 @@ export abstract class ParsingService {
     this.transactionsCounter.inc({
       type: transaction.body.type,
     });
+    console.log('got block');
     const hash = await this.hashTransaction({ ...transaction });
     if (transaction.block) {
       const persisted: PersistedTransaction = {

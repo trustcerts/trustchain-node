@@ -1,16 +1,15 @@
 import {
   BLOCKS_REQUEST,
   BLOCK_COUNTER,
-  BLOCK_CREATED,
   BLOCK_REQUEST,
-  IS_BLOCK_PERSISTED,
-  SYSTEM_RESET,
-} from '@tc/event-client/constants';
+} from '@tc/persist-client/constants';
+import { BLOCK_PERSIST } from './constants';
 import { Block } from '@tc/blockchain/block/block.interface';
 import { Controller, Inject } from '@nestjs/common';
 import { EventPattern, MessagePattern, Transport } from '@nestjs/microservices';
 import { Logger } from 'winston';
 import { PersistService } from './persist.service';
+import { SYSTEM_RESET } from '@tc/event-client/constants';
 
 /**
  * Endpoint to interact with other services inside a node.
@@ -32,7 +31,7 @@ export class PersistController {
    * Stores a now block that was emitted by the network service.
    * @param block
    */
-  @EventPattern(BLOCK_CREATED, Transport.REDIS)
+  @MessagePattern(BLOCK_PERSIST, Transport.TCP)
   blockCreated(block: Block) {
     this.logger.info({
       message: `persist block: ${block.index}`,
@@ -65,14 +64,6 @@ export class PersistController {
   @MessagePattern(BLOCK_COUNTER, Transport.TCP)
   getBlockCounter(): number {
     return this.persistService.blockCounter;
-  }
-
-  /**
-   * Returns current amount of blocks.
-   */
-  @MessagePattern(IS_BLOCK_PERSISTED, Transport.TCP)
-  async checkIfBlockIsPersisted(blockId: number): Promise<void> {
-    return this.persistService.waitForPersistOfBlock(blockId);
   }
 
   /**
