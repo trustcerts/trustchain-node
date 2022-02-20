@@ -1,10 +1,3 @@
-import {
-  BLOCK_CREATED,
-  BLOCK_PARSED,
-  BLOCK_PERSISTED,
-  TRANSACTION_CREATED,
-  TRANSACTION_PARSED,
-} from '@tc/event-client/constants';
 import { Block } from '@tc/blockchain/block/block.interface';
 import { ClientRedis } from '@nestjs/microservices';
 import {
@@ -16,11 +9,9 @@ import {
 import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
 import { DidIdTransactionDto } from '@tc/did-id/dto/did-id-transaction.dto';
 import { HashService } from '@tc/blockchain/hash.service';
-import { MESSAGE_EVENT } from '@nestjs/microservices/constants';
 import { RedisClient } from '@nestjs/microservices/external/redis.interface';
 import { SignatureInfo } from '@tc/blockchain/transaction/signature-info';
 import { SignatureType } from '@tc/blockchain/transaction/signature-type';
-import { Subject } from 'rxjs';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 import { WalletClientService } from '@tc/wallet-client';
@@ -30,10 +21,19 @@ import express = require('express');
 import { CompressionType } from '@tc/template/dto/compressiontype.dto';
 import { DidIdRegister } from '@trustcerts/did-id-create';
 import { HashDidTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
+import { MESSAGE_EVENT } from '@nestjs/microservices/constants';
+import { ParseClientService } from '@tc/parse-client/parse-client.service';
+import { PersistClientService } from '@tc/persist-client';
 import { SchemaTransactionDto } from '@tc/schema/dto/schema.transaction.dto';
 import { Server } from 'socket.io';
+import { Subject } from 'rxjs';
+import {
+  TRANSACTION_CREATED,
+  TRANSACTION_PARSED,
+} from '@tc/event-client/constants';
 import { TemplateTransactionDto } from '@tc/template/dto/template.transaction.dto';
 import { TransactionMetadata } from '@tc/blockchain/transaction/transaction-metadata';
+
 /**
  * create block with given transactions.
  * @param transactions Transactions to create a block with
@@ -64,35 +64,11 @@ export function setBlock(transactions: TransactionDto[], index: number): Block {
  */
 export function sendBlock(
   block: Block,
-  clientRedis: ClientRedis,
+  parseClient: ParseClientService,
+  persistClient: PersistClientService,
   direct = false,
 ): Promise<boolean> {
-  if (direct) {
-    return new Promise((resolve) => {
-      clientRedis.emit(BLOCK_CREATED, block);
-      clientRedis.emit(BLOCK_PERSISTED, block);
-      setTimeout(() => {
-        resolve(true);
-      }, 1500);
-    });
-  } else {
-    return new Promise((resolve, reject) => {
-      // if in 3 seconds we get no response the function will return false
-      const rejectIfFail = setTimeout(() => {
-        reject(false);
-      }, 3000);
-      addRedisSub(clientRedis, BLOCK_PARSED, (value: number) => {
-        if (value === block.index) {
-          clearTimeout(rejectIfFail);
-          resolve(true);
-        } else {
-          reject(false);
-        }
-      });
-      clientRedis.emit(BLOCK_CREATED, block);
-      clientRedis.emit(BLOCK_PERSISTED, block);
-    });
-  }
+  throw Error('not implemented');
 }
 
 /**
@@ -126,31 +102,6 @@ export function generateTestDidIdTransaction(): DidIdTransactionDto {
       value: { id: `${Math.random()}` },
     },
   };
-}
-
-/**
- * Listen to a redis event
- * @param client Redis client
- * @param pattern Channel name
- * @param callback(data) callback with a data parameter
- */
-export function addRedisSub(
-  client: ClientRedis,
-  channel: string,
-  callback: (data: any) => void,
-) {
-  const subClient = client.createClient(new Subject<Error>());
-  subClient.subscribe(channel);
-  subClient.on(MESSAGE_EVENT, (pattern: string, value: any) => {
-    if (channel === pattern) {
-      console.log(
-        '\x1b[32m%s\x1b[0m',
-        `an event was recieved on channel ${pattern} successfully`,
-      );
-      callback(JSON.parse(value).data);
-      removeRedisSub(subClient, BLOCK_PARSED);
-    }
-  });
 }
 
 /**
@@ -265,6 +216,31 @@ export const transactionProperties: {
     ],
   },
 };
+
+/**
+ * Listen to a redis event
+ * @param client Redis client
+ * @param pattern Channel name
+ * @param callback(data) callback with a data parameter
+ */
+export function addRedisSub(
+  client: ClientRedis,
+  channel: string,
+  callback: (data: any) => void,
+) {
+  const subClient = client.createClient(new Subject<Error>());
+  subClient.subscribe(channel);
+  subClient.on(MESSAGE_EVENT, (pattern: string, value: any) => {
+    if (channel === pattern) {
+      console.log(
+        '\x1b[32m%s\x1b[0m',
+        `an event was recieved on channel ${pattern} successfully`,
+      );
+      callback(JSON.parse(value).data);
+      removeRedisSub(subClient, TRANSACTION_CREATED);
+    }
+  });
+}
 
 /**
  * Redis Event Listener for TRANSACTION_CREATED channel mainly used in http tests
@@ -394,7 +370,7 @@ export async function createHash(
   hash: string,
   walletClientService: WalletClientService,
   didCachedService: DidIdCachedService,
-  clientRedis: ClientRedis,
+  parseClientService: ParseClientService,
 ) {
   const didTransaction = await createDidForTesting(
     walletClientService,
@@ -422,8 +398,7 @@ export async function createHash(
     [didTransaction.transaction, hhashTransaction],
     1,
   );
-  // send block via redis
-  await sendBlock(block, clientRedis, true);
+  await parseClientService.parseBlock(block);
   return {
     didTransaction,
     schemaTransaction: hhashTransaction,
@@ -442,7 +417,7 @@ export async function createSchema(
   schema: string,
   walletClientService: WalletClientService,
   didCachedService: DidIdCachedService,
-  clientRedis: ClientRedis,
+  parseClientService: ParseClientService,
 ) {
   const didTransaction = await createDidForTesting(
     walletClientService,
@@ -470,8 +445,7 @@ export async function createSchema(
     [didTransaction.transaction, schemaTransaction],
     1,
   );
-  // send block via redis
-  await sendBlock(block, clientRedis, true);
+  parseClientService.parseBlock(block);
   return {
     didTransaction,
     schemaTransaction,
@@ -487,20 +461,16 @@ export async function createSchema(
  * @returns
  */
 export async function createTemplate(
-  id: string,
   template: string,
   schemaId: string,
   walletClientService: WalletClientService,
   didCachedService: DidIdCachedService,
-  clientRedis: ClientRedis,
+  parseClientService: ParseClientService,
 ) {
   const didTransaction = await createDidForTesting(
     walletClientService,
     didCachedService,
   );
-  const hashCreation = generateTestHashTransaction(id);
-  await signContent(hashCreation, walletClientService);
-
   const templateTransaction: TemplateTransactionDto = {
     ...transactionProperties,
     body: {
@@ -520,11 +490,11 @@ export async function createTemplate(
   await signContent(templateTransaction, walletClientService);
   // make block
   const block: Block = setBlock(
-    [didTransaction.transaction, templateTransaction, hashCreation],
+    [didTransaction.transaction, templateTransaction],
     1,
   );
   // send block via redis
-  await sendBlock(block, clientRedis, true);
+  parseClientService.parseBlock(block);
   return {
     didTransaction,
     templateTransaction,

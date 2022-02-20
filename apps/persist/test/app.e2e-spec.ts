@@ -1,19 +1,8 @@
 import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { PersistModule } from '../src/persist.module';
-import {
-  ClientRedis,
-  ClientsModule,
-  ClientTCP,
-  Transport,
-} from '@nestjs/microservices';
-import {
-  BLOCKS_REQUEST,
-  BLOCK_COUNTER,
-  BLOCK_REQUEST,
-  REDIS_INJECTION,
-  SYSTEM_RESET,
-} from '@tc/event-client/constants';
+import { ClientRedis, ClientsModule, Transport } from '@nestjs/microservices';
+import { REDIS_INJECTION, SYSTEM_RESET } from '@tc/event-client/constants';
 import * as fs from 'fs';
 import { addRedisEndpoint, addTCPEndpoint } from '@shared/main-functions';
 import { join } from 'path';
@@ -22,38 +11,29 @@ import { wait } from '@shared/helpers';
 import {
   generateTestHashTransaction,
   printDepsLogs,
-  sendBlock,
   setBlock,
   startDependencies,
   stopAndRemoveAllDeps,
 } from '@test/helpers';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
-import { lastValueFrom } from 'rxjs';
 import { ConfigService } from '@tc/config/config.service';
 import { config } from 'dotenv';
+import { PersistClientModule, PersistClientService } from '@tc/persist-client';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
   let clientRedis: ClientRedis;
-  let clientTCP: ClientTCP;
+  let persistClientService: PersistClientService;
   let path: string;
   let dockerDeps: string[] = ['redis'];
 
   beforeAll(async () => {
     config({ path: 'test/.env' });
     config({ path: 'test/test.env', override: true });
+    process.env.PERSIST_PORT_TCP = '3001';
     await startDependencies(dockerDeps);
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [
-        PersistModule,
-        ClientsModule.register([
-          {
-            name: 'PersistClient',
-            transport: Transport.TCP,
-            options: { port: 3001, host: 'localhost' },
-          },
-        ]),
-      ],
+      imports: [PersistModule, PersistClientModule],
     }).compile();
     app = moduleFixture.createNestApplication();
     await addRedisEndpoint(app);
@@ -62,9 +42,8 @@ describe('AppController (e2e)', () => {
     await app.init();
 
     clientRedis = app.get(REDIS_INJECTION);
-    clientTCP = app.get('PersistClient');
+    persistClientService = app.get<PersistClientService>(PersistClientService);
     path = join(`${app.get(ConfigService).storagePath}`, 'bc');
-    await clientTCP.connect();
   }, 25000);
 
   beforeEach(async () => {
@@ -75,7 +54,7 @@ describe('AppController (e2e)', () => {
   it('should create a block', async () => {
     const hashTransaction: TransactionDto = generateTestHashTransaction();
     const block: Block = setBlock([hashTransaction], 1);
-    await sendBlock(block, clientRedis, true);
+    await persistClientService.setBlock(block);
     expect(fs.existsSync(path)).toBeTruthy();
     expect(fs.existsSync(`${path}/${block.index}.json`)).toBeTruthy();
     const savedBlock = JSON.parse(
@@ -87,10 +66,8 @@ describe('AppController (e2e)', () => {
   it('should request a block', async () => {
     const hashTransaction: TransactionDto = generateTestHashTransaction();
     const block: Block = setBlock([hashTransaction], 1);
-    await sendBlock(block, clientRedis, true);
-    const savedBlock: Block = await lastValueFrom(
-      clientTCP.send(BLOCK_REQUEST, 1),
-    );
+    await persistClientService.setBlock(block);
+    const savedBlock: Block = await persistClientService.getBlock(1);
     expect(savedBlock).toEqual(block);
   });
 
@@ -104,11 +81,12 @@ describe('AppController (e2e)', () => {
       setBlock([hashTransaction], 5),
     ];
     for (let block of blocks) {
-      await sendBlock(block, clientRedis, true);
+      await persistClientService.setBlock(block);
     }
     let requestData: { start: number; size: number } = { start: 2, size: 2 };
-    const response: Block[] = await lastValueFrom(
-      clientTCP.send(BLOCKS_REQUEST, requestData),
+    const response: Block[] = await persistClientService.getBlocks(
+      requestData.start,
+      requestData.size,
     );
     expect(response.length).toBe(requestData.size);
     let ind: number = requestData.start;
@@ -128,12 +106,10 @@ describe('AppController (e2e)', () => {
       setBlock([hashTransaction], 3),
     ];
     for (let block of blocks) {
-      await sendBlock(block, clientRedis, true);
+      await persistClientService.setBlock(block);
     }
-    const response = await lastValueFrom(
-      clientTCP.send<Block>(BLOCK_COUNTER, {}),
-    );
-    expect(response).toEqual(3);
+    const response = await persistClientService.getBlockCounter();
+    expect(response).toEqual(blocks.length);
   });
 
   it('should reset the system', async () => {
@@ -143,7 +119,7 @@ describe('AppController (e2e)', () => {
       setBlock([hashTransaction], 2),
     ];
     for (let block of blocks) {
-      await sendBlock(block, clientRedis, true);
+      await persistClientService.setBlock(block);
     }
     expect(fs.readdirSync(path).length).toBe(2);
     clientRedis.emit(SYSTEM_RESET, {});
@@ -154,7 +130,6 @@ describe('AppController (e2e)', () => {
   afterAll(async () => {
     try {
       fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
-      clientTCP.close();
       clientRedis.close();
       await app.close();
     } catch (e) {

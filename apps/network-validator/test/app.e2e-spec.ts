@@ -19,7 +19,6 @@ import {
   createWSServer,
   createDidForTesting,
   setBlock,
-  sendBlock,
   closeServer,
   startDependencies,
   stopAndRemoveAllDeps,
@@ -35,6 +34,7 @@ import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { RoleManageType } from '@tc/did-id/constants';
 import { HttpService } from '@nestjs/axios';
 import { config } from 'dotenv';
+import { ParseClientService } from '@tc/parse-client/parse-client.service';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -45,6 +45,7 @@ describe('AppController (e2e)', () => {
   let walletClientService: WalletClientService;
   let didCachedService: DidIdCachedService;
   let didTransaction: { did: DidId; transaction: TransactionDto };
+  let parseClientService: ParseClientService;
   let dockerDeps: string[] = [
     'db',
     'parse',
@@ -71,12 +72,14 @@ describe('AppController (e2e)', () => {
     didCachedService = app.get(DidIdCachedService);
     clientRedis = app.get<ClientRedis>(REDIS_INJECTION);
     p2PService = app.get(P2PService);
+    parseClientService = app.get<ParseClientService>(ParseClientService);
 
     didTransaction = await createDidForTesting(
       walletClientService,
       didCachedService,
     );
-    sendBlock(setBlock([didTransaction.transaction], 1), clientRedis, true);
+    const block = setBlock([didTransaction.transaction], 1);
+    await parseClientService.parseBlock(block);
   }, 60000);
 
   it('Returns the type of the node and the service that was exposed', () => {
@@ -131,11 +134,8 @@ describe('AppController (e2e)', () => {
           walletClientService,
           didCachedService,
         );
-        await sendBlock(
-          setBlock([didTransaction.transaction], 1),
-          clientRedis,
-          true,
-        );
+        const block = setBlock([didTransaction.transaction], 1);
+        await parseClientService.parseBlock(block);
         clientRedis.emit(TRANSACTION_CREATED, didTransaction.transaction);
       });
     });

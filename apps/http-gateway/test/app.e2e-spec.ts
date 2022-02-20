@@ -46,6 +46,7 @@ import { TextEncoder } from 'util';
 import { HashDidTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
 import { CreateDidIdDto } from '@tc/did-id/dto/create-did-id.dto';
 import { config } from 'dotenv';
+import { ParseClientService } from '@tc/parse-client/parse-client.service';
 
 describe('Http Gateway (e2e)', () => {
   let app: INestApplication;
@@ -54,6 +55,7 @@ describe('Http Gateway (e2e)', () => {
   let walletClientService: WalletClientService;
   let hashService: HashService;
   let clientRedis: ClientRedis;
+  let parseClientService: ParseClientService;
   let httpGateWayService: HttpGatewayService;
   let didTransaction: { did: Did; transaction: TransactionDto };
   let inviteService: InviteService;
@@ -85,6 +87,7 @@ describe('Http Gateway (e2e)', () => {
     walletClientService = app.get(WalletClientService);
     hashService = app.get(HashService);
     httpGateWayService = app.get(HttpGatewayService);
+    parseClientService = app.get(ParseClientService);
   }, 60000);
 
   beforeEach(async () => {
@@ -94,11 +97,8 @@ describe('Http Gateway (e2e)', () => {
       walletClientService,
       didCachedService,
     );
-    await sendBlock(
-      setBlock([didTransaction.transaction], 1),
-      clientRedis,
-      true,
-    );
+    const block = setBlock([didTransaction.transaction], 1);
+    await parseClientService.parseBlock(block);
   });
   // #Init_Section
   it('should give the information about the service', () => {
@@ -166,7 +166,7 @@ describe('Http Gateway (e2e)', () => {
       },
     };
     await signContent(hashCreation, walletClientService);
-    await sendBlock(setBlock([hashCreation], 2), clientRedis, true);
+    await parseClientService.parseBlock(setBlock([hashCreation], 2));
     const hashRevocation: HashDidTransactionDto = {
       ...transactionProperties,
       body: {
@@ -329,7 +329,7 @@ describe('Http Gateway (e2e)', () => {
       console.error(e);
     } finally {
       await printDepsLogs(dockerDeps);
-      await stopAndRemoveAllDeps();
+      // await stopAndRemoveAllDeps();
     }
   }, 60000);
 });

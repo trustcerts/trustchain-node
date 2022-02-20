@@ -26,39 +26,28 @@ export class BlockReceivedService {
    * @param block
    */
   async addBlock(block: Block): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.logger.debug({
-        message: `got new block: ${block.index}`,
+    this.logger.debug({
+      message: `got new block: ${block.index}`,
+      labels: { source: this.constructor.name },
+    });
+    await this.persistClientService.setBlock(block).catch((err) => {
+      console.log(err);
+      throw new Error(`block ${block.index} not persisted in given time`);
+    });
+    this.logger.debug({
+      message: `persisted block: ${block.index}`,
+      labels: { source: this.constructor.name },
+    });
+    await this.parseClientService.parseBlock(block).catch(() => {
+      this.logger.warn({
+        message: `block ${block.index} not parsed in given time`,
         labels: { source: this.constructor.name },
       });
-      this.persistClientService.setBlock(block).subscribe({
-        complete: () => {
-          this.logger.debug({
-            message: `persisted block: ${block.index}`,
-            labels: { source: this.constructor.name },
-          });
-          this.parseClientService.parseBlock(block).subscribe({
-            complete: () => {
-              this.logger.debug({
-                message: `parsed block: ${block.index}`,
-                labels: { source: this.constructor.name },
-              });
-              resolve();
-            },
-            error: () => {
-              this.logger.warn({
-                message: `block ${block.index} not parsed in given time`,
-                labels: { source: this.constructor.name },
-              });
-              reject(`block ${block.index} not parsed in given time`);
-            },
-          });
-        },
-        error: (err) => {
-          console.log(err);
-          reject(`block ${block.index} not persisted in given time`);
-        },
-      });
+      throw new Error(`block ${block.index} not parsed in given time`);
+    });
+    this.logger.debug({
+      message: `parsed block: ${block.index}`,
+      labels: { source: this.constructor.name },
     });
   }
 }

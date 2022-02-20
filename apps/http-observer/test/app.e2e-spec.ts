@@ -21,12 +21,14 @@ import {
 import { HttpObserverService } from '../src/http-observer.service';
 import { wait } from '@shared/helpers';
 import { config } from 'dotenv';
+import { ParseClientService } from '@tc/parse-client/parse-client.service';
 
 describe('ObserverController (e2e)', () => {
   let app: INestApplication;
   let didCachedService: DidIdCachedService;
   let walletClientService: WalletClientService;
   let clientRedis: ClientRedis;
+  let parseClientService: ParseClientService;
   let httpObserverService: HttpObserverService;
   let dockerDeps: string[] = [
     'db',
@@ -52,6 +54,7 @@ describe('ObserverController (e2e)', () => {
     didCachedService = app.get(DidIdCachedService);
     walletClientService = app.get(WalletClientService);
     httpObserverService = app.get(HttpObserverService);
+    parseClientService = app.get(ParseClientService);
   }, 60000);
 
   beforeEach(async () => {
@@ -91,7 +94,12 @@ describe('ObserverController (e2e)', () => {
     // TODO use Identifier.generate('hash', 'foobar')
     const hash =
       'did:trust:tc:dev:hash:9991d650bd700b85f15ec25e0df27gcfa988a4401378b9e3b95c8fe8d1a5b61e';
-    await createHash(hash, walletClientService, didCachedService, clientRedis);
+    await createHash(
+      hash,
+      walletClientService,
+      didCachedService,
+      parseClientService,
+    );
     return request(app.getHttpServer()).get(`/hash/${hash}`).expect(200);
   });
 
@@ -101,7 +109,7 @@ describe('ObserverController (e2e)', () => {
       '<h1>Hello there</h1>',
       walletClientService,
       didCachedService,
-      clientRedis,
+      parseClientService,
     );
     request(app.getHttpServer())
       .get(`/schema/${schemaTransaction.body.value.id}`)
@@ -114,13 +122,18 @@ describe('ObserverController (e2e)', () => {
 
   //#Did_Section
   it('should return transaction to assemble a did document', async () => {
-    let { didTransaction } = await createTemplate(
-      '<h1>Hello there</h1>',
-      '',
-      '',
+    const schema = await createSchema(
+      'my schema',
       walletClientService,
       didCachedService,
-      clientRedis,
+      parseClientService,
+    );
+    let { didTransaction } = await createTemplate(
+      '<h1>Hello there</h1>',
+      schema.schemaTransaction.body.value.id,
+      walletClientService,
+      didCachedService,
+      parseClientService,
     );
     return request(app.getHttpServer())
       .get(`/did/${didTransaction.did.id}`)
@@ -128,13 +141,18 @@ describe('ObserverController (e2e)', () => {
   });
 
   it('should return the did document to a did', async () => {
-    let { didTransaction } = await createTemplate(
-      '<h1>Hello there</h1>',
-      '',
-      '',
+    const schema = await createSchema(
+      'my schema',
       walletClientService,
       didCachedService,
-      clientRedis,
+      parseClientService,
+    );
+    let { didTransaction } = await createTemplate(
+      '<h1>Hello there</h1>',
+      schema.schemaTransaction.body.value.id,
+      walletClientService,
+      didCachedService,
+      parseClientService,
     );
     return request(app.getHttpServer())
       .get(`/did/${didTransaction.did.id}/doc`)
@@ -142,13 +160,18 @@ describe('ObserverController (e2e)', () => {
   });
 
   it('should return the diddocument-metadata to a did', async () => {
-    let { didTransaction } = await createTemplate(
-      '<h1>Hello there</h1>',
-      '',
-      '',
+    const schema = await createSchema(
+      'my schema',
       walletClientService,
       didCachedService,
-      clientRedis,
+      parseClientService,
+    );
+    let { didTransaction } = await createTemplate(
+      '<h1>Hello there</h1>',
+      schema.schemaTransaction.body.value.id,
+      walletClientService,
+      didCachedService,
+      parseClientService,
     );
     return request(app.getHttpServer())
       .get(`/did/${didTransaction.did.id}/metadata`)
@@ -157,13 +180,18 @@ describe('ObserverController (e2e)', () => {
 
   //#Rebuild&Reset_Section
   it('should rebuild the pki and hash database based on local blockchain', async () => {
-    await createTemplate(
-      '<h1>Hello there</h1>',
-      '',
-      '',
+    const schema = await createSchema(
+      'my schema',
       walletClientService,
       didCachedService,
-      clientRedis,
+      parseClientService,
+    );
+    let { didTransaction } = await createTemplate(
+      '<h1>Hello there</h1>',
+      schema.schemaTransaction.body.value.id,
+      walletClientService,
+      didCachedService,
+      parseClientService,
     );
     return request(app.getHttpServer())
       .post(`/rebuild`)
@@ -179,7 +207,7 @@ describe('ObserverController (e2e)', () => {
       hash,
       walletClientService,
       didCachedService,
-      clientRedis,
+      parseClientService,
     );
     const res = await request(app.getHttpServer())
       .get(`/did/${didTransaction.did.id}`)

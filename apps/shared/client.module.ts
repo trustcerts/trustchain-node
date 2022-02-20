@@ -24,7 +24,8 @@ export class ClientModule {
    * after some retires, the promise is not resolved.
    * @param key
    */
-  async isHealthy(host: string, port = 3000): Promise<void> {
+  isHealthy(host: string, port = 3000): Promise<void> {
+    if (this.configService.getBoolean('SKIP_HEALTHY')) return Promise.resolve();
     const intervalTime = 1000;
     const maxFailCounter = 10;
     let failCounter = 0;
@@ -34,8 +35,8 @@ export class ClientModule {
           .get(`http://${host}:${port}/health`, {
             timeout: intervalTime,
           })
-          .subscribe(
-            (data) => {
+          .subscribe({
+            next: (data) => {
               if (data.status === 200) {
                 clearInterval(interval);
                 this.logger.info({
@@ -45,7 +46,7 @@ export class ClientModule {
                 resolve();
               }
             },
-            () => {
+            error: () => {
               failCounter++;
               this.logger.warn({
                 message: `service (${host}:${port}) not ready yet (${failCounter}/${maxFailCounter})`,
@@ -61,7 +62,7 @@ export class ClientModule {
                 reject(`${host} service not ready in time`);
               }
             },
-          );
+          });
       }, intervalTime);
     });
   }

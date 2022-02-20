@@ -1,8 +1,8 @@
-import { BLOCK_PARSE, PARSE_TCP_INJECTION } from './constants';
+import { BLOCK_PARSE, CHAIN_REBUILD, PARSE_TCP_INJECTION } from './constants';
 import { Block } from '@tc/blockchain/block/block.interface';
 import { ClientTCP } from '@nestjs/microservices';
 import { Inject, Injectable } from '@nestjs/common';
-import { Observable, timeout } from 'rxjs';
+import { timeout } from 'rxjs';
 
 /**
  * Client to interact with the service that is responsible for the parse actions.
@@ -26,9 +26,30 @@ export class ParseClientService {
    * Send a block that should be parsed.
    * @param block
    */
-  parseBlock(block: Block): Observable<void> {
-    return this.clientTCP
-      .send(BLOCK_PARSE, block)
-      .pipe(timeout(this.parseTimeout));
+  parseBlock(block: Block): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.clientTCP
+        .send(BLOCK_PARSE, block)
+        .pipe(timeout(this.parseTimeout))
+        .subscribe({
+          complete: resolve,
+          error: reject,
+        });
+    });
+  }
+
+  /**
+   * Rebuilds the database based on the persisted blocks
+   */
+  rebuild(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.clientTCP
+        .send(CHAIN_REBUILD, {})
+        .pipe(timeout(this.parseTimeout))
+        .subscribe({
+          complete: resolve,
+          error: reject,
+        });
+    });
   }
 }

@@ -8,7 +8,7 @@ import { BLOCK_PERSIST } from '@apps/persist/src/constants';
 import { Block } from '@tc/blockchain/block/block.interface';
 import { ClientTCP } from '@nestjs/microservices';
 import { Inject, Injectable } from '@nestjs/common';
-import { Observable, lastValueFrom, timeout } from 'rxjs';
+import { timeout } from 'rxjs';
 
 /**
  * Client to interact with the service that is responsible for the persist actions.
@@ -31,26 +31,48 @@ export class PersistClientService {
   /**
    * Returns the current block counter.
    */
-  async getBlockCounter(): Promise<number> {
-    return lastValueFrom(this.clientTCP.send<number>(BLOCK_COUNTER, {}));
+  getBlockCounter(): Promise<number> {
+    return new Promise((resolve, reject) => {
+      this.clientTCP
+        .send<number>(BLOCK_COUNTER, {})
+        .pipe(timeout(this.persistTimeout))
+        .subscribe({
+          next: resolve,
+          error: reject,
+        });
+    });
   }
 
   /**
    * Returns the block with the given index.
    * @param index
    */
-  setBlock(block: Block): Observable<void> {
-    return this.clientTCP
-      .send(BLOCK_PERSIST, block)
-      .pipe(timeout(this.persistTimeout));
+  setBlock(block: Block): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.clientTCP
+        .send(BLOCK_PERSIST, block)
+        .pipe(timeout(this.persistTimeout))
+        .subscribe({
+          error: reject,
+          complete: resolve,
+        });
+    });
   }
 
   /**
    * Returns the block with the given index.
    * @param index
    */
-  async getBlock(index: number): Promise<Block> {
-    return lastValueFrom(this.clientTCP.send<Block>(BLOCK_REQUEST, index));
+  getBlock(index: number): Promise<Block> {
+    return new Promise((resolve, reject) => {
+      this.clientTCP
+        .send<Block>(BLOCK_REQUEST, index)
+        .pipe(timeout(this.persistTimeout))
+        .subscribe({
+          next: resolve,
+          error: reject,
+        });
+    });
   }
 
   /**
@@ -58,20 +80,31 @@ export class PersistClientService {
    * @param start
    * @param size
    */
-  async getBlocks(start: number, size: number): Promise<Block[]> {
-    return lastValueFrom(
-      this.clientTCP.send<Block[]>(BLOCKS_REQUEST, { start, size }),
-    );
+  getBlocks(start: number, size: number): Promise<Block[]> {
+    return new Promise((resolve, reject) => {
+      console.log('get block');
+      this.clientTCP
+        .send<Block[]>(BLOCKS_REQUEST, { start, size })
+        .pipe(timeout(this.persistTimeout))
+        .subscribe({
+          next: (res) => {
+            console.log('got');
+            resolve(res);
+          },
+          error: reject,
+        });
+    });
   }
 
   /**
    * Returns the latest block. Rejects the promise if no block was sent.
    */
-  async latestBlock(): Promise<Block> {
-    const latest = await this.getBlockCounter();
-    if (latest === 0) {
-      return Promise.reject();
-    }
-    return this.getBlock(latest);
+  latestBlock(): Promise<Block> {
+    return this.getBlockCounter().then((counter) => {
+      if (counter === 0) {
+        throw Error('no blocks founds');
+      }
+      return this.getBlock(counter);
+    });
   }
 }
