@@ -376,7 +376,7 @@ export async function createHash(
     walletClientService,
     didCachedService,
   );
-  const hhashTransaction: HashDidTransactionDto = {
+  const hashTransaction: HashDidTransactionDto = {
     ...transactionProperties,
     body: {
       version: 1,
@@ -392,16 +392,15 @@ export async function createHash(
       },
     },
   };
-  await signContent(hhashTransaction, walletClientService);
+  await signContent(hashTransaction, walletClientService);
   // make block
-  const block: Block = setBlock(
-    [didTransaction.transaction, hhashTransaction],
-    1,
+  await parseClientService.parseBlock(
+    setBlock([didTransaction.transaction], 1),
   );
-  await parseClientService.parseBlock(block);
+  await parseClientService.parseBlock(setBlock([hashTransaction], 2));
   return {
     didTransaction,
-    schemaTransaction: hhashTransaction,
+    schemaTransaction: hashTransaction,
   };
 }
 
@@ -441,11 +440,10 @@ export async function createSchema(
   };
   await signContent(schemaTransaction, walletClientService);
   // make block
-  const block: Block = setBlock(
-    [didTransaction.transaction, schemaTransaction],
-    1,
+  await parseClientService.parseBlock(
+    setBlock([didTransaction.transaction], 1),
   );
-  parseClientService.parseBlock(block);
+  await parseClientService.parseBlock(setBlock([schemaTransaction], 2));
   return {
     didTransaction,
     schemaTransaction,
@@ -488,13 +486,10 @@ export async function createTemplate(
     },
   };
   await signContent(templateTransaction, walletClientService);
-  // make block
-  const block: Block = setBlock(
-    [didTransaction.transaction, templateTransaction],
-    1,
+  await parseClientService.parseBlock(
+    setBlock([didTransaction.transaction], 1),
   );
-  // send block via redis
-  parseClientService.parseBlock(block);
+  await parseClientService.parseBlock(setBlock([templateTransaction], 2));
   return {
     didTransaction,
     templateTransaction,
