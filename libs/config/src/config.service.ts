@@ -250,7 +250,11 @@ export class ConfigService {
           batching: true,
           host: this.getString('LOKI_URL'),
           basicAuth: this.getString('LOKI_AUTH'),
-          labels: { node: this.getConfig('IDENTIFIER'), service: this.service },
+          labels: {
+            node: this.getString('IDENTIFIER'),
+            did: this.getConfig('IDENTIFIER'),
+            service: this.service,
+          },
           format: winston.format.combine(
             winston.format.printf(({ message }) => {
               return message;
