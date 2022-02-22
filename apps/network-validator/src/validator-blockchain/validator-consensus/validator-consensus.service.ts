@@ -19,6 +19,7 @@ import { ValidatorService } from './validator/validator.service';
 import Timeout = NodeJS.Timeout;
 import { Gauge } from 'prom-client';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';
+import { RoleManageType } from '@tc/did-id/constants';
 
 /**
  * Service that is responsible for the consensus to find valid blocks.
@@ -123,7 +124,7 @@ export class ValidatorConsensusService {
     this.p2PService.connectionChanges.on(
       CONNECTION_ADDED,
       (connection: Connection) => {
-        if (connection.type === 'validator') {
+        if (connection.type === RoleManageType.Validator) {
           this.logger.debug({
             message: `round ${this.roundNumber}: register for ${connection.identifier}`,
             labels: { source: this.constructor.name },
@@ -162,7 +163,7 @@ export class ValidatorConsensusService {
     this.p2PService.connectionChanges.on(
       CONNECTION_REMOVED,
       (connection: Connection) => {
-        if (connection.type === 'validator') {
+        if (connection.type === RoleManageType.Validator) {
           // TODO remove the function listeners from above to prevent a memory leak
           this.validatorRemoved();
         }

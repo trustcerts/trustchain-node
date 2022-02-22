@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { DidSchemaStructure } from './did-schema-structure.dto';
 import { IsIn } from 'class-validator';
-import { SchemaStructure } from './schema-structure.dto';
 import { TransactionBody } from '@tc/blockchain/transaction/transaction-body.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 import { Type } from 'class-transformer';
@@ -12,8 +12,8 @@ export class SchemaTransactionBody extends TransactionBody {
   /**
    * Values of the schema transaction.
    */
-  @Type(() => SchemaStructure)
-  value!: SchemaStructure;
+  @Type(() => DidSchemaStructure)
+  value!: DidSchemaStructure;
 
   /**
    * type of the transaction.

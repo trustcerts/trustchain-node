@@ -85,7 +85,7 @@ describe('AppController (e2e)', () => {
   it('Returns the type of the node and the service that was exposed', () => {
     return request(app.getHttpServer()).get('/').expect(200).expect({
       serviceType: 'network',
-      nodeType: 'validator',
+      nodeType: RoleManageType.Validator,
     });
   });
 

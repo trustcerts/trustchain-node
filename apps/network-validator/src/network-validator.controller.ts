@@ -13,6 +13,7 @@ import { Logger } from 'winston';
 import { NetworkGuard } from '@shared/guards/network-guard.service';
 import { NetworkValidatorService } from './network-validator.service';
 import { P2PService } from '@tc/p2-p';
+import { RoleManageType } from '@tc/did-id/constants';
 import { SYSTEM_RESET, TRANSACTION_CREATED } from '@tc/event-client/constants';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { ValidatorBlockchainService } from './validator-blockchain/validator-blockchain.service';
@@ -61,7 +62,7 @@ export class NetworkValidatorController implements OnApplicationBootstrap {
   public information() {
     return {
       serviceType: 'network',
-      nodeType: 'validator',
+      nodeType: RoleManageType.Validator,
     };
   }
 

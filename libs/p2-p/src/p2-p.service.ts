@@ -157,7 +157,7 @@ export class P2PService implements BeforeApplicationShutdown {
    */
   get validatorConnections(): Connection[] {
     return this.connections.filter(
-      (connection) => connection.type === 'validator',
+      (connection) => connection.type === RoleManageType.Validator,
     );
   }
 
@@ -653,7 +653,7 @@ export class P2PService implements BeforeApplicationShutdown {
     endpoint.socket.once(IS_ENDPOINT_LISTENING_FOR_BLOCKS, () => {
       endpoint.socket.emit(ENDPOINT_LISTENING_FOR_BLOCKS);
     });
-    if (endpoint.type === 'validator') {
+    if (endpoint.type === RoleManageType.Validator) {
       const validators: string[] =
         this.configService.getConfig('VALIDATORS') ?? [];
       if (validators.indexOf(endpoint.peer) === -1 && endpoint.peer !== null) {

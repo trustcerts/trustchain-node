@@ -9,6 +9,7 @@ import { EventPattern, Transport } from '@nestjs/microservices';
 import { Logger } from 'winston';
 import { NetworkGatewayService } from './network-gateway.service';
 import { P2PService } from '@tc/p2-p';
+import { RoleManageType } from '@tc/did-id/constants';
 import { SYSTEM_RESET, TRANSACTION_CREATED } from '@tc/event-client/constants';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 
@@ -51,7 +52,7 @@ export class NetworkGatewayController implements OnApplicationBootstrap {
   public information() {
     return {
       serviceType: 'network',
-      nodeType: 'gateway',
+      nodeType: RoleManageType.Gateway,
     };
   }
 

@@ -5,10 +5,10 @@ export enum SignatureType {
   /**
    * Single signature.
    */
-  single = 'single',
+  Single = 'Single',
   // TODO define how many signatures are required for a valid multi signature.
   /**
    * Multi signature
    */
-  multi = 'multi',
+  Multi = 'Multi',
 }

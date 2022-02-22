@@ -15,6 +15,7 @@ export class SignatureInfo {
   @ApiProperty({
     description: 'Type of the signature procedure.',
     enum: SignatureType,
+    enumName: 'SignatureType',
   })
   type!: SignatureType;
 

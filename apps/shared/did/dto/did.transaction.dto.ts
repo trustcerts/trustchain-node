@@ -16,7 +16,7 @@ export class DidTransactionDto extends TransactionDto {
   constructor(transactionType: TransactionType, value: DidStructure) {
     super(transactionType, value);
     this.signature = {
-      type: SignatureType.single,
+      type: SignatureType.Single,
       values: [],
     };
   }

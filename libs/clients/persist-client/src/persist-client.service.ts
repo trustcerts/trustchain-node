@@ -82,15 +82,11 @@ export class PersistClientService {
    */
   getBlocks(start: number, size: number): Promise<Block[]> {
     return new Promise((resolve, reject) => {
-      console.log('get block');
       this.clientTCP
         .send<Block[]>(BLOCKS_REQUEST, { start, size })
         .pipe(timeout(this.persistTimeout))
         .subscribe({
-          next: (res) => {
-            console.log('got');
-            resolve(res);
-          },
+          next: resolve,
           error: reject,
         });
     });

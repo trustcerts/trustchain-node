@@ -73,7 +73,7 @@ describe('Network Gateway (e2e)', () => {
   it('should return the type of the node and the service that was exposed', () => {
     return request(app.getHttpServer()).get('/').expect(200).expect({
       serviceType: 'network',
-      nodeType: 'gateway',
+      nodeType: RoleManageType.Gateway,
     });
   });
 

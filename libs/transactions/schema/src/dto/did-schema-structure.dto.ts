@@ -6,7 +6,7 @@ import { IsOptional, IsString } from 'class-validator';
  * Describes the value of a schema.
  */
 
-export class SchemaStructure extends DidStructure {
+export class DidSchemaStructure extends DidStructure {
   /**
    * json schema to validate the data that should be parsed into the
    */

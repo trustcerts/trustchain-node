@@ -1,3 +1,4 @@
+import { RoleManageType } from '@tc/did-id/constants';
 import axios from 'axios';
 
 describe('Network Testing', () => {
@@ -15,7 +16,7 @@ describe('Network Testing', () => {
       expect(responses[`resGate${i + 1}`].status).toEqual(200);
       expect(responses[`resGate${i + 1}`].data[0].values.id).toEqual(`${did}`);
       expect(responses[`resGate${i + 1}`].data[0].values.role.add[0]).toEqual(
-        'gateway',
+        RoleManageType.Gateway,
       );
     });
   });
@@ -33,7 +34,7 @@ describe('Network Testing', () => {
       expect(responses[`resObs${i + 1}`].status).toEqual(200);
       expect(responses[`resObs${i + 1}`].data[0].values.id).toEqual(`${did}`);
       expect(responses[`resObs${i + 1}`].data[0].values.role.add[0]).toEqual(
-        'observer',
+        RoleManageType.Observer,
       );
     });
   });

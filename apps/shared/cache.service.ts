@@ -126,11 +126,12 @@ export abstract class CachedService {
       throw new NotFoundException();
     }
     const did = await this.resolver.load(id, {
-      transactions,
+      transactions: transactions.map((transaction) => transaction.values),
       time: version.time,
       validateChainOfTrust: false,
       doc: false,
     });
+    console.log(did.getDocument());
     return {
       document: did.getDocument(),
       signatures: transactions[transactions.length - 1].didDocumentSignature,

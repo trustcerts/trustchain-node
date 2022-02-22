@@ -81,7 +81,7 @@ export class GatewayTransactionService {
     transaction.metadata.imported = {
       date: transaction.body.date,
       imported: {
-        type: SignatureType.single,
+        type: SignatureType.Single,
         values: [
           await this.walletService.signIssuer(
             this.cachedService.getValues(transaction),

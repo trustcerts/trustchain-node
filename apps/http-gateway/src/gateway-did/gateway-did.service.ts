@@ -1,6 +1,5 @@
 import { ConfigService } from '@tc/config';
 import { CreateDidIdDto } from '@tc/did-id/dto/create-did-id.dto';
-import { DidCreationResponse } from './responses';
 import {
   DidId,
   DidIdResolver,
@@ -8,11 +7,14 @@ import {
   exportKey,
   getFingerPrint,
   importKey,
+  sortKeys,
 } from '@trustcerts/core';
 import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
 import { DidIdRegister } from '@trustcerts/did-id-create';
+import { DidId as DidIdSchema } from '@tc/did-id/schemas/did-id.schema';
 import { DidIdTransactionCheckService } from '@tc/did-id/did-id-blockchain/did-id-transaction-check/did-id-transaction-check.service';
 import { DidIdTransactionDto } from '@tc/did-id/dto/did-id-transaction.dto';
+import { DidResponse } from './responses';
 import { GatewayBlockchainService } from '../gateway-blockchain/gateway-blockchain.service';
 import { GatewayTransactionService } from '../gateway-transaction.service';
 import { HashService } from '@tc/blockchain';
@@ -68,6 +70,39 @@ export class GatewayDidService extends GatewayTransactionService {
     // if (did) {
     //   throw new ConflictException('id already in use');
     // }
+
+    // add did doc signature
+    const values = await this.didCachedService.getTransactions(
+      transaction.body.value.id,
+    );
+    const transactions = values
+      .map((transaction) => transaction.values)
+      .concat([transaction.body.value]);
+    console.log(transactions);
+    const did = await this.resolver.load(transaction.body.value.id, {
+      transactions,
+      validateChainOfTrust: false,
+    });
+    // parse the transaction into the did
+    // add signature
+    console.log(
+      JSON.stringify(
+        sortKeys({
+          document: did.getDocument(),
+          version: did.getVersion(),
+        }),
+      ),
+    );
+    const didDocSignature: SignatureInfo = {
+      type: SignatureType.Single,
+      values: [
+        await this.walletService.signIssuer({
+          document: did.getDocument(),
+          version: did.getVersion(),
+        }),
+      ],
+    };
+    transaction.metadata.didDocSignature = didDocSignature;
     return this.addTransaction(transaction);
   }
 
@@ -79,14 +114,10 @@ export class GatewayDidService extends GatewayTransactionService {
   createDid(
     createCert: CreateDidIdDto,
     role: RoleManageType,
-  ): Promise<DidCreationResponse> {
+  ): Promise<DidResponse> {
     return this.didCachedService.getDid(createCert.identifier).then(
-      () => {
-        return this.resetModification(createCert);
-      },
-      () => {
-        return this.setDid(createCert, [role]);
-      },
+      () => this.resetModification(createCert),
+      () => this.setDid(createCert, [role]),
     );
   }
 
@@ -97,7 +128,7 @@ export class GatewayDidService extends GatewayTransactionService {
    */
   private async resetModification(
     createCert: CreateDidIdDto,
-  ): Promise<DidCreationResponse> {
+  ): Promise<DidResponse> {
     const transactions = await this.didCachedService.getTransactions(
       createCert.identifier,
     );
@@ -105,9 +136,8 @@ export class GatewayDidService extends GatewayTransactionService {
       throw new NotFoundException(`${createCert.identifier} not known`);
     }
     const did = await this.resolver.load(createCert.identifier, {
+      transactions,
       validateChainOfTrust: false,
-      // TODO remove after correction
-      transactions: transactions as unknown as any,
     });
     did.getDocument().modification.forEach((id) => {
       did.removeVerificationRelationship(
@@ -136,7 +166,7 @@ export class GatewayDidService extends GatewayTransactionService {
   private async setDid(
     createCert: CreateDidIdDto,
     roles: RoleManageType[] = [],
-  ): Promise<DidCreationResponse> {
+  ): Promise<DidResponse> {
     // add the did
     const did = DidIdRegister.create({
       id: createCert.identifier,
@@ -172,9 +202,18 @@ export class GatewayDidService extends GatewayTransactionService {
    * @private
    */
   private async getTransaction(did: DidId) {
+    console.log(
+      JSON.stringify(
+        sortKeys({
+          document: did.getDocument(),
+          version: did.getVersion() + 1,
+        }),
+      ),
+    );
+
     // add transaction
     const didDocSignature: SignatureInfo = {
-      type: SignatureType.single,
+      type: SignatureType.Single,
       values: [
         await this.walletService.signIssuer({
           document: did.getDocument(),
@@ -187,7 +226,7 @@ export class GatewayDidService extends GatewayTransactionService {
       didDocSignature,
     );
     transaction.signature = {
-      type: SignatureType.single,
+      type: SignatureType.Single,
       values: [
         await this.walletService.signIssuer(
           this.didCachedService.getValues(transaction),

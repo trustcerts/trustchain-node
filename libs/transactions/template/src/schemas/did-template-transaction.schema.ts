@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { DidTemplateStructure } from '../dto/did-template-structure.dto';
 import {
   DidTransaction,
   DidTransactionDocument,
 } from '@shared/did/schemas/did-transaction.schema';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { TemplateStructure } from '../dto/templatestructure.dto';
 import { Type } from 'class-transformer';
 
 export type TemplateTransactionDocument = DidTemplateTransaction &
@@ -21,10 +21,10 @@ export class DidTemplateTransaction extends DidTransaction {
   @Prop()
   @ApiProperty({
     description: 'Values of the transaction',
-    type: TemplateStructure,
+    type: DidTemplateStructure,
   })
-  @Type(() => TemplateStructure)
-  values!: TemplateStructure;
+  @Type(() => DidTemplateStructure)
+  values!: DidTemplateStructure;
 }
 
 /**

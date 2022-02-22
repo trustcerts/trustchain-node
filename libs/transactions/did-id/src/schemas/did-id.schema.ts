@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Did } from '@shared/did/schemas/did.schema';
 import { Document } from 'mongoose';
 import { Key } from '@tc/did-id/schemas/key.schema';
@@ -40,6 +41,13 @@ export class DidId extends Did {
    * Roles that are connected with this did, e.g. is this did authorized
    */
   @Prop()
+  @ApiProperty({
+    description:
+      'Roles that are connected with this did, e.g. is this did authorized',
+    enum: RoleManageType,
+    enumName: 'RoleManageType',
+    isArray: true,
+  })
   roles!: RoleManageType[];
 }
 

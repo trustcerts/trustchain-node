@@ -10,7 +10,7 @@ import { getDid } from '@shared/helpers';
  * Describes the value of a template.
  */
 
-export class TemplateStructure extends DidStructure {
+export class DidTemplateStructure extends DidStructure {
   /**
    * Unique identifier.
    */

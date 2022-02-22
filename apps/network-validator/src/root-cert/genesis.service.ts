@@ -275,7 +275,7 @@ export class GenesisService {
     );
 
     const didDocSignature: SignatureInfo = {
-      type: SignatureType.single,
+      type: SignatureType.Single,
       values: [await this.walletClientService.signIssuer(did.getDocument())],
     };
     const transaction = new DidIdTransactionDto(

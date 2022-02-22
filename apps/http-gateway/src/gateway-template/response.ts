@@ -6,7 +6,7 @@ import { Type } from 'class-transformer';
 /**
  * Response of a template creation request.
  */
-export class TemplateCreationResponse extends PersistedResponse {
+export class TemplateResponse extends PersistedResponse {
   /**
    * Transaction that was persisted.
    */

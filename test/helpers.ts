@@ -145,7 +145,7 @@ export async function createDidForTesting(
   // create transaction
   // add transaction
   const didDocSignature: SignatureInfo = {
-    type: SignatureType.single,
+    type: SignatureType.Single,
     values: [await walletService.signIssuer(did.getDocument())],
   };
   const transaction: TransactionDto = new DidIdTransactionDto(
@@ -154,7 +154,7 @@ export async function createDidForTesting(
   );
   // add signature
   transaction.signature = {
-    type: SignatureType.single,
+    type: SignatureType.Single,
     values: [
       await walletService.signIssuer(didCachedService.getValues(transaction)),
     ],
@@ -192,12 +192,12 @@ export const transactionProperties: {
     imported: {
       date: new Date().toISOString(),
       imported: {
-        type: SignatureType.single,
+        type: SignatureType.Single,
         values: [],
       },
     },
     didDocSignature: {
-      type: SignatureType.single,
+      type: SignatureType.Single,
       values: [
         {
           identifier: `${Identifier.generate('id')}#key1`,
@@ -207,7 +207,7 @@ export const transactionProperties: {
     },
   },
   signature: {
-    type: SignatureType.single,
+    type: SignatureType.Single,
     values: [
       {
         identifier: `${Identifier.generate('id')}#key1`,

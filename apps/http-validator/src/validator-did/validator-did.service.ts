@@ -91,7 +91,7 @@ export class ValidatorDidService {
 
     // add transaction
     const didDocSignature: SignatureInfo = {
-      type: SignatureType.single,
+      type: SignatureType.Single,
       values: [
         await this.walletService.signIssuer({
           document: did.getDocument(),
@@ -99,13 +99,12 @@ export class ValidatorDidService {
         }),
       ],
     };
-    // console.log(JSON.stringify(did.getChanges(), null, 4));
     const transaction = new DidIdTransactionDto(
       did.getChanges(),
       didDocSignature,
     );
     transaction.signature = {
-      type: SignatureType.single,
+      type: SignatureType.Single,
       values: [
         await this.walletService.signIssuer(
           this.didCachedService.getValues(transaction),

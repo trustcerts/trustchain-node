@@ -14,6 +14,7 @@ export class Compression {
   @ApiProperty({
     description: 'type of the compression',
     enum: CompressionType,
+    enumName: 'CompressionType',
     example: CompressionType.JSON,
   })
   @IsEnum(CompressionType)

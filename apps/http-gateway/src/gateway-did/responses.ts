@@ -6,7 +6,7 @@ import { Type } from 'class-transformer';
 /**
  * Describes the response of a persisted did transaction.
  */
-export class DidCreationResponse extends PersistedResponse {
+export class DidResponse extends PersistedResponse {
   /**
    * transaction that got persisted.
    */

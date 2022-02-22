@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { DidPublicKeyTypeEnum } from '@tc/did-id/constants';
+import { DidPublicKeyType } from '@tc/did-id/constants';
 import { IsString } from 'class-validator';
 import { PublicKeyJwkDto } from '@tc/did-id/dto/public-key-jwk.dto';
 import { Type } from 'class-transformer';
@@ -32,10 +32,11 @@ export class DidPublicKey {
    */
   @ApiProperty({
     description: 'Type of the key',
-    example: DidPublicKeyTypeEnum.RsaVerificationKey2018,
-    enum: DidPublicKeyTypeEnum,
+    example: DidPublicKeyType.RsaVerificationKey2018,
+    enum: DidPublicKeyType,
+    enumName: 'DidPublicKeyType',
   })
-  type!: DidPublicKeyTypeEnum;
+  type!: DidPublicKeyType;
 
   /**
    * Encoded key value.

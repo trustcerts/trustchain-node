@@ -7,7 +7,7 @@ import {
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { GatewayTemplateService } from './gateway-template.service';
 import { MaintenanceGuard } from '@tc/config/version/maintenance.guard';
-import { TemplateCreationResponse } from './response';
+import { TemplateResponse } from './response';
 import { TemplateTransactionDto } from '@tc/template/dto/template.transaction.dto';
 
 /**
@@ -32,7 +32,7 @@ export class GatewayTemplateController {
   @ApiOperation({ summary: 'Adds new template to the chain.' })
   @ApiCreatedResponse({
     description: 'The hash was successful persisted.',
-    type: TemplateCreationResponse,
+    type: TemplateResponse,
   })
   @ApiResponse({
     status: 422,
@@ -40,7 +40,7 @@ export class GatewayTemplateController {
   })
   async create(
     @Body() transaction: TemplateTransactionDto,
-  ): Promise<TemplateCreationResponse> {
+  ): Promise<TemplateResponse> {
     return this.gatewayTemplateService.addTemplate(transaction);
   }
 }

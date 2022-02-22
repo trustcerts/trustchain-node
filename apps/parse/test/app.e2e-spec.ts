@@ -3,7 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ParseModule } from '../src/parse.module';
 import { REDIS_INJECTION, SYSTEM_RESET } from '@tc/event-client/constants';
 import { Block } from '@tc/blockchain/block/block.interface';
-import { ClientRedis, ClientsModule, Transport } from '@nestjs/microservices';
+import { ClientRedis } from '@nestjs/microservices';
 import { DidHash } from '@tc/hash/schemas/did-hash.schema';
 import { DidId } from '@tc/did-id/schemas/did-id.schema';
 import { addRedisEndpoint, addTCPEndpoint } from '@shared/main-functions';

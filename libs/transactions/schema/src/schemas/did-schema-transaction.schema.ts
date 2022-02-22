@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { DidIdDocument } from '@tc/did-id/schemas/did-id.schema';
+import { DidSchemaStructure } from '../dto/did-schema-structure.dto';
 import { DidTransaction } from '@shared/did/schemas/did-transaction.schema';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { SchemaStructure } from '../dto/schema-structure.dto';
 import { Type } from 'class-transformer';
 
 export type SchemaTransactionDocument = DidSchemaTransaction & DidIdDocument;
@@ -18,10 +18,10 @@ export class DidSchemaTransaction extends DidTransaction {
   @Prop()
   @ApiProperty({
     description: 'Values of the transaction',
-    type: SchemaStructure,
+    type: DidSchemaStructure,
   })
-  @Type(() => SchemaStructure)
-  values!: SchemaStructure;
+  @Type(() => DidSchemaStructure)
+  values!: DidSchemaStructure;
 }
 
 /**

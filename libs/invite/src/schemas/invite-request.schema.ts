@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Document } from 'mongoose';
+import { IsEnum, IsOptional, IsString } from 'class-validator';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { RoleManageType } from '@tc/did-id/constants';
 
@@ -17,6 +18,7 @@ export class InviteRequest {
     description: 'Unique identifier that is used for the new did.',
     required: false,
   })
+  @IsString()
   @Prop({ length: 50 })
   id!: string;
 
@@ -27,6 +29,8 @@ export class InviteRequest {
     description: 'Secret that is used for authentication',
     required: false,
   })
+  @IsString()
+  @IsOptional()
   @Prop({ nullable: true })
   secret?: string;
 
@@ -39,6 +43,7 @@ export class InviteRequest {
       'Unique identifier that will be stored to identify the did with a human readable name.',
     example: 'Client-north',
   })
+  @IsString()
   @Prop()
   name!: string;
 
@@ -49,6 +54,7 @@ export class InviteRequest {
     description:
       'Describes for what type of role in the network the secret is allowed to be used',
   })
+  @IsEnum(RoleManageType)
   @Prop({ length: 20 })
   role!: RoleManageType;
 

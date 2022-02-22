@@ -13,6 +13,7 @@ import { InviteNode } from '@tc/invite/dto/invite-node.dto';
 import { Logger } from 'winston';
 import { NodeGuard } from '@shared/guards/node-guard.service';
 import { REDIS_INJECTION } from '@tc/event-client/constants';
+import { RoleManageType } from '@tc/did-id/constants';
 
 /**
  * Controller to interact with the Observer.
@@ -51,7 +52,7 @@ export class HttpObserverController extends HttpController {
   public information() {
     return {
       serviceType: 'http',
-      nodeType: 'observer',
+      nodeType: RoleManageType.Observer,
       did: this.configService.getConfig('IDENTIFIER'),
     };
   }

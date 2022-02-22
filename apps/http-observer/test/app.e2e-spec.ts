@@ -66,7 +66,7 @@ describe('ObserverController (e2e)', () => {
   it('should give the information about the service', async () => {
     return request(app.getHttpServer()).get('/').expect(200).expect({
       serviceType: 'http',
-      nodeType: 'observer',
+      nodeType: RoleManageType.Observer,
     });
   });
 

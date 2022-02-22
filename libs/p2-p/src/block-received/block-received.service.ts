@@ -31,7 +31,6 @@ export class BlockReceivedService {
       labels: { source: this.constructor.name },
     });
     await this.persistClientService.setBlock(block).catch((err) => {
-      console.log(err);
       throw new Error(`block ${block.index} not persisted in given time`);
     });
     this.logger.debug({
