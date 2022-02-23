@@ -1,0 +1,824 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>trustchain documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">trustchain documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Injectables</li>
+  <li >GatewayHashService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>apps/http-gateway/src/gateway-hash/gateway-hash.service.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Service to validate requests from the api to the blockchain level.</p>
+
+            </p>
+
+            <p class="comment">
+                <h3>Extends</h3>
+            </p>
+            <p class="comment">
+                        <code><a href="../classes/GatewayTransactionService.html" target="_self" >GatewayTransactionService</a></code>
+            </p>
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#didResolver" >didResolver</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#addHash" >addHash</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#revokeHash" >revokeHash</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#addTransaction" >addTransaction</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#importedTransaction" >importedTransaction</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(gatewayBlockchainService: <a href="../injectables/GatewayBlockchainService.html" target="_self">GatewayBlockchainService</a>, hashTransactionCheck: <a href="../injectables/HashTransactionCheckService.html" target="_self">HashTransactionCheckService</a>, hashCachedService: <a href="../injectables/HashCachedService.html" target="_self">HashCachedService</a>, hashService: <a href="../injectables/HashService.html" target="_self">HashService</a>, walletService: <a href="../injectables/WalletClientService.html" target="_self">WalletClientService</a>, configService: <a href="../classes/ConfigService.html" target="_self">ConfigService</a>, didCachedService: <a href="../injectables/DidIdCachedService.html" target="_self">DidIdCachedService</a>, logger: Logger)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">apps/http-gateway/src/gateway-hash/gateway-hash.service.ts:18</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Loads required services.</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>gatewayBlockchainService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/GatewayBlockchainService.html" target="_self" >GatewayBlockchainService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>hashTransactionCheck</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/HashTransactionCheckService.html" target="_self" >HashTransactionCheckService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>hashCachedService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/HashCachedService.html" target="_self" >HashCachedService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>hashService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/HashService.html" target="_self" >HashService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>walletService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/WalletClientService.html" target="_self" >WalletClientService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>configService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../classes/ConfigService.html" target="_self" >ConfigService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>didCachedService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/DidIdCachedService.html" target="_self" >DidIdCachedService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>logger</td>
+                                                  
+                                                        <td>
+                                                                    <code>Logger</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addHash"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>addHash</b></span>
+                        <a href="#addHash"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>addHash(transaction: <a href="../classes/HashDidTransactionDto.html" target="_self">HashDidTransactionDto</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="52"
+                            class="link-to-prism">apps/http-gateway/src/gateway-hash/gateway-hash.service.ts:52</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Passes a transaction to the blockchain service if there isn&#39;t already one hash with the same hash.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>transaction</td>
+                                    <td>
+                                                <code><a href="../classes/HashDidTransactionDto.html" target="_self" >HashDidTransactionDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/HashResponse.html" target="_self" >Promise&lt;HashResponse&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="revokeHash"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>revokeHash</b></span>
+                        <a href="#revokeHash"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>revokeHash(transaction: <a href="../classes/HashDidTransactionDto.html" target="_self">HashDidTransactionDto</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="75"
+                            class="link-to-prism">apps/http-gateway/src/gateway-hash/gateway-hash.service.ts:75</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Passes the transaction to the blockchain service if validation is passing:</p>
+<ul>
+<li>Hash already exists</li>
+<li>Hash isn&#39;t revoked yet</li>
+<li>Client that wants to revoke the hash created it</li>
+</ul>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>transaction</td>
+                                    <td>
+                                                <code><a href="../classes/HashDidTransactionDto.html" target="_self" >HashDidTransactionDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/HashResponse.html" target="_self" >Promise&lt;HashResponse&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addTransaction"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>addTransaction</b></span>
+                        <a href="#addTransaction"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>addTransaction(transaction: <a href="../classes/TransactionDto.html" target="_self">TransactionDto</a>, type?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Inherited from         <code><a href="../classes/GatewayTransactionService.html" target="_self" >GatewayTransactionService</a></code>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-line">Defined in         <code><a href="../classes/GatewayTransactionService.html#source" target="_self" >GatewayTransactionService:39</a></code>
+</div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Adds a transaction. Returns a promise if it succeeded.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>transaction</td>
+                                    <td>
+                                                <code><a href="../classes/TransactionDto.html" target="_self" >TransactionDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>type</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/PersistedTransaction.html" target="_self" >Promise&lt;PersistedTransaction&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="importedTransaction"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>importedTransaction</b></span>
+                        <a href="#importedTransaction"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>importedTransaction(transaction: <a href="../classes/TransactionDto.html" target="_self">TransactionDto</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Inherited from         <code><a href="../classes/GatewayTransactionService.html" target="_self" >GatewayTransactionService</a></code>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-line">Defined in         <code><a href="../classes/GatewayTransactionService.html#source" target="_self" >GatewayTransactionService:78</a></code>
+</div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Adds the information that the transaction was imported from another blockchain.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>transaction</td>
+                                    <td>
+                                                <code><a href="../classes/TransactionDto.html" target="_self" >TransactionDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/TransactionDto.html" target="_self" >Promise&lt;TransactionDto&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <section>
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="didResolver"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>didResolver</b></span>
+                        <a href="#didResolver"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/DidResolver.html" target="_self" >DidResolver</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Inherited from         <code><a href="../classes/GatewayTransactionService.html" target="_self" >GatewayTransactionService</a></code>
+</div>
+                            </td>
+                        </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/GatewayTransactionService.html#source" target="_self" >GatewayTransactionService:17</a></code>
+</div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ConfigService } from &#x27;@tc/config&#x27;;
+import { ConflictException, Inject, Injectable } from &#x27;@nestjs/common&#x27;;
+import { DidIdCachedService } from &#x27;@tc/did-id/did-id-cached/did-id-cached.service&#x27;;
+import { GatewayBlockchainService } from &#x27;../gateway-blockchain/gateway-blockchain.service&#x27;;
+import { GatewayTransactionService } from &#x27;../gateway-transaction.service&#x27;;
+import { HashCachedService } from &#x27;@tc/hash/hash-cached/hash-cached.service&#x27;;
+import { HashDidTransactionDto } from &#x27;@tc/hash/dto/hash-transaction.dto&#x27;;
+import { HashResponse } from &#x27;./dto/hash.respnse&#x27;;
+import { HashService } from &#x27;@tc/blockchain/hash.service&#x27;;
+import { HashTransactionCheckService } from &#x27;@tc/hash/hash-blockchain/hash-transaction-check/hash-transaction-check.service&#x27;;
+import { Logger } from &#x27;winston&#x27;;
+import { WalletClientService } from &#x27;@tc/wallet-client&#x27;;
+
+/**
+ * Service to validate requests from the api to the blockchain level.
+ */
+@Injectable()
+export class GatewayHashService extends GatewayTransactionService {
+  /**
+   * Loads required services.
+   * @param gatewayBlockchainService
+   * @param hashCachedService
+   * @param hashService
+   * @param hashService
+   * @param didCachedService
+   * @param logger
+   */
+  constructor(
+    protected readonly gatewayBlockchainService: GatewayBlockchainService,
+    protected readonly hashTransactionCheck: HashTransactionCheckService,
+    private readonly hashCachedService: HashCachedService,
+    protected readonly hashService: HashService,
+    protected readonly walletService: WalletClientService,
+    protected readonly configService: ConfigService,
+    private readonly didCachedService: DidIdCachedService,
+    @Inject(&#x27;winston&#x27;) protected readonly logger: Logger,
+  ) {
+    super(
+      gatewayBlockchainService,
+      hashTransactionCheck,
+      hashCachedService,
+      walletService,
+      logger,
+      configService,
+    );
+  }
+
+  /**
+   * Passes a transaction to the blockchain service if there isn&#x27;t already one hash with the same hash.
+   * @param transaction
+   */
+  async addHash(transaction: HashDidTransactionDto): Promise&lt;HashResponse&gt; {
+    const hash &#x3D; await this.hashCachedService.getHash(
+      transaction.body.value.id,
+    );
+    if (hash) {
+      throw new ConflictException(
+        &#x60;hash already signed: ${transaction.body.value.id}&#x60;,
+      );
+    }
+
+    return {
+      metaData: await this.addTransaction(transaction),
+      transaction,
+    };
+  }
+
+  /**
+   * Passes the transaction to the blockchain service if validation is passing:
+   * - Hash already exists
+   * - Hash isn&#x27;t revoked yet
+   * - Client that wants to revoke the hash created it
+   * @param transaction
+   */
+  async revokeHash(transaction: HashDidTransactionDto): Promise&lt;HashResponse&gt; {
+    // TODO move checks into transaction check
+    const hash &#x3D; await this.hashCachedService.getHash(
+      transaction.body.value.id,
+    );
+    if (!hash) {
+      throw new ConflictException(&#x60;Hash to revoke doesn&#x27;t exist.&#x60;);
+    }
+    if (hash.revokedAt !&#x3D;&#x3D; undefined) {
+      throw new ConflictException(&#x27;Hash already revoked.&#x27;);
+    }
+
+    const idSignature &#x3D; this.didCachedService.getIdentifierOfKey(
+      transaction.signature.values[0].identifier,
+    );
+
+    const idHash &#x3D; this.didCachedService.getIdentifierOfKey(
+      hash.signature[0].identifier,
+    );
+
+    if (idSignature !&#x3D;&#x3D; idHash) {
+      throw new ConflictException(
+        &#x27;Only the original issuer can revoke the hash.&#x27;,
+      );
+    }
+    return {
+      metaData: await this.addTransaction(transaction),
+      transaction,
+    };
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'GatewayHashService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,840 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>trustchain documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">trustchain documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content controller">
+                   <div class="content-data">
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Controllers</li>
+  <li >P2PController</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>libs/p2-p/src/p2-p.controller.ts</code>
+        </p>
+
+            <p class="comment">
+                <h3>Prefix</h3>
+            </p>
+            <p class="comment">
+                <code>p2p</code>
+            </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Controller to send requests to the peer 2 peer service.</p>
+
+            </p>
+
+
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#closeConnection" >closeConnection</a>
+                            </li>
+                            <li>
+                                <a href="#connections" >connections</a>
+                            </li>
+                            <li>
+                                <a href="#initNode" >initNode</a>
+                            </li>
+                            <li>
+                                <a href="#knownValidatorEndpoints" >knownValidatorEndpoints</a>
+                            </li>
+                            <li>
+                                <a href="#preConnect" >preConnect</a>
+                            </li>
+                            <li>
+                                <a href="#preConnectValidator" >preConnectValidator</a>
+                            </li>
+                            <li>
+                                <a href="#resetConnecting" >resetConnecting</a>
+                            </li>
+                            <li>
+                                <a href="#setIdentifier" >setIdentifier</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeConnection"></a>
+                    <span class="name">
+                        <span ><b>closeConnection</b></span>
+                        <a href="#closeConnection"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeConnection(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@EventPattern(VALIDATE_CONNECTIONS, Transport.REDIS)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="62"
+                            class="link-to-prism">libs/p2-p/src/p2-p.controller.ts:62</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Closes a possible connection with this identifier since it&#39;s certificate was
+removed.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="connections"></a>
+                    <span class="name">
+                        <span ><b>connections</b></span>
+                        <a href="#connections"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>connections()</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@ApiBearerAuth()<br />@UseGuards(NetworkGuard)<br />@Get(&#x27;connections&#x27;)<br />@ApiOperation({summary: &#x27;Returns the active connections.&#x27;})<br />@ApiResponse({status: 200, description: &#x27;The active connections&#x27;, schema: undefined})<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="80"
+                            class="link-to-prism">libs/p2-p/src/p2-p.controller.ts:80</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Returns the active connections.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="initNode"></a>
+                    <span class="name">
+                        <span ><b>initNode</b></span>
+                        <a href="#initNode"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>initNode(node: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@EventPattern(SYSTEM_INIT, Transport.REDIS)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="33"
+                            class="link-to-prism">libs/p2-p/src/p2-p.controller.ts:33</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Will init the node. Normally this endpoint is called after the node got a certificate to participate with a network.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>node</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="knownValidatorEndpoints"></a>
+                    <span class="name">
+                        <span ><b>knownValidatorEndpoints</b></span>
+                        <a href="#knownValidatorEndpoints"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>knownValidatorEndpoints()</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@MessagePattern(VALIDATOR_ENDPOINT, Transport.TCP)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="50"
+                            class="link-to-prism">libs/p2-p/src/p2-p.controller.ts:50</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Returns all known Validator endpoints.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="preConnect"></a>
+                    <span class="name">
+                        <span ><b>preConnect</b></span>
+                        <a href="#preConnect"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>preConnect()</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@ApiBearerAuth()<br />@UseGuards(NetworkGuard)<br />@Get()<br />@ApiOperation({summary: &#x27;Returns own identifier for connection build up.&#x27;})<br />@ApiResponse({status: 200, description: &#x27;Own identifier.&#x27;, type: String})<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="113"
+                            class="link-to-prism">libs/p2-p/src/p2-p.controller.ts:113</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Returns own identifier for connection build up.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="preConnectValidator"></a>
+                    <span class="name">
+                        <span ><b>preConnectValidator</b></span>
+                        <a href="#preConnectValidator"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>preConnectValidator(params: <a href="../classes/ConnectDto.html" target="_self">ConnectDto</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@ApiBearerAuth()<br />@UseGuards(NetworkGuard)<br />@Post()<br />@ApiOperation({summary: &#x27;Returns own identifier for connection build up. Checks if this node has to connect to the node.&#x27;})<br />@ApiResponse({status: 201, description: &#x27;Own identifier.&#x27;, type: String})<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="100"
+                            class="link-to-prism">libs/p2-p/src/p2-p.controller.ts:100</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Returns own identifier for connection build up. Checks if this node has to connect to the node.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>params</td>
+                                    <td>
+                                                <code><a href="../classes/ConnectDto.html" target="_self" >ConnectDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetConnecting"></a>
+                    <span class="name">
+                        <span ><b>resetConnecting</b></span>
+                        <a href="#resetConnecting"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>resetConnecting()</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@ApiBearerAuth()<br />@UseGuards(NodeGuard)<br />@Post()<br />@ApiOperation({summary: &#x27;Resets the connecting array&#x27;})<br />@ApiResponse({status: 201})<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="125"
+                            class="link-to-prism">libs/p2-p/src/p2-p.controller.ts:125</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Resets the connecting array so a node can try to connect again.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setIdentifier"></a>
+                    <span class="name">
+                        <span ><b>setIdentifier</b></span>
+                        <a href="#setIdentifier"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setIdentifier(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@EventPattern(NEW_IDENTIFIER, Transport.REDIS)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="42"
+                            class="link-to-prism">libs/p2-p/src/p2-p.controller.ts:42</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Sets a new identifier that was generated.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from &#x27;@nestjs/swagger&#x27;;
+import { Body, Controller, Get, Post, UseGuards } from &#x27;@nestjs/common&#x27;;
+import { ConfigService } from &#x27;@tc/config&#x27;;
+import { ConnectDto } from &#x27;@tc/p2-p/dto/connect.dto&#x27;;
+import { EventPattern, MessagePattern, Transport } from &#x27;@nestjs/microservices&#x27;;
+import { NEW_IDENTIFIER } from &#x27;@tc/wallet-client/constants&#x27;;
+import { NetworkGuard } from &#x27;@shared/guards/network-guard.service&#x27;;
+import { NodeGuard } from &#x27;@shared/guards/node-guard.service&#x27;;
+import { P2PService } from &#x27;./p2-p.service&#x27;;
+import { SYSTEM_INIT, VALIDATE_CONNECTIONS } from &#x27;@tc/event-client/constants&#x27;;
+import { VALIDATOR_ENDPOINT } from &#x27;@tc/p2-p/constant&#x27;;
+
+/**
+ * Controller to send requests to the peer 2 peer service.
+ */
+@ApiTags(&#x27;p2p&#x27;)
+@Controller(&#x27;p2p&#x27;)
+export class P2PController {
+  constructor(
+    private readonly p2PService: P2PService,
+    private readonly configService: ConfigService,
+  ) {}
+
+  /**
+   * Will init the node. Normally this endpoint is called after the node got a certificate to participate with a network.
+   */
+  @EventPattern(SYSTEM_INIT, Transport.REDIS)
+  initNode(node: string) {
+    this.p2PService.init(node).then();
+  }
+
+  /**
+   * Sets a new identifier that was generated.
+   * @param id
+   */
+  @EventPattern(NEW_IDENTIFIER, Transport.REDIS)
+  setIdentifier(id: string) {
+    this.configService.setConfig(&#x27;IDENTIFIER&#x27;, id);
+  }
+
+  /**
+   * Returns all known Validator endpoints.
+   */
+  @MessagePattern(VALIDATOR_ENDPOINT, Transport.TCP)
+  knownValidatorEndpoints() {
+    return this.p2PService.validatorConnections.map(
+      (connection) &#x3D;&gt; connection.peer,
+    );
+  }
+
+  /**
+   * Closes a possible connection with this identifier since it&#x27;s certificate was
+   * removed.
+   * @param id
+   */
+  @EventPattern(VALIDATE_CONNECTIONS, Transport.REDIS)
+  closeConnection(id: string) {
+    this.p2PService.closeConnection(id);
+  }
+
+  /**
+   * Returns the active connections.
+   */
+  @ApiBearerAuth()
+  @UseGuards(NetworkGuard)
+  @Get(&#x27;connections&#x27;)
+  @ApiOperation({ summary: &#x27;Returns the active connections.&#x27; })
+  @ApiResponse({
+    status: 200,
+    description: &#x27;The active connections&#x27;,
+    schema: {
+      example: [{ peer: &#x27;123.456.789.000:1000&#x27;, identifier: &#x27;Identifier1&#x27; }],
+    },
+  })
+  connections() {
+    return this.p2PService.connections.map((connection) &#x3D;&gt; {
+      return {
+        peer: connection.peer,
+        identifier: connection.identifier,
+      };
+    });
+  }
+
+  /**
+   * Returns own identifier for connection build up. Checks if this node has to connect to the node.
+   */
+  @ApiBearerAuth()
+  @UseGuards(NetworkGuard)
+  @Post()
+  @ApiOperation({
+    summary:
+      &#x27;Returns own identifier for connection build up. Checks if this node has to connect to the node.&#x27;,
+  })
+  @ApiResponse({ status: 201, description: &#x27;Own identifier.&#x27;, type: String })
+  preConnectValidator(@Body() params: ConnectDto) {
+    this.p2PService.handleConnectionRequest(params).then();
+    return this.configService.getConfig(&#x27;IDENTIFIER&#x27;);
+  }
+
+  /**
+   * Returns own identifier for connection build up.
+   */
+  @ApiBearerAuth()
+  @UseGuards(NetworkGuard)
+  @Get()
+  @ApiOperation({ summary: &#x27;Returns own identifier for connection build up.&#x27; })
+  @ApiResponse({ status: 200, description: &#x27;Own identifier.&#x27;, type: String })
+  preConnect() {
+    return this.configService.getConfig(&#x27;IDENTIFIER&#x27;);
+  }
+
+  /**
+   * Resets the connecting array so a node can try to connect again.
+   */
+  @ApiBearerAuth()
+  @UseGuards(NodeGuard)
+  @Post()
+  @ApiOperation({ summary: &#x27;Resets the connecting array&#x27; })
+  @ApiResponse({ status: 201 })
+  resetConnecting() {
+    this.p2PService.connecting &#x3D; [];
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'controller';
+            var COMPODOC_CURRENT_PAGE_URL = 'P2PController.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

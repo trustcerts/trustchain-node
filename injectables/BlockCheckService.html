@@ -1,0 +1,1692 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>trustchain documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">trustchain documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Injectables</li>
+  <li >BlockCheckService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>libs/blockchain/src/block-check/block-check.service.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Service to check if a block is valid and can be added to the blockchain.</p>
+
+            </p>
+
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Optional</span>
+                                <a href="#previousBlock" >previousBlock</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#types" >types</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#checkAmountOfSignatures" >checkAmountOfSignatures</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#checkHash" >checkHash</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#checkIndex" >checkIndex</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#checkPreviousHash" >checkPreviousHash</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#checkProposedBlock" >checkProposedBlock</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#checkProposedTransactions" >checkProposedTransactions</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#checkSignature" >checkSignature</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#checkSize" >checkSize</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#checkTimestamp" >checkTimestamp</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#checkTransaction" >checkTransaction</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#checkVersion" >checkVersion</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getSignatures" >getSignatures</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#hashTransactionValue" >hashTransactionValue</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(hashService: <a href="../injectables/HashService.html" target="_self">HashService</a>, persistClientService: <a href="../injectables/PersistClientService.html" target="_self">PersistClientService</a>, walletClientService: <a href="../injectables/WalletClientService.html" target="_self">WalletClientService</a>, didCachedService: <a href="../injectables/DidIdCachedService.html" target="_self">DidIdCachedService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">libs/blockchain/src/block-check/block-check.service.ts:31</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Builds a BlockCheckService</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>hashService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/HashService.html" target="_self" >HashService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>persistClientService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PersistClientService.html" target="_self" >PersistClientService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>walletClientService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/WalletClientService.html" target="_self" >WalletClientService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>didCachedService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/DidIdCachedService.html" target="_self" >DidIdCachedService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkAmountOfSignatures"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span ><b>checkAmountOfSignatures</b></span>
+                        <a href="#checkAmountOfSignatures"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>checkAmountOfSignatures(transaction: <a href="../classes/TransactionDto.html" target="_self">TransactionDto</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="199"
+                            class="link-to-prism">libs/blockchain/src/block-check/block-check.service.ts:199</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Checks the amount of required signatures. Queries the required signatures and compares them with the given ones.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>transaction</td>
+                                    <td>
+                                                <code><a href="../classes/TransactionDto.html" target="_self" >TransactionDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkHash"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>checkHash</b></span>
+                        <a href="#checkHash"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>checkHash(block: <a href="../interfaces/Block.html" target="_self">ProposedBlock</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="129"
+                            class="link-to-prism">libs/blockchain/src/block-check/block-check.service.ts:129</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Checks if the blocks hash is correct.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>block</td>
+                                    <td>
+                                                <code><a href="../interfaces/Block.html" target="_self" >ProposedBlock</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkIndex"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span ><b>checkIndex</b></span>
+                        <a href="#checkIndex"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>checkIndex(block: <a href="../interfaces/Block.html" target="_self">ProposedBlock</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="77"
+                            class="link-to-prism">libs/blockchain/src/block-check/block-check.service.ts:77</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Check if the index of the block is the next in the blockchain.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>block</td>
+                                    <td>
+                                                <code><a href="../interfaces/Block.html" target="_self" >ProposedBlock</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkPreviousHash"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>checkPreviousHash</b></span>
+                        <a href="#checkPreviousHash"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>checkPreviousHash(block: <a href="../interfaces/Block.html" target="_self">ProposedBlock</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="102"
+                            class="link-to-prism">libs/blockchain/src/block-check/block-check.service.ts:102</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Checks if the blocks previous hash matches the previous blocks hash.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>block</td>
+                                    <td>
+                                                <code><a href="../interfaces/Block.html" target="_self" >ProposedBlock</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkProposedBlock"></a>
+                    <span class="name">
+                        <span class="modifier">Public</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>checkProposedBlock</b></span>
+                        <a href="#checkProposedBlock"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>checkProposedBlock(block: <a href="../interfaces/Block.html" target="_self">ProposedBlock</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="61"
+                            class="link-to-prism">libs/blockchain/src/block-check/block-check.service.ts:61</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Checks if a proposed block can be added to the blockchain.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>block</td>
+                                    <td>
+                                                <code><a href="../interfaces/Block.html" target="_self" >ProposedBlock</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkProposedTransactions"></a>
+                    <span class="name">
+                        <span class="modifier">Public</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>checkProposedTransactions</b></span>
+                        <a href="#checkProposedTransactions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>checkProposedTransactions(block: <a href="../interfaces/Block.html" target="_self">ProposedBlock</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="171"
+                            class="link-to-prism">libs/blockchain/src/block-check/block-check.service.ts:171</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Checks if the blocks transactions are correct.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>block</td>
+                                    <td>
+                                                <code><a href="../interfaces/Block.html" target="_self" >ProposedBlock</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkSignature"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>checkSignature</b></span>
+                        <a href="#checkSignature"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>checkSignature(transaction: <a href="../classes/TransactionDto.html" target="_self">TransactionDto</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="248"
+                            class="link-to-prism">libs/blockchain/src/block-check/block-check.service.ts:248</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Checks if the transaction:</p>
+<ul>
+<li>is signed with a valid key</li>
+<li>by an authorized participant</li>
+<li>no double signatures by same issuer</li>
+<li>has enough signatures</li>
+</ul>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>transaction</td>
+                                    <td>
+                                                <code><a href="../classes/TransactionDto.html" target="_self" >TransactionDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkSize"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span ><b>checkSize</b></span>
+                        <a href="#checkSize"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>checkSize(transaction: <a href="../classes/TransactionDto.html" target="_self">TransactionDto</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="230"
+                            class="link-to-prism">libs/blockchain/src/block-check/block-check.service.ts:230</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Checks the size of a transaction to prevent an overflow.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>transaction</td>
+                                    <td>
+                                                <code><a href="../classes/TransactionDto.html" target="_self" >TransactionDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkTimestamp"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span ><b>checkTimestamp</b></span>
+                        <a href="#checkTimestamp"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>checkTimestamp(block: <a href="../interfaces/Block.html" target="_self">ProposedBlock</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="145"
+                            class="link-to-prism">libs/blockchain/src/block-check/block-check.service.ts:145</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Checks if the blocks timestamp is correct.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>block</td>
+                                    <td>
+                                                <code><a href="../interfaces/Block.html" target="_self" >ProposedBlock</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkTransaction"></a>
+                    <span class="name">
+                        <span class="modifier">Public</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>checkTransaction</b></span>
+                        <a href="#checkTransaction"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>checkTransaction(transaction: <a href="../classes/TransactionDto.html" target="_self">TransactionDto</a>, addedTransactions: <a href="../classes/TransactionDto.html" target="_self">Map&lt;string | TransactionDto&gt;</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="214"
+                            class="link-to-prism">libs/blockchain/src/block-check/block-check.service.ts:214</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Checks if the given transaction is valid. Collect the validations into an array to validate them in the end.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>transaction</td>
+                                    <td>
+                                                <code><a href="../classes/TransactionDto.html" target="_self" >TransactionDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>addedTransactions</td>
+                                    <td>
+                                                <code><a href="../classes/TransactionDto.html" target="_self" >Map&lt;string | TransactionDto&gt;</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;any[]&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkVersion"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span ><b>checkVersion</b></span>
+                        <a href="#checkVersion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>checkVersion(block: <a href="../interfaces/Block.html" target="_self">ProposedBlock</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="184"
+                            class="link-to-prism">libs/blockchain/src/block-check/block-check.service.ts:184</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Checks if the blocks version is correct.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>block</td>
+                                    <td>
+                                                <code><a href="../interfaces/Block.html" target="_self" >ProposedBlock</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getSignatures"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span ><b>getSignatures</b></span>
+                        <a href="#getSignatures"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getSignatures(transaction: <a href="../classes/TransactionDto.html" target="_self">TransactionDto</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="284"
+                            class="link-to-prism">libs/blockchain/src/block-check/block-check.service.ts:284</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Returns the signatures of a transaction.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>transaction</td>
+                                    <td>
+                                                <code><a href="../classes/TransactionDto.html" target="_self" >TransactionDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/SignatureDto.html" target="_self" >SignatureDto[]</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hashTransactionValue"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span ><b>hashTransactionValue</b></span>
+                        <a href="#hashTransactionValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>hashTransactionValue(transaction: <a href="../classes/TransactionDto.html" target="_self">TransactionDto</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="276"
+                            class="link-to-prism">libs/blockchain/src/block-check/block-check.service.ts:276</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Creates a hash of the transaction&#39;s important values.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>transaction</td>
+                                    <td>
+                                                <code><a href="../classes/TransactionDto.html" target="_self" >TransactionDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <section>
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="previousBlock"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Optional</span>
+                        <span ><b>previousBlock</b></span>
+                        <a href="#previousBlock"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Block.html" target="_self" >Block</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">libs/blockchain/src/block-check/block-check.service.ts:23</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The latest block in the current blockchain</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="types"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>types</b></span>
+                        <a href="#types"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/TransactionChecks.html" target="_self" >Map&lt;TransactionType | TransactionChecks&gt;</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Map&lt;
+    TransactionType,
+    TransactionChecks
+  &gt;()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">libs/blockchain/src/block-check/block-check.service.ts:28</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Map that includes all required information to check a given transaction based on the defined type.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Block } from &#x27;@tc/blockchain/block/block.interface&#x27;;
+import { HashService } from &#x27;@tc/blockchain/hash.service&#x27;;
+import { Injectable } from &#x27;@nestjs/common&#x27;;
+import { ProposedBlock } from &#x27;@tc/blockchain/block/proposed-block.dto&#x27;;
+import { SignatureDto } from &#x27;@tc/blockchain/transaction/signature.dto&#x27;;
+import { TransactionDto } from &#x27;@tc/blockchain/transaction/transaction.dto&#x27;;
+import { TransactionType } from &#x27;@tc/blockchain/transaction/transaction-type&#x27;;
+
+import { DidIdCachedService } from &#x27;@tc/did-id/did-id-cached/did-id-cached.service&#x27;;
+import { PersistClientService } from &#x27;@tc/persist-client&#x27;;
+import { TextEncoder } from &#x27;util&#x27;;
+import { TransactionChecks } from &#x27;@tc/blockchain/block-check/transaction-checks.interface&#x27;;
+import { WalletClientService } from &#x27;@tc/wallet-client&#x27;;
+
+/**
+ * Service to check if a block is valid and can be added to the blockchain.
+ */
+@Injectable()
+export class BlockCheckService {
+  /**
+   * The latest block in the current blockchain
+   */
+  private previousBlock?: Block;
+
+  /**
+   * Map that includes all required information to check a given transaction based on the defined type.
+   */
+  public types: Map&lt;TransactionType, TransactionChecks&gt; &#x3D; new Map&lt;
+    TransactionType,
+    TransactionChecks
+  &gt;();
+
+  /**
+   * Builds a BlockCheckService
+   * @param hashService
+   * @param persistClientService
+   * @param walletClientService
+   * @param didCachedService
+   * @param logger
+   */
+  constructor(
+    private readonly hashService: HashService,
+    private readonly persistClientService: PersistClientService,
+    private readonly walletClientService: WalletClientService,
+    private readonly didCachedService: DidIdCachedService,
+  ) {
+    this.persistClientService
+      .latestBlock()
+      .then((block: Block) &#x3D;&gt; {
+        this.previousBlock &#x3D; block;
+      })
+      .catch(() &#x3D;&gt; {
+        this.previousBlock &#x3D; undefined;
+      });
+  }
+
+  /**
+   * Checks if a proposed block can be added to the blockchain.
+   * @param block
+   */
+  public async checkProposedBlock(block: ProposedBlock) {
+    this.previousBlock &#x3D; await this.persistClientService
+      .latestBlock()
+      .catch(() &#x3D;&gt; undefined);
+    this.checkIndex(block);
+    await this.checkPreviousHash(block);
+    await this.checkHash(block);
+    this.checkTimestamp(block);
+    this.checkVersion(block);
+    await this.checkProposedTransactions(block);
+  }
+
+  /**
+   * Check if the index of the block is the next in the blockchain.
+   * @param block
+   */
+  private checkIndex(block: ProposedBlock) {
+    if (this.previousBlock &#x3D;&#x3D;&#x3D; undefined &amp;&amp; block.index !&#x3D;&#x3D; 1) {
+      throw new Error(
+        &#x60;Index is incorrect: ${JSON.stringify({
+          is: block.index,
+          should: 1,
+        })}&#x60;,
+      );
+    } else if (
+      this.previousBlock !&#x3D;&#x3D; undefined &amp;&amp;
+      this.previousBlock.index + 1 !&#x3D;&#x3D; block.index
+    ) {
+      throw new Error(
+        &#x60;Index is incorrect: ${JSON.stringify({
+          is: block.index,
+          should: this.previousBlock.index + 1,
+        })}&#x60;,
+      );
+    }
+  }
+
+  /**
+   * Checks if the blocks previous hash matches the previous blocks hash.
+   * @param block
+   */
+  private async checkPreviousHash(block: ProposedBlock) {
+    if (!this.previousBlock) {
+      if (block.previousHash !&#x3D;&#x3D; this.hashService.GENESIS_PREVIOUS_HASH) {
+        throw new Error(
+          &#x60;Previous hash incorrect: ${JSON.stringify({
+            is: block.previousHash,
+            should: this.hashService.GENESIS_PREVIOUS_HASH,
+          })}&#x60;,
+        );
+      }
+    } else {
+      const previousHash &#x3D; await this.hashService.hashBlock(this.previousBlock);
+      if (previousHash !&#x3D;&#x3D; block.previousHash) {
+        throw new Error(
+          &#x60;Previous hash incorrect: ${JSON.stringify({
+            is: previousHash,
+            should: block.previousHash,
+          })}&#x60;,
+        );
+      }
+    }
+  }
+
+  /**
+   * Checks if the blocks hash is correct.
+   * @param block
+   */
+  private async checkHash(block: ProposedBlock) {
+    const hash &#x3D; await this.hashService.hashTransactions(block.transactions);
+    if (hash !&#x3D;&#x3D; block.hash) {
+      throw new Error(
+        &#x60;Hash incorrect: ${JSON.stringify({
+          is: hash,
+          should: block.hash,
+        })}&#x60;,
+      );
+    }
+  }
+
+  /**
+   * Checks if the blocks timestamp is correct.
+   * @param block
+   */
+  private checkTimestamp(block: ProposedBlock) {
+    // add one second delay because the clocks do not run synchrony.
+    // TODO use time sync to make sure all nodes have the same synced clock.
+    const date &#x3D; new Date().toISOString() + 1000;
+    if (this.previousBlock &amp;&amp; block.timestamp &lt;&#x3D; this.previousBlock.timestamp) {
+      throw new Error(
+        &#x60;Timestamp to new: ${JSON.stringify({
+          is: block.timestamp,
+          should: this.previousBlock.timestamp,
+        })}&#x60;,
+      );
+    }
+    if (block.timestamp &gt; date) {
+      throw new Error(
+        &#x60;Timestamp to new: ${JSON.stringify({
+          is: block.timestamp,
+          should: date,
+        })}&#x60;,
+      );
+    }
+  }
+
+  /**
+   * Checks if the blocks transactions are correct.
+   * @param block
+   */
+  public async checkProposedTransactions(block: ProposedBlock) {
+    const transactions &#x3D; new Map&lt;string, TransactionDto&gt;();
+    for (const transaction of block.transactions) {
+      await this.checkTransaction(transaction, transactions);
+      const hash &#x3D; this.hashTransactionValue(transaction);
+      transactions.set(hash, transaction);
+    }
+  }
+
+  /**
+   * Checks if the blocks version is correct.
+   * @param block
+   */
+  private checkVersion(block: ProposedBlock) {
+    if (this.hashService.blockVersion !&#x3D;&#x3D; block.version) {
+      throw new Error(
+        &#x60;Version incorrect: ${JSON.stringify({
+          is: block.version,
+          should: this.hashService.blockVersion,
+        })}&#x60;,
+      );
+    }
+  }
+
+  /**
+   * Checks the amount of required signatures. Queries the required signatures and compares them with the given ones.
+   * @param transaction
+   */
+  private checkAmountOfSignatures(transaction: TransactionDto) {
+    const required &#x3D; this.types.get(transaction.body.type)!.signatureAmount();
+    const signatures &#x3D; this.types
+      .get(transaction.body.type)!
+      .signature(transaction);
+    if (signatures.length &lt; required) {
+      throw new Error(&#x27;signatures are missing&#x27;);
+    }
+  }
+
+  /**
+   * Checks if the given transaction is valid. Collect the validations into an array to validate them in the end.
+   * @param transaction
+   * @param addedTransactions
+   */
+  public async checkTransaction(
+    transaction: TransactionDto,
+    addedTransactions: Map&lt;string, TransactionDto&gt;,
+  ): Promise&lt;any[]&gt; {
+    return Promise.all([
+      this.checkSignature(transaction),
+      this.checkSize(transaction),
+      this.types
+        .get(transaction.body.type)!
+        .validation(transaction, addedTransactions),
+    ]);
+  }
+
+  /**
+   * Checks the size of a transaction to prevent an overflow.
+   */
+  private checkSize(transaction: TransactionDto) {
+    // TODO validate logic
+    const maxSize &#x3D; 1000000;
+    const size &#x3D; new TextEncoder().encode(JSON.stringify(transaction)).length;
+    if (size &gt; maxSize) {
+      throw new Error(&#x60;transaction is too big: ${size} byte &gt; ${maxSize}&#x60;);
+    }
+    return Promise.resolve();
+  }
+
+  /**
+   * Checks if the transaction:
+   * - is signed with a valid key
+   * - by an authorized participant
+   * - no double signatures by same issuer
+   * - has enough signatures
+   * @param transaction
+   */
+  private async checkSignature(transaction: TransactionDto) {
+    const hash &#x3D; this.hashTransactionValue(transaction);
+    const signatures &#x3D; this.getSignatures(transaction);
+    const usedSignatures: string[] &#x3D; [];
+    this.checkAmountOfSignatures(transaction);
+    for (const signature of signatures) {
+      const cert &#x3D; await this.didCachedService.getKey(signature.identifier);
+      const correctSignature &#x3D; await this.walletClientService.checkSignature(
+        cert.publicKeyJwk,
+        hash,
+        signature.signature,
+      );
+      if (!correctSignature) {
+        throw new Error(&#x60;Signature is invalid for: ${signature.identifier}&#x60;);
+      }
+      if (usedSignatures.includes(signature.identifier)) {
+        throw new Error(
+          &#x60;Transaction multiple singed by same issuer: ${signature.identifier}&#x60;,
+        );
+      }
+      usedSignatures.push(signature.identifier);
+    }
+  }
+
+  /**
+   * Creates a hash of the transaction&#x27;s important values.
+   * @param transaction
+   */
+  private hashTransactionValue(transaction: TransactionDto) {
+    return this.types.get(transaction.body.type)!.hash(transaction);
+  }
+
+  /**
+   * Returns the signatures of a transaction.
+   * @param transaction
+   */
+  private getSignatures(transaction: TransactionDto): SignatureDto[] {
+    return this.types.get(transaction.body.type)!.signature(transaction);
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'BlockCheckService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

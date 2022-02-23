@@ -1,0 +1,3963 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>trustchain documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">trustchain documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content miscellaneous-variables">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Miscellaneous</li>
+  <li>Variables</li>
+</ol>
+
+<section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <ul class="index-list">
+                        <li>
+                            <a href="#BLOCK_COUNTER" title="libs/clients/persist-client/src/constants.ts" ><b>BLOCK_COUNTER</b>&nbsp;&nbsp;&nbsp;(libs/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#BLOCK_PARSE" title="libs/clients/parse-client/src/constants.ts" ><b>BLOCK_PARSE</b>&nbsp;&nbsp;&nbsp;(libs/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#BLOCK_PERSIST" title="apps/persist/src/constants.ts" ><b>BLOCK_PERSIST</b>&nbsp;&nbsp;&nbsp;(apps/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#BLOCK_REQUEST" title="libs/clients/persist-client/src/constants.ts" ><b>BLOCK_REQUEST</b>&nbsp;&nbsp;&nbsp;(libs/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#BLOCKS_REQUEST" title="libs/clients/persist-client/src/constants.ts" ><b>BLOCKS_REQUEST</b>&nbsp;&nbsp;&nbsp;(libs/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#build" title="apps/shared/build.ts" ><b>build</b>&nbsp;&nbsp;&nbsp;(apps/.../build.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#buildDate" title="apps/shared/build.ts" ><b>buildDate</b>&nbsp;&nbsp;&nbsp;(apps/.../build.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#CERT_ROOT_INIT" title="apps/http-validator/src/constants.ts" ><b>CERT_ROOT_INIT</b>&nbsp;&nbsp;&nbsp;(apps/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#CHAIN_REBUILD" title="libs/clients/parse-client/src/constants.ts" ><b>CHAIN_REBUILD</b>&nbsp;&nbsp;&nbsp;(libs/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#config" title="jest.config.ts" ><b>config</b>&nbsp;&nbsp;&nbsp;(jest.config.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#config" title="jest.e2e.ts" ><b>config</b>&nbsp;&nbsp;&nbsp;(jest.e2e.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#config" title="jest.unit.ts" ><b>config</b>&nbsp;&nbsp;&nbsp;(jest.unit.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#config" title="test/network/jest.network.ts" ><b>config</b>&nbsp;&nbsp;&nbsp;(test/.../jest.network.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#config" title="apps/http-gateway/test/jest-e2e.ts" ><b>config</b>&nbsp;&nbsp;&nbsp;(apps/.../jest-e2e.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#config" title="apps/http-observer/test/jest-e2e.ts" ><b>config</b>&nbsp;&nbsp;&nbsp;(apps/.../jest-e2e.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#config" title="apps/http-validator/test/jest-e2e.ts" ><b>config</b>&nbsp;&nbsp;&nbsp;(apps/.../jest-e2e.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#config" title="apps/network-gateway/test/jest-e2e.ts" ><b>config</b>&nbsp;&nbsp;&nbsp;(apps/.../jest-e2e.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#config" title="apps/network-observer/test/jest-e2e.ts" ><b>config</b>&nbsp;&nbsp;&nbsp;(apps/.../jest-e2e.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#config" title="apps/network-validator/test/jest-e2e.ts" ><b>config</b>&nbsp;&nbsp;&nbsp;(apps/.../jest-e2e.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#config" title="apps/parse/test/jest-e2e.ts" ><b>config</b>&nbsp;&nbsp;&nbsp;(apps/.../jest-e2e.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#config" title="apps/persist/test/jest-e2e.ts" ><b>config</b>&nbsp;&nbsp;&nbsp;(apps/.../jest-e2e.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#config" title="apps/wallet/test/jest-e2e.ts" ><b>config</b>&nbsp;&nbsp;&nbsp;(apps/.../jest-e2e.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#CONNECTION_ADDED" title="libs/blockchain/src/blockchain.events.ts" ><b>CONNECTION_ADDED</b>&nbsp;&nbsp;&nbsp;(libs/.../blockchain.events.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#CONNECTION_CHALLENGE" title="libs/blockchain/src/blockchain.events.ts" ><b>CONNECTION_CHALLENGE</b>&nbsp;&nbsp;&nbsp;(libs/.../blockchain.events.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#CONNECTION_REMOVED" title="libs/blockchain/src/blockchain.events.ts" ><b>CONNECTION_REMOVED</b>&nbsp;&nbsp;&nbsp;(libs/.../blockchain.events.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#CONNECTION_VALIDATORS_REQUEST" title="libs/blockchain/src/blockchain.events.ts" ><b>CONNECTION_VALIDATORS_REQUEST</b>&nbsp;&nbsp;&nbsp;(libs/.../blockchain.events.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#CONNECTION_VALIDATORS_RESPONSE" title="libs/blockchain/src/blockchain.events.ts" ><b>CONNECTION_VALIDATORS_RESPONSE</b>&nbsp;&nbsp;&nbsp;(libs/.../blockchain.events.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#CONSENSUS_READY_REQUEST" title="libs/blockchain/src/blockchain.events.ts" ><b>CONSENSUS_READY_REQUEST</b>&nbsp;&nbsp;&nbsp;(libs/.../blockchain.events.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#CONSENSUS_READY_RESPONSE" title="libs/blockchain/src/blockchain.events.ts" ><b>CONSENSUS_READY_RESPONSE</b>&nbsp;&nbsp;&nbsp;(libs/.../blockchain.events.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#CONSENSUS_RESET" title="libs/blockchain/src/blockchain.events.ts" ><b>CONSENSUS_RESET</b>&nbsp;&nbsp;&nbsp;(libs/.../blockchain.events.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#dbConnectionValidation" title="apps/shared/validation-rules.ts" ><b>dbConnectionValidation</b>&nbsp;&nbsp;&nbsp;(apps/.../validation-rules.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#DID_ID_CONNECTION" title="libs/transactions/did-id/src/constants.ts" ><b>DID_ID_CONNECTION</b>&nbsp;&nbsp;&nbsp;(libs/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#DID_ID_NAME" title="libs/transactions/did-id/src/constants.ts" ><b>DID_ID_NAME</b>&nbsp;&nbsp;&nbsp;(libs/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#DidIdSchema" title="libs/transactions/did-id/src/schemas/did-id.schema.ts" ><b>DidIdSchema</b>&nbsp;&nbsp;&nbsp;(libs/.../did-id.schema.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#DidTransactionSchema" title="apps/shared/did/schemas/did-transaction.schema.ts" ><b>DidTransactionSchema</b>&nbsp;&nbsp;&nbsp;(apps/.../did-transaction.schema.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#DidTransactionSchema" title="libs/transactions/did-id/src/schemas/did-id-transaction.schema.ts" ><b>DidTransactionSchema</b>&nbsp;&nbsp;&nbsp;(libs/.../did-id-transaction.schema.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#dynamicHttpValidation" title="apps/shared/validation-rules.ts" ><b>dynamicHttpValidation</b>&nbsp;&nbsp;&nbsp;(apps/.../validation-rules.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#ENDPOINT_LISTENING_FOR_BLOCKS" title="libs/blockchain/src/blockchain.events.ts" ><b>ENDPOINT_LISTENING_FOR_BLOCKS</b>&nbsp;&nbsp;&nbsp;(libs/.../blockchain.events.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#ENDPOINT_LISTENING_FOR_VALIDATORS" title="libs/blockchain/src/blockchain.events.ts" ><b>ENDPOINT_LISTENING_FOR_VALIDATORS</b>&nbsp;&nbsp;&nbsp;(libs/.../blockchain.events.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#HASH_CONNECTION" title="libs/transactions/hash/src/constants.ts" ><b>HASH_CONNECTION</b>&nbsp;&nbsp;&nbsp;(libs/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#HashSchema" title="libs/transactions/hash/src/schemas/did-hash.schema.ts" ><b>HashSchema</b>&nbsp;&nbsp;&nbsp;(libs/.../did-hash.schema.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#HashTransactionSchema" title="libs/transactions/hash/src/schemas/did-hash-transaction.schema.ts" ><b>HashTransactionSchema</b>&nbsp;&nbsp;&nbsp;(libs/.../did-hash-transaction.schema.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#httpValidation" title="apps/shared/validation-rules.ts" ><b>httpValidation</b>&nbsp;&nbsp;&nbsp;(apps/.../validation-rules.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#IDENTIFIER_LENGTH_MAX" title="libs/p2-p/src/connect.const.ts" ><b>IDENTIFIER_LENGTH_MAX</b>&nbsp;&nbsp;&nbsp;(libs/.../connect.const.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#IDENTIFIER_LENGTH_MIN" title="libs/p2-p/src/connect.const.ts" ><b>IDENTIFIER_LENGTH_MIN</b>&nbsp;&nbsp;&nbsp;(libs/.../connect.const.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#INVITE_CODE_LENGTH_MAX" title="libs/p2-p/src/connect.const.ts" ><b>INVITE_CODE_LENGTH_MAX</b>&nbsp;&nbsp;&nbsp;(libs/.../connect.const.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#INVITE_CONNECTION" title="libs/invite/src/constants.ts" ><b>INVITE_CONNECTION</b>&nbsp;&nbsp;&nbsp;(libs/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#InviteRequestSchema" title="libs/invite/src/schemas/invite-request.schema.ts" ><b>InviteRequestSchema</b>&nbsp;&nbsp;&nbsp;(libs/.../invite-request.schema.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#IS_ENDPOINT_LISTENING_FOR_BLOCKS" title="libs/blockchain/src/blockchain.events.ts" ><b>IS_ENDPOINT_LISTENING_FOR_BLOCKS</b>&nbsp;&nbsp;&nbsp;(libs/.../blockchain.events.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#IS_ENDPOINT_LISTENING_FOR_VALIDATORS" title="libs/blockchain/src/blockchain.events.ts" ><b>IS_ENDPOINT_LISTENING_FOR_VALIDATORS</b>&nbsp;&nbsp;&nbsp;(libs/.../blockchain.events.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#LIST_NOT_EMPTY" title="libs/blockchain/src/blockchain.events.ts" ><b>LIST_NOT_EMPTY</b>&nbsp;&nbsp;&nbsp;(libs/.../blockchain.events.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#NETWORK_TCP_INJECTION" title="libs/clients/network-client/src/constants.ts" ><b>NETWORK_TCP_INJECTION</b>&nbsp;&nbsp;&nbsp;(libs/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#NETWORK_URL" title="libs/clients/network-client/src/constants.ts" ><b>NETWORK_URL</b>&nbsp;&nbsp;&nbsp;(libs/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#networkDynamicValidation" title="apps/shared/validation-rules.ts" ><b>networkDynamicValidation</b>&nbsp;&nbsp;&nbsp;(apps/.../validation-rules.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#networkTcpProvider" title="libs/clients/network-client/src/network.provider.ts" ><b>networkTcpProvider</b>&nbsp;&nbsp;&nbsp;(libs/.../network.provider.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#networkValidation" title="apps/shared/validation-rules.ts" ><b>networkValidation</b>&nbsp;&nbsp;&nbsp;(apps/.../validation-rules.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#NEW_IDENTIFIER" title="libs/clients/wallet-client/src/constants.ts" ><b>NEW_IDENTIFIER</b>&nbsp;&nbsp;&nbsp;(libs/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#PARSE_TCP_INJECTION" title="libs/clients/parse-client/src/constants.ts" ><b>PARSE_TCP_INJECTION</b>&nbsp;&nbsp;&nbsp;(libs/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#PARSE_URL" title="libs/clients/parse-client/src/constants.ts" ><b>PARSE_URL</b>&nbsp;&nbsp;&nbsp;(libs/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#parseTcpProvider" title="libs/clients/parse-client/src/parse.provider.ts" ><b>parseTcpProvider</b>&nbsp;&nbsp;&nbsp;(libs/.../parse.provider.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#PERSIST_TCP_INJECTION" title="libs/clients/persist-client/src/constants.ts" ><b>PERSIST_TCP_INJECTION</b>&nbsp;&nbsp;&nbsp;(libs/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#PERSIST_URL" title="libs/clients/persist-client/src/constants.ts" ><b>PERSIST_URL</b>&nbsp;&nbsp;&nbsp;(libs/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#persistTcpProvider" title="libs/clients/persist-client/src/persist.provider.ts" ><b>persistTcpProvider</b>&nbsp;&nbsp;&nbsp;(libs/.../persist.provider.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#REDIS_INJECTION" title="libs/clients/event-client/src/constants.ts" ><b>REDIS_INJECTION</b>&nbsp;&nbsp;&nbsp;(libs/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#redisProvider" title="libs/clients/event-client/src/redis.provider.ts" ><b>redisProvider</b>&nbsp;&nbsp;&nbsp;(libs/.../redis.provider.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#REQUEST_ROUND_NUMBER" title="libs/blockchain/src/blockchain.events.ts" ><b>REQUEST_ROUND_NUMBER</b>&nbsp;&nbsp;&nbsp;(libs/.../blockchain.events.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#RESPONSE_ROUND_NUMBER" title="libs/blockchain/src/blockchain.events.ts" ><b>RESPONSE_ROUND_NUMBER</b>&nbsp;&nbsp;&nbsp;(libs/.../blockchain.events.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#SCHEMA_CONNECTION" title="libs/transactions/schema/src/constants.ts" ><b>SCHEMA_CONNECTION</b>&nbsp;&nbsp;&nbsp;(libs/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#SCHEMA_NAME" title="libs/transactions/schema/src/constants.ts" ><b>SCHEMA_NAME</b>&nbsp;&nbsp;&nbsp;(libs/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#SchemaSchema" title="libs/transactions/schema/src/schemas/did-schema.schema.ts" ><b>SchemaSchema</b>&nbsp;&nbsp;&nbsp;(libs/.../did-schema.schema.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#SchemaTransactionSchema" title="libs/transactions/schema/src/schemas/did-schema-transaction.schema.ts" ><b>SchemaTransactionSchema</b>&nbsp;&nbsp;&nbsp;(libs/.../did-schema-transaction.schema.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#SIGNATURE_LENGTH_MAX" title="libs/p2-p/src/connect.const.ts" ><b>SIGNATURE_LENGTH_MAX</b>&nbsp;&nbsp;&nbsp;(libs/.../connect.const.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#SYSTEM_INIT" title="libs/clients/event-client/src/constants.ts" ><b>SYSTEM_INIT</b>&nbsp;&nbsp;&nbsp;(libs/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#SYSTEM_RESET" title="libs/clients/event-client/src/constants.ts" ><b>SYSTEM_RESET</b>&nbsp;&nbsp;&nbsp;(libs/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TEMPLATE_CONNECTION" title="libs/transactions/template/src/constants.ts" ><b>TEMPLATE_CONNECTION</b>&nbsp;&nbsp;&nbsp;(libs/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TEMPLATE_NAME" title="libs/transactions/template/src/constants.ts" ><b>TEMPLATE_NAME</b>&nbsp;&nbsp;&nbsp;(libs/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TemplateSchema" title="libs/transactions/template/src/schemas/did-template.schema.ts" ><b>TemplateSchema</b>&nbsp;&nbsp;&nbsp;(libs/.../did-template.schema.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TemplateTransactionSchema" title="libs/transactions/template/src/schemas/did-template-transaction.schema.ts" ><b>TemplateTransactionSchema</b>&nbsp;&nbsp;&nbsp;(libs/.../did-template-transaction.schema.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TRACKING_CONNECTION" title="apps/http-observer/src/tracking/constants.ts" ><b>TRACKING_CONNECTION</b>&nbsp;&nbsp;&nbsp;(apps/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TrackingSchema" title="apps/http-observer/src/tracking/schemas/tracking.schema.ts" ><b>TrackingSchema</b>&nbsp;&nbsp;&nbsp;(apps/.../tracking.schema.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TRANSACTION_CREATED" title="libs/clients/event-client/src/constants.ts" ><b>TRANSACTION_CREATED</b>&nbsp;&nbsp;&nbsp;(libs/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TRANSACTION_PARSED" title="libs/clients/event-client/src/constants.ts" ><b>TRANSACTION_PARSED</b>&nbsp;&nbsp;&nbsp;(libs/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TRANSACTION_REJECTED" title="libs/clients/event-client/src/constants.ts" ><b>TRANSACTION_REJECTED</b>&nbsp;&nbsp;&nbsp;(libs/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#transactionProperties" title="test/helpers.ts" ><b>transactionProperties</b>&nbsp;&nbsp;&nbsp;(test/.../helpers.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#VALIDATE_CONNECTIONS" title="libs/clients/event-client/src/constants.ts" ><b>VALIDATE_CONNECTIONS</b>&nbsp;&nbsp;&nbsp;(libs/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#VALIDATOR_ENDPOINT" title="libs/p2-p/src/constant.ts" ><b>VALIDATOR_ENDPOINT</b>&nbsp;&nbsp;&nbsp;(libs/.../constant.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#version" title="apps/shared/build.ts" ><b>version</b>&nbsp;&nbsp;&nbsp;(apps/.../build.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#WALLET_GET_ID" title="libs/clients/wallet-client/src/endpoints.ts" ><b>WALLET_GET_ID</b>&nbsp;&nbsp;&nbsp;(libs/.../endpoints.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#WALLET_PUB_KEY" title="libs/clients/wallet-client/src/endpoints.ts" ><b>WALLET_PUB_KEY</b>&nbsp;&nbsp;&nbsp;(libs/.../endpoints.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#WALLET_SET_ID" title="libs/clients/wallet-client/src/endpoints.ts" ><b>WALLET_SET_ID</b>&nbsp;&nbsp;&nbsp;(libs/.../endpoints.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#WALLET_SIGN" title="libs/clients/wallet-client/src/endpoints.ts" ><b>WALLET_SIGN</b>&nbsp;&nbsp;&nbsp;(libs/.../endpoints.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#WALLET_TCP_INJECTION" title="libs/clients/wallet-client/src/constants.ts" ><b>WALLET_TCP_INJECTION</b>&nbsp;&nbsp;&nbsp;(libs/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#WALLET_URL" title="libs/clients/wallet-client/src/constants.ts" ><b>WALLET_URL</b>&nbsp;&nbsp;&nbsp;(libs/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#walletTcpProvider" title="libs/clients/wallet-client/src/wallet.provider.ts" ><b>walletTcpProvider</b>&nbsp;&nbsp;&nbsp;(libs/.../wallet.provider.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#WS_BLOCK" title="libs/blockchain/src/blockchain.events.ts" ><b>WS_BLOCK</b>&nbsp;&nbsp;&nbsp;(libs/.../blockchain.events.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#WS_BLOCK_COMMIT" title="libs/blockchain/src/blockchain.events.ts" ><b>WS_BLOCK_COMMIT</b>&nbsp;&nbsp;&nbsp;(libs/.../blockchain.events.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#WS_BLOCK_MISSING" title="libs/blockchain/src/blockchain.events.ts" ><b>WS_BLOCK_MISSING</b>&nbsp;&nbsp;&nbsp;(libs/.../blockchain.events.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#WS_BLOCK_PERSIST" title="libs/blockchain/src/blockchain.events.ts" ><b>WS_BLOCK_PERSIST</b>&nbsp;&nbsp;&nbsp;(libs/.../blockchain.events.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#WS_BLOCK_PROPOSE" title="libs/blockchain/src/blockchain.events.ts" ><b>WS_BLOCK_PROPOSE</b>&nbsp;&nbsp;&nbsp;(libs/.../blockchain.events.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#WS_TRANSACTION" title="libs/blockchain/src/blockchain.events.ts" ><b>WS_TRANSACTION</b>&nbsp;&nbsp;&nbsp;(libs/.../blockchain.events.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#WS_TRANSACTION_REJECTED" title="libs/blockchain/src/blockchain.events.ts" ><b>WS_TRANSACTION_REJECTED</b>&nbsp;&nbsp;&nbsp;(libs/.../blockchain.events.ts)</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    <h3>libs/clients/persist-client/src/constants.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="BLOCK_COUNTER"></a>
+                    <span class="name">
+                        <span ><b>BLOCK_COUNTER</b></span>
+                        <a href="#BLOCK_COUNTER"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;block_counter&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Message request to receive the current block counter.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="BLOCK_REQUEST"></a>
+                    <span class="name">
+                        <span ><b>BLOCK_REQUEST</b></span>
+                        <a href="#BLOCK_REQUEST"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;block_request&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Message request to receive a block.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="BLOCKS_REQUEST"></a>
+                    <span class="name">
+                        <span ><b>BLOCKS_REQUEST</b></span>
+                        <a href="#BLOCKS_REQUEST"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;blocks_request&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Message request to receive an amount of blocks.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="PERSIST_TCP_INJECTION"></a>
+                    <span class="name">
+                        <span ><b>PERSIST_TCP_INJECTION</b></span>
+                        <a href="#PERSIST_TCP_INJECTION"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;PERSIST_TCP&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>name of the persist injection.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="PERSIST_URL"></a>
+                    <span class="name">
+                        <span ><b>PERSIST_URL</b></span>
+                        <a href="#PERSIST_URL"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;PERSIST_URL&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>URL und PORTS for connections</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/clients/parse-client/src/constants.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="BLOCK_PARSE"></a>
+                    <span class="name">
+                        <span ><b>BLOCK_PARSE</b></span>
+                        <a href="#BLOCK_PARSE"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;block_parse&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Event to parse a block</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="CHAIN_REBUILD"></a>
+                    <span class="name">
+                        <span ><b>CHAIN_REBUILD</b></span>
+                        <a href="#CHAIN_REBUILD"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;chain_rebuild&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Message request to rebuild the chain.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="PARSE_TCP_INJECTION"></a>
+                    <span class="name">
+                        <span ><b>PARSE_TCP_INJECTION</b></span>
+                        <a href="#PARSE_TCP_INJECTION"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;PARSE_TCP&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>name of the parse injection.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="PARSE_URL"></a>
+                    <span class="name">
+                        <span ><b>PARSE_URL</b></span>
+                        <a href="#PARSE_URL"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;PARSE_URL&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>URL und PORTS for connections</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>apps/persist/src/constants.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="BLOCK_PERSIST"></a>
+                    <span class="name">
+                        <span ><b>BLOCK_PERSIST</b></span>
+                        <a href="#BLOCK_PERSIST"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;block_persist&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Event to persist a block</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>apps/shared/build.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="build"></a>
+                    <span class="name">
+                        <span ><b>build</b></span>
+                        <a href="#build"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;f20cfc7657a97641&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Sets the built version during the ci process to track errors in sentry.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="buildDate"></a>
+                    <span class="name">
+                        <span ><b>buildDate</b></span>
+                        <a href="#buildDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>1609753616315</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Sets the build date.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="version"></a>
+                    <span class="name">
+                        <span ><b>version</b></span>
+                        <a href="#version"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;1.0.0&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Sets the version number.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>apps/http-validator/src/constants.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="CERT_ROOT_INIT"></a>
+                    <span class="name">
+                        <span ><b>CERT_ROOT_INIT</b></span>
+                        <a href="#CERT_ROOT_INIT"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;cert_root_init&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Message request to initialize everything for a new root certificate.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>jest.config.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="config"></a>
+                    <span class="name">
+                        <span ><b>config</b></span>
+                        <a href="#config"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Config.InitialOptions</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  ...jestConfig,
+  rootDir:&#x27;.&#x27;,
+  projects:[
+    &quot;&lt;rootDir&gt;/jest.e2e.ts&quot;,
+    &quot;&lt;rootDir&gt;/jest.unit.ts&quot;
+  ]
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>an object to configure jest</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>jest.e2e.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="config"></a>
+                    <span class="name">
+                        <span ><b>config</b></span>
+                        <a href="#config"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Config.InitialOptions</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  ...jestConfig,
+  rootDir: &#x27;.&#x27;,
+  globals: {
+    isE2E: true,
+    __storage: &#x60;${__dirname}/storage&#x60;,
+  },
+  testMatch: [
+    &#x27;&lt;rootDir&gt;/apps/persist/test/*.e2e-spec.ts&#x27;,
+    &#x27;&lt;rootDir&gt;/apps/parse/test/*.e2e-spec.ts&#x27;,
+    &#x27;&lt;rootDir&gt;/apps/wallet/test/*.e2e-spec.ts&#x27;,
+    &#x27;&lt;rootDir&gt;/apps/http-gateway/test/*.e2e-spec.ts&#x27;,
+    &#x27;&lt;rootDir&gt;/apps/http-observer/test/*.e2e-spec.ts&#x27;,
+    &#x27;&lt;rootDir&gt;/apps/http-validator/test/*.e2e-spec.ts&#x27;,
+    &#x27;&lt;rootDir&gt;/apps/network-gateway/test/*.e2e-spec.ts&#x27;,
+    &#x27;&lt;rootDir&gt;/apps/network-observer/test/*.e2e-spec.ts&#x27;,
+    &#x27;&lt;rootDir&gt;/apps/network-validator/test/*.e2e-spec.ts&#x27;,
+  ],
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>an object to configure e2e tests</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>jest.unit.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="config"></a>
+                    <span class="name">
+                        <span ><b>config</b></span>
+                        <a href="#config"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Config.InitialOptions</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  ...jestConfig,
+  rootDir : &#x27;.&#x27;, 
+  testMatch: [
+    &#x27;&lt;rootDir&gt;/apps/persist/src/*.service.spec.ts&#x27;,
+  ],
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>an object to configure unit tests</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>test/network/jest.network.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="config"></a>
+                    <span class="name">
+                        <span ><b>config</b></span>
+                        <a href="#config"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Config.InitialOptions</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  moduleFileExtensions: [&#x27;js&#x27;, &#x27;json&#x27;, &#x27;ts&#x27;],
+  transform: {
+    &#x27;^.+\\.(t|j)s$&#x27;: &#x27;ts-jest&#x27;,
+  },
+  verbose: false,
+  testEnvironment: &#x27;node&#x27;,
+  rootDir: &#x27;.&#x27;,
+  testMatch: [&#x27;&lt;rootDir&gt;/network.test.ts&#x27;],
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>an object to configure network test</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>apps/http-gateway/test/jest-e2e.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="config"></a>
+                    <span class="name">
+                        <span ><b>config</b></span>
+                        <a href="#config"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Config.InitialOptions</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  ...jestConfig,
+  rootDir: &#x27;../../../&#x27;,
+  testRegex: &#x27;.e2e-spec.ts$&#x27;,
+  roots: [&#x27;&lt;rootDir&gt;/apps/http-gateway/&#x27;, &#x27;&lt;rootDir&gt;/libs/&#x27;],
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>an object to configure e2e http-gateway test</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>apps/http-observer/test/jest-e2e.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="config"></a>
+                    <span class="name">
+                        <span ><b>config</b></span>
+                        <a href="#config"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Config.InitialOptions</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  ...jestConfig,
+  rootDir: &#x27;../../../&#x27;,
+  testRegex: &#x27;.e2e-spec.ts$&#x27;,
+  roots: [&#x27;&lt;rootDir&gt;/apps/http-observer/&#x27;, &#x27;&lt;rootDir&gt;/libs/&#x27;],
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>an object to configure e2e http-observer test</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>apps/http-validator/test/jest-e2e.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="config"></a>
+                    <span class="name">
+                        <span ><b>config</b></span>
+                        <a href="#config"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Config.InitialOptions</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  ...jestConfig,
+  rootDir: &#x27;../../../&#x27;,
+  testRegex: &#x27;.e2e-spec.ts$&#x27;,
+  roots: [&#x27;&lt;rootDir&gt;/apps/http-validator/&#x27;, &#x27;&lt;rootDir&gt;/libs/&#x27;],
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>an object to configure e2e http-validator test</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>apps/network-gateway/test/jest-e2e.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="config"></a>
+                    <span class="name">
+                        <span ><b>config</b></span>
+                        <a href="#config"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Config.InitialOptions</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  ...jestConfig,
+  rootDir: &#x27;../../../&#x27;,
+  testRegex: &#x27;.e2e-spec.ts$&#x27;,
+  roots: [&#x27;&lt;rootDir&gt;/apps/network-gateway/&#x27;, &#x27;&lt;rootDir&gt;/libs/&#x27;],
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>an object to configure e2e network-gateway test</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>apps/network-observer/test/jest-e2e.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="config"></a>
+                    <span class="name">
+                        <span ><b>config</b></span>
+                        <a href="#config"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Config.InitialOptions</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  ...jestConfig,
+  rootDir: &#x27;../../../&#x27;,
+  testRegex: &#x27;.e2e-spec.ts$&#x27;,
+  roots: [&#x27;&lt;rootDir&gt;/apps/network-observer/&#x27;, &#x27;&lt;rootDir&gt;/libs/&#x27;],
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>an object to configure e2e network-observer test</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>apps/network-validator/test/jest-e2e.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="config"></a>
+                    <span class="name">
+                        <span ><b>config</b></span>
+                        <a href="#config"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Config.InitialOptions</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  ...jestConfig,
+  rootDir: &#x27;../../../&#x27;,
+  testRegex: &#x27;.e2e-spec.ts$&#x27;,
+  roots: [&#x27;&lt;rootDir&gt;/apps/network-validator/&#x27;, &#x27;&lt;rootDir&gt;/libs/&#x27;],
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>an object to configure e2e network-validator test</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>apps/parse/test/jest-e2e.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="config"></a>
+                    <span class="name">
+                        <span ><b>config</b></span>
+                        <a href="#config"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Config.InitialOptions</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  ...jestConfig,
+  rootDir: &#x27;../../../&#x27;,
+  testRegex: &#x27;.e2e-spec.ts$&#x27;,
+  roots: [&#x27;&lt;rootDir&gt;/apps/parse/&#x27;, &#x27;&lt;rootDir&gt;/libs/&#x27;],
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>an object to configure e2e parse test</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>apps/persist/test/jest-e2e.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="config"></a>
+                    <span class="name">
+                        <span ><b>config</b></span>
+                        <a href="#config"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Config.InitialOptions</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  ...jestConfig,
+  rootDir: &#x27;../../../&#x27;,
+  testRegex: &#x27;.e2e-spec.ts$&#x27;,
+  roots: [&#x27;&lt;rootDir&gt;/apps/persist/&#x27;, &#x27;&lt;rootDir&gt;/libs/&#x27;],
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>an object to configure e2e persist test</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>apps/wallet/test/jest-e2e.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="config"></a>
+                    <span class="name">
+                        <span ><b>config</b></span>
+                        <a href="#config"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Config.InitialOptions</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  ...jestConfig,
+  rootDir: &#x27;../../../&#x27;,
+  testRegex: &#x27;.e2e-spec.ts$&#x27;,
+  roots: [&#x27;&lt;rootDir&gt;/apps/wallet/&#x27;, &#x27;&lt;rootDir&gt;/libs/&#x27;],
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>an object to configure e2e wallet test</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/blockchain/src/blockchain.events.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="CONNECTION_ADDED"></a>
+                    <span class="name">
+                        <span ><b>CONNECTION_ADDED</b></span>
+                        <a href="#CONNECTION_ADDED"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;connection_added&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Name of the event for an added connection.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="CONNECTION_CHALLENGE"></a>
+                    <span class="name">
+                        <span ><b>CONNECTION_CHALLENGE</b></span>
+                        <a href="#CONNECTION_CHALLENGE"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;challenge&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Name of the message to make a challenge response.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="CONNECTION_REMOVED"></a>
+                    <span class="name">
+                        <span ><b>CONNECTION_REMOVED</b></span>
+                        <a href="#CONNECTION_REMOVED"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;connection_removed&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Name of the event for a removed connection</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="CONNECTION_VALIDATORS_REQUEST"></a>
+                    <span class="name">
+                        <span ><b>CONNECTION_VALIDATORS_REQUEST</b></span>
+                        <a href="#CONNECTION_VALIDATORS_REQUEST"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;validators_request&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Name of the message to request more validators.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="CONNECTION_VALIDATORS_RESPONSE"></a>
+                    <span class="name">
+                        <span ><b>CONNECTION_VALIDATORS_RESPONSE</b></span>
+                        <a href="#CONNECTION_VALIDATORS_RESPONSE"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;validators_response&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Name of the message to get more validators.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="CONSENSUS_READY_REQUEST"></a>
+                    <span class="name">
+                        <span ><b>CONSENSUS_READY_REQUEST</b></span>
+                        <a href="#CONSENSUS_READY_REQUEST"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;consensus_ready_request&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Name of the event request when a Validator is ready to be party in the consensus.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="CONSENSUS_READY_RESPONSE"></a>
+                    <span class="name">
+                        <span ><b>CONSENSUS_READY_RESPONSE</b></span>
+                        <a href="#CONSENSUS_READY_RESPONSE"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;consensus_ready_response&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Name of the event response when a Validator is ready to be party in the consensus.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="CONSENSUS_RESET"></a>
+                    <span class="name">
+                        <span ><b>CONSENSUS_RESET</b></span>
+                        <a href="#CONSENSUS_RESET"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;consensus_reset&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Name of the event when a group of validators want to reset the consensus because they are out of sync.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ENDPOINT_LISTENING_FOR_BLOCKS"></a>
+                    <span class="name">
+                        <span ><b>ENDPOINT_LISTENING_FOR_BLOCKS</b></span>
+                        <a href="#ENDPOINT_LISTENING_FOR_BLOCKS"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;listening_for_blocks&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Name of the event when the endpoint registered all events.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ENDPOINT_LISTENING_FOR_VALIDATORS"></a>
+                    <span class="name">
+                        <span ><b>ENDPOINT_LISTENING_FOR_VALIDATORS</b></span>
+                        <a href="#ENDPOINT_LISTENING_FOR_VALIDATORS"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;listening_for_validators&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Name of the event when the endpoint registered all events.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="IS_ENDPOINT_LISTENING_FOR_BLOCKS"></a>
+                    <span class="name">
+                        <span ><b>IS_ENDPOINT_LISTENING_FOR_BLOCKS</b></span>
+                        <a href="#IS_ENDPOINT_LISTENING_FOR_BLOCKS"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;is_listening_for_blocks&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Name of the event when the servers checks if all events are registered at the endpoint.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="IS_ENDPOINT_LISTENING_FOR_VALIDATORS"></a>
+                    <span class="name">
+                        <span ><b>IS_ENDPOINT_LISTENING_FOR_VALIDATORS</b></span>
+                        <a href="#IS_ENDPOINT_LISTENING_FOR_VALIDATORS"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;is_listening_for_validators&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Name of the event when the servers checks if all events are registered at the endpoint.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="LIST_NOT_EMPTY"></a>
+                    <span class="name">
+                        <span ><b>LIST_NOT_EMPTY</b></span>
+                        <a href="#LIST_NOT_EMPTY"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;filled&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Name of the event for a filled transaction list.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="REQUEST_ROUND_NUMBER"></a>
+                    <span class="name">
+                        <span ><b>REQUEST_ROUND_NUMBER</b></span>
+                        <a href="#REQUEST_ROUND_NUMBER"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;current_proposer_request&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Name of the event to ask for the current proposer.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="RESPONSE_ROUND_NUMBER"></a>
+                    <span class="name">
+                        <span ><b>RESPONSE_ROUND_NUMBER</b></span>
+                        <a href="#RESPONSE_ROUND_NUMBER"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;current_proposer_response&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Name of the event to respond with the current proposer.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="WS_BLOCK"></a>
+                    <span class="name">
+                        <span ><b>WS_BLOCK</b></span>
+                        <a href="#WS_BLOCK"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;block&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Name of the event for a block.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="WS_BLOCK_COMMIT"></a>
+                    <span class="name">
+                        <span ><b>WS_BLOCK_COMMIT</b></span>
+                        <a href="#WS_BLOCK_COMMIT"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;commit&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Name of the event for the commit of a block.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="WS_BLOCK_MISSING"></a>
+                    <span class="name">
+                        <span ><b>WS_BLOCK_MISSING</b></span>
+                        <a href="#WS_BLOCK_MISSING"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;block_missing&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Name for the event to sync up the chain</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="WS_BLOCK_PERSIST"></a>
+                    <span class="name">
+                        <span ><b>WS_BLOCK_PERSIST</b></span>
+                        <a href="#WS_BLOCK_PERSIST"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;persist&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Name of the event for a block to be persisted.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="WS_BLOCK_PROPOSE"></a>
+                    <span class="name">
+                        <span ><b>WS_BLOCK_PROPOSE</b></span>
+                        <a href="#WS_BLOCK_PROPOSE"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;propose&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Name of the event for a proposed block.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="WS_TRANSACTION"></a>
+                    <span class="name">
+                        <span ><b>WS_TRANSACTION</b></span>
+                        <a href="#WS_TRANSACTION"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;transaction&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Name of the event for a transaction.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="WS_TRANSACTION_REJECTED"></a>
+                    <span class="name">
+                        <span ><b>WS_TRANSACTION_REJECTED</b></span>
+                        <a href="#WS_TRANSACTION_REJECTED"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;transaction rejected&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Name of the event for a transaction.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>apps/shared/validation-rules.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dbConnectionValidation"></a>
+                    <span class="name">
+                        <span ><b>dbConnectionValidation</b></span>
+                        <a href="#dbConnectionValidation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  DB_DATABASE: Joi.string().default(&#x27;nest&#x27;),
+  DB_TYPE: Joi.string().valid(&#x27;mongo&#x27;).default(&#x27;mongo&#x27;),
+  DB_HOST: Joi.when(&#x27;DB_TYPE&#x27;, {
+    is: Joi.equal(&#x27;mongo&#x27;),
+    then: Joi.string().default(&#x27;db&#x27;),
+    otherwise: Joi.optional(),
+  }),
+  DB_PORT: Joi.when(&#x27;DB_TYPE&#x27;, {
+    is: Joi.equal(&#x27;mongo&#x27;),
+    then: Joi.number().default(27017),
+    otherwise: Joi.optional(),
+  }),
+  DB_USERNAME: Joi.when(&#x27;DB_TYPE&#x27;, {
+    is: Joi.equal(&#x27;mongo&#x27;),
+    then: Joi.string(),
+    otherwise: Joi.optional(),
+  }),
+  DB_PASSWORD: Joi.when(&#x27;DB_TYPE&#x27;, {
+    is: Joi.equal(&#x27;mongo&#x27;),
+    then: Joi.string(),
+    otherwise: Joi.optional(),
+  }),
+  // TODO set to false to minimize the risc
+  DB_SYNC: Joi.boolean().default(true),
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>validation rules for the database connection values.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dynamicHttpValidation"></a>
+                    <span class="name">
+                        <span ><b>dynamicHttpValidation</b></span>
+                        <a href="#dynamicHttpValidation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  MAINTENANCE: Joi.boolean().default(false),
+  IDENTIFIER: Joi.string(),
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>dynamic validation rules for http endpoints.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="httpValidation"></a>
+                    <span class="name">
+                        <span ><b>httpValidation</b></span>
+                        <a href="#httpValidation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  RESET: Joi.boolean().default(false),
+  NETWORK_SECRET: Joi.string(),
+  NODE_SECRET: Joi.string(),
+  REJECT_UNAUTHORIZED: Joi.boolean().default(false),
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>validation rules for the http services.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="networkDynamicValidation"></a>
+                    <span class="name">
+                        <span ><b>networkDynamicValidation</b></span>
+                        <a href="#networkDynamicValidation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  VALIDATORS: Joi.array().items(Joi.string()),
+  IDENTIFIER: Joi.string(),
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>validation rules for network services for dynamic values.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="networkValidation"></a>
+                    <span class="name">
+                        <span ><b>networkValidation</b></span>
+                        <a href="#networkValidation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  NETWORK_SECRET: Joi.string(),
+  RECONNECT: Joi.boolean().default(true),
+  REJECT_UNAUTHORIZED: Joi.boolean().default(false),
+  CHUNK_SIZE: Joi.number().default(10),
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>validation rules for network services.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/transactions/did-id/src/constants.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="DID_ID_CONNECTION"></a>
+                    <span class="name">
+                        <span ><b>DID_ID_CONNECTION</b></span>
+                        <a href="#DID_ID_CONNECTION"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;didIdConnection&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Name of the did database connection injection.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="DID_ID_NAME"></a>
+                    <span class="name">
+                        <span ><b>DID_ID_NAME</b></span>
+                        <a href="#DID_ID_NAME"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;id&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Namespace of the id element.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/transactions/did-id/src/schemas/did-id.schema.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="DidIdSchema"></a>
+                    <span class="name">
+                        <span ><b>DidIdSchema</b></span>
+                        <a href="#DidIdSchema"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>SchemaFactory.createForClass(DidId)</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Did Schema</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>apps/shared/did/schemas/did-transaction.schema.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="DidTransactionSchema"></a>
+                    <span class="name">
+                        <span ><b>DidTransactionSchema</b></span>
+                        <a href="#DidTransactionSchema"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>SchemaFactory.createForClass(DidTransaction)</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Did Transaction Schema</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/transactions/did-id/src/schemas/did-id-transaction.schema.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="DidTransactionSchema"></a>
+                    <span class="name">
+                        <span ><b>DidTransactionSchema</b></span>
+                        <a href="#DidTransactionSchema"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>SchemaFactory.createForClass(DidIdTransaction)</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Did Transaction Schema</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/transactions/hash/src/constants.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="HASH_CONNECTION"></a>
+                    <span class="name">
+                        <span ><b>HASH_CONNECTION</b></span>
+                        <a href="#HASH_CONNECTION"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;hashConnection&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Name of the hash database connection injection.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/transactions/hash/src/schemas/did-hash.schema.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="HashSchema"></a>
+                    <span class="name">
+                        <span ><b>HashSchema</b></span>
+                        <a href="#HashSchema"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>SchemaFactory.createForClass(DidHash)</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Hash Schema</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/transactions/hash/src/schemas/did-hash-transaction.schema.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="HashTransactionSchema"></a>
+                    <span class="name">
+                        <span ><b>HashTransactionSchema</b></span>
+                        <a href="#HashTransactionSchema"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>SchemaFactory.createForClass(DidHashTransaction)</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Did Transaction Schema</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/p2-p/src/connect.const.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="IDENTIFIER_LENGTH_MAX"></a>
+                    <span class="name">
+                        <span ><b>IDENTIFIER_LENGTH_MAX</b></span>
+                        <a href="#IDENTIFIER_LENGTH_MAX"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>100</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The maximum length of an identifier.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="IDENTIFIER_LENGTH_MIN"></a>
+                    <span class="name">
+                        <span ><b>IDENTIFIER_LENGTH_MIN</b></span>
+                        <a href="#IDENTIFIER_LENGTH_MIN"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>20</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The minimal length of an identifier.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="INVITE_CODE_LENGTH_MAX"></a>
+                    <span class="name">
+                        <span ><b>INVITE_CODE_LENGTH_MAX</b></span>
+                        <a href="#INVITE_CODE_LENGTH_MAX"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>32</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The maximum length of an invite code.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="SIGNATURE_LENGTH_MAX"></a>
+                    <span class="name">
+                        <span ><b>SIGNATURE_LENGTH_MAX</b></span>
+                        <a href="#SIGNATURE_LENGTH_MAX"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>1024</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The maximum length of a signature. 512 for 2048 Bit Signatures, 1024 for 4096</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/invite/src/constants.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="INVITE_CONNECTION"></a>
+                    <span class="name">
+                        <span ><b>INVITE_CONNECTION</b></span>
+                        <a href="#INVITE_CONNECTION"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;inviteConnection&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>name of the invite database connection injection</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/invite/src/schemas/invite-request.schema.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="InviteRequestSchema"></a>
+                    <span class="name">
+                        <span ><b>InviteRequestSchema</b></span>
+                        <a href="#InviteRequestSchema"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>SchemaFactory.createForClass(InviteRequest)</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Invite Request Schema</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/clients/network-client/src/constants.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="NETWORK_TCP_INJECTION"></a>
+                    <span class="name">
+                        <span ><b>NETWORK_TCP_INJECTION</b></span>
+                        <a href="#NETWORK_TCP_INJECTION"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;NETWORK_TCP&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>name of the network injection.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="NETWORK_URL"></a>
+                    <span class="name">
+                        <span ><b>NETWORK_URL</b></span>
+                        <a href="#NETWORK_URL"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;NETWORK_URL&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>URL und PORTS for connections</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/clients/network-client/src/network.provider.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="networkTcpProvider"></a>
+                    <span class="name">
+                        <span ><b>networkTcpProvider</b></span>
+                        <a href="#networkTcpProvider"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  provide: NETWORK_TCP_INJECTION,
+  useFactory: (configService: ConfigService) &#x3D;&gt; {
+    return ClientProxyFactory.create({
+      transport: Transport.TCP,
+      options: {
+        host: configService.getString(NETWORK_URL),
+        port: configService.getNumber(NETWORK_PORT_TCP),
+      },
+    });
+  },
+  inject: [ConfigService],
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>provider to interact with the network service.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/clients/wallet-client/src/constants.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="NEW_IDENTIFIER"></a>
+                    <span class="name">
+                        <span ><b>NEW_IDENTIFIER</b></span>
+                        <a href="#NEW_IDENTIFIER"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;NEW_IDENTIFIER&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Event to inform about a new set identifier.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="WALLET_TCP_INJECTION"></a>
+                    <span class="name">
+                        <span ><b>WALLET_TCP_INJECTION</b></span>
+                        <a href="#WALLET_TCP_INJECTION"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;WALLET_TCP&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>name of the wallet injection.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="WALLET_URL"></a>
+                    <span class="name">
+                        <span ><b>WALLET_URL</b></span>
+                        <a href="#WALLET_URL"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;WALLET_URL&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>URL und PORTS for connections</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/clients/parse-client/src/parse.provider.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="parseTcpProvider"></a>
+                    <span class="name">
+                        <span ><b>parseTcpProvider</b></span>
+                        <a href="#parseTcpProvider"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  provide: PARSE_TCP_INJECTION,
+  useFactory: (configService: ConfigService) &#x3D;&gt; {
+    return ClientProxyFactory.create({
+      transport: Transport.TCP,
+      options: {
+        host: configService.getString(PARSE_URL),
+        port: configService.getNumber(PARSE_PORT_TCP),
+      },
+    });
+  },
+  inject: [ConfigService],
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>provider to interact with the Client module.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/clients/persist-client/src/persist.provider.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="persistTcpProvider"></a>
+                    <span class="name">
+                        <span ><b>persistTcpProvider</b></span>
+                        <a href="#persistTcpProvider"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  provide: PERSIST_TCP_INJECTION,
+  useFactory: (configService: ConfigService) &#x3D;&gt; {
+    return ClientProxyFactory.create({
+      transport: Transport.TCP,
+      options: {
+        host: configService.getString(PERSIST_URL),
+        port: configService.getNumber(PERSIST_PORT_TCP),
+      },
+    });
+  },
+  inject: [ConfigService],
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>provider to interact with the Client module.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/clients/event-client/src/constants.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="REDIS_INJECTION"></a>
+                    <span class="name">
+                        <span ><b>REDIS_INJECTION</b></span>
+                        <a href="#REDIS_INJECTION"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;REDIS&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>name of the redis injection.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="SYSTEM_INIT"></a>
+                    <span class="name">
+                        <span ><b>SYSTEM_INIT</b></span>
+                        <a href="#SYSTEM_INIT"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;init&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Event is fired when the system should be initialized.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="SYSTEM_RESET"></a>
+                    <span class="name">
+                        <span ><b>SYSTEM_RESET</b></span>
+                        <a href="#SYSTEM_RESET"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;reset&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Event is fired when all services should be reset themselves.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TRANSACTION_CREATED"></a>
+                    <span class="name">
+                        <span ><b>TRANSACTION_CREATED</b></span>
+                        <a href="#TRANSACTION_CREATED"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;transaction_created&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Event is fired when a transaction was created.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TRANSACTION_PARSED"></a>
+                    <span class="name">
+                        <span ><b>TRANSACTION_PARSED</b></span>
+                        <a href="#TRANSACTION_PARSED"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;transaction_parsed&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Event is fired when a transaction was parsed.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TRANSACTION_REJECTED"></a>
+                    <span class="name">
+                        <span ><b>TRANSACTION_REJECTED</b></span>
+                        <a href="#TRANSACTION_REJECTED"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;transaction_rejected&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Event is fired when a transaction got rejected.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="VALIDATE_CONNECTIONS"></a>
+                    <span class="name">
+                        <span ><b>VALIDATE_CONNECTIONS</b></span>
+                        <a href="#VALIDATE_CONNECTIONS"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;close_connection&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Event is fired if a certificate got rejected and a possible connection has to
+be closed.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/clients/event-client/src/redis.provider.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="redisProvider"></a>
+                    <span class="name">
+                        <span ><b>redisProvider</b></span>
+                        <a href="#redisProvider"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  provide: REDIS_INJECTION,
+  useFactory: (configService: ConfigService) &#x3D;&gt; {
+    return ClientProxyFactory.create({
+      transport: Transport.REDIS,
+      options: {
+        url: &#x60;redis://${configService.getString(
+          &#x27;REDIS_URL&#x27;,
+        )}:${configService.getNumber(&#x27;REDIS_PORT&#x27;)}&#x60;,
+        retryAttempts: 10,
+        retryDelay: 1000,
+      },
+    });
+  },
+  inject: [ConfigService],
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>provider to interact with the Client module.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/transactions/schema/src/constants.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="SCHEMA_CONNECTION"></a>
+                    <span class="name">
+                        <span ><b>SCHEMA_CONNECTION</b></span>
+                        <a href="#SCHEMA_CONNECTION"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;schemaConnection&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Name of the schema database connection injection.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="SCHEMA_NAME"></a>
+                    <span class="name">
+                        <span ><b>SCHEMA_NAME</b></span>
+                        <a href="#SCHEMA_NAME"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;tmp&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Name of the schemas&#39; did.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/transactions/schema/src/schemas/did-schema.schema.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="SchemaSchema"></a>
+                    <span class="name">
+                        <span ><b>SchemaSchema</b></span>
+                        <a href="#SchemaSchema"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>SchemaFactory.createForClass(DidSchema)</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Schema Schema</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/transactions/schema/src/schemas/did-schema-transaction.schema.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="SchemaTransactionSchema"></a>
+                    <span class="name">
+                        <span ><b>SchemaTransactionSchema</b></span>
+                        <a href="#SchemaTransactionSchema"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>SchemaFactory.createForClass(DidSchemaTransaction)</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Did Transaction Schema</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/transactions/template/src/constants.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TEMPLATE_CONNECTION"></a>
+                    <span class="name">
+                        <span ><b>TEMPLATE_CONNECTION</b></span>
+                        <a href="#TEMPLATE_CONNECTION"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;templateConnection&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Name of the template database connection injection.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TEMPLATE_NAME"></a>
+                    <span class="name">
+                        <span ><b>TEMPLATE_NAME</b></span>
+                        <a href="#TEMPLATE_NAME"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;tmp&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Name of the templates&#39; did.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/transactions/template/src/schemas/did-template.schema.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TemplateSchema"></a>
+                    <span class="name">
+                        <span ><b>TemplateSchema</b></span>
+                        <a href="#TemplateSchema"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>SchemaFactory.createForClass(DidTemplate)</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Template Schema</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/transactions/template/src/schemas/did-template-transaction.schema.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TemplateTransactionSchema"></a>
+                    <span class="name">
+                        <span ><b>TemplateTransactionSchema</b></span>
+                        <a href="#TemplateTransactionSchema"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>SchemaFactory.createForClass(
+  DidTemplateTransaction,
+)</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Did Transaction Schema</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>apps/http-observer/src/tracking/constants.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TRACKING_CONNECTION"></a>
+                    <span class="name">
+                        <span ><b>TRACKING_CONNECTION</b></span>
+                        <a href="#TRACKING_CONNECTION"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;trackingConnection&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Name of the tracking database connection injection.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>apps/http-observer/src/tracking/schemas/tracking.schema.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TrackingSchema"></a>
+                    <span class="name">
+                        <span ><b>TrackingSchema</b></span>
+                        <a href="#TrackingSchema"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>SchemaFactory.createForClass(Tracking)</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Tracking Schema</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>test/helpers.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="transactionProperties"></a>
+                    <span class="name">
+                        <span ><b>transactionProperties</b></span>
+                        <a href="#transactionProperties"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>literal type</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  version: 1,
+  metadata: {
+    version: 1,
+    imported: {
+      date: new Date().toISOString(),
+      imported: {
+        type: SignatureType.Single,
+        values: [],
+      },
+    },
+    didDocSignature: {
+      type: SignatureType.Single,
+      values: [
+        {
+          identifier: &#x60;${Identifier.generate(&#x27;id&#x27;)}#key1&#x60;,
+          signature: &#x27;ddd&#x27;,
+        },
+      ],
+    },
+  },
+  signature: {
+    type: SignatureType.Single,
+    values: [
+      {
+        identifier: &#x60;${Identifier.generate(&#x27;id&#x27;)}#key1&#x60;,
+        signature: &#x27;ddd&#x27;,
+      },
+    ],
+  },
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/p2-p/src/constant.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="VALIDATOR_ENDPOINT"></a>
+                    <span class="name">
+                        <span ><b>VALIDATOR_ENDPOINT</b></span>
+                        <a href="#VALIDATOR_ENDPOINT"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;VALIDATOR_ENDPOINT&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Endpoint to return known Validator endpoints.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/clients/wallet-client/src/endpoints.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="WALLET_GET_ID"></a>
+                    <span class="name">
+                        <span ><b>WALLET_GET_ID</b></span>
+                        <a href="#WALLET_GET_ID"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;get_id&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>command to return the id of the did</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="WALLET_PUB_KEY"></a>
+                    <span class="name">
+                        <span ><b>WALLET_PUB_KEY</b></span>
+                        <a href="#WALLET_PUB_KEY"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;pubKey&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>command to receive the public key.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="WALLET_SET_ID"></a>
+                    <span class="name">
+                        <span ><b>WALLET_SET_ID</b></span>
+                        <a href="#WALLET_SET_ID"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;set_id&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>command to set the new id of the did.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="WALLET_SIGN"></a>
+                    <span class="name">
+                        <span ><b>WALLET_SIGN</b></span>
+                        <a href="#WALLET_SIGN"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;sign&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>command to sign a given value.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/clients/wallet-client/src/wallet.provider.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="walletTcpProvider"></a>
+                    <span class="name">
+                        <span ><b>walletTcpProvider</b></span>
+                        <a href="#walletTcpProvider"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  provide: WALLET_TCP_INJECTION,
+  useFactory: (configService: ConfigService) &#x3D;&gt; {
+    return ClientProxyFactory.create({
+      transport: Transport.TCP,
+      options: {
+        host: configService.getString(WALLET_URL),
+        port: configService.getNumber(WALLET_PORT_TCP),
+      },
+    });
+  },
+  inject: [ConfigService],
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>provider to interact with the Client module.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'miscellaneous-variables';
+            var COMPODOC_CURRENT_PAGE_URL = 'variables.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

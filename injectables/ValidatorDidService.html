@@ -1,0 +1,585 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>trustchain documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">trustchain documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Injectables</li>
+  <li >ValidatorDidService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>apps/http-validator/src/validator-did/validator-did.service.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Service that signs or revokes public keys from gateways.</p>
+
+            </p>
+
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#createDid" >createDid</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#setDid" >setDid</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(validatorBlockchainService: <a href="../injectables/ValidatorBlockchainService.html" target="_self">ValidatorBlockchainService</a>, walletService: <a href="../injectables/WalletClientService.html" target="_self">WalletClientService</a>, didCachedService: <a href="../injectables/DidIdCachedService.html" target="_self">DidIdCachedService</a>, configService: <a href="../classes/ConfigService.html" target="_self">ConfigService</a>, logger: Logger)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">apps/http-validator/src/validator-did/validator-did.service.ts:25</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Constructor to add a ValidatorPkiService</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>validatorBlockchainService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ValidatorBlockchainService.html" target="_self" >ValidatorBlockchainService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>walletService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/WalletClientService.html" target="_self" >WalletClientService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>didCachedService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/DidIdCachedService.html" target="_self" >DidIdCachedService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>configService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../classes/ConfigService.html" target="_self" >ConfigService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>logger</td>
+                                                  
+                                                        <td>
+                                                                    <code>Logger</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createDid"></a>
+                    <span class="name">
+                        <span ><b>createDid</b></span>
+                        <a href="#createDid"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>createDid(createCert: <a href="../classes/CreateDidIdDto.html" target="_self">CreateDidIdDto</a>, role: <a href="../classes/RoleManage.html" target="_self">RoleManageType</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="47"
+                            class="link-to-prism">apps/http-validator/src/validator-did/validator-did.service.ts:47</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signs the public key of an gateway and returns the created transaction.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>createCert</td>
+                                    <td>
+                                                <code><a href="../classes/CreateDidIdDto.html" target="_self" >CreateDidIdDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>role</td>
+                                    <td>
+                                                <code><a href="../classes/RoleManage.html" target="_self" >RoleManageType</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/PersistedTransaction.html" target="_self" >Promise&lt;PersistedTransaction&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setDid"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>setDid</b></span>
+                        <a href="#setDid"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>setDid(createCert: <a href="../classes/CreateDidIdDto.html" target="_self">CreateDidIdDto</a>, roles: <a href="../classes/RoleManage.html" target="_self">RoleManageType[]</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="60"
+                            class="link-to-prism">apps/http-validator/src/validator-did/validator-did.service.ts:60</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Creates a transaction based on if a cert should be created or revoked. The transaction will be broadcast to all validators. A listener on the
+transaction hash is triggered when the cert was persisted into the blockchain.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Default value</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>createCert</td>
+                                    <td>
+                                                <code><a href="../classes/CreateDidIdDto.html" target="_self" >CreateDidIdDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>roles</td>
+                                    <td>
+                                                <code><a href="../classes/RoleManage.html" target="_self" >RoleManageType[]</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                        <code>[]</code>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/PersistedTransaction.html" target="_self" >Promise&lt;PersistedTransaction&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ConfigService } from &#x27;@tc/config&#x27;;
+import { CreateDidIdDto } from &#x27;@tc/did-id/dto/create-did-id.dto&#x27;;
+import { DidIdCachedService } from &#x27;@tc/did-id/did-id-cached/did-id-cached.service&#x27;;
+import { DidIdRegister } from &#x27;@trustcerts/did-id-create&#x27;;
+import { DidIdTransactionDto } from &#x27;@tc/did-id/dto/did-id-transaction.dto&#x27;;
+import { Inject, Injectable } from &#x27;@nestjs/common&#x27;;
+import { Logger } from &#x27;winston&#x27;;
+import { PersistedTransaction } from &#x27;@shared/http/dto/persisted-transaction&#x27;;
+import { RoleManageType } from &#x27;@tc/did-id/constants&#x27;;
+import { SignatureInfo } from &#x27;@tc/blockchain/transaction/signature-info&#x27;;
+import { SignatureType } from &#x27;@tc/blockchain/transaction/signature-type&#x27;;
+import { ValidatorBlockchainService } from &#x27;../validator-blockchain/validator-blockchain.service&#x27;;
+import {
+  VerificationRelationshipType,
+  exportKey,
+  getFingerPrint,
+  importKey,
+} from &#x27;@trustcerts/core&#x27;;
+import { WalletClientService } from &#x27;@tc/wallet-client&#x27;;
+
+/**
+ * Service that signs or revokes public keys from gateways.
+ */
+@Injectable()
+export class ValidatorDidService {
+  /**
+   * Constructor to add a ValidatorPkiService
+   * @param validatorBlockchainService
+   * @param walletService
+   * @param didCachedService
+   * @param configService
+   * @param logger
+   */
+  constructor(
+    private readonly validatorBlockchainService: ValidatorBlockchainService,
+    private readonly walletService: WalletClientService,
+    private readonly didCachedService: DidIdCachedService,
+    private readonly configService: ConfigService,
+    @Inject(&#x27;winston&#x27;) private readonly logger: Logger,
+  ) {}
+
+  /**
+   * Signs the public key of an gateway and returns the created transaction.
+   * @param createCert
+   * @param role
+   */
+  createDid(
+    createCert: CreateDidIdDto,
+    role: RoleManageType,
+  ): Promise&lt;PersistedTransaction&gt; {
+    return this.setDid(createCert, [role]);
+  }
+
+  /**
+   * Creates a transaction based on if a cert should be created or revoked. The transaction will be broadcast to all validators. A listener on the
+   * transaction hash is triggered when the cert was persisted into the blockchain.
+   * @param createCert
+   * @param roles
+   */
+  private async setDid(
+    createCert: CreateDidIdDto,
+    roles: RoleManageType[] &#x3D; [],
+  ): Promise&lt;PersistedTransaction&gt; {
+    // add the did
+    const did &#x3D; DidIdRegister.create({
+      id: createCert.identifier,
+      controllers: [await this.walletService.getOwnInformation()],
+    });
+
+    // add the given key
+    const key &#x3D; await importKey(createCert.publicKey, &#x27;jwk&#x27;, [&#x27;verify&#x27;]);
+    const fingerPrint &#x3D; await getFingerPrint(key);
+    did.addKey(fingerPrint, await exportKey(key));
+    did.addVerificationRelationship(
+      fingerPrint,
+      VerificationRelationshipType.modification,
+    );
+
+    did.addVerificationRelationship(
+      fingerPrint,
+      VerificationRelationshipType.authentication,
+    );
+
+    // add endpoint to resolve name
+    // TODO replace with OWN peer to be independent from domain approach
+    const endpoint &#x3D; this.configService.getString(&#x27;OWN_PEER&#x27;);
+    did.addService(&#x27;name&#x27;, &#x60;${endpoint}/did/resolve/${did.id}&#x60;, &#x27;resolver&#x27;);
+
+    // set role of the id
+    roles.forEach((role) &#x3D;&gt; did.addRole(role));
+
+    // add transaction
+    const didDocSignature: SignatureInfo &#x3D; {
+      type: SignatureType.Single,
+      values: [
+        await this.walletService.signIssuer({
+          document: did.getDocument(),
+          version: did.getVersion() + 1,
+        }),
+      ],
+    };
+    const transaction &#x3D; new DidIdTransactionDto(
+      did.getChanges(),
+      didDocSignature,
+    );
+    transaction.signature &#x3D; {
+      type: SignatureType.Single,
+      values: [
+        await this.walletService.signIssuer(
+          this.didCachedService.getValues(transaction),
+        ),
+      ],
+    };
+    return this.validatorBlockchainService.addTransaction(transaction);
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'ValidatorDidService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

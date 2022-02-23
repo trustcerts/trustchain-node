@@ -1,0 +1,2424 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>trustchain documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">trustchain documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Injectables</li>
+  <li >ProposerService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>apps/network-validator/src/validator-blockchain/validator-consensus/proposer/proposer.service.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Service that handles all actions of a proposer.</p>
+
+            </p>
+
+            <p class="comment">
+                <h3>Extends</h3>
+            </p>
+            <p class="comment">
+                        <code><a href="../classes/ParticipantConsensus.html" target="_self" >ParticipantConsensus</a></code>
+            </p>
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#connections" >connections</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#block" >block</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#blockSize" >blockSize</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#changed" >changed</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#normalFinish" >normalFinish</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#ready" >ready</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#roundNumber" >roundNumber</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#running" >running</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#startDelay" >startDelay</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#timeoutPersistBlock" >timeoutPersistBlock</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#timeoutProposeBlock" >timeoutProposeBlock</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#timeouts" >timeouts</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#timeoutSignatureResponse" >timeoutSignatureResponse</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#broadCastToNotIncluded" >broadCastToNotIncluded</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#buildBlock" >buildBlock</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#buildTransactionBlock" >buildTransactionBlock</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#checkIfReady" >checkIfReady</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#finishProposerRound" >finishProposerRound</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#generateBlock" >generateBlock</a>
+                            </li>
+                            <li>
+                                <a href="#init" >init</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#sendBlock" >sendBlock</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#shareBlock" >shareBlock</a>
+                            </li>
+                            <li>
+                                <a href="#clearTimeout" >clearTimeout</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#logTime" >logTime</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#newRound" >newRound</a>
+                            </li>
+                            <li>
+                                <a href="#setTimeout" >setTimeout</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#updateStartDelay" >updateStartDelay</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(logger: Logger, validatorBlockchainService: <a href="../injectables/ValidatorBlockchainService.html" target="_self">ValidatorBlockchainService</a>, blockCheckService: <a href="../injectables/BlockCheckService.html" target="_self">BlockCheckService</a>, persistClientService: <a href="../injectables/PersistClientService.html" target="_self">PersistClientService</a>, hashService: <a href="../injectables/HashService.html" target="_self">HashService</a>, signatureService: <a href="../injectables/SignatureService.html" target="_self">SignatureService</a>, walletService: <a href="../injectables/WalletClientService.html" target="_self">WalletClientService</a>, p2PService: <a href="../injectables/P2PService.html" target="_self">P2PService</a>, configService: <a href="../classes/ConfigService.html" target="_self">ConfigService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">apps/network-validator/src/validator-blockchain/validator-consensus/proposer/proposer.service.ts:36</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Injects required services.</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>logger</td>
+                                                  
+                                                        <td>
+                                                                    <code>Logger</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>validatorBlockchainService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ValidatorBlockchainService.html" target="_self" >ValidatorBlockchainService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>blockCheckService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/BlockCheckService.html" target="_self" >BlockCheckService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>persistClientService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PersistClientService.html" target="_self" >PersistClientService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>hashService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/HashService.html" target="_self" >HashService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>signatureService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SignatureService.html" target="_self" >SignatureService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>walletService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/WalletClientService.html" target="_self" >WalletClientService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>p2PService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/P2PService.html" target="_self" >P2PService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>configService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../classes/ConfigService.html" target="_self" >ConfigService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="broadCastToNotIncluded"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span ><b>broadCastToNotIncluded</b></span>
+                        <a href="#broadCastToNotIncluded"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>broadCastToNotIncluded(block: <a href="../interfaces/Block.html" target="_self">Block</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="431"
+                            class="link-to-prism">apps/network-validator/src/validator-blockchain/validator-consensus/proposer/proposer.service.ts:431</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Shares the persisted block to all gateways since the validators of the consensus already got it.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>block</td>
+                                    <td>
+                                                <code><a href="../interfaces/Block.html" target="_self" >Block</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="buildBlock"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>buildBlock</b></span>
+                        <a href="#buildBlock"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>buildBlock()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="212"
+                            class="link-to-prism">apps/network-validator/src/validator-blockchain/validator-consensus/proposer/proposer.service.ts:212</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Builds a new block. If there are no transaction the build process is canceled.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="buildTransactionBlock"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>buildTransactionBlock</b></span>
+                        <a href="#buildTransactionBlock"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>buildTransactionBlock()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="241"
+                            class="link-to-prism">apps/network-validator/src/validator-blockchain/validator-consensus/proposer/proposer.service.ts:241</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Build an array with valid transactions from the pool. The array is limited to the defined block size. The transactions are validated
+synchronously to avoid any double entries.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/TransactionDto.html" target="_self" >Promise&lt;TransactionDto[]&gt;</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkIfReady"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span ><b>checkIfReady</b></span>
+                        <a href="#checkIfReady"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>checkIfReady(connection: <a href="../classes/Connection.html" target="_self">Connection</a>, timeout: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="184"
+                            class="link-to-prism">apps/network-validator/src/validator-blockchain/validator-consensus/proposer/proposer.service.ts:184</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Checks if the other validators have passed the latest block to receive a new one.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>connection</td>
+                                    <td>
+                                                <code><a href="../classes/Connection.html" target="_self" >Connection</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>timeout</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;literal type&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="finishProposerRound"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>finishProposerRound</b></span>
+                        <a href="#finishProposerRound"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>finishProposerRound(validatorSignatures: <a href="../classes/SignatureDto.html" target="_self">SignatureDto[]</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="374"
+                            class="link-to-prism">apps/network-validator/src/validator-blockchain/validator-consensus/proposer/proposer.service.ts:374</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Checks if there are enough valid signatures and if so sends them to the validators, broadcasts them to the
+gateways and persists the block.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>validatorSignatures</td>
+                                    <td>
+                                                <code><a href="../classes/SignatureDto.html" target="_self" >SignatureDto[]</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="generateBlock"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>generateBlock</b></span>
+                        <a href="#generateBlock"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>generateBlock(transactions: <a href="../classes/TransactionDto.html" target="_self">TransactionDto[]</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="275"
+                            class="link-to-prism">apps/network-validator/src/validator-blockchain/validator-consensus/proposer/proposer.service.ts:275</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Generates a new Block with given transaction.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>transactions</td>
+                                    <td>
+                                                <code><a href="../classes/TransactionDto.html" target="_self" >TransactionDto[]</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/Block.html" target="_self" >Promise&lt;ProposedBlock&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="init"></a>
+                    <span class="name">
+                        <span ><b>init</b></span>
+                        <a href="#init"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>init(connections: <a href="../classes/Connection.html" target="_self">Connection[]</a>, resetEmitter: Subject<void>, roundnumber: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="69"
+                            class="link-to-prism">apps/network-validator/src/validator-blockchain/validator-consensus/proposer/proposer.service.ts:69</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Inits a new proposer</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>connections</td>
+                                    <td>
+                                                <code><a href="../classes/Connection.html" target="_self" >Connection[]</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>resetEmitter</td>
+                                    <td>
+                                            <code>Subject&lt;void&gt;</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>roundnumber</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sendBlock"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span ><b>sendBlock</b></span>
+                        <a href="#sendBlock"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>sendBlock(connection: <a href="../classes/Connection.html" target="_self">Connection</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="324"
+                            class="link-to-prism">apps/network-validator/src/validator-blockchain/validator-consensus/proposer/proposer.service.ts:324</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Sends the block to a Validator, returns signature if proposed block was accepted. If not accepted an empty response is given.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>connection</td>
+                                    <td>
+                                                <code><a href="../classes/Connection.html" target="_self" >Connection</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;any&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="shareBlock"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span ><b>shareBlock</b></span>
+                        <a href="#shareBlock"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>shareBlock()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="292"
+                            class="link-to-prism">apps/network-validator/src/validator-blockchain/validator-consensus/proposer/proposer.service.ts:292</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Shares the proposed blocks with the validators block.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clearTimeout"></a>
+                    <span class="name">
+                        <span ><b>clearTimeout</b></span>
+                        <a href="#clearTimeout"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>clearTimeout(key: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Inherited from         <code><a href="../classes/ParticipantConsensus.html" target="_self" >ParticipantConsensus</a></code>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-line">Defined in         <code><a href="../classes/ParticipantConsensus.html#source" target="_self" >ParticipantConsensus:129</a></code>
+</div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>clears a timeout.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>key</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="logTime"></a>
+                    <span class="name">
+                        <span class="modifier">Protected</span>
+                        <span ><b>logTime</b></span>
+                        <a href="#logTime"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>logTime(key: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Inherited from         <code><a href="../classes/ParticipantConsensus.html" target="_self" >ParticipantConsensus</a></code>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-line">Defined in         <code><a href="../classes/ParticipantConsensus.html#source" target="_self" >ParticipantConsensus:163</a></code>
+</div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>log the time depends on the value and key</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>key</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>value</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>time</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="newRound"></a>
+                    <span class="name">
+                        <span class="modifier">Protected</span>
+                        <span ><b>newRound</b></span>
+                        <a href="#newRound"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>newRound(reason: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Inherited from         <code><a href="../classes/ParticipantConsensus.html" target="_self" >ParticipantConsensus</a></code>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-line">Defined in         <code><a href="../classes/ParticipantConsensus.html#source" target="_self" >ParticipantConsensus:85</a></code>
+</div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Fires an event to start a new round.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>reason</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setTimeout"></a>
+                    <span class="name">
+                        <span ><b>setTimeout</b></span>
+                        <a href="#setTimeout"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setTimeout(key: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, timeout: <a href="../interfaces/Time.html" target="_self">NodeJS.Timeout</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Inherited from         <code><a href="../classes/ParticipantConsensus.html" target="_self" >ParticipantConsensus</a></code>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-line">Defined in         <code><a href="../classes/ParticipantConsensus.html#source" target="_self" >ParticipantConsensus:118</a></code>
+</div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>stores a new timeout.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>key</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>timeout</td>
+                                    <td>
+                                                <code><a href="../interfaces/Time.html" target="_self" >NodeJS.Timeout</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateStartDelay"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span ><b>updateStartDelay</b></span>
+                        <a href="#updateStartDelay"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateStartDelay()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Inherited from         <code><a href="../classes/ParticipantConsensus.html" target="_self" >ParticipantConsensus</a></code>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-line">Defined in         <code><a href="../classes/ParticipantConsensus.html#source" target="_self" >ParticipantConsensus:142</a></code>
+</div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Updates the start delay based on the amount of transactions in the pool.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <section>
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="connections"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>connections</b></span>
+                        <a href="#connections"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Connection.html" target="_self" >Connection[]</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">apps/network-validator/src/validator-blockchain/validator-consensus/proposer/proposer.service.ts:36</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Active Validator connections to interact with.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="block"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>block</b></span>
+                        <a href="#block"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Block.html" target="_self" >ProposedBlock</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Inherited from         <code><a href="../classes/ParticipantConsensus.html" target="_self" >ParticipantConsensus</a></code>
+</div>
+                            </td>
+                        </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/ParticipantConsensus.html#source" target="_self" >ParticipantConsensus:53</a></code>
+</div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Proposed block that should be persisted.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="blockSize"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>blockSize</b></span>
+                        <a href="#blockSize"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.configService.getNumber(&#x27;BLOCK_SIZE&#x27;)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Inherited from         <code><a href="../classes/ParticipantConsensus.html" target="_self" >ParticipantConsensus</a></code>
+</div>
+                            </td>
+                        </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/ParticipantConsensus.html#source" target="_self" >ParticipantConsensus:24</a></code>
+</div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Maximum size of the block</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changed"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>changed</b></span>
+                        <a href="#changed"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new EventEmitter()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Inherited from         <code><a href="../classes/ParticipantConsensus.html" target="_self" >ParticipantConsensus</a></code>
+</div>
+                            </td>
+                        </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/ParticipantConsensus.html#source" target="_self" >ParticipantConsensus:28</a></code>
+</div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Emitter that is fired when the consensus finished. Other services can listen to it to execute a new round.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="normalFinish"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>normalFinish</b></span>
+                        <a href="#normalFinish"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;normal&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Inherited from         <code><a href="../classes/ParticipantConsensus.html" target="_self" >ParticipantConsensus</a></code>
+</div>
+                            </td>
+                        </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/ParticipantConsensus.html#source" target="_self" >ParticipantConsensus:32</a></code>
+</div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Name of the event when a round finishes successfully.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ready"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>ready</b></span>
+                        <a href="#ready"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Inherited from         <code><a href="../classes/ParticipantConsensus.html" target="_self" >ParticipantConsensus</a></code>
+</div>
+                            </td>
+                        </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/ParticipantConsensus.html#source" target="_self" >ParticipantConsensus:19</a></code>
+</div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>if set to true the Validator is ready to participate in the next round.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="roundNumber"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>roundNumber</b></span>
+                        <a href="#roundNumber"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Inherited from         <code><a href="../classes/ParticipantConsensus.html" target="_self" >ParticipantConsensus</a></code>
+</div>
+                            </td>
+                        </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/ParticipantConsensus.html#source" target="_self" >ParticipantConsensus:63</a></code>
+</div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>incremented number for a new round.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="running"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>running</b></span>
+                        <a href="#running"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Inherited from         <code><a href="../classes/ParticipantConsensus.html" target="_self" >ParticipantConsensus</a></code>
+</div>
+                            </td>
+                        </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/ParticipantConsensus.html#source" target="_self" >ParticipantConsensus:14</a></code>
+</div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>If set the consensus is building a block right now and should not be interrupted.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="startDelay"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>startDelay</b></span>
+                        <a href="#startDelay"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>1000</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Inherited from         <code><a href="../classes/ParticipantConsensus.html" target="_self" >ParticipantConsensus</a></code>
+</div>
+                            </td>
+                        </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/ParticipantConsensus.html#source" target="_self" >ParticipantConsensus:36</a></code>
+</div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Milliseconds after a new round will be started.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="timeoutPersistBlock"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>timeoutPersistBlock</b></span>
+                        <a href="#timeoutPersistBlock"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.timeoutSignatureResponse + 1000</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Inherited from         <code><a href="../classes/ParticipantConsensus.html" target="_self" >ParticipantConsensus</a></code>
+</div>
+                            </td>
+                        </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/ParticipantConsensus.html#source" target="_self" >ParticipantConsensus:49</a></code>
+</div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Time period how long the Validator waits for the signatures to persist the block.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="timeoutProposeBlock"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>timeoutProposeBlock</b></span>
+                        <a href="#timeoutProposeBlock"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.startDelay + this.timeoutSignatureResponse</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Inherited from         <code><a href="../classes/ParticipantConsensus.html" target="_self" >ParticipantConsensus</a></code>
+</div>
+                            </td>
+                        </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/ParticipantConsensus.html#source" target="_self" >ParticipantConsensus:44</a></code>
+</div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Time period how long the Validator waits for the proposed block before canceling the round.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="timeouts"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>timeouts</b></span>
+                        <a href="#timeouts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Map&lt;string, NodeJS.Timeout&gt;()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Inherited from         <code><a href="../classes/ParticipantConsensus.html" target="_self" >ParticipantConsensus</a></code>
+</div>
+                            </td>
+                        </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/ParticipantConsensus.html#source" target="_self" >ParticipantConsensus:58</a></code>
+</div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Timeouts during a round to validate if one wasn&#39;t cleared.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="timeoutSignatureResponse"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>timeoutSignatureResponse</b></span>
+                        <a href="#timeoutSignatureResponse"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>3000</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Inherited from         <code><a href="../classes/ParticipantConsensus.html" target="_self" >ParticipantConsensus</a></code>
+</div>
+                            </td>
+                        </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/ParticipantConsensus.html#source" target="_self" >ParticipantConsensus:40</a></code>
+</div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The time the proposer waits for the signatures of the validators.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Block } from &#x27;@tc/blockchain/block/block.interface&#x27;;
+import { BlockCheckService } from &#x27;@tc/blockchain/block-check/block-check.service&#x27;;
+import {
+  CONSENSUS_READY_REQUEST,
+  CONSENSUS_READY_RESPONSE,
+  WS_BLOCK,
+  WS_BLOCK_COMMIT,
+  WS_BLOCK_PERSIST,
+  WS_BLOCK_PROPOSE,
+} from &#x27;@tc/blockchain/blockchain.events&#x27;;
+import { ConfigService } from &#x27;@tc/config&#x27;;
+import { Connection } from &#x27;@shared/connection&#x27;;
+import { HashService } from &#x27;@tc/blockchain&#x27;;
+import { Inject, Injectable } from &#x27;@nestjs/common&#x27;;
+import { Logger } from &#x27;winston&#x27;;
+import { P2PService } from &#x27;@tc/p2-p&#x27;;
+import { ParticipantConsensus } from &#x27;../participant-consensus&#x27;;
+import { PersistClientService } from &#x27;@tc/persist-client&#x27;;
+import { ProposedBlock } from &#x27;@tc/blockchain/block/proposed-block.dto&#x27;;
+import { ProposedSignatures } from &#x27;@tc/blockchain/block/proposed-signatures.dto&#x27;;
+import { SignatureDto } from &#x27;@tc/blockchain/transaction/signature.dto&#x27;;
+import { SignatureService } from &#x27;@tc/blockchain/signature/signature.service&#x27;;
+import { Subject } from &#x27;rxjs&#x27;;
+import { TransactionDto } from &#x27;@tc/blockchain/transaction/transaction.dto&#x27;;
+import { ValidatorBlockchainService } from &#x27;../../validator-blockchain.service&#x27;;
+import { WalletClientService } from &#x27;@tc/wallet-client&#x27;;
+
+/**
+ * Service that handles all actions of a proposer.
+ */
+@Injectable()
+export class ProposerService extends ParticipantConsensus {
+  /**
+   * Active Validator connections to interact with.
+   */
+  private connections!: Connection[];
+
+  /**
+   * Injects required services.
+   * @param logger
+   * @param validatorBlockchainService
+   * @param blockCheckService
+   * @param persistClientService
+   * @param hashService
+   * @param signatureService
+   * @param walletService
+   * @param p2PService
+   * @param configService
+   */
+  constructor(
+    @Inject(&#x27;winston&#x27;) protected readonly logger: Logger,
+    protected readonly validatorBlockchainService: ValidatorBlockchainService,
+    private readonly blockCheckService: BlockCheckService,
+    private readonly persistClientService: PersistClientService,
+    private readonly hashService: HashService,
+    private readonly signatureService: SignatureService,
+    private readonly walletService: WalletClientService,
+    private readonly p2PService: P2PService,
+    protected readonly configService: ConfigService,
+  ) {
+    super(logger, configService, validatorBlockchainService);
+  }
+
+  /**
+   * Inits a new proposer
+   * @param connections
+   * @param resetEmitter
+   */
+  init(
+    connections: Connection[],
+    resetEmitter: Subject&lt;void&gt;,
+    roundnumber: number,
+  ) {
+    this.roundNumber &#x3D; roundnumber;
+    this.connections &#x3D; connections;
+    this.logTime(&#x27;startDelay&#x27;, this.startDelay);
+    const repeat &#x3D; 400;
+    let notReadyPrinted &#x3D; false;
+    // TODO repeating for long can lead to an out of sync event since other nodes will not wait for this one. has to check if value is still under this.timeoutProposeBlock.
+    const syncInterval &#x3D; setInterval(async () &#x3D;&gt; {
+      const promises &#x3D; this.connections.map((connection) &#x3D;&gt;
+        this.checkIfReady(connection, repeat - 100),
+      );
+      Promise.all(promises)
+        .then(
+          (results: Array&lt;{ identifier: string; ready: boolean }&gt;) &#x3D;&gt; {
+            const resetCounter &#x3D; results.filter(
+              (result) &#x3D;&gt; result.ready,
+            ).length;
+            // TODO don&#x27;t wait for all, single point of failure if one of the validators is not ready yet. Try to wait for all but after some time run when there are enough.
+            if (
+              resetCounter &#x3D;&#x3D;&#x3D; results.length ||
+              resetCounter / results.length &gt;&#x3D; 0.66
+            ) {
+              if (resetCounter &#x3D;&#x3D;&#x3D; results.length) {
+                this.logger.info({
+                  message: &#x60;round ${this.roundNumber}: all validators are ready&#x60;,
+                  labels: { source: this.constructor.name },
+                });
+              } else {
+                this.logger.info({
+                  message: &#x60;round ${this.roundNumber}: enough validators are ready&#x60;,
+                  labels: { source: this.constructor.name },
+                });
+              }
+              clearInterval(syncInterval);
+              if (this.timeouts.has(&#x60;init&#x60;)) this.clearTimeout(&#x27;init&#x27;);
+              sub.unsubscribe();
+              setTimeout(() &#x3D;&gt; {
+                this.running &#x3D; true;
+                this.buildBlock().catch((err) &#x3D;&gt; {
+                  this.logger.error({
+                    message: &#x60;round ${this.roundNumber}: ${err.message!}&#x60;,
+                    labels: {
+                      source: this.constructor.name,
+                      process: &#x27;consensus&#x27;,
+                    },
+                  });
+                });
+              }, this.startDelay);
+            } else {
+              if (!notReadyPrinted) {
+                this.logger.warn({
+                  message: &#x60;round ${
+                    this.roundNumber
+                  }: some are not ready yet: ${results
+                    .map((res) &#x3D;&gt; res.identifier)
+                    .join(&#x27;, &#x27;)}&#x60;,
+                  labels: {
+                    source: this.constructor.name,
+                    process: &#x27;consensus&#x27;,
+                  },
+                });
+                notReadyPrinted &#x3D; true;
+              }
+            }
+          },
+          (err: any) &#x3D;&gt; {
+            this.logger.error({
+              message: &#x60;round ${this.roundNumber}: ${err.message!}&#x60;,
+              labels: {
+                source: this.constructor.name,
+                process: &#x27;consensus&#x27;,
+              },
+            });
+          },
+        )
+        .catch((err) &#x3D;&gt; {
+          this.logger.error(err);
+        });
+    }, repeat);
+
+    this.setTimeout(
+      &#x27;init&#x27;,
+      setTimeout(() &#x3D;&gt; {
+        this.logger.warn({
+          message: &#x60;round ${this.roundNumber}: needed to long for a new round, cancel init&#x60;,
+          labels: { source: this.constructor.name },
+        });
+        clearInterval(syncInterval);
+        this.clearTimeout(&#x27;init&#x27;);
+        this.newRound(&#x27;init failed&#x27;);
+      }, 60000),
+    );
+
+    // TODO validate if this is the correct way to stop an infinitive loop
+    const sub &#x3D; resetEmitter.subscribe(() &#x3D;&gt; {
+      // TODO make sure to clear all intervals!
+      this.logger.debug({
+        message: &#x60;round ${this.roundNumber}: stop waiting call&#x60;,
+        labels: { source: this.constructor.name },
+      });
+      clearInterval(syncInterval);
+      if (this.timeouts.has(&#x60;init&#x60;)) this.clearTimeout(&#x27;init&#x27;);
+      sub.unsubscribe();
+    });
+  }
+
+  /**
+   * Checks if the other validators have passed the latest block to receive a new one.
+   * @param connection
+   * @param timeout
+   */
+  private checkIfReady(
+    connection: Connection,
+    timeout: number,
+  ): Promise&lt;{ identifier: string; ready: boolean }&gt; {
+    return new Promise((resolve) &#x3D;&gt; {
+      const listener &#x3D; (ready: boolean) &#x3D;&gt; {
+        if (this.timeouts.has(&#x60;checkIfReady-${connection.identifier}&#x60;))
+          this.clearTimeout(&#x60;checkIfReady-${connection.identifier}&#x60;);
+        connection.removeAllListeners(CONSENSUS_READY_RESPONSE, listener);
+        resolve({ identifier: connection.identifier, ready: ready });
+      };
+      connection.socket.on(CONSENSUS_READY_RESPONSE, listener);
+      connection.socket.emit(CONSENSUS_READY_REQUEST);
+      this.setTimeout(
+        &#x60;checkIfReady-${connection.identifier}&#x60;,
+        setTimeout(() &#x3D;&gt; {
+          connection.removeAllListeners(CONSENSUS_READY_RESPONSE, listener);
+          if (this.timeouts.has(&#x60;checkIfReady-${connection.identifier}&#x60;))
+            this.clearTimeout(&#x60;checkIfReady-${connection.identifier}&#x60;);
+          resolve({ identifier: connection.identifier, ready: false });
+        }, timeout),
+      );
+    });
+  }
+
+  /**
+   * Builds a new block. If there are no transaction the build process is canceled.
+   */
+  private async buildBlock() {
+    const startTime &#x3D; new Date().getTime();
+    // build a valid transaction block
+    const transactions &#x3D; await this.buildTransactionBlock();
+    if (transactions.length &#x3D;&#x3D;&#x3D; 0) {
+      this.logger.warn({
+        message: &#x60;round ${this.roundNumber}: has not enough valid transactions to build a new block&#x60;,
+        labels: { source: this.constructor.name },
+      });
+      this.setTimeout(
+        &#x27;buildBlock&#x27;,
+        setTimeout(() &#x3D;&gt; {
+          this.clearTimeout(&#x27;buildBlock&#x27;);
+          this.newRound(&#x27;not enough transaction&#x27;);
+        }, this.timeoutSignatureResponse),
+      );
+      return;
+    }
+    // slice the array to provoke a call by value
+    this.block &#x3D; await this.generateBlock(transactions);
+    this.logTime(&#x27;generatingTime&#x27;, new Date().getTime() - startTime);
+
+    this.shareBlock();
+  }
+
+  /**
+   * Build an array with valid transactions from the pool. The array is limited to the defined block size. The transactions are validated
+   * synchronously to avoid any double entries.
+   */
+  private async buildTransactionBlock(): Promise&lt;TransactionDto[]&gt; {
+    const transactions &#x3D; new Map&lt;string, TransactionDto&gt;();
+    for (const transaction of this.validatorBlockchainService.transactionPool.values()) {
+      if (transactions.size &#x3D;&#x3D;&#x3D; this.blockSize) {
+        // break the loop if the limit is reached.
+        break;
+      }
+      const hash &#x3D; await this.hashService.hashTransaction(transaction);
+      try {
+        // check for double and db check since the last block could not be parsed fully.
+        await this.blockCheckService.checkTransaction(
+          transaction,
+          transactions,
+        );
+        transactions.set(hash, transaction);
+      } catch (e) {
+        this.logger.warn({
+          message: &#x60;round ${
+            this.roundNumber
+          }: proposer: remove transaction ${hash} because of: ${
+            (e as Error).message ?? JSON.stringify(e)
+          }&#x60;,
+          labels: { source: this.constructor.name },
+        });
+        this.validatorBlockchainService.transactionPool.delete(hash);
+      }
+    }
+    return Array.from(transactions.values());
+  }
+
+  /**
+   * Generates a new Block with given transaction.
+   * @param transactions
+   */
+  private async generateBlock(
+    transactions: TransactionDto[],
+  ): Promise&lt;ProposedBlock&gt; {
+    const previousBlock &#x3D; await this.persistClientService.latestBlock();
+    return {
+      index: previousBlock.index + 1,
+      previousHash: await this.hashService.hashBlock(previousBlock),
+      transactions,
+      timestamp: new Date().toISOString(),
+      hash: await this.hashService.hashTransactions(transactions),
+      version: this.hashService.blockVersion,
+    };
+  }
+
+  /**
+   * Shares the proposed blocks with the validators block.
+   */
+  private shareBlock() {
+    this.logger.debug({
+      message: &#x60;round ${this.roundNumber}: proposer: start new round&#x60;,
+      labels: { source: this.constructor.name },
+    });
+
+    const requestPromises &#x3D; [];
+    for (const validatorConnection of this.connections) {
+      requestPromises.push(this.sendBlock(validatorConnection));
+    }
+    Promise.all(requestPromises)
+      .then((responses: any[]) &#x3D;&gt; {
+        return responses.filter((response) &#x3D;&gt; {
+          if (response &amp;&amp; response.timeout) {
+            this.logger.warn({
+              message: &#x60;round ${this.roundNumber}: proposer to ${response.timeout}: not all finished in time, evaluate results&#x60;,
+              labels: { source: this.constructor.name },
+            });
+            return false;
+          }
+          return response !&#x3D;&#x3D; null;
+        });
+      })
+      .then((signatures: SignatureDto[]) &#x3D;&gt; {
+        return this.finishProposerRound(signatures);
+      });
+  }
+
+  /**
+   * Sends the block to a Validator, returns signature if proposed block was accepted. If not accepted an empty response is given.
+   * @param connection
+   */
+  private sendBlock(connection: Connection): Promise&lt;any&gt; {
+    const start &#x3D; new Date().getTime();
+    let timeout: NodeJS.Timeout;
+    const wait &#x3D; new Promise((resolve) &#x3D;&gt; {
+      timeout &#x3D; setTimeout(() &#x3D;&gt; {
+        connection.removeAllListeners(WS_BLOCK_COMMIT);
+        return resolve({ timeout: connection.identifier });
+      }, this.timeoutSignatureResponse);
+    });
+    const response &#x3D; new Promise((resolve) &#x3D;&gt; {
+      this.logger.debug({
+        message: &#x60;round ${this.roundNumber}: proposer to ${connection.identifier}: send proposed block&#x60;,
+        labels: { source: this.constructor.name },
+      });
+      connection.socket.emit(WS_BLOCK_PROPOSE, this.block);
+      // listen for the callback
+      connection.socket.on(WS_BLOCK_COMMIT, (signature: SignatureDto) &#x3D;&gt; {
+        connection.removeAllListeners(WS_BLOCK_COMMIT);
+        this.logTime(&#x27;waitingSignatures&#x27;, new Date().getTime() - start);
+        clearTimeout(timeout);
+        this.logger.info({
+          message: &#x60;round ${this.roundNumber}: proposer to ${connection.identifier}: got a signature, validate it&#x60;,
+          labels: { source: this.constructor.name },
+        });
+        this.signatureService.validateSignature(signature, this.block).then(
+          () &#x3D;&gt; {
+            this.logger.debug({
+              message: &#x60;round ${this.roundNumber}: proposer to ${connection.identifier}: signature is valid&#x60;,
+              labels: { source: this.constructor.name },
+            });
+            resolve(signature);
+          },
+          () &#x3D;&gt; {
+            this.logger.warn({
+              message: &#x60;round ${this.roundNumber}: proposer to ${connection.identifier}: signature is not valid&#x60;,
+              labels: { source: this.constructor.name },
+            });
+            resolve(null);
+          },
+        );
+      });
+    });
+    return Promise.race([wait, response]);
+  }
+
+  /**
+   * Checks if there are enough valid signatures and if so sends them to the validators, broadcasts them to the
+   * gateways and persists the block.
+   * @param validatorSignatures
+   */
+  private async finishProposerRound(validatorSignatures: SignatureDto[]) {
+    if (validatorSignatures.length / this.connections.length &lt; 0.66) {
+      this.logger.warn({
+        message: &#x60;round ${this.roundNumber}: proposer: not enough correct signatures&#x60;,
+        labels: { source: this.constructor.name },
+      });
+
+      this.setTimeout(
+        &#x27;finishProposerRound&#x27;,
+        setTimeout(() &#x3D;&gt; {
+          this.clearTimeout(&#x27;finishProposerRound&#x27;);
+          this.newRound(&#x27;not enough signatures&#x27;);
+          // TODO check if time is correct
+        }, this.timeoutSignatureResponse),
+      );
+    } else {
+      this.logger.debug({
+        message: &#x60;round ${this.roundNumber}: proposer: got enough correct signatures&#x60;,
+        labels: { source: this.constructor.name },
+      });
+
+      const signatures: ProposedSignatures &#x3D; {
+        proposer: await this.walletService.signIssuer(this.block),
+        signatures: validatorSignatures,
+      };
+
+      this.connections.forEach((validator) &#x3D;&gt; {
+        this.logger.debug({
+          message: &#x60;round ${this.roundNumber}: proposer ${validator.identifier}: send all signatures&#x60;,
+          labels: { source: this.constructor.name },
+        });
+        validator.socket.emit(WS_BLOCK_PERSIST, signatures);
+      });
+      const persistedBlock &#x3D; { ...this.block, ...signatures };
+      this.broadCastToNotIncluded(persistedBlock);
+      const start &#x3D; new Date().getTime();
+      this.validatorBlockchainService.addBlock(persistedBlock).then(() &#x3D;&gt; {
+        this.logTime(&#x27;persistingTime&#x27;, new Date().getTime() - start);
+        this.logger.info({
+          message: &#x60;round ${this.roundNumber}: proposer: parsed block ${persistedBlock.index} successfully.&#x60;,
+          labels: { source: this.constructor.name },
+        });
+        this.logTime(&#x27;blockIndex&#x27;, persistedBlock.index);
+        this.logTime(
+          &#x27;blockTransactionCounter&#x27;,
+          persistedBlock.transactions.length,
+        );
+        persistedBlock.transactions.length;
+        this.newRound(this.normalFinish);
+      });
+    }
+  }
+
+  /**
+   * Shares the persisted block to all gateways since the validators of the consensus already got it.
+   * @param block
+   */
+  private broadCastToNotIncluded(block: Block) {
+    this.p2PService.connections.forEach((connection) &#x3D;&gt; {
+      if (
+        !this.connections.find(
+          (validatorConnection) &#x3D;&gt;
+            validatorConnection.identifier &#x3D;&#x3D;&#x3D; connection.identifier,
+        )
+      ) {
+        this.logger.debug({
+          message: &#x60;round ${this.roundNumber}: proposer to ${connection.identifier}: send persisted block&#x60;,
+          labels: { source: this.constructor.name },
+        });
+        connection.socket.emit(WS_BLOCK, block);
+      }
+    });
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'ProposerService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
