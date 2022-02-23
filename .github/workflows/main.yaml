@@ -39,10 +39,10 @@ jobs:
         run: npm ci --ignore-scripts
 
       - name: Eslint check
-        uses: npm run lint
+        run: npm run lint
         
       - name: generate documentation folder
-        uses: npm run doc:build
+        run: npm run doc:build
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.2.5
