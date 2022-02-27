@@ -113,7 +113,6 @@
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
-                                    <span class="modifier">Async</span>
                                 <a href="#reset" >reset</a>
                             </li>
                             <li>
@@ -132,7 +131,7 @@
                             <li>
                                     <span class="modifier">Protected</span>
                                     <span class="modifier">Async</span>
-                                <a href="#updateController" >updateController</a>
+                                <a href="#updateCoreValues" >updateCoreValues</a>
                             </li>
                         </ul>
                     </td>
@@ -152,7 +151,7 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(hashService: <a href="../injectables/HashService.html" target="_self">HashService</a>, clientRedis: ClientRedis, logger: Logger, didSchemaRepository: <a href="../undefineds/HashDocument.html" target="_self">Model&lt;HashDocument&gt;</a>, didHashDocumentRegistry: <a href="../undefineds/HashTransactionDocument.html" target="_self">Model&lt;HashTransactionDocument&gt;</a>, transactionsCounter: Counter<string>, parseService: <a href="../injectables/ParseService.html" target="_self">ParseService</a>, didIdCachedService: <a href="../injectables/DidIdCachedService.html" target="_self">DidIdCachedService</a>, didIdRepository: <a href="../undefineds/DidIdDocument.html" target="_self">Model&lt;DidIdDocument&gt;</a>)</code>
+<code>constructor(hashService: <a href="../injectables/HashService.html" target="_self">HashService</a>, clientRedis: ClientRedis, logger: Logger, didHashRepository: <a href="../undefineds/HashDocument.html" target="_self">Model&lt;HashDocument&gt;</a>, didHashDocumentRegistry: <a href="../undefineds/HashTransactionDocument.html" target="_self">Model&lt;HashTransactionDocument&gt;</a>, transactionsCounter: Counter<string>, parseService: <a href="../injectables/ParseService.html" target="_self">ParseService</a>, didIdCachedService: <a href="../injectables/DidIdCachedService.html" target="_self">DidIdCachedService</a>, didIdRepository: <a href="../undefineds/DidIdDocument.html" target="_self">Model&lt;DidIdDocument&gt;</a>)</code>
                     </td>
                 </tr>
                         <tr>
@@ -213,7 +212,7 @@
                                                     
                                                 </tr>
                                                 <tr>
-                                                        <td>didSchemaRepository</td>
+                                                        <td>didHashRepository</td>
                                                   
                                                         <td>
                                                                         <code><a href="../miscellaneous/typealiases.html#HashDocument" target="_self" >Model&lt;HashDocument&gt;</a></code>
@@ -384,7 +383,6 @@
                     <a name="reset"></a>
                     <span class="name">
                         <span class="modifier">Public</span>
-                        <span class="modifier">Async</span>
                         <span ><b>reset</b></span>
                         <a href="#reset"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -406,7 +404,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:116</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:108</a></code>
 </div>
                 </td>
             </tr>
@@ -418,7 +416,7 @@
 </div>
 
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+                        <b>Returns : </b>    <code>Promise&lt;any&gt;</code>
 
                     </div>
                 </td>
@@ -454,7 +452,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:72</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:71</a></code>
 </div>
                 </td>
             </tr>
@@ -664,19 +662,19 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="updateController"></a>
+                    <a name="updateCoreValues"></a>
                     <span class="name">
                         <span class="modifier">Protected</span>
                         <span class="modifier">Async</span>
-                        <span ><b>updateController</b></span>
-                        <a href="#updateController"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>updateCoreValues</b></span>
+                        <a href="#updateCoreValues"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>updateController(did: <a href="../classes/Did.html" target="_self">Did</a>, transaction: <a href="../classes/DidTransactionDto.html" target="_self">DidTransactionDto</a>)</code>
+                    <code>updateCoreValues(did: <a href="../classes/Did.html" target="_self">Did</a>, transaction: <a href="../classes/DidTransactionDto.html" target="_self">DidTransactionDto</a>)</code>
                 </td>
             </tr>
 
@@ -689,7 +687,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:90</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:89</a></code>
 </div>
                 </td>
             </tr>
@@ -839,7 +837,7 @@ export class HashParsingService extends ParsingService {
    * @param parser
    * @param clientRedis
    * @param logger
-   * @param didSchemaRepository
+   * @param didHashRepository
    * @param hashService
    * @param transactionsCounter
    */
@@ -847,9 +845,9 @@ export class HashParsingService extends ParsingService {
     protected readonly hashService: HashService,
     @Inject(REDIS_INJECTION) protected readonly clientRedis: ClientRedis,
     @Inject(&#x27;winston&#x27;) protected readonly logger: Logger,
-    @InjectModel(DidHash.name) private didSchemaRepository: Model&lt;HashDocument&gt;,
+    @InjectModel(DidHash.name) private didHashRepository: Model&lt;HashDocument&gt;,
     @InjectModel(DidHashTransaction.name)
-    didHashDocumentRegistry: Model&lt;HashTransactionDocument&gt;,
+    private didHashDocumentRegistry: Model&lt;HashTransactionDocument&gt;,
     @InjectMetric(&#x27;transactions&#x27;)
     protected readonly transactionsCounter: Counter&lt;string&gt;,
     private readonly parseService: ParseService,
@@ -877,31 +875,23 @@ export class HashParsingService extends ParsingService {
    */
   async parseDid(transaction: HashDidTransactionDto) {
     await this.addDocument(transaction);
-    const did &#x3D; await this.didSchemaRepository
+    const did &#x3D; await this.didHashRepository
       .findOne({ id: transaction.body.value.id })
-      .then(async (did) &#x3D;&gt; {
-        console.log(transaction);
-        if (!did) {
-          const hash: DidHash &#x3D; {
+      .then(
+        (did) &#x3D;&gt;
+          did ??
+          new this.didHashRepository({
             id: transaction.body.value.id,
-            createdAt: transaction.body.date,
-            controllers: [],
             hashAlgorithm: transaction.body.value.algorithm,
-            signature: transaction.signature.values,
-            block: {
-              ...transaction.block!,
-              imported: transaction.metadata?.imported?.date,
-            },
-          };
-          did &#x3D; new this.didSchemaRepository(hash);
-        }
-        return did;
-      });
+          }),
+      );
 
-    await this.updateController(did, transaction);
+    await this.updateCoreValues(did, transaction);
+
     if (transaction.body.value.revoked) {
-      did.revokedAt &#x3D; new Date(transaction.body.value.revoked);
+      did.revoked &#x3D; new Date(transaction.body.value.revoked);
     }
+
     did
       .save()
       .then(() &#x3D;&gt; {
@@ -922,14 +912,18 @@ export class HashParsingService extends ParsingService {
   /**
    * Resets a database.
    */
-  public async reset(): Promise&lt;void&gt; {
-    await this.didSchemaRepository.deleteMany();
+  public reset(): Promise&lt;any&gt; {
+    return Promise.all([
+      this.didHashRepository.deleteMany(),
+      this.didHashDocumentRegistry.deleteMany(),
+    ]);
   }
 }
 </code></pre>
     </div>
 
 </div>
+
 
 
 

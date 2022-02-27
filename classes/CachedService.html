@@ -150,7 +150,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">apps/shared/cache.service.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">apps/shared/cache.service.ts:16</a></div>
                             </td>
                         </tr>
 
@@ -225,7 +225,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">apps/shared/cache.service.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">apps/shared/cache.service.ts:16</a></div>
                         </td>
                     </tr>
 
@@ -262,8 +262,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="43"
-                            class="link-to-prism">apps/shared/cache.service.ts:43</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="42"
+                            class="link-to-prism">apps/shared/cache.service.ts:42</a></div>
                 </td>
             </tr>
 
@@ -311,7 +311,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;T&gt;</code>
+                        <b>Returns : </b>    <code>Promise&lt;&gt;</code>
 
                     </div>
                     <div class="io-description">
@@ -343,8 +343,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="99"
-                            class="link-to-prism">apps/shared/cache.service.ts:99</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="98"
+                            class="link-to-prism">apps/shared/cache.service.ts:98</a></div>
                 </td>
             </tr>
 
@@ -434,8 +434,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="56"
-                            class="link-to-prism">apps/shared/cache.service.ts:56</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="55"
+                            class="link-to-prism">apps/shared/cache.service.ts:55</a></div>
                 </td>
             </tr>
 
@@ -519,8 +519,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="146"
-                            class="link-to-prism">apps/shared/cache.service.ts:146</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="144"
+                            class="link-to-prism">apps/shared/cache.service.ts:144</a></div>
                 </td>
             </tr>
 
@@ -612,8 +612,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="30"
-                            class="link-to-prism">apps/shared/cache.service.ts:30</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="29"
+                            class="link-to-prism">apps/shared/cache.service.ts:29</a></div>
                 </td>
             </tr>
 
@@ -678,8 +678,7 @@ import { DidDocumentMetaData } from &#x27;./did/did-document-meta-data&#x27;;
 import { DidResolver } from &#x27;@trustcerts/core&#x27;;
 import { DidTransaction } from &#x27;./did/schemas/did-transaction.schema&#x27;;
 import { DocResponse } from &#x27;./did/doc-response.dto&#x27;;
-// TODO export
-import { Model } from &#x27;mongoose&#x27;;
+import { Model, Schema } from &#x27;mongoose&#x27;;
 import { NotFoundException } from &#x27;@nestjs/common&#x27;;
 import { SignatureContent } from &#x27;@trustcerts/core&#x27;;
 import { TransactionDto } from &#x27;@tc/blockchain/transaction/transaction.dto&#x27;;
@@ -715,7 +714,7 @@ export abstract class CachedService {
    * @param id
    * @returns
    */
-  public async getById&lt;T extends Did&gt;(id: string): Promise&lt;T&gt; {
+  public async getById&lt;T extends Did&gt;(id: string): Promise&lt;T &amp; Schema&gt; {
     const did &#x3D; await this.didModel.findOne({ id });
     if (!did) {
       throw Error(&#x60;${id} not found&#x60;);
@@ -806,7 +805,6 @@ export abstract class CachedService {
       validateChainOfTrust: false,
       doc: false,
     });
-    console.log(did.getDocument());
     return {
       document: did.getDocument(),
       signatures: transactions[transactions.length - 1].didDocumentSignature,
@@ -841,6 +839,7 @@ export abstract class CachedService {
 </code></pre>
     </div>
 </div>
+
 
 
 

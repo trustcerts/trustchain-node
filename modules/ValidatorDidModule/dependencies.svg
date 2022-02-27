@@ -14,13 +14,13 @@
 <title>cluster_ValidatorDidModule</title>
 <polygon fill="none" stroke="black" stroke-dasharray="1,5" points="8,-32.8 8,-230.8 1288,-230.8 1288,-32.8 8,-32.8"/>
 </g>
-<g id="clust6" class="cluster">
-<title>cluster_ValidatorDidModule_providers</title>
-<polygon fill="none" stroke="black" points="1082,-40.8 1082,-92.8 1280,-92.8 1280,-40.8 1082,-40.8"/>
-</g>
 <g id="clust4" class="cluster">
 <title>cluster_ValidatorDidModule_exports</title>
 <polygon fill="none" stroke="black" points="581,-170.8 581,-222.8 847,-222.8 847,-170.8 581,-170.8"/>
+</g>
+<g id="clust6" class="cluster">
+<title>cluster_ValidatorDidModule_providers</title>
+<polygon fill="none" stroke="black" points="1082,-40.8 1082,-92.8 1280,-92.8 1280,-40.8 1082,-40.8"/>
 </g>
 <g id="clust3" class="cluster">
 <title>cluster_ValidatorDidModule_imports</title>

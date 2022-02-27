@@ -486,7 +486,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:135</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:137</a></code>
 </div>
                 </td>
             </tr>
@@ -950,6 +950,8 @@ export class DidIdTransactionCheckService extends TransactionCheck {
           }
         },
       );
+    console.log(&#x27;check auth&#x27;);
+    console.log(controllers);
     const found &#x3D; controllers.find((controller) &#x3D;&gt; controller.id &#x3D;&#x3D;&#x3D; signerId);
     if (found) {
       return Promise.resolve();
@@ -988,6 +990,7 @@ export class DidIdTransactionCheckService extends TransactionCheck {
     </div>
 
 </div>
+
 
 
 

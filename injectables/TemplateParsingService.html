@@ -114,7 +114,6 @@
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
-                                    <span class="modifier">Async</span>
                                 <a href="#reset" >reset</a>
                             </li>
                             <li>
@@ -137,7 +136,7 @@
                             <li>
                                     <span class="modifier">Protected</span>
                                     <span class="modifier">Async</span>
-                                <a href="#updateController" >updateController</a>
+                                <a href="#updateCoreValues" >updateCoreValues</a>
                             </li>
                         </ul>
                     </td>
@@ -390,7 +389,6 @@
                     <a name="reset"></a>
                     <span class="name">
                         <span class="modifier">Public</span>
-                        <span class="modifier">Async</span>
                         <span ><b>reset</b></span>
                         <a href="#reset"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -412,7 +410,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:109</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:116</a></code>
 </div>
                 </td>
             </tr>
@@ -424,7 +422,7 @@
 </div>
 
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+                        <b>Returns : </b>    <code>Promise&lt;any&gt;</code>
 
                     </div>
                 </td>
@@ -453,8 +451,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="118"
-                            class="link-to-prism">libs/transactions/template/src/template-parsing/template-parsing.service.ts:118</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="128"
+                            class="link-to-prism">libs/transactions/template/src/template-parsing/template-parsing.service.ts:128</a></div>
                 </td>
             </tr>
 
@@ -545,7 +543,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:72</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:71</a></code>
 </div>
                 </td>
             </tr>
@@ -755,19 +753,19 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="updateController"></a>
+                    <a name="updateCoreValues"></a>
                     <span class="name">
                         <span class="modifier">Protected</span>
                         <span class="modifier">Async</span>
-                        <span ><b>updateController</b></span>
-                        <a href="#updateController"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>updateCoreValues</b></span>
+                        <a href="#updateCoreValues"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>updateController(did: <a href="../classes/Did.html" target="_self">Did</a>, transaction: <a href="../classes/DidTransactionDto.html" target="_self">DidTransactionDto</a>)</code>
+                    <code>updateCoreValues(did: <a href="../classes/Did.html" target="_self">Did</a>, transaction: <a href="../classes/DidTransactionDto.html" target="_self">DidTransactionDto</a>)</code>
                 </td>
             </tr>
 
@@ -780,7 +778,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:90</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:89</a></code>
 </div>
                 </td>
             </tr>
@@ -943,7 +941,7 @@ export class TemplateParsingService extends ParsingService {
     @InjectModel(DidTemplate.name)
     private didTemplateRepository: Model&lt;TemplateDocument&gt;,
     @InjectModel(DidTemplateTransaction.name)
-    didTemplateDocumentRepository: Model&lt;TemplateTransactionDocument&gt;,
+    private didTemplateDocumentRepository: Model&lt;TemplateTransactionDocument&gt;,
     private readonly schemaCachedService: SchemaCachedService,
     @InjectMetric(&#x27;transactions&#x27;)
     protected readonly transactionsCounter: Counter&lt;string&gt;,
@@ -971,23 +969,30 @@ export class TemplateParsingService extends ParsingService {
    */
   protected async parseDid(transaction: TemplateTransactionDto) {
     await this.addDocument(transaction);
-    this.store(transaction.body.value.id, transaction.body.value.template);
-    const schema &#x3D; await this.schemaCachedService.getById&lt;DidSchema&gt;(
-      transaction.body.value.schemaId,
-    );
-    this.didTemplateRepository
-      .findOneAndUpdate(
-        { id: transaction.body.value.id },
-        {
-          schema,
-          $pull: {
-            controllers: { $in: transaction.body.value.controller?.remove },
-          },
-          $push: {
-            controllers: { $in: transaction.body.value.controller?.add },
-          },
-        },
-      )
+    const did &#x3D; await this.didTemplateRepository
+      .findOne({ id: transaction.body.value.id })
+      .then(
+        (did) &#x3D;&gt;
+          did ??
+          new this.didTemplateRepository({ id: transaction.body.value.id }),
+      );
+    console.log(transaction);
+    await this.updateCoreValues(did, transaction);
+
+    if (transaction.body.value.schemaId) {
+      did.schemaObject &#x3D; await this.schemaCachedService.getById&lt;DidSchema&gt;(
+        transaction.body.value.schemaId,
+      );
+    }
+    if (transaction.body.value.template) {
+      this.store(transaction.body.value.id, transaction.body.value.template);
+    }
+    if (transaction.body.value.compression) {
+      did.compression &#x3D; transaction.body.value.compression;
+    }
+
+    did
+      .save()
       .then(() &#x3D;&gt; {
         this.logger.debug({
           message: &#x60;added template ${transaction.body.value.id}&#x60;,
@@ -1006,8 +1011,11 @@ export class TemplateParsingService extends ParsingService {
   /**
    * Resets the database
    */
-  public async reset(): Promise&lt;void&gt; {
-    await this.didTemplateRepository.deleteMany();
+  public reset(): Promise&lt;any&gt; {
+    return Promise.all([
+      this.didTemplateRepository.deleteMany(),
+      this.didTemplateDocumentRepository.deleteMany(),
+    ]);
   }
 
   /**
@@ -1026,6 +1034,7 @@ export class TemplateParsingService extends ParsingService {
     </div>
 
 </div>
+
 
 
 

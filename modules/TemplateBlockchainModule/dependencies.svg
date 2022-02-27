@@ -14,10 +14,6 @@
 <title>cluster_TemplateBlockchainModule</title>
 <polygon fill="none" stroke="black" stroke-dasharray="1,5" points="8,-32.8 8,-230.8 659,-230.8 659,-32.8 8,-32.8"/>
 </g>
-<g id="clust4" class="cluster">
-<title>cluster_TemplateBlockchainModule_exports</title>
-<polygon fill="none" stroke="black" points="303,-170.8 303,-222.8 535,-222.8 535,-170.8 303,-170.8"/>
-</g>
 <g id="clust3" class="cluster">
 <title>cluster_TemplateBlockchainModule_imports</title>
 <polygon fill="none" stroke="black" points="334,-40.8 334,-92.8 651,-92.8 651,-40.8 334,-40.8"/>
@@ -25,6 +21,10 @@
 <g id="clust6" class="cluster">
 <title>cluster_TemplateBlockchainModule_providers</title>
 <polygon fill="none" stroke="black" points="16,-40.8 16,-92.8 326,-92.8 326,-40.8 16,-40.8"/>
+</g>
+<g id="clust4" class="cluster">
+<title>cluster_TemplateBlockchainModule_exports</title>
+<polygon fill="none" stroke="black" points="303,-170.8 303,-222.8 535,-222.8 535,-170.8 303,-170.8"/>
 </g>
 <!-- BlockCheckModule -->
 <g id="node1" class="node">

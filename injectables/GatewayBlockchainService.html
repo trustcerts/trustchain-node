@@ -255,7 +255,7 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>addTransaction(transaction: <a href="../classes/TransactionDto.html" target="_self">TransactionDto</a>, type?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    <code>addTransaction(transaction: <a href="../classes/TransactionDto.html" target="_self">TransactionDto</a>, type?)</code>
                 </td>
             </tr>
 
@@ -301,7 +301,6 @@ hash of the transaction when it got persisted.</p>
                                 <tr>
                                     <td>type</td>
                                     <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                     </td>
 
                                     <td>
@@ -741,7 +740,7 @@ export class GatewayBlockchainService {
    */
   async addTransaction(
     transaction: TransactionDto,
-    type?: string,
+    type?: &#x27;own&#x27;,
   ): Promise&lt;PersistedTransaction&gt; {
     // TODO improve function
     if (this.transactions.includes(transaction)) {
@@ -838,6 +837,7 @@ export class GatewayBlockchainService {
     </div>
 
 </div>
+
 
 
 

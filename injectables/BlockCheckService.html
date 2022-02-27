@@ -733,8 +733,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="248"
-                            class="link-to-prism">libs/blockchain/src/block-check/block-check.service.ts:248</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="249"
+                            class="link-to-prism">libs/blockchain/src/block-check/block-check.service.ts:249</a></div>
                 </td>
             </tr>
 
@@ -812,8 +812,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="230"
-                            class="link-to-prism">libs/blockchain/src/block-check/block-check.service.ts:230</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="231"
+                            class="link-to-prism">libs/blockchain/src/block-check/block-check.service.ts:231</a></div>
                 </td>
             </tr>
 
@@ -1117,8 +1117,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="284"
-                            class="link-to-prism">libs/blockchain/src/block-check/block-check.service.ts:284</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="285"
+                            class="link-to-prism">libs/blockchain/src/block-check/block-check.service.ts:285</a></div>
                 </td>
             </tr>
 
@@ -1190,8 +1190,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="276"
-                            class="link-to-prism">libs/blockchain/src/block-check/block-check.service.ts:276</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="277"
+                            class="link-to-prism">libs/blockchain/src/block-check/block-check.service.ts:277</a></div>
                 </td>
             </tr>
 
@@ -1545,6 +1545,7 @@ export class BlockCheckService {
     transaction: TransactionDto,
     addedTransactions: Map&lt;string, TransactionDto&gt;,
   ): Promise&lt;any[]&gt; {
+    console.log(transaction.body.type);
     return Promise.all([
       this.checkSignature(transaction),
       this.checkSize(transaction),
@@ -1619,6 +1620,7 @@ export class BlockCheckService {
     </div>
 
 </div>
+
 
 
 

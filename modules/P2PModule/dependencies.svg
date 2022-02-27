@@ -14,13 +14,13 @@
 <title>cluster_P2PModule</title>
 <polygon fill="none" stroke="black" stroke-dasharray="1,5" points="8,-32.8 8,-230.8 1256,-230.8 1256,-32.8 8,-32.8"/>
 </g>
-<g id="clust4" class="cluster">
-<title>cluster_P2PModule_exports</title>
-<polygon fill="none" stroke="black" points="490,-170.8 490,-222.8 732,-222.8 732,-170.8 490,-170.8"/>
-</g>
 <g id="clust6" class="cluster">
 <title>cluster_P2PModule_providers</title>
 <polygon fill="none" stroke="black" points="937,-40.8 937,-92.8 1248,-92.8 1248,-40.8 937,-40.8"/>
+</g>
+<g id="clust4" class="cluster">
+<title>cluster_P2PModule_exports</title>
+<polygon fill="none" stroke="black" points="490,-170.8 490,-222.8 732,-222.8 732,-170.8 490,-170.8"/>
 </g>
 <g id="clust3" class="cluster">
 <title>cluster_P2PModule_imports</title>

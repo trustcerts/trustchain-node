@@ -107,6 +107,11 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#addDidDocSignature" >addDidDocSignature</a>
+                            </li>
+                            <li>
                                     <span class="modifier">Async</span>
                                 <a href="#addTransaction" >addTransaction</a>
                             </li>
@@ -137,7 +142,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">apps/http-gateway/src/gateway-transaction.service.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">apps/http-gateway/src/gateway-transaction.service.ts:18</a></div>
                             </td>
                         </tr>
 
@@ -262,7 +267,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">apps/http-gateway/src/gateway-transaction.service.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">apps/http-gateway/src/gateway-transaction.service.ts:18</a></div>
                         </td>
                     </tr>
 
@@ -280,6 +285,78 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="addDidDocSignature"></a>
+                    <span class="name">
+                        <span class="modifier">Public</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>addDidDocSignature</b></span>
+                        <a href="#addDidDocSignature"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>addDidDocSignature(transaction: <a href="../classes/TransactionDto.html" target="_self">TransactionDto</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="75"
+                            class="link-to-prism">apps/http-gateway/src/gateway-transaction.service.ts:75</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>transaction</td>
+                                    <td>
+                                                <code><a href="../classes/TransactionDto.html" target="_self" >TransactionDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="addTransaction"></a>
                     <span class="name">
                         <span class="modifier">Async</span>
@@ -291,15 +368,15 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>addTransaction(transaction: <a href="../classes/TransactionDto.html" target="_self">TransactionDto</a>, type?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    <code>addTransaction(transaction: <a href="../classes/TransactionDto.html" target="_self">TransactionDto</a>, type?)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="39"
-                            class="link-to-prism">apps/http-gateway/src/gateway-transaction.service.ts:39</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="40"
+                            class="link-to-prism">apps/http-gateway/src/gateway-transaction.service.ts:40</a></div>
                 </td>
             </tr>
 
@@ -336,7 +413,6 @@
                                 <tr>
                                     <td>type</td>
                                     <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                     </td>
 
                                     <td>
@@ -383,8 +459,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="78"
-                            class="link-to-prism">apps/http-gateway/src/gateway-transaction.service.ts:78</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="104"
+                            class="link-to-prism">apps/http-gateway/src/gateway-transaction.service.ts:104</a></div>
                 </td>
             </tr>
 
@@ -451,6 +527,7 @@ import { DidResolver } from &#x27;@trustcerts/core&#x27;;
 import { GatewayBlockchainService } from &#x27;./gateway-blockchain/gateway-blockchain.service&#x27;;
 import { Logger } from &#x27;winston&#x27;;
 import { PersistedTransaction } from &#x27;@shared/http/dto/persisted-transaction&#x27;;
+import { SignatureInfo } from &#x27;@tc/blockchain/transaction/signature-info&#x27;;
 import { SignatureType } from &#x27;@tc/blockchain/transaction/signature-type&#x27;;
 import { TransactionCheck } from &#x27;@shared/transactions/transaction.check&#x27;;
 import { TransactionDto } from &#x27;@tc/blockchain/transaction/transaction.dto&#x27;;
@@ -484,7 +561,7 @@ export class GatewayTransactionService {
    */
   async addTransaction(
     transaction: TransactionDto,
-    type?: string,
+    type?: &#x27;own&#x27;,
   ): Promise&lt;PersistedTransaction&gt; {
     // checks if the transaction was imported by one of the named identifier
     const clientImports: string[] &#x3D;
@@ -517,6 +594,31 @@ export class GatewayTransactionService {
     });
   }
 
+  public async addDidDocSignature(transaction: TransactionDto) {
+    const values &#x3D; await this.cachedService.getTransactions(
+      transaction.body.value.id,
+    );
+    const transactions &#x3D; values
+      .map((transaction) &#x3D;&gt; transaction.values)
+      .concat([transaction.body.value]);
+    const did &#x3D; await this.didResolver.load(transaction.body.value.id, {
+      transactions,
+      validateChainOfTrust: false,
+    });
+    // parse the transaction into the did
+    // add signature
+    const didDocSignature: SignatureInfo &#x3D; {
+      type: SignatureType.Single,
+      values: [
+        await this.walletService.signIssuer({
+          document: did.getDocument(),
+          version: did.getVersion(),
+        }),
+      ],
+    };
+    transaction.metadata.didDocSignature &#x3D; didDocSignature;
+  }
+
   /**
    * Adds the information that the transaction was imported from another blockchain.
    * @param transaction
@@ -541,6 +643,7 @@ export class GatewayTransactionService {
 </code></pre>
     </div>
 </div>
+
 
 
 

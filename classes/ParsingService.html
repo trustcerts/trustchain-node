@@ -132,7 +132,7 @@
                             <li>
                                     <span class="modifier">Protected</span>
                                     <span class="modifier">Async</span>
-                                <a href="#updateController" >updateController</a>
+                                <a href="#updateCoreValues" >updateCoreValues</a>
                             </li>
                         </ul>
                     </td>
@@ -318,8 +318,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="72"
-                            class="link-to-prism">apps/shared/transactions/parsing.service.ts:72</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="71"
+                            class="link-to-prism">apps/shared/transactions/parsing.service.ts:71</a></div>
                 </td>
             </tr>
 
@@ -535,8 +535,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="88"
-                            class="link-to-prism">apps/shared/transactions/parsing.service.ts:88</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="87"
+                            class="link-to-prism">apps/shared/transactions/parsing.service.ts:87</a></div>
                 </td>
             </tr>
 
@@ -607,8 +607,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="118"
-                            class="link-to-prism">apps/shared/transactions/parsing.service.ts:118</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="117"
+                            class="link-to-prism">apps/shared/transactions/parsing.service.ts:117</a></div>
                 </td>
             </tr>
 
@@ -619,7 +619,7 @@
 </div>
 
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+                        <b>Returns : </b>    <code>Promise&lt;any&gt;</code>
 
                     </div>
                 </td>
@@ -630,27 +630,27 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="updateController"></a>
+                    <a name="updateCoreValues"></a>
                     <span class="name">
                         <span class="modifier">Protected</span>
                         <span class="modifier">Async</span>
-                        <span ><b>updateController</b></span>
-                        <a href="#updateController"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>updateCoreValues</b></span>
+                        <a href="#updateCoreValues"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>updateController(did: <a href="../classes/Did.html" target="_self">Did</a>, transaction: <a href="../classes/DidTransactionDto.html" target="_self">DidTransactionDto</a>)</code>
+                    <code>updateCoreValues(did: <a href="../classes/Did.html" target="_self">Did</a>, transaction: <a href="../classes/DidTransactionDto.html" target="_self">DidTransactionDto</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="90"
-                            class="link-to-prism">apps/shared/transactions/parsing.service.ts:90</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="89"
+                            class="link-to-prism">apps/shared/transactions/parsing.service.ts:89</a></div>
                 </td>
             </tr>
 
@@ -777,7 +777,6 @@ export abstract class ParsingService {
     this.transactionsCounter.inc({
       type: transaction.body.type,
     });
-    console.log(&#x27;got block&#x27;);
     const hash &#x3D; await this.hashTransaction({ ...transaction });
     if (transaction.block) {
       const persisted: PersistedTransaction &#x3D; {
@@ -809,8 +808,8 @@ export abstract class ParsingService {
 
   protected abstract parseDid(transaction: DidTransactionDto): Promise&lt;void&gt;;
 
-  protected async updateController(did: Did, transaction: DidTransactionDto) {
-    console.log(transaction);
+  protected async updateCoreValues(did: Did, transaction: DidTransactionDto) {
+    console.log(did);
     // update the controllers
     if (transaction.body.value.controller) {
       if (transaction.body.value.controller!.remove) {
@@ -818,30 +817,31 @@ export abstract class ParsingService {
           transaction.body.value.controller!.remove!.includes(controller.id),
         );
       }
-      console.log(transaction.body.value.id);
       if (transaction.body.value.controller!.add) {
-        console.log(&#x27;got controllers&#x27;);
-        console.log(transaction.body.value.controller!.add);
         const newDids &#x3D; await this.didIdRepository.find({
           id: { $in: transaction.body.value.controller!.add! },
         });
-        console.log(newDids);
         if (newDids.length &gt; 0) {
           did.controllers.push(...newDids);
         }
-        console.log(did.controllers);
       }
     }
+    did.signatures &#x3D; transaction.signature;
+    did.block &#x3D; {
+      ...transaction.block!,
+      imported: transaction.metadata?.imported?.date,
+    };
   }
 
   /**
    * Resets a database.
    */
-  public abstract reset(): Promise&lt;void&gt;;
+  public abstract reset(): Promise&lt;any&gt;;
 }
 </code></pre>
     </div>
 </div>
+
 
 
 

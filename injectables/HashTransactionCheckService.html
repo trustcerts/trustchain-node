@@ -1257,13 +1257,13 @@ export class HashTransactionCheckService extends TransactionCheck {
       throw new Error(&#x60;Hash to revoke doesn&#x27;t exist.&#x60;);
     }
     // TODO implement
-    // if (hash.revokedAt !&#x3D;&#x3D; undefined) {
+    // if (hash.revoked !&#x3D;&#x3D; undefined) {
     //   throw new Error(&#x27;Hash already revoked.&#x27;);
     // }
     if (
       !(await this.isIssuer(
         transaction.signature.values[0].identifier,
-        hash.signature[0].identifier,
+        hash.signatures.values[0].identifier,
       ))
     ) {
       throw new Error(&#x27;Only the original issuer can revoke the hash.&#x27;);
@@ -1324,6 +1324,7 @@ export class HashTransactionCheckService extends TransactionCheck {
     </div>
 
 </div>
+
 
 
 

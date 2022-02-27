@@ -43,6 +43,11 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                         <span class="icon ion-ios-list"></span>Dependencies
                                     </a>
                                 </li>
+                                <li class="link">
+                                    <a href="properties.html" data-type="chapter-link">
+                                        <span class="icon ion-ios-apps"></span>Properties
+                                    </a>
+                                </li>
                     </ul>
                 </li>
                     <li class="chapter modules">
@@ -549,13 +554,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/NetworkGatewayModule.html" data-type="entity-link" >NetworkGatewayModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#controllers-links-module-NetworkGatewayModule-153221e3fadb0e360ed246f106721f25ab6ccd4f8d3d84e2e3bed138db9beced8184306de69795fa0142018ec18ef1708bb5f47ae5015469c150d2a4697e2399"' : 'data-target="#xs-controllers-links-module-NetworkGatewayModule-153221e3fadb0e360ed246f106721f25ab6ccd4f8d3d84e2e3bed138db9beced8184306de69795fa0142018ec18ef1708bb5f47ae5015469c150d2a4697e2399"' }>
+                                            'data-target="#controllers-links-module-NetworkGatewayModule-94ff24421da93ccd533322b6abd349ab040b3353a03fdca6d87aeb49904a235a46740a91435276acbe7e0e387354936fc854ff796c761a79a222619a288e59f7"' : 'data-target="#xs-controllers-links-module-NetworkGatewayModule-94ff24421da93ccd533322b6abd349ab040b3353a03fdca6d87aeb49904a235a46740a91435276acbe7e0e387354936fc854ff796c761a79a222619a288e59f7"' }>
                                             <span class="icon ion-md-swap"></span>
                                             <span>Controllers</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="controllers-links-module-NetworkGatewayModule-153221e3fadb0e360ed246f106721f25ab6ccd4f8d3d84e2e3bed138db9beced8184306de69795fa0142018ec18ef1708bb5f47ae5015469c150d2a4697e2399"' :
-                                            'id="xs-controllers-links-module-NetworkGatewayModule-153221e3fadb0e360ed246f106721f25ab6ccd4f8d3d84e2e3bed138db9beced8184306de69795fa0142018ec18ef1708bb5f47ae5015469c150d2a4697e2399"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="controllers-links-module-NetworkGatewayModule-94ff24421da93ccd533322b6abd349ab040b3353a03fdca6d87aeb49904a235a46740a91435276acbe7e0e387354936fc854ff796c761a79a222619a288e59f7"' :
+                                            'id="xs-controllers-links-module-NetworkGatewayModule-94ff24421da93ccd533322b6abd349ab040b3353a03fdca6d87aeb49904a235a46740a91435276acbe7e0e387354936fc854ff796c761a79a222619a288e59f7"' }>
                                             <li class="link">
                                                 <a href="controllers/HealthController.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >HealthController</a>
                                             </li>
@@ -566,13 +571,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     </li>
                                 <li class="chapter inner">
                                     <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                        'data-target="#injectables-links-module-NetworkGatewayModule-153221e3fadb0e360ed246f106721f25ab6ccd4f8d3d84e2e3bed138db9beced8184306de69795fa0142018ec18ef1708bb5f47ae5015469c150d2a4697e2399"' : 'data-target="#xs-injectables-links-module-NetworkGatewayModule-153221e3fadb0e360ed246f106721f25ab6ccd4f8d3d84e2e3bed138db9beced8184306de69795fa0142018ec18ef1708bb5f47ae5015469c150d2a4697e2399"' }>
+                                        'data-target="#injectables-links-module-NetworkGatewayModule-94ff24421da93ccd533322b6abd349ab040b3353a03fdca6d87aeb49904a235a46740a91435276acbe7e0e387354936fc854ff796c761a79a222619a288e59f7"' : 'data-target="#xs-injectables-links-module-NetworkGatewayModule-94ff24421da93ccd533322b6abd349ab040b3353a03fdca6d87aeb49904a235a46740a91435276acbe7e0e387354936fc854ff796c761a79a222619a288e59f7"' }>
                                         <span class="icon ion-md-arrow-round-down"></span>
                                         <span>Injectables</span>
                                         <span class="icon ion-ios-arrow-down"></span>
                                     </div>
-                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-NetworkGatewayModule-153221e3fadb0e360ed246f106721f25ab6ccd4f8d3d84e2e3bed138db9beced8184306de69795fa0142018ec18ef1708bb5f47ae5015469c150d2a4697e2399"' :
-                                        'id="xs-injectables-links-module-NetworkGatewayModule-153221e3fadb0e360ed246f106721f25ab6ccd4f8d3d84e2e3bed138db9beced8184306de69795fa0142018ec18ef1708bb5f47ae5015469c150d2a4697e2399"' }>
+                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-NetworkGatewayModule-94ff24421da93ccd533322b6abd349ab040b3353a03fdca6d87aeb49904a235a46740a91435276acbe7e0e387354936fc854ff796c761a79a222619a288e59f7"' :
+                                        'id="xs-injectables-links-module-NetworkGatewayModule-94ff24421da93ccd533322b6abd349ab040b3353a03fdca6d87aeb49904a235a46740a91435276acbe7e0e387354936fc854ff796c761a79a222619a288e59f7"' }>
                                         <li class="link">
                                             <a href="injectables/NetworkGatewayService.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >NetworkGatewayService</a>
                                         </li>
@@ -1051,13 +1056,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/ValidatorBlockchainModule.html" data-type="entity-link" >ValidatorBlockchainModule</a>
                                 <li class="chapter inner">
                                     <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                        'data-target="#injectables-links-module-ValidatorBlockchainModule-c07bdfa2fba5b560499f4ef81f1794441be08e43af6deb6524e180cd0791578450b94954191bc0a572bae29f21de4aa992cdd70837cbf57ac9acec7a5f34d668-1"' : 'data-target="#xs-injectables-links-module-ValidatorBlockchainModule-c07bdfa2fba5b560499f4ef81f1794441be08e43af6deb6524e180cd0791578450b94954191bc0a572bae29f21de4aa992cdd70837cbf57ac9acec7a5f34d668-1"' }>
+                                        'data-target="#injectables-links-module-ValidatorBlockchainModule-1d2a21cc971e4eca2ff0bd7d8584616c78aaaff9b7ffc44ac801ca9944c93df9a73ecbd0fbe90a2a466dd0e07c3964a101348cc50658b66ca1cc4b5a98b475fe-1"' : 'data-target="#xs-injectables-links-module-ValidatorBlockchainModule-1d2a21cc971e4eca2ff0bd7d8584616c78aaaff9b7ffc44ac801ca9944c93df9a73ecbd0fbe90a2a466dd0e07c3964a101348cc50658b66ca1cc4b5a98b475fe-1"' }>
                                         <span class="icon ion-md-arrow-round-down"></span>
                                         <span>Injectables</span>
                                         <span class="icon ion-ios-arrow-down"></span>
                                     </div>
-                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-ValidatorBlockchainModule-c07bdfa2fba5b560499f4ef81f1794441be08e43af6deb6524e180cd0791578450b94954191bc0a572bae29f21de4aa992cdd70837cbf57ac9acec7a5f34d668-1"' :
-                                        'id="xs-injectables-links-module-ValidatorBlockchainModule-c07bdfa2fba5b560499f4ef81f1794441be08e43af6deb6524e180cd0791578450b94954191bc0a572bae29f21de4aa992cdd70837cbf57ac9acec7a5f34d668-1"' }>
+                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-ValidatorBlockchainModule-1d2a21cc971e4eca2ff0bd7d8584616c78aaaff9b7ffc44ac801ca9944c93df9a73ecbd0fbe90a2a466dd0e07c3964a101348cc50658b66ca1cc4b5a98b475fe-1"' :
+                                        'id="xs-injectables-links-module-ValidatorBlockchainModule-1d2a21cc971e4eca2ff0bd7d8584616c78aaaff9b7ffc44ac801ca9944c93df9a73ecbd0fbe90a2a466dd0e07c3964a101348cc50658b66ca1cc4b5a98b475fe-1"' }>
                                         <li class="link">
                                             <a href="injectables/ValidatorBlockchainService.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >ValidatorBlockchainService</a>
                                         </li>

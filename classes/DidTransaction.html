@@ -112,7 +112,7 @@
                                 <a href="#block" >block</a>
                             </li>
                             <li>
-                                <a href="#signature" >signature</a>
+                                <a href="#signatures" >signatures</a>
                             </li>
                         </ul>
                     </td>
@@ -187,7 +187,7 @@
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="../classes/SignatureInfo.html" target="_self" >SignatureInfo[]</a></code>
+                        <i>Type : </i>        <code><a href="../classes/SignatureInfo.html" target="_self" >SignatureInfo</a></code>
 
                     </td>
                 </tr>
@@ -196,7 +196,7 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({description: &#x27;Signature of the hash.&#x27;, type: undefined})<br />@Prop()<br />@Type(undefined)<br />
+                            @ApiProperty({description: &#x27;Signature of the hash.&#x27;, type: SignatureInfo})<br />@Prop()<br />@Type(undefined)<br />
                         </code>
                     </td>
                 </tr>
@@ -350,16 +350,16 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="signature"></a>
+                    <a name="signatures"></a>
                     <span class="name">
-                        <span ><b>signature</b></span>
-                        <a href="#signature"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>signatures</b></span>
+                        <a href="#signatures"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="../classes/SignatureDto.html" target="_self" >SignatureDto[]</a></code>
+                        <i>Type : </i>        <code><a href="../classes/SignatureInfo.html" target="_self" >SignatureInfo</a></code>
 
                     </td>
                 </tr>
@@ -368,7 +368,7 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({description: &#x27;Signature of the hash.&#x27;, type: undefined})<br />@Prop()<br />@Type(undefined)<br />
+                            @ApiProperty({description: &#x27;Signature of the hash.&#x27;, type: SignatureInfo})<br />@Prop()<br />@Type(undefined)<br />
                         </code>
                     </td>
                 </tr>
@@ -451,10 +451,10 @@ export class DidTransaction extends BcEntity {
   /**
    * Signature of the current did document.
    */
-  @ApiProperty({ description: &#x27;Signature of the hash.&#x27;, type: [SignatureInfo] })
+  @ApiProperty({ description: &#x27;Signature of the hash.&#x27;, type: SignatureInfo })
   @Prop()
   @Type(() &#x3D;&gt; SignatureInfo)
-  didDocumentSignature!: SignatureInfo[];
+  didDocumentSignature!: SignatureInfo;
 }
 
 /**
@@ -465,6 +465,7 @@ export const DidTransactionSchema &#x3D;
 </code></pre>
     </div>
 </div>
+
 
 
 
