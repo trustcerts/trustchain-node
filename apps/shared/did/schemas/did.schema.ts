@@ -1,8 +1,8 @@
 import { BcEntity } from '@shared/transactions/bc-entity.schema';
 import { DidId } from '@tc/did-id/schemas/did-id.schema';
 import { IsString } from 'class-validator';
-import { Schema as MongooseSchema } from 'mongoose';
-import { Prop, Schema } from '@nestjs/mongoose';
+import { Prop } from '@nestjs/mongoose';
+import { Schema } from 'mongoose';
 
 /**
  * Describes an entity in form of a did object that can be connected with different values.
@@ -29,7 +29,7 @@ export class Did extends BcEntity {
    * https://www.w3.org/TR/did-core/#control
    */
   @Prop({
-    type: [{ type: MongooseSchema.Types.ObjectId, ref: 'DidId' }],
+    type: [{ type: Schema.Types.ObjectId, ref: 'DidId' }],
     default: [],
   })
   controllers!: DidId[];

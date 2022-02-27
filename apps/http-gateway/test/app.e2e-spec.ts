@@ -29,14 +29,10 @@ import { ConfigService } from '@tc/config/config.service';
 import {
   createDidForTesting,
   setBlock,
-  sendBlock,
   signContent,
   addListenerToTransactionParsed,
-  createTemplate,
   transactionProperties,
   startDependencies,
-  stopAndRemoveAllDeps,
-  createHash,
   printDepsLogs,
 } from '@test/helpers';
 import { HttpGatewayService } from '../src/http-gateway.service';

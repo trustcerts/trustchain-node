@@ -23,7 +23,6 @@ import { DidIdRegister } from '@trustcerts/did-id-create';
 import { HashDidTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
 import { MESSAGE_EVENT } from '@nestjs/microservices/constants';
 import { ParseClientService } from '@tc/parse-client/parse-client.service';
-import { PersistClientService } from '@tc/persist-client';
 import { SchemaTransactionDto } from '@tc/schema/dto/schema.transaction.dto';
 import { Server } from 'socket.io';
 import { Subject } from 'rxjs';
@@ -54,21 +53,6 @@ export function setBlock(transactions: TransactionDto[], index: number): Block {
     version: 0,
   };
   return block;
-}
-
-/**
- * Emit block and return true if block got parsed
- * @param block Block to be presist and parsed
- * @param clientRedis Redis client
- * @param direct boolean without waiting for redis signals
- */
-export function sendBlock(
-  block: Block,
-  parseClient: ParseClientService,
-  persistClient: PersistClientService,
-  direct = false,
-): Promise<boolean> {
-  throw Error('not implemented');
 }
 
 /**

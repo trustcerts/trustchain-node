@@ -1,10 +1,9 @@
 import { ConfigService } from '@tc/config';
-import { ConflictException, Inject, Injectable } from '@nestjs/common';
-import { DidTemplate } from '@tc/template/schemas/did-template.schema';
 import { DidTemplateResolver } from '@trustcerts/template-verify';
 import { GatewayBlockchainService } from '../gateway-blockchain/gateway-blockchain.service';
 import { GatewayTransactionService } from '../gateway-transaction.service';
 import { HashService } from '@tc/blockchain';
+import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
 import { TemplateCachedService } from '@tc/template/template-cached/template-cached.service';
 import { TemplateTransactionCheckService } from '@tc/template/template-blockchain/template-transaction-check/template-transaction-check.service';

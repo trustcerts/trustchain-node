@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { DidDocument } from './did-document.dto';
 import { DidDocumentMetaData } from './did-document-meta-data';
-import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
 import { SignatureInfo } from '@tc/blockchain/transaction/signature-info';
 
 /**
