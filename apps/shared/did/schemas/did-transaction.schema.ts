@@ -43,10 +43,10 @@ export class DidTransaction extends BcEntity {
   /**
    * Signature of the current did document.
    */
-  @ApiProperty({ description: 'Signature of the hash.', type: [SignatureInfo] })
+  @ApiProperty({ description: 'Signature of the hash.', type: SignatureInfo })
   @Prop()
   @Type(() => SignatureInfo)
-  didDocumentSignature!: SignatureInfo[];
+  didDocumentSignature!: SignatureInfo;
 }
 
 /**

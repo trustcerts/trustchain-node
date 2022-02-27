@@ -30,7 +30,7 @@ export class HashParsingService extends ParsingService {
    * @param parser
    * @param clientRedis
    * @param logger
-   * @param didSchemaRepository
+   * @param didHashRepository
    * @param hashService
    * @param transactionsCounter
    */
@@ -38,9 +38,9 @@ export class HashParsingService extends ParsingService {
     protected readonly hashService: HashService,
     @Inject(REDIS_INJECTION) protected readonly clientRedis: ClientRedis,
     @Inject('winston') protected readonly logger: Logger,
-    @InjectModel(DidHash.name) private didSchemaRepository: Model<HashDocument>,
+    @InjectModel(DidHash.name) private didHashRepository: Model<HashDocument>,
     @InjectModel(DidHashTransaction.name)
-    didHashDocumentRegistry: Model<HashTransactionDocument>,
+    private didHashDocumentRegistry: Model<HashTransactionDocument>,
     @InjectMetric('transactions')
     protected readonly transactionsCounter: Counter<string>,
     private readonly parseService: ParseService,
@@ -68,31 +68,23 @@ export class HashParsingService extends ParsingService {
    */
   async parseDid(transaction: HashDidTransactionDto) {
     await this.addDocument(transaction);
-    const did = await this.didSchemaRepository
+    const did = await this.didHashRepository
       .findOne({ id: transaction.body.value.id })
-      .then(async (did) => {
-        console.log(transaction);
-        if (!did) {
-          const hash: DidHash = {
+      .then(
+        (did) =>
+          did ??
+          new this.didHashRepository({
             id: transaction.body.value.id,
-            createdAt: transaction.body.date,
-            controllers: [],
             hashAlgorithm: transaction.body.value.algorithm,
-            signature: transaction.signature.values,
-            block: {
-              ...transaction.block!,
-              imported: transaction.metadata?.imported?.date,
-            },
-          };
-          did = new this.didSchemaRepository(hash);
-        }
-        return did;
-      });
+          }),
+      );
 
-    await this.updateController(did, transaction);
+    await this.updateCoreValues(did, transaction);
+
     if (transaction.body.value.revoked) {
-      did.revokedAt = new Date(transaction.body.value.revoked);
+      did.revoked = new Date(transaction.body.value.revoked);
     }
+
     did
       .save()
       .then(() => {
@@ -113,7 +105,10 @@ export class HashParsingService extends ParsingService {
   /**
    * Resets a database.
    */
-  public async reset(): Promise<void> {
-    await this.didSchemaRepository.deleteMany();
+  public reset(): Promise<any> {
+    return Promise.all([
+      this.didHashRepository.deleteMany(),
+      this.didHashDocumentRegistry.deleteMany(),
+    ]);
   }
 }

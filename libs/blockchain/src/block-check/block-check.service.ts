@@ -215,6 +215,7 @@ export class BlockCheckService {
     transaction: TransactionDto,
     addedTransactions: Map<string, TransactionDto>,
   ): Promise<any[]> {
+    console.log(transaction.body.type);
     return Promise.all([
       this.checkSignature(transaction),
       this.checkSize(transaction),

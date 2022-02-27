@@ -7,7 +7,7 @@ export interface Parser {
   /**
    * Function to reset the database.
    */
-  reset(): Promise<void>;
+  reset(): Promise<any>;
   /**
    * Function to parese a new transaction.
    * @param transaction

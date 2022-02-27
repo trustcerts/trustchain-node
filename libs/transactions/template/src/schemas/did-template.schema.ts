@@ -30,9 +30,9 @@ export class DidTemplate extends Did {
    * Value of the template.
    */
   @ApiProperty({ description: 'schema of the input' })
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: DidSchema.name })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'DidSchema' })
   @Type(() => DidSchema)
-  schema!: DidSchema;
+  schemaObject!: DidSchema;
 }
 
 /**

@@ -55,7 +55,6 @@ export abstract class ParsingService {
     this.transactionsCounter.inc({
       type: transaction.body.type,
     });
-    console.log('got block');
     const hash = await this.hashTransaction({ ...transaction });
     if (transaction.block) {
       const persisted: PersistedTransaction = {
@@ -87,8 +86,8 @@ export abstract class ParsingService {
 
   protected abstract parseDid(transaction: DidTransactionDto): Promise<void>;
 
-  protected async updateController(did: Did, transaction: DidTransactionDto) {
-    console.log(transaction);
+  protected async updateCoreValues(did: Did, transaction: DidTransactionDto) {
+    console.log(did);
     // update the controllers
     if (transaction.body.value.controller) {
       if (transaction.body.value.controller!.remove) {
@@ -96,24 +95,24 @@ export abstract class ParsingService {
           transaction.body.value.controller!.remove!.includes(controller.id),
         );
       }
-      console.log(transaction.body.value.id);
       if (transaction.body.value.controller!.add) {
-        console.log('got controllers');
-        console.log(transaction.body.value.controller!.add);
         const newDids = await this.didIdRepository.find({
           id: { $in: transaction.body.value.controller!.add! },
         });
-        console.log(newDids);
         if (newDids.length > 0) {
           did.controllers.push(...newDids);
         }
-        console.log(did.controllers);
       }
     }
+    did.signatures = transaction.signature;
+    did.block = {
+      ...transaction.block!,
+      imported: transaction.metadata?.imported?.date,
+    };
   }
 
   /**
    * Resets a database.
    */
-  public abstract reset(): Promise<void>;
+  public abstract reset(): Promise<any>;
 }

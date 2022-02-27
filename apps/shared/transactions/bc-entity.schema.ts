@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { BlockInfo } from './block-info';
 import { Prop, Schema } from '@nestjs/mongoose';
-import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
+import { SignatureInfo } from '@tc/blockchain/transaction/signature-info';
 import { Type } from 'class-transformer';
 
 /**
@@ -13,10 +13,10 @@ export class BcEntity {
   /**
    * Signature of the hash.
    */
-  @ApiProperty({ description: 'Signature of the hash.', type: [SignatureDto] })
+  @ApiProperty({ description: 'Signature of the hash.', type: SignatureInfo })
   @Prop()
-  @Type(() => SignatureDto)
-  signature!: SignatureDto[];
+  @Type(() => SignatureInfo)
+  signatures!: SignatureInfo;
 
   /**
    * Information about the block.

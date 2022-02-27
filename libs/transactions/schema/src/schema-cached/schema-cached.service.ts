@@ -1,5 +1,6 @@
 import { CachedService } from '@shared/cache.service';
 import { DidSchema, SchemaDocument } from '../schemas/did-schema.schema';
+import { DidSchemaResolver } from '@trustcerts/schema-verify';
 import {
   DidSchemaTransaction,
   SchemaTransactionDocument,
@@ -13,7 +14,7 @@ import { Model } from 'mongoose';
  */
 @Injectable()
 export class SchemaCachedService extends CachedService {
-  // protected resolver = new DidSchemaResolver();
+  protected resolver = new DidSchemaResolver();
 
   /**
    * Injects required dependencies.

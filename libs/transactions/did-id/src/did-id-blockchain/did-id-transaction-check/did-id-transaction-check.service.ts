@@ -108,6 +108,8 @@ export class DidIdTransactionCheckService extends TransactionCheck {
           }
         },
       );
+    console.log('check auth');
+    console.log(controllers);
     const found = controllers.find((controller) => controller.id === signerId);
     if (found) {
       return Promise.resolve();

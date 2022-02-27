@@ -1,5 +1,6 @@
 import { CachedService } from '@shared/cache.service';
 import { DidTemplate, TemplateDocument } from '../schemas/did-template.schema';
+import { DidTemplateResolver } from '@trustcerts/template-verify';
 import {
   DidTemplateTransaction,
   TemplateTransactionDocument,
@@ -16,6 +17,8 @@ import { join } from 'path';
  */
 @Injectable()
 export class TemplateCachedService extends CachedService {
+  protected resolver = new DidTemplateResolver();
+
   /**
    * Injects required dependencies.
    * @param didModel

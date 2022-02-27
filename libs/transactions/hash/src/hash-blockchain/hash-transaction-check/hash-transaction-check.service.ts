@@ -82,13 +82,13 @@ export class HashTransactionCheckService extends TransactionCheck {
       throw new Error(`Hash to revoke doesn't exist.`);
     }
     // TODO implement
-    // if (hash.revokedAt !== undefined) {
+    // if (hash.revoked !== undefined) {
     //   throw new Error('Hash already revoked.');
     // }
     if (
       !(await this.isIssuer(
         transaction.signature.values[0].identifier,
-        hash.signature[0].identifier,
+        hash.signatures.values[0].identifier,
       ))
     ) {
       throw new Error('Only the original issuer can revoke the hash.');

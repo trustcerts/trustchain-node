@@ -43,7 +43,7 @@ export class TemplateParsingService extends ParsingService {
     @InjectModel(DidTemplate.name)
     private didTemplateRepository: Model<TemplateDocument>,
     @InjectModel(DidTemplateTransaction.name)
-    didTemplateDocumentRepository: Model<TemplateTransactionDocument>,
+    private didTemplateDocumentRepository: Model<TemplateTransactionDocument>,
     private readonly schemaCachedService: SchemaCachedService,
     @InjectMetric('transactions')
     protected readonly transactionsCounter: Counter<string>,
@@ -71,23 +71,30 @@ export class TemplateParsingService extends ParsingService {
    */
   protected async parseDid(transaction: TemplateTransactionDto) {
     await this.addDocument(transaction);
-    this.store(transaction.body.value.id, transaction.body.value.template);
-    const schema = await this.schemaCachedService.getById<DidSchema>(
-      transaction.body.value.schemaId,
-    );
-    this.didTemplateRepository
-      .findOneAndUpdate(
-        { id: transaction.body.value.id },
-        {
-          schema,
-          $pull: {
-            controllers: { $in: transaction.body.value.controller?.remove },
-          },
-          $push: {
-            controllers: { $in: transaction.body.value.controller?.add },
-          },
-        },
-      )
+    const did = await this.didTemplateRepository
+      .findOne({ id: transaction.body.value.id })
+      .then(
+        (did) =>
+          did ??
+          new this.didTemplateRepository({ id: transaction.body.value.id }),
+      );
+    console.log(transaction);
+    await this.updateCoreValues(did, transaction);
+
+    if (transaction.body.value.schemaId) {
+      did.schemaObject = await this.schemaCachedService.getById<DidSchema>(
+        transaction.body.value.schemaId,
+      );
+    }
+    if (transaction.body.value.template) {
+      this.store(transaction.body.value.id, transaction.body.value.template);
+    }
+    if (transaction.body.value.compression) {
+      did.compression = transaction.body.value.compression;
+    }
+
+    did
+      .save()
       .then(() => {
         this.logger.debug({
           message: `added template ${transaction.body.value.id}`,
@@ -106,8 +113,11 @@ export class TemplateParsingService extends ParsingService {
   /**
    * Resets the database
    */
-  public async reset(): Promise<void> {
-    await this.didTemplateRepository.deleteMany();
+  public reset(): Promise<any> {
+    return Promise.all([
+      this.didTemplateRepository.deleteMany(),
+      this.didTemplateDocumentRepository.deleteMany(),
+    ]);
   }
 
   /**

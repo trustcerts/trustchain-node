@@ -71,7 +71,7 @@ export class GatewayBlockchainService {
    */
   async addTransaction(
     transaction: TransactionDto,
-    type?: string,
+    type?: 'own',
   ): Promise<PersistedTransaction> {
     // TODO improve function
     if (this.transactions.includes(transaction)) {

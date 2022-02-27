@@ -10,6 +10,7 @@ import { HttpConfigService } from '@shared/http-config.service';
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { P2PModule } from '@tc/p2-p';
+import { SchemaBlockchainModule } from '@tc/schema/schema-blockchain/schema-blockchain.module';
 import { TemplateBlockchainModule } from '@tc/template/template-blockchain/template-blockchain.module';
 import { ValidatorBlockchainService } from './validator-blockchain.service';
 
@@ -21,6 +22,7 @@ import { ValidatorBlockchainService } from './validator-blockchain.service';
     }),
     HashModule,
     HashBlockchainModule,
+    SchemaBlockchainModule,
     DidIdBlockchainModule,
     TemplateBlockchainModule,
     P2PModule,

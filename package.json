@@ -57,6 +57,8 @@
     "@trustcerts/core": "^0.4.6",
     "@trustcerts/did-id-create": "^0.4.6",
     "@trustcerts/schema-verify": "^0.4.9",
+    "@trustcerts/signature-verify": "^0.4.19",
+    "@trustcerts/template-verify": "^0.4.19",
     "@willsoto/nestjs-prometheus": "^4.4.0",
     "axios": "^0.24.0",
     "class-transformer": "^0.5.1",

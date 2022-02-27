@@ -92,10 +92,15 @@ export function DidControllerMixin<
       @Query('versionTime') time: string,
       @Query('versionId') id: number,
     ): Promise<D> {
-      return this.didCachedService.getDocument<D>(identifier, {
-        time,
-        id,
-      });
+      return this.didCachedService
+        .getDocument<D>(identifier, {
+          time,
+          id,
+        })
+        .then((doc) => {
+          console.log(doc);
+          return doc;
+        });
     }
 
     /**

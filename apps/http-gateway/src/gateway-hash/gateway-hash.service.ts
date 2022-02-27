@@ -1,6 +1,7 @@
 import { ConfigService } from '@tc/config';
 import { ConflictException, Inject, Injectable } from '@nestjs/common';
 import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
+import { DidSignatureResolver } from '@trustcerts/signature-verify';
 import { GatewayBlockchainService } from '../gateway-blockchain/gateway-blockchain.service';
 import { GatewayTransactionService } from '../gateway-transaction.service';
 import { HashCachedService } from '@tc/hash/hash-cached/hash-cached.service';
@@ -43,6 +44,7 @@ export class GatewayHashService extends GatewayTransactionService {
       logger,
       configService,
     );
+    this.didResolver = new DidSignatureResolver();
   }
 
   /**
@@ -58,6 +60,7 @@ export class GatewayHashService extends GatewayTransactionService {
         `hash already signed: ${transaction.body.value.id}`,
       );
     }
+    await this.addDidDocSignature(transaction);
 
     return {
       metaData: await this.addTransaction(transaction),
@@ -80,7 +83,7 @@ export class GatewayHashService extends GatewayTransactionService {
     if (!hash) {
       throw new ConflictException(`Hash to revoke doesn't exist.`);
     }
-    if (hash.revokedAt !== undefined) {
+    if (hash.revoked !== undefined) {
       throw new ConflictException('Hash already revoked.');
     }
 
@@ -89,7 +92,7 @@ export class GatewayHashService extends GatewayTransactionService {
     );
 
     const idHash = this.didCachedService.getIdentifierOfKey(
-      hash.signature[0].identifier,
+      hash.signatures.values[0].identifier,
     );
 
     if (idSignature !== idHash) {
@@ -97,6 +100,9 @@ export class GatewayHashService extends GatewayTransactionService {
         'Only the original issuer can revoke the hash.',
       );
     }
+
+    await this.addDidDocSignature(transaction);
+
     return {
       metaData: await this.addTransaction(transaction),
       transaction,

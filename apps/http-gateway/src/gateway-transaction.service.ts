@@ -5,6 +5,7 @@ import { DidResolver } from '@trustcerts/core';
 import { GatewayBlockchainService } from './gateway-blockchain/gateway-blockchain.service';
 import { Logger } from 'winston';
 import { PersistedTransaction } from '@shared/http/dto/persisted-transaction';
+import { SignatureInfo } from '@tc/blockchain/transaction/signature-info';
 import { SignatureType } from '@tc/blockchain/transaction/signature-type';
 import { TransactionCheck } from '@shared/transactions/transaction.check';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
@@ -38,7 +39,7 @@ export class GatewayTransactionService {
    */
   async addTransaction(
     transaction: TransactionDto,
-    type?: string,
+    type?: 'own',
   ): Promise<PersistedTransaction> {
     // checks if the transaction was imported by one of the named identifier
     const clientImports: string[] =
@@ -69,6 +70,31 @@ export class GatewayTransactionService {
         },
       );
     });
+  }
+
+  public async addDidDocSignature(transaction: TransactionDto) {
+    const values = await this.cachedService.getTransactions(
+      transaction.body.value.id,
+    );
+    const transactions = values
+      .map((transaction) => transaction.values)
+      .concat([transaction.body.value]);
+    const did = await this.didResolver.load(transaction.body.value.id, {
+      transactions,
+      validateChainOfTrust: false,
+    });
+    // parse the transaction into the did
+    // add signature
+    const didDocSignature: SignatureInfo = {
+      type: SignatureType.Single,
+      values: [
+        await this.walletService.signIssuer({
+          document: did.getDocument(),
+          version: did.getVersion(),
+        }),
+      ],
+    };
+    transaction.metadata.didDocSignature = didDocSignature;
   }
 
   /**

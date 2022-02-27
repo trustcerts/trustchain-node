@@ -1,4 +1,5 @@
 import { ConfigService } from '@tc/config';
+import { DidSchemaResolver } from '@trustcerts/schema-verify';
 import { GatewayBlockchainService } from '../gateway-blockchain/gateway-blockchain.service';
 import { GatewayTransactionService } from '../gateway-transaction.service';
 import { HashService } from '@tc/blockchain';
@@ -40,6 +41,7 @@ export class GatewaySchemaService extends GatewayTransactionService {
       logger,
       configService,
     );
+    this.didResolver = new DidSchemaResolver();
   }
 
   /**
@@ -47,6 +49,7 @@ export class GatewaySchemaService extends GatewayTransactionService {
    * @param transaction
    */
   async addSchema(transaction: SchemaTransactionDto) {
+    await this.addDidDocSignature(transaction);
     return {
       metaData: await this.addTransaction(transaction),
       transaction,

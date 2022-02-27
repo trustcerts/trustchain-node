@@ -70,21 +70,12 @@ export class DidIdParsingService extends ParsingService {
     await this.addDocument(transaction);
     const did = await this.didIdRepository
       .findOne({ id: transaction.body.value.id })
-      .then(async (did) => {
-        if (!did) {
-          did = new this.didIdRepository({
-            id: transaction.body.value.id,
-            roles: [],
-            controllers: [],
-            keys: [],
-            verificationRelationships: [],
-            services: [],
-          });
-        }
-        return did;
-      });
+      .then(
+        (did) =>
+          did ?? new this.didIdRepository({ id: transaction.body.value.id }),
+      );
 
-    this.updateController(did, transaction);
+    await this.updateCoreValues(did, transaction);
 
     // update roles
     if (transaction.body.value.role) {
@@ -155,8 +146,8 @@ export class DidIdParsingService extends ParsingService {
   /**
    * Resets a database.
    */
-  public async reset(): Promise<void> {
-    await Promise.all([
+  public reset(): Promise<any> {
+    return Promise.all([
       this.didIdRepository.deleteMany(),
       this.didIdDocumentRepository.deleteMany(),
     ]);

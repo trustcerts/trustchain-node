@@ -5,6 +5,7 @@ import {
   DidHashTransaction,
   HashTransactionDocument,
 } from '../schemas/did-hash-transaction.schema';
+import { DidSignatureResolver } from '@trustcerts/signature-verify';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
@@ -13,7 +14,7 @@ import { Model } from 'mongoose';
  */
 @Injectable()
 export class HashCachedService extends CachedService {
-  // protected resolver = new DidHashResolver();
+  protected resolver = new DidSignatureResolver();
 
   /**
    * Injects the required services and repositories.

@@ -26,16 +26,6 @@ export class DidHash extends Did {
   hashAlgorithm!: string;
 
   /**
-   * Date when the hash was signed.
-   */
-  @ApiProperty({
-    description: 'Timestamp when the hash was signed.',
-    example: new Date().toISOString(),
-  })
-  @Prop()
-  createdAt!: string;
-
-  /**
    * Date when the hash was revoked.
    */
   @ApiProperty({
@@ -44,7 +34,7 @@ export class DidHash extends Did {
     example: new Date().toISOString(),
   })
   @Prop({ nullable: true })
-  revokedAt?: Date;
+  revoked?: Date;
 }
 
 /**

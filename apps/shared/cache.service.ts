@@ -3,8 +3,7 @@ import { DidDocumentMetaData } from './did/did-document-meta-data';
 import { DidResolver } from '@trustcerts/core';
 import { DidTransaction } from './did/schemas/did-transaction.schema';
 import { DocResponse } from './did/doc-response.dto';
-// TODO export
-import { Model } from 'mongoose';
+import { Model, Schema } from 'mongoose';
 import { NotFoundException } from '@nestjs/common';
 import { SignatureContent } from '@trustcerts/core';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
@@ -40,7 +39,7 @@ export abstract class CachedService {
    * @param id
    * @returns
    */
-  public async getById<T extends Did>(id: string): Promise<T> {
+  public async getById<T extends Did>(id: string): Promise<T & Schema> {
     const did = await this.didModel.findOne({ id });
     if (!did) {
       throw Error(`${id} not found`);
@@ -131,7 +130,6 @@ export abstract class CachedService {
       validateChainOfTrust: false,
       doc: false,
     });
-    console.log(did.getDocument());
     return {
       document: did.getDocument(),
       signatures: transactions[transactions.length - 1].didDocumentSignature,

@@ -1,7 +1,6 @@
 import * as Joi from 'joi';
 import { ConfigModule, ConfigService } from '@tc/config';
 import { EventClientModule } from '@tc/event-client';
-import { HashBlockchainModule } from '@tc/hash/hash-blockchain/hash-blockchain.module';
 import { HealthController } from './health/health.controller';
 import { Module } from '@nestjs/common';
 import { NetworkGatewayController } from './network-gateway.controller';
@@ -45,7 +44,6 @@ import {
     TerminusModule,
     EventClientModule,
     PersistClientModule,
-    HashBlockchainModule,
   ],
   controllers: [NetworkGatewayController, HealthController],
   providers: [NetworkGatewayService],
