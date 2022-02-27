@@ -322,8 +322,8 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { BcEntity } from &#x27;@shared/transactions/bc-entity.schema&#x27;;
 import { DidId } from &#x27;@tc/did-id/schemas/did-id.schema&#x27;;
 import { IsString } from &#x27;class-validator&#x27;;
-import { Schema as MongooseSchema } from &#x27;mongoose&#x27;;
-import { Prop, Schema } from &#x27;@nestjs/mongoose&#x27;;
+import { Prop } from &#x27;@nestjs/mongoose&#x27;;
+import { Schema } from &#x27;mongoose&#x27;;
 
 /**
  * Describes an entity in form of a did object that can be connected with different values.
@@ -350,7 +350,7 @@ export class Did extends BcEntity {
    * https://www.w3.org/TR/did-core/#control
    */
   @Prop({
-    type: [{ type: MongooseSchema.Types.ObjectId, ref: &#x27;DidId&#x27; }],
+    type: [{ type: Schema.Types.ObjectId, ref: &#x27;DidId&#x27; }],
     default: [],
   })
   controllers!: DidId[];

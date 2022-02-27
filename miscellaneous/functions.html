@@ -92,13 +92,13 @@
                             <a href="#bootstrap" title="apps/network-observer/src/main.ts" ><b>bootstrap</b>&nbsp;&nbsp;&nbsp;(apps/.../main.ts)</a>
                         </li>
                         <li>
-                            <a href="#bootstrap" title="apps/network-validator/src/main.ts" ><b>bootstrap</b>&nbsp;&nbsp;&nbsp;(apps/.../main.ts)</a>
-                        </li>
-                        <li>
                             <a href="#bootstrap" title="apps/parse/src/main.ts" ><b>bootstrap</b>&nbsp;&nbsp;&nbsp;(apps/.../main.ts)</a>
                         </li>
                         <li>
                             <a href="#bootstrap" title="apps/persist/src/main.ts" ><b>bootstrap</b>&nbsp;&nbsp;&nbsp;(apps/.../main.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#bootstrap" title="apps/network-validator/src/main.ts" ><b>bootstrap</b>&nbsp;&nbsp;&nbsp;(apps/.../main.ts)</a>
                         </li>
                         <li>
                             <a href="#bootstrap" title="apps/wallet/src/main.ts" ><b>bootstrap</b>&nbsp;&nbsp;&nbsp;(apps/.../main.ts)</a>
@@ -141,9 +141,6 @@
                         </li>
                         <li>
                             <a href="#removeRedisSub" title="test/helpers.ts" ><b>removeRedisSub</b>&nbsp;&nbsp;&nbsp;(test/.../helpers.ts)</a>
-                        </li>
-                        <li>
-                            <a href="#sendBlock" title="test/helpers.ts" ><b>sendBlock</b>&nbsp;&nbsp;&nbsp;(test/.../helpers.ts)</a>
                         </li>
                         <li>
                             <a href="#setBlock" title="test/helpers.ts" ><b>setBlock</b>&nbsp;&nbsp;&nbsp;(test/.../helpers.ts)</a>
@@ -1343,129 +1340,6 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="sendBlock"></a>
-                    <span class="name">
-                        <span ><b>sendBlock</b></span>
-                        <a href="#sendBlock"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>sendBlock(block: <a href="../interfaces/Block.html" target="_self">Block</a>, parseClient: <a href="../injectables/ParseClientService.html" target="_self">ParseClientService</a>, persistClient: <a href="../injectables/PersistClientService.html" target="_self">PersistClientService</a>, direct)</code>
-                </td>
-            </tr>
-
-
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Emit block and return true if block got parsed</p>
-</div>
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                    <td>Default value</td>
-                                    <td>Description</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>block</td>
-                                    <td>
-                                                <code><a href="../interfaces/Block.html" target="_self" >Block</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-                                    <td>
-                                    </td>
-
-                                    <td>
-                                        <p>Block to be presist and parsed</p>
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>parseClient</td>
-                                    <td>
-                                                <code><a href="../injectables/ParseClientService.html" target="_self" >ParseClientService</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-                                    <td>
-                                    </td>
-
-                                    <td>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>persistClient</td>
-                                    <td>
-                                                <code><a href="../injectables/PersistClientService.html" target="_self" >PersistClientService</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-                                    <td>
-                                    </td>
-
-                                    <td>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>direct</td>
-                                    <td>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-                                    <td>
-                                        <code>false</code>
-                                    </td>
-
-                                    <td>
-                                        <p>boolean without waiting for redis signals</p>
-
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;boolean&gt;</code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="setBlock"></a>
                     <span class="name">
                         <span ><b>setBlock</b></span>
@@ -1880,37 +1754,6 @@
             </tr>
         </tbody>
     </table>
-</section>    <h3>apps/network-validator/src/main.ts</h3>
-    <section>
-    <h3></h3>    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="bootstrap"></a>
-                    <span class="name">
-                        <span ><b>bootstrap</b></span>
-                        <a href="#bootstrap"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>bootstrap()</code>
-                </td>
-            </tr>
-
-
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Function to configure and start a network Validator micro service.</p>
-</div>
-
-                </td>
-            </tr>
-        </tbody>
-    </table>
 </section>    <h3>apps/parse/src/main.ts</h3>
     <section>
     <h3></h3>    <table class="table table-sm table-bordered">
@@ -1967,6 +1810,37 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-description"><p>Function to configure and start a persist micro service.</p>
+</div>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>apps/network-validator/src/main.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="bootstrap"></a>
+                    <span class="name">
+                        <span ><b>bootstrap</b></span>
+                        <a href="#bootstrap"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>bootstrap()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Function to configure and start a network Validator micro service.</p>
 </div>
 
                 </td>
