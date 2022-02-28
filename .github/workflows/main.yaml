@@ -261,7 +261,6 @@ jobs:
 
       - name: Start blockchain-nodes
         run: |
-          docker network create test-network
           cd ./test/network/trustchain-config/config-example/network
           ./all.sh up -d
           ./initNodes.sh
