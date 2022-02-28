@@ -39,7 +39,7 @@ jobs:
 
       - name: Eslint check
         run: npm run lint
-        
+
       - name: generate documentation folder
         run: npm run doc:build
 
@@ -262,7 +262,7 @@ jobs:
       - name: Start blockchain-nodes
         run: |
           docker network create test-network
-          cd ./test/network/config
+          cd ./test/network/trustchain-config/config-example/network
           ./all.sh up -d
           ./initNodes.sh
 
