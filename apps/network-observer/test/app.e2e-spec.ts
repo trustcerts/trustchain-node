@@ -22,6 +22,7 @@ import { Server } from 'socket.io';
 import { io } from 'socket.io-client';
 import { HttpService } from '@nestjs/axios';
 import { config } from 'dotenv';
+import { RoleManageType } from '@tc/did-id/constants';
 
 describe('Network Observer (e2e)', () => {
   let app: INestApplication;

@@ -22,6 +22,7 @@ import { HttpObserverService } from '../src/http-observer.service';
 import { wait } from '@shared/helpers';
 import { config } from 'dotenv';
 import { ParseClientService } from '@tc/parse-client/parse-client.service';
+import { RoleManageType } from '@tc/did-id/constants';
 
 describe('ObserverController (e2e)', () => {
   let app: INestApplication;
