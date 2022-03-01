@@ -52,7 +52,6 @@ describe('AppController (e2e)', () => {
     'wallet',
     'persist',
     'redis',
-    'network-validator',
   ];
 
   beforeAll(async () => {
