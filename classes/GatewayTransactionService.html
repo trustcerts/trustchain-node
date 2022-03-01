@@ -579,7 +579,7 @@ export class GatewayTransactionService {
       await this.transactionCheckService
         .canUpdatebyController(transaction)
         .catch((err) &#x3D;&gt; {
-          console.log(err);
+          this.logger.error(err);
           throw new ConflictException(&#x27;signer not authorized&#x27;);
         });
     }

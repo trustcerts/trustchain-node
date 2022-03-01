@@ -142,12 +142,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(blockCheckService: <a href="../injectables/BlockCheckService.html" target="_self">BlockCheckService</a>, schemaCachedService: <a href="../injectables/SchemaCachedService.html" target="_self">SchemaCachedService</a>, didCachedService: <a href="../injectables/DidIdCachedService.html" target="_self">DidIdCachedService</a>)</code>
+<code>constructor(blockCheckService: <a href="../injectables/BlockCheckService.html" target="_self">BlockCheckService</a>, schemaCachedService: <a href="../injectables/SchemaCachedService.html" target="_self">SchemaCachedService</a>, didCachedService: <a href="../injectables/DidIdCachedService.html" target="_self">DidIdCachedService</a>, logger: Logger)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">libs/transactions/schema/src/schema-blockchain/schema-transaction-check/schema-transaction-check.service.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">libs/transactions/schema/src/schema-blockchain/schema-transaction-check/schema-transaction-check.service.ts:16</a></div>
                             </td>
                         </tr>
 
@@ -202,6 +202,18 @@
                                                     </td>
                                                     
                                                 </tr>
+                                                <tr>
+                                                        <td>logger</td>
+                                                  
+                                                        <td>
+                                                                    <code>Logger</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
                                         </tbody>
                                     </table>
                             </div>
@@ -238,8 +250,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="50"
-                            class="link-to-prism">libs/transactions/schema/src/schema-blockchain/schema-transaction-check/schema-transaction-check.service.ts:50</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="52"
+                            class="link-to-prism">libs/transactions/schema/src/schema-blockchain/schema-transaction-check/schema-transaction-check.service.ts:52</a></div>
                 </td>
             </tr>
 
@@ -323,8 +335,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="41"
-                            class="link-to-prism">libs/transactions/schema/src/schema-blockchain/schema-transaction-check/schema-transaction-check.service.ts:41</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="43"
+                            class="link-to-prism">libs/transactions/schema/src/schema-blockchain/schema-transaction-check/schema-transaction-check.service.ts:43</a></div>
                 </td>
             </tr>
 
@@ -375,7 +387,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:33</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:35</a></code>
 </div>
                 </td>
             </tr>
@@ -427,7 +439,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:73</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:75</a></code>
 </div>
                 </td>
             </tr>
@@ -518,7 +530,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:68</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:70</a></code>
 </div>
                 </td>
             </tr>
@@ -598,7 +610,7 @@ Check will pass if the transaction does not exists yet or the signer is authoriz
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:52</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:54</a></code>
 </div>
                 </td>
             </tr>
@@ -677,7 +689,7 @@ Check will pass if the transaction does not exists yet or the signer is authoriz
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:44</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:46</a></code>
 </div>
                 </td>
             </tr>
@@ -756,7 +768,7 @@ Check will pass if the transaction does not exists yet or the signer is authoriz
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:59</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:61</a></code>
 </div>
                 </td>
             </tr>
@@ -783,7 +795,8 @@ Check will pass if the transaction does not exists yet or the signer is authoriz
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { BlockCheckService } from &#x27;@tc/blockchain/block-check/block-check.service&#x27;;
 import { DidIdCachedService } from &#x27;@tc/did-id/did-id-cached/did-id-cached.service&#x27;;
-import { Injectable } from &#x27;@nestjs/common&#x27;;
+import { Inject, Injectable } from &#x27;@nestjs/common&#x27;;
+import { Logger } from &#x27;winston&#x27;;
 import { RoleManageType } from &#x27;@tc/did-id/constants&#x27;;
 import { SchemaCachedService } from &#x27;@tc/schema/schema-cached/schema-cached.service&#x27;;
 import { SchemaTransactionDto } from &#x27;@tc/schema/dto/schema.transaction.dto&#x27;;
@@ -805,8 +818,9 @@ export class SchemaTransactionCheckService extends TransactionCheck {
     protected readonly blockCheckService: BlockCheckService,
     protected readonly schemaCachedService: SchemaCachedService,
     protected readonly didCachedService: DidIdCachedService,
+    @Inject(&#x27;winston&#x27;) logger: Logger,
   ) {
-    super(blockCheckService, schemaCachedService, didCachedService);
+    super(blockCheckService, schemaCachedService, didCachedService, logger);
   }
 
   /**

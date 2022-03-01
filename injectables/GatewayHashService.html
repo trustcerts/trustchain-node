@@ -818,8 +818,7 @@ export class GatewayHashService extends GatewayTransactionService {
     );
 
     await this.cachedService.canChange(idSignature, hash.id).catch((err) &#x3D;&gt; {
-      console.log(err);
-      console.log(&#x27;different&#x27;);
+      this.logger.error(err);
       throw new ConflictException(
         &#x27;Only the original issuer can revoke the hash.&#x27;,
       );

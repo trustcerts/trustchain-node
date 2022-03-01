@@ -351,8 +351,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="65"
-                            class="link-to-prism">apps/shared/cache.service.ts:65</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="63"
+                            class="link-to-prism">apps/shared/cache.service.ts:63</a></div>
                 </td>
             </tr>
 
@@ -432,8 +432,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="121"
-                            class="link-to-prism">apps/shared/cache.service.ts:121</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="119"
+                            class="link-to-prism">apps/shared/cache.service.ts:119</a></div>
                 </td>
             </tr>
 
@@ -523,8 +523,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="78"
-                            class="link-to-prism">apps/shared/cache.service.ts:78</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="76"
+                            class="link-to-prism">apps/shared/cache.service.ts:76</a></div>
                 </td>
             </tr>
 
@@ -608,8 +608,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="167"
-                            class="link-to-prism">apps/shared/cache.service.ts:167</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="165"
+                            class="link-to-prism">apps/shared/cache.service.ts:165</a></div>
                 </td>
             </tr>
 
@@ -701,8 +701,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="52"
-                            class="link-to-prism">apps/shared/cache.service.ts:52</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="50"
+                            class="link-to-prism">apps/shared/cache.service.ts:50</a></div>
                 </td>
             </tr>
 
@@ -795,8 +795,6 @@ export abstract class CachedService {
       .findOne({ id })
       .populate(&#x27;controllers&#x27;)
       .then((res) &#x3D;&gt; {
-        console.log(issuerId);
-        console.log(res);
         if (
           res.controllers.find(
             (controller: DidId) &#x3D;&gt; (controller.id &#x3D; issuerId),

@@ -607,8 +607,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="117"
-                            class="link-to-prism">apps/shared/transactions/parsing.service.ts:117</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="116"
+                            class="link-to-prism">apps/shared/transactions/parsing.service.ts:116</a></div>
                 </td>
             </tr>
 
@@ -809,7 +809,6 @@ export abstract class ParsingService {
   protected abstract parseDid(transaction: DidTransactionDto): Promise&lt;void&gt;;
 
   protected async updateCoreValues(did: Did, transaction: DidTransactionDto) {
-    console.log(did);
     // update the controllers
     if (transaction.body.value.controller) {
       if (transaction.body.value.controller!.remove) {

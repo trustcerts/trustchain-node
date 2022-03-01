@@ -410,7 +410,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:116</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:115</a></code>
 </div>
                 </td>
             </tr>
@@ -451,8 +451,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="128"
-                            class="link-to-prism">libs/transactions/template/src/template-parsing/template-parsing.service.ts:128</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="127"
+                            class="link-to-prism">libs/transactions/template/src/template-parsing/template-parsing.service.ts:127</a></div>
                 </td>
             </tr>
 
@@ -976,7 +976,6 @@ export class TemplateParsingService extends ParsingService {
           did ??
           new this.didTemplateRepository({ id: transaction.body.value.id }),
       );
-    console.log(transaction);
     await this.updateCoreValues(did, transaction);
 
     if (transaction.body.value.schemaId) {

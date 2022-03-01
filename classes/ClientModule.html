@@ -317,7 +317,7 @@ export class ClientModule {
   isHealthy(host: string, port &#x3D; 3000): Promise&lt;void&gt; {
     if (this.configService.getBoolean(&#x27;SKIP_HEALTHY&#x27;)) return Promise.resolve();
     const intervalTime &#x3D; 1000;
-    const maxFailCounter &#x3D; 10;
+    const maxFailCounter &#x3D; 20;
     let failCounter &#x3D; 0;
     return new Promise((resolve, reject) &#x3D;&gt; {
       const interval &#x3D; setInterval(() &#x3D;&gt; {
@@ -348,7 +348,6 @@ export class ClientModule {
                   labels: { source: this.constructor.name },
                 });
                 clearInterval(interval);
-                // TODO exit the process instead of waiting
                 reject(&#x60;${host} service not ready in time&#x60;);
               }
             },
