@@ -94,7 +94,7 @@
                                 <a href="#block" >block</a>
                             </li>
                             <li>
-                                <a href="#signatures" >signatures</a>
+                                <a href="#signature" >signature</a>
                             </li>
                         </ul>
                     </td>
@@ -160,10 +160,10 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="signatures"></a>
+                    <a name="signature"></a>
                     <span class="name">
-                        <span ><b>signatures</b></span>
-                        <a href="#signatures"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>signature</b></span>
+                        <a href="#signature"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
@@ -227,7 +227,7 @@ export class BcEntity {
   @ApiProperty({ description: &#x27;Signature of the hash.&#x27;, type: SignatureInfo })
   @Prop()
   @Type(() &#x3D;&gt; SignatureInfo)
-  signatures!: SignatureInfo;
+  signature!: SignatureInfo;
 
   /**
    * Information about the block.

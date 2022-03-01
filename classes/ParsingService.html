@@ -152,7 +152,7 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(clientRedis: ClientRedis, hashService: <a href="../injectables/HashService.html" target="_self">HashService</a>, transactionsCounter: Counter<string>, didIdRepository: <a href="../undefineds/DidIdDocument.html" target="_self">Model&lt;DidIdDocument&gt;</a>, didTransactionRepository: Model<any>)</code>
+<code>constructor(clientRedis: ClientRedis, hashService: <a href="../injectables/HashService.html" target="_self">HashService</a>, transactionsCounter: Counter<string>, didIdRepository: <a href="../s/id.html" target="_self">Model&lt;DidIdDocument&gt;</a>, didTransactionRepository: Model<any>)</code>
                     </td>
                 </tr>
                         <tr>
@@ -216,7 +216,7 @@
                                                         <td>didIdRepository</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../miscellaneous/typealiases.html#DidIdDocument" target="_self" >Model&lt;DidIdDocument&gt;</a></code>
+                                                                        <code><a href="../miscellaneous/variables.html#id" target="_self" >Model&lt;DidIdDocument&gt;</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -357,7 +357,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+                        <b>Returns : </b>        <code><a href="../miscellaneous/variables.html#id" target="_self" >Promise&lt;void&gt;</a></code>
 
                     </div>
                     <div class="io-description">
@@ -431,7 +431,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+                        <b>Returns : </b>        <code><a href="../miscellaneous/variables.html#id" target="_self" >Promise&lt;void&gt;</a></code>
 
                     </div>
                     <div class="io-description">
@@ -574,7 +574,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+                        <b>Returns : </b>        <code><a href="../miscellaneous/variables.html#id" target="_self" >Promise&lt;void&gt;</a></code>
 
                     </div>
                     <div class="io-description">
@@ -826,7 +826,7 @@ export abstract class ParsingService {
         }
       }
     }
-    did.signatures &#x3D; transaction.signature;
+    did.signature &#x3D; transaction.metadata.didDocSignature!;
     did.block &#x3D; {
       ...transaction.block!,
       imported: transaction.metadata?.imported?.date,

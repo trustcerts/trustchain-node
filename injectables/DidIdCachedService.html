@@ -147,6 +147,10 @@
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
+                                <a href="#canChange" >canChange</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
                                     <span class="modifier">Async</span>
                                 <a href="#getById" >getById</a>
                             </li>
@@ -184,7 +188,7 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(transactionModel: <a href="../undefineds/DidIdTransactionDocument.html" target="_self">Model&lt;DidIdTransactionDocument&gt;</a>, didModel: <a href="../undefineds/DidIdDocument.html" target="_self">Model&lt;DidIdDocument&gt;</a>, persistClientService: <a href="../injectables/PersistClientService.html" target="_self">PersistClientService</a>)</code>
+<code>constructor(transactionModel: <a href="../s/id.html" target="_self">Model&lt;DidIdTransactionDocument&gt;</a>, didModel: <a href="../s/id.html" target="_self">Model&lt;DidIdDocument&gt;</a>, persistClientService: <a href="../injectables/PersistClientService.html" target="_self">PersistClientService</a>)</code>
                     </td>
                 </tr>
                         <tr>
@@ -212,7 +216,7 @@
                                                         <td>transactionModel</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../miscellaneous/typealiases.html#DidIdTransactionDocument" target="_self" >Model&lt;DidIdTransactionDocument&gt;</a></code>
+                                                                        <code><a href="../miscellaneous/variables.html#id" target="_self" >Model&lt;DidIdTransactionDocument&gt;</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -224,7 +228,7 @@
                                                         <td>didModel</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../miscellaneous/typealiases.html#DidIdDocument" target="_self" >Model&lt;DidIdDocument&gt;</a></code>
+                                                                        <code><a href="../miscellaneous/variables.html#id" target="_self" >Model&lt;DidIdDocument&gt;</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -496,7 +500,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;DidId&gt;</code>
+                        <b>Returns : </b>        <code><a href="../miscellaneous/variables.html#id" target="_self" >Promise&lt;DidId&gt;</a></code>
 
                     </div>
                     <div class="io-description">
@@ -569,7 +573,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;DidId&gt;</code>
+                        <b>Returns : </b>        <code><a href="../miscellaneous/variables.html#id" target="_self" >Promise&lt;DidId&gt;</a></code>
 
                     </div>
                     <div class="io-description">
@@ -921,6 +925,97 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="canChange"></a>
+                    <span class="name">
+                        <span class="modifier">Public</span>
+                        <span ><b>canChange</b></span>
+                        <a href="#canChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>canChange(issuerId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Inherited from         <code><a href="../classes/CachedService.html" target="_self" >CachedService</a></code>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:29</a></code>
+</div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>checks if an issuer is listed as controller to manipulate the did document.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>issuerId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../miscellaneous/variables.html#id" target="_self" >Promise&lt;void&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="getById"></a>
                     <span class="name">
                         <span class="modifier">Public</span>
@@ -946,7 +1041,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:42</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:65</a></code>
 </div>
                 </td>
             </tr>
@@ -1033,7 +1128,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:98</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:121</a></code>
 </div>
                 </td>
             </tr>
@@ -1130,7 +1225,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:55</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:78</a></code>
 </div>
                 </td>
             </tr>
@@ -1183,7 +1278,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;DidDocumentMetaData&gt;</code>
+                        <b>Returns : </b>        <code><a href="../miscellaneous/variables.html#id" target="_self" >Promise&lt;DidDocumentMetaData&gt;</a></code>
 
                     </div>
                     <div class="io-description">
@@ -1221,7 +1316,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:144</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:167</a></code>
 </div>
                 </td>
             </tr>
@@ -1320,7 +1415,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:29</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:52</a></code>
 </div>
                 </td>
             </tr>

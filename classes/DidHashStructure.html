@@ -97,6 +97,7 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier">Optional</span>
                                 <a href="#algorithm" >algorithm</a>
                             </li>
                             <li>
@@ -135,6 +136,7 @@
                 <td class="col-md-4">
                     <a name="algorithm"></a>
                     <span class="name">
+                            <span class="modifier">Optional</span>
                         <span ><b>algorithm</b></span>
                         <a href="#algorithm"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -353,7 +355,7 @@ export class DidHashStructure extends DidStructure {
     example: &#x27;sha256&#x27;,
   })
   @IsIn([WalletClientService.defaultHashAlgorithm])
-  algorithm!: string;
+  algorithm?: string;
 
   /**
    * If set to true the hash is revoked.
