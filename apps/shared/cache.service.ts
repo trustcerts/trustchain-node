@@ -31,8 +31,6 @@ export abstract class CachedService {
       .findOne({ id })
       .populate('controllers')
       .then((res) => {
-        console.log(issuerId);
-        console.log(res);
         if (
           res.controllers.find(
             (controller: DidId) => (controller.id = issuerId),

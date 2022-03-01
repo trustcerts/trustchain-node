@@ -87,7 +87,6 @@ export abstract class ParsingService {
   protected abstract parseDid(transaction: DidTransactionDto): Promise<void>;
 
   protected async updateCoreValues(did: Did, transaction: DidTransactionDto) {
-    console.log(did);
     // update the controllers
     if (transaction.body.value.controller) {
       if (transaction.body.value.controller!.remove) {

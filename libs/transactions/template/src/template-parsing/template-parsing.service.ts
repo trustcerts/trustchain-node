@@ -78,7 +78,6 @@ export class TemplateParsingService extends ParsingService {
           did ??
           new this.didTemplateRepository({ id: transaction.body.value.id }),
       );
-    console.log(transaction);
     await this.updateCoreValues(did, transaction);
 
     if (transaction.body.value.schemaId) {

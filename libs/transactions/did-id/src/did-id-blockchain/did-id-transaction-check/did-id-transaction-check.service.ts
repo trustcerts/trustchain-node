@@ -2,7 +2,8 @@ import { BlockCheckService } from '@tc/blockchain/block-check/block-check.servic
 import { DidId } from '@tc/did-id/schemas/did-id.schema';
 import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
 import { DidIdTransactionDto } from '@tc/did-id/dto/did-id-transaction.dto';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { Logger } from 'winston';
 import { RoleManageType } from '@tc/did-id/constants';
 import { TransactionCheck } from '@shared/transactions/transaction.check';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
@@ -21,8 +22,9 @@ export class DidIdTransactionCheckService extends TransactionCheck {
   constructor(
     protected readonly blockCheckService: BlockCheckService,
     protected readonly didCachedService: DidIdCachedService,
+    @Inject('winston') logger: Logger,
   ) {
-    super(blockCheckService, didCachedService, didCachedService);
+    super(blockCheckService, didCachedService, didCachedService, logger);
   }
 
   /**

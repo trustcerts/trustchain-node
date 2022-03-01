@@ -1,6 +1,7 @@
 import { BlockCheckService } from '@tc/blockchain/block-check/block-check.service';
 import { CachedService } from '../cache.service';
 import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
+import { Logger } from 'winston';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
@@ -19,6 +20,7 @@ export abstract class TransactionCheck {
     blockCheckService: BlockCheckService,
     protected cachedService: CachedService,
     protected didCachedService: DidIdCachedService,
+    protected readonly logger: Logger,
   ) {
     if (blockCheckService.types.has(this.getType())) {
       throw Error(this.getType());
@@ -75,7 +77,6 @@ export abstract class TransactionCheck {
             if (
               !did.controllers.find((controller) => controller.id === signerId)
             ) {
-              console.log(did);
               throw new Error(
                 `${signerId} is not authorized to update ${transaction.body.value.id}`,
               );
@@ -84,8 +85,10 @@ export abstract class TransactionCheck {
           }
         },
         // did not found, so resolve it since there is no controller set yet
-        (err) => {
-          console.log(err);
+        (err: Error) => {
+          if (err.message !== 'not found') {
+            this.logger.error(err);
+          }
           return Promise.resolve();
         },
       );

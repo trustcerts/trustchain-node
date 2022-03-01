@@ -57,7 +57,7 @@ export class GatewayTransactionService {
       await this.transactionCheckService
         .canUpdatebyController(transaction)
         .catch((err) => {
-          console.log(err);
+          this.logger.error(err);
           throw new ConflictException('signer not authorized');
         });
     }
