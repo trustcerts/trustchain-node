@@ -34,7 +34,6 @@ import {
   startDependencies,
   printDepsLogs,
   stopAndRemoveAllDeps,
-  id,
 } from '@test/helpers';
 import { HttpGatewayService } from '../src/http-gateway.service';
 import { wait } from '@shared/helpers';
@@ -156,7 +155,7 @@ describe('Http Gateway (e2e)', () => {
         type: TransactionType.Hash,
         value: {
           controller: {
-            add: [id],
+            add: [didTransaction.did.id],
           },
           id: 'did:trust:tc:dev:hash:HPaE7KKZ3J9Dku44h15nzQjbjJ6QuVQmRTFLkaTFG3gR',
           algorithm: 'sha256',
@@ -326,7 +325,7 @@ describe('Http Gateway (e2e)', () => {
       console.error(e);
     } finally {
       await printDepsLogs(dockerDeps);
-      // await stopAndRemoveAllDeps();
+      await stopAndRemoveAllDeps();
     }
   }, 60000);
 });
