@@ -1,4 +1,4 @@
-import { RoleManageType } from '@tc/did-id/constants';
+import { RoleManageType } from '@trustcerts/gateway';
 import axios from 'axios';
 
 describe('Network Testing', () => {
