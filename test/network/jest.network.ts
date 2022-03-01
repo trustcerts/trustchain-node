@@ -13,10 +13,6 @@ const config: Config.InitialOptions = {
   testEnvironment: 'node',
   rootDir: '.',
   testMatch: ['<rootDir>/network.test.ts'],
-  moduleNameMapper: {
-    '@tc/did-id(.*)': '../../libs/transactions/did-id/src$1',
-
-  },
 };
 
 export default config;

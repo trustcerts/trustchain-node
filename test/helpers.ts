@@ -326,6 +326,15 @@ export function stopAndRemoveAllDeps(): Promise<void> {
 export async function printDepsLogs(services: string[]): Promise<void> {
   const exludedServices = ['db', 'redis'];
   services = services.filter((service) => !exludedServices.includes(service));
+  await new Promise<void>((resolve) => {
+    exec(
+      `docker-compose -f test/docker-compose.yml --env-file test/.env ps`,
+      (err, stdout) => {
+        console.log(stdout);
+        resolve();
+      },
+    );
+  });
   for (const service of services) {
     const res = await new Promise((resolve, reject) => {
       exec(

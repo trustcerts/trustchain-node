@@ -46,13 +46,7 @@ describe('AppController (e2e)', () => {
   let didCachedService: DidIdCachedService;
   let didTransaction: { did: DidId; transaction: TransactionDto };
   let parseClientService: ParseClientService;
-  let dockerDeps: string[] = [
-    'db',
-    'parse',
-    'wallet',
-    'persist',
-    'redis',
-  ];
+  let dockerDeps: string[] = ['db', 'parse', 'wallet', 'persist', 'redis'];
 
   beforeAll(async () => {
     config({ path: 'test/.env' });
