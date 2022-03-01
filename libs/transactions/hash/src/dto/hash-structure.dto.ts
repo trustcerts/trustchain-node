@@ -30,7 +30,7 @@ export class DidHashStructure extends DidStructure {
     example: 'sha256',
   })
   @IsIn([WalletClientService.defaultHashAlgorithm])
-  algorithm!: string;
+  algorithm?: string;
 
   /**
    * If set to true the hash is revoked.

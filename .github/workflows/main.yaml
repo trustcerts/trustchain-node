@@ -176,6 +176,7 @@ jobs:
             parse,
             wallet,
           ]
+      fail-fast: false
     steps:
       - name: Checkout
         uses: actions/checkout@v2

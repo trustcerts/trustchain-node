@@ -1,5 +1,6 @@
 import { Did } from './did/schemas/did.schema';
 import { DidDocumentMetaData } from './did/did-document-meta-data';
+import { DidId } from '@tc/did-id/schemas/did-id.schema';
 import { DidResolver } from '@trustcerts/core';
 import { DidTransaction } from './did/schemas/did-transaction.schema';
 import { DocResponse } from './did/doc-response.dto';
@@ -21,6 +22,28 @@ export abstract class CachedService {
     protected transactionModel: Model<any>,
     protected didModel: Model<any>,
   ) {}
+
+  /**
+   * checks if an issuer is listed as controller to manipulate the did document.
+   */
+  public canChange(issuerId: string, id: string): Promise<void> {
+    return this.didModel
+      .findOne({ id })
+      .populate('controllers')
+      .then((res) => {
+        console.log(issuerId);
+        console.log(res);
+        if (
+          res.controllers.find(
+            (controller: DidId) => (controller.id = issuerId),
+          )
+        ) {
+          return Promise.resolve();
+        } else {
+          return Promise.reject();
+        }
+      });
+  }
 
   /**
    * Returns the values of the transaction that are used generate a signature of a transaction.

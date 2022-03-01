@@ -13,7 +13,6 @@ import {
 import { DidIdRegister } from '@trustcerts/did-id-create';
 import { DidIdTransactionDto } from '@tc/did-id/dto/did-id-transaction.dto';
 import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
-import { HashCachedService } from '@tc/hash/hash-cached/hash-cached.service';
 import { WalletClientService } from '@tc/wallet-client';
 import { ClientRedis } from '@nestjs/microservices';
 import { REDIS_INJECTION } from '@tc/event-client/constants';
@@ -34,6 +33,8 @@ import {
   transactionProperties,
   startDependencies,
   printDepsLogs,
+  stopAndRemoveAllDeps,
+  id,
 } from '@test/helpers';
 import { HttpGatewayService } from '../src/http-gateway.service';
 import { wait } from '@shared/helpers';
@@ -47,7 +48,6 @@ import { ParseClientService } from '@tc/parse-client/parse-client.service';
 describe('Http Gateway (e2e)', () => {
   let app: INestApplication;
   let didCachedService: DidIdCachedService;
-  let hashCachedService: HashCachedService;
   let walletClientService: WalletClientService;
   let hashService: HashService;
   let clientRedis: ClientRedis;
@@ -79,7 +79,6 @@ describe('Http Gateway (e2e)', () => {
     clientRedis = app.get(REDIS_INJECTION);
     inviteService = app.get(InviteService);
     didCachedService = app.get(DidIdCachedService);
-    hashCachedService = app.get(HashCachedService);
     walletClientService = app.get(WalletClientService);
     hashService = app.get(HashService);
     httpGateWayService = app.get(HttpGatewayService);
@@ -135,7 +134,7 @@ describe('Http Gateway (e2e)', () => {
         date: new Date().toISOString(),
         type: TransactionType.Hash,
         value: {
-          id: '9991d650bd700b85f15ec25e0d0275cfa988a4401378b9e3b95c8fe8d1a5b61e',
+          id: 'did:trust:tc:dev:hash:HPaE7KKZ3J9Dku44h15nzQjbjJ6QuVQmRTFLkaTFG3gR',
           algorithm: 'sha256',
         },
       },
@@ -156,7 +155,10 @@ describe('Http Gateway (e2e)', () => {
         date: new Date().toISOString(),
         type: TransactionType.Hash,
         value: {
-          id: '9991df50bd701b85f15ec25e0d0275cfas88a4401378b9e3b95c8fe9d1a5b61e',
+          controller: {
+            add: [id],
+          },
+          id: 'did:trust:tc:dev:hash:HPaE7KKZ3J9Dku44h15nzQjbjJ6QuVQmRTFLkaTFG3gR',
           algorithm: 'sha256',
         },
       },
@@ -170,8 +172,7 @@ describe('Http Gateway (e2e)', () => {
         date: new Date().toISOString(),
         type: TransactionType.Hash,
         value: {
-          id: '9991df50bd701b85f15ec25e0d0275cfas88a4401378b9e3b95c8fe9d1a5b61e',
-          algorithm: 'sha256',
+          id: 'did:trust:tc:dev:hash:HPaE7KKZ3J9Dku44h15nzQjbjJ6QuVQmRTFLkaTFG3gR',
           revoked: new Date().toString(),
         },
       },

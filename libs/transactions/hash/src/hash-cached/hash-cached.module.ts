@@ -3,6 +3,7 @@ import {
   DidHashTransaction,
   HashTransactionSchema,
 } from '../schemas/did-hash-transaction.schema';
+import { DidId, DidIdSchema } from '@tc/did-id/schemas/did-id.schema';
 import { DidIdCachedModule } from '@tc/did-id/did-id-cached/did-id-cached.module';
 import { HASH_CONNECTION } from '@tc/hash/constants';
 import { HashCachedService } from '@tc/hash/hash-cached/hash-cached.service';
@@ -18,6 +19,7 @@ import { MongooseModule } from '@nestjs/mongoose';
       [
         { name: DidHash.name, schema: HashSchema },
         { name: DidHashTransaction.name, schema: HashTransactionSchema },
+        { name: DidId.name, schema: DidIdSchema },
       ],
       HASH_CONNECTION,
     ),

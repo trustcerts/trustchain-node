@@ -104,7 +104,7 @@ export abstract class ParsingService {
         }
       }
     }
-    did.signatures = transaction.signature;
+    did.signature = transaction.metadata.didDocSignature!;
     did.block = {
       ...transaction.block!,
       imported: transaction.metadata?.imported?.date,

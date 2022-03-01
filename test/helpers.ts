@@ -165,6 +165,8 @@ export async function signContent(
   transaction.signature.values = [await walletService.signIssuer(content)];
 }
 
+export const id = `${Identifier.generate('id')}#key1`;
+
 export const transactionProperties: {
   metadata: TransactionMetadata;
   version: number;
@@ -184,7 +186,7 @@ export const transactionProperties: {
       type: SignatureType.Single,
       values: [
         {
-          identifier: `${Identifier.generate('id')}#key1`,
+          identifier: id,
           signature: 'ddd',
         },
       ],
@@ -194,7 +196,7 @@ export const transactionProperties: {
     type: SignatureType.Single,
     values: [
       {
-        identifier: `${Identifier.generate('id')}#key1`,
+        identifier: id,
         signature: 'ddd',
       },
     ],

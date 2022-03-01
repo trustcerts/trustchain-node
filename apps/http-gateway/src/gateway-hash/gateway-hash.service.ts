@@ -91,15 +91,13 @@ export class GatewayHashService extends GatewayTransactionService {
       transaction.signature.values[0].identifier,
     );
 
-    const idHash = this.didCachedService.getIdentifierOfKey(
-      hash.signatures.values[0].identifier,
-    );
-
-    if (idSignature !== idHash) {
+    await this.cachedService.canChange(idSignature, hash.id).catch((err) => {
+      console.log(err);
+      console.log('different');
       throw new ConflictException(
         'Only the original issuer can revoke the hash.',
       );
-    }
+    });
 
     await this.addDidDocSignature(transaction);
 

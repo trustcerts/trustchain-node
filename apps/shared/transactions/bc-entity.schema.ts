@@ -16,7 +16,7 @@ export class BcEntity {
   @ApiProperty({ description: 'Signature of the hash.', type: SignatureInfo })
   @Prop()
   @Type(() => SignatureInfo)
-  signatures!: SignatureInfo;
+  signature!: SignatureInfo;
 
   /**
    * Information about the block.

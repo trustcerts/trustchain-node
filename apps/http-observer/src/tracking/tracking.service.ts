@@ -31,7 +31,7 @@ export class TrackingService {
   public async save(hash: DidHash, origin: string) {
     // TODO implement again
     const issuer = await this.didModel.findOne({
-      id: hash.signatures.values[0].identifier.split('#')[0],
+      id: hash.signature.values[0].identifier.split('#')[0],
     });
     if (!issuer) {
       throw new ConflictException('issuer not found');

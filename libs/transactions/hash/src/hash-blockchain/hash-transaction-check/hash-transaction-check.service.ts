@@ -88,7 +88,7 @@ export class HashTransactionCheckService extends TransactionCheck {
     if (
       !(await this.isIssuer(
         transaction.signature.values[0].identifier,
-        hash.signatures.values[0].identifier,
+        hash.signature.values[0].identifier,
       ))
     ) {
       throw new Error('Only the original issuer can revoke the hash.');
