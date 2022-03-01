@@ -1,5 +1,4 @@
 import type { Config } from '@jest/types';
-import jestConfig from '../../jest.sharedConfig';
 // Sync object
 
 /**
