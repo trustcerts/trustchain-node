@@ -142,7 +142,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">apps/http-gateway/src/gateway-transaction.service.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">apps/http-gateway/src/gateway-transaction.service.ts:19</a></div>
                             </td>
                         </tr>
 
@@ -267,7 +267,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">apps/http-gateway/src/gateway-transaction.service.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">apps/http-gateway/src/gateway-transaction.service.ts:19</a></div>
                         </td>
                     </tr>
 
@@ -304,8 +304,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="75"
-                            class="link-to-prism">apps/http-gateway/src/gateway-transaction.service.ts:75</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="81"
+                            class="link-to-prism">apps/http-gateway/src/gateway-transaction.service.ts:81</a></div>
                 </td>
             </tr>
 
@@ -375,8 +375,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="40"
-                            class="link-to-prism">apps/http-gateway/src/gateway-transaction.service.ts:40</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="41"
+                            class="link-to-prism">apps/http-gateway/src/gateway-transaction.service.ts:41</a></div>
                 </td>
             </tr>
 
@@ -459,8 +459,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="104"
-                            class="link-to-prism">apps/http-gateway/src/gateway-transaction.service.ts:104</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="110"
+                            class="link-to-prism">apps/http-gateway/src/gateway-transaction.service.ts:110</a></div>
                 </td>
             </tr>
 
@@ -531,6 +531,7 @@ import { SignatureInfo } from &#x27;@tc/blockchain/transaction/signature-info&#x
 import { SignatureType } from &#x27;@tc/blockchain/transaction/signature-type&#x27;;
 import { TransactionCheck } from &#x27;@shared/transactions/transaction.check&#x27;;
 import { TransactionDto } from &#x27;@tc/blockchain/transaction/transaction.dto&#x27;;
+import { TransactionType } from &#x27;@tc/blockchain/transaction/transaction-type&#x27;;
 import { WalletClientService } from &#x27;@tc/wallet-client&#x27;;
 
 /**
@@ -573,10 +574,15 @@ export class GatewayTransactionService {
       transaction &#x3D; await this.importedTransaction(transaction);
     }
 
-    //checks if signer is authorized
-    await this.transactionCheckService.canUpdate(transaction).catch(() &#x3D;&gt; {
-      throw new ConflictException(&#x27;signer not authorized&#x27;);
-    });
+    //checks if signer is authorized, DidIds have a seperated check with self signed and hirarchie.
+    if (transaction.body.type !&#x3D;&#x3D; TransactionType.Did) {
+      await this.transactionCheckService
+        .canUpdatebyController(transaction)
+        .catch((err) &#x3D;&gt; {
+          console.log(err);
+          throw new ConflictException(&#x27;signer not authorized&#x27;);
+        });
+    }
 
     return new Promise((resolve, reject) &#x3D;&gt; {
       this.gatewayBlockchainService.addTransaction(transaction, type).then(

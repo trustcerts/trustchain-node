@@ -93,7 +93,7 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Async</span>
-                                <a href="#canUpdate" >canUpdate</a>
+                                <a href="#canUpdatebyController" >canUpdatebyController</a>
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
@@ -214,18 +214,18 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="canUpdate"></a>
+                    <a name="canUpdatebyController"></a>
                     <span class="name">
                         <span class="modifier">Async</span>
-                        <span ><b>canUpdate</b></span>
-                        <a href="#canUpdate"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>canUpdatebyController</b></span>
+                        <a href="#canUpdatebyController"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>canUpdate(transaction: <a href="../classes/TransactionDto.html" target="_self">TransactionDto</a>)</code>
+                    <code>canUpdatebyController(transaction: <a href="../classes/TransactionDto.html" target="_self">TransactionDto</a>)</code>
                 </td>
             </tr>
 
@@ -536,8 +536,8 @@ Check will pass if the transaction does not exists yet or the signer is authoriz
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="94"
-                            class="link-to-prism">apps/shared/transactions/transaction.check.ts:94</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="99"
+                            class="link-to-prism">apps/shared/transactions/transaction.check.ts:99</a></div>
                 </td>
             </tr>
 
@@ -676,24 +676,29 @@ export abstract class TransactionCheck {
    * Check will pass if the transaction does not exists yet or the signer is authorized.
    * @param transaction
    */
-  async canUpdate(transaction: TransactionDto): Promise&lt;void&gt; {
+  async canUpdatebyController(transaction: TransactionDto): Promise&lt;void&gt; {
     return this.didCachedService
-      .getDid(transaction.body.value.id, &#x27;controller&#x27;)
+      .getDid(transaction.body.value.id, &#x27;controllers&#x27;)
       .then(
         (did) &#x3D;&gt; {
-          transaction.signature.values.forEach((signer) &#x3D;&gt; {
+          for (const signer of transaction.signature.values) {
+            const signerId &#x3D; signer.identifier.split(&#x27;#&#x27;)[0];
             if (
-              did.controllers.find(
-                (controller) &#x3D;&gt;
-                  controller.id &#x3D;&#x3D;&#x3D; signer.identifier.split(&#x27;#&#x27;)[0],
-              )
+              !did.controllers.find((controller) &#x3D;&gt; controller.id &#x3D;&#x3D;&#x3D; signerId)
             ) {
-              return Promise.reject();
+              console.log(did);
+              throw new Error(
+                &#x60;${signerId} is not authorized to update ${transaction.body.value.id}&#x60;,
+              );
             }
-          });
+            return Promise.resolve();
+          }
         },
         // did not found, so resolve it since there is no controller set yet
-        () &#x3D;&gt; Promise.resolve(),
+        (err) &#x3D;&gt; {
+          console.log(err);
+          return Promise.resolve();
+        },
       );
   }
 

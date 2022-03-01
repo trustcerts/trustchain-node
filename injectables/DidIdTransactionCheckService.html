@@ -116,7 +116,7 @@
                             </li>
                             <li>
                                     <span class="modifier">Async</span>
-                                <a href="#canUpdate" >canUpdate</a>
+                                <a href="#canUpdatebyController" >canUpdatebyController</a>
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
@@ -486,7 +486,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:137</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:135</a></code>
 </div>
                 </td>
             </tr>
@@ -553,18 +553,18 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="canUpdate"></a>
+                    <a name="canUpdatebyController"></a>
                     <span class="name">
                         <span class="modifier">Async</span>
-                        <span ><b>canUpdate</b></span>
-                        <a href="#canUpdate"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>canUpdatebyController</b></span>
+                        <a href="#canUpdatebyController"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>canUpdate(transaction: <a href="../classes/TransactionDto.html" target="_self">TransactionDto</a>)</code>
+                    <code>canUpdatebyController(transaction: <a href="../classes/TransactionDto.html" target="_self">TransactionDto</a>)</code>
                 </td>
             </tr>
 
@@ -906,18 +906,18 @@ export class DidIdTransactionCheckService extends TransactionCheck {
    */
   protected async checkAuthorization(transaction: DidIdTransactionDto) {
     // get the id of the did and compare its&#x27; level with the signer
-    const id &#x3D; transaction.body.value.id;
+    const documentId &#x3D; transaction.body.value.id;
     const signerId &#x3D; this.didCachedService.getIdentifierOfKey(
       transaction.signature.values[0].identifier,
     );
 
     // if document is self signed allow it
-    if (id &#x3D;&#x3D;&#x3D; signerId) {
+    if (documentId &#x3D;&#x3D;&#x3D; signerId) {
       return Promise.resolve();
     }
 
     // check if the signer is one level above the did.
-    const idRole &#x3D; await this.didCachedService.getRole(id).then(
+    const idRole &#x3D; await this.didCachedService.getRole(documentId).then(
       (roles) &#x3D;&gt; roles[0],
       () &#x3D;&gt; {
         // seems like did is new, use the role from the transaction
@@ -933,7 +933,7 @@ export class DidIdTransactionCheckService extends TransactionCheck {
       .then((roles) &#x3D;&gt; roles[0]);
     // check if the client was signed by a listed controller
     const controllers: DidId[] &#x3D; await this.didCachedService
-      .getDid(id, &#x27;controllers&#x27;)
+      .getDid(documentId, &#x27;controllers&#x27;)
       .then(
         (did) &#x3D;&gt; did.controllers,
         () &#x3D;&gt; {
@@ -950,8 +950,6 @@ export class DidIdTransactionCheckService extends TransactionCheck {
           }
         },
       );
-    console.log(&#x27;check auth&#x27;);
-    console.log(controllers);
     const found &#x3D; controllers.find((controller) &#x3D;&gt; controller.id &#x3D;&#x3D;&#x3D; signerId);
     if (found) {
       return Promise.resolve();
