@@ -65,24 +65,29 @@ export abstract class TransactionCheck {
    * Check will pass if the transaction does not exists yet or the signer is authorized.
    * @param transaction
    */
-  async canUpdate(transaction: TransactionDto): Promise<void> {
+  async canUpdatebyController(transaction: TransactionDto): Promise<void> {
     return this.didCachedService
-      .getDid(transaction.body.value.id, 'controller')
+      .getDid(transaction.body.value.id, 'controllers')
       .then(
         (did) => {
-          transaction.signature.values.forEach((signer) => {
+          for (const signer of transaction.signature.values) {
+            const signerId = signer.identifier.split('#')[0];
             if (
-              did.controllers.find(
-                (controller) =>
-                  controller.id === signer.identifier.split('#')[0],
-              )
+              !did.controllers.find((controller) => controller.id === signerId)
             ) {
-              return Promise.reject();
+              console.log(did);
+              throw new Error(
+                `${signerId} is not authorized to update ${transaction.body.value.id}`,
+              );
             }
-          });
+            return Promise.resolve();
+          }
         },
         // did not found, so resolve it since there is no controller set yet
-        () => Promise.resolve(),
+        (err) => {
+          console.log(err);
+          return Promise.resolve();
+        },
       );
   }
 

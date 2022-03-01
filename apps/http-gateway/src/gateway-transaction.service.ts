@@ -9,6 +9,7 @@ import { SignatureInfo } from '@tc/blockchain/transaction/signature-info';
 import { SignatureType } from '@tc/blockchain/transaction/signature-type';
 import { TransactionCheck } from '@shared/transactions/transaction.check';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
+import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 import { WalletClientService } from '@tc/wallet-client';
 
 /**
@@ -51,10 +52,15 @@ export class GatewayTransactionService {
       transaction = await this.importedTransaction(transaction);
     }
 
-    //checks if signer is authorized
-    await this.transactionCheckService.canUpdate(transaction).catch(() => {
-      throw new ConflictException('signer not authorized');
-    });
+    //checks if signer is authorized, DidIds have a seperated check with self signed and hirarchie.
+    if (transaction.body.type !== TransactionType.Did) {
+      await this.transactionCheckService
+        .canUpdatebyController(transaction)
+        .catch((err) => {
+          console.log(err);
+          throw new ConflictException('signer not authorized');
+        });
+    }
 
     return new Promise((resolve, reject) => {
       this.gatewayBlockchainService.addTransaction(transaction, type).then(

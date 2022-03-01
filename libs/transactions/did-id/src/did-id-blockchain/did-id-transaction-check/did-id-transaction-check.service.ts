@@ -64,18 +64,18 @@ export class DidIdTransactionCheckService extends TransactionCheck {
    */
   protected async checkAuthorization(transaction: DidIdTransactionDto) {
     // get the id of the did and compare its' level with the signer
-    const id = transaction.body.value.id;
+    const documentId = transaction.body.value.id;
     const signerId = this.didCachedService.getIdentifierOfKey(
       transaction.signature.values[0].identifier,
     );
 
     // if document is self signed allow it
-    if (id === signerId) {
+    if (documentId === signerId) {
       return Promise.resolve();
     }
 
     // check if the signer is one level above the did.
-    const idRole = await this.didCachedService.getRole(id).then(
+    const idRole = await this.didCachedService.getRole(documentId).then(
       (roles) => roles[0],
       () => {
         // seems like did is new, use the role from the transaction
@@ -91,7 +91,7 @@ export class DidIdTransactionCheckService extends TransactionCheck {
       .then((roles) => roles[0]);
     // check if the client was signed by a listed controller
     const controllers: DidId[] = await this.didCachedService
-      .getDid(id, 'controllers')
+      .getDid(documentId, 'controllers')
       .then(
         (did) => did.controllers,
         () => {
@@ -108,8 +108,6 @@ export class DidIdTransactionCheckService extends TransactionCheck {
           }
         },
       );
-    console.log('check auth');
-    console.log(controllers);
     const found = controllers.find((controller) => controller.id === signerId);
     if (found) {
       return Promise.resolve();
