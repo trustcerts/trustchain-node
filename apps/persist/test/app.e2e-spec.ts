@@ -30,10 +30,18 @@ describe('AppController (e2e)', () => {
   beforeAll(async () => {
     config({ path: 'test/.env' });
     config({ path: 'test/test.env', override: true });
-    process.env.PERSIST_PORT_TCP = '3001';
     await startDependencies(dockerDeps);
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [PersistModule, PersistClientModule],
+      imports: [
+        PersistModule,
+        ClientsModule.register([
+          {
+            name: 'PersistClient',
+            transport: Transport.TCP,
+            options: { port: 3001, host: '127.0.0.1' },
+          },
+        ]),
+      ],
     }).compile();
     app = moduleFixture.createNestApplication();
     await addRedisEndpoint(app);
@@ -42,7 +50,7 @@ describe('AppController (e2e)', () => {
     await app.init();
 
     clientRedis = app.get(REDIS_INJECTION);
-    persistClientService = app.get<PersistClientService>(PersistClientService);
+    persistClientService = new PersistClientService(app.get('PersistClient'));
     path = join(`${app.get(ConfigService).storagePath}`, 'bc');
   }, 25000);
 

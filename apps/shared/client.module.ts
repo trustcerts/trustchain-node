@@ -25,7 +25,6 @@ export class ClientModule {
    * @param key
    */
   isHealthy(host: string, port = 3000): Promise<void> {
-    if (this.configService.getBoolean('SKIP_HEALTHY')) return Promise.resolve();
     const intervalTime = 1000;
     const maxFailCounter = 20;
     let failCounter = 0;

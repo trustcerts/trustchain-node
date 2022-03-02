@@ -78,7 +78,6 @@ export class ConfigService {
       TCP_URL: Joi.number().default('0.0.0.0'),
       TCP_PORT: Joi.number().default(3001),
       IDENTIFIER: Joi.string(),
-      SKIP_HEALTHY: Joi.boolean().default(false),
       //LOKI
       LOKI_URL: Joi.string(),
       LOG_LEVEL: Joi.string()

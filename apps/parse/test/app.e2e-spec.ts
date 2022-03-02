@@ -3,7 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ParseModule } from '../src/parse.module';
 import { REDIS_INJECTION, SYSTEM_RESET } from '@tc/event-client/constants';
 import { Block } from '@tc/blockchain/block/block.interface';
-import { ClientRedis } from '@nestjs/microservices';
+import { ClientRedis, ClientsModule, Transport } from '@nestjs/microservices';
 import { DidHash } from '@tc/hash/schemas/did-hash.schema';
 import { DidId } from '@tc/did-id/schemas/did-id.schema';
 import { addRedisEndpoint, addTCPEndpoint } from '@shared/main-functions';
@@ -38,10 +38,18 @@ describe('AppController (e2e)', () => {
   beforeAll(async () => {
     config({ path: 'test/.env' });
     config({ path: 'test/test.env', override: true });
-    process.env.PARSE_PORT_TCP = '3001';
     await startDependencies(dockerDeps);
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [ParseModule, ParseClientModule],
+      imports: [
+        ParseModule,
+        ClientsModule.register([
+          {
+            name: 'ParseClient',
+            transport: Transport.TCP,
+            options: { port: 3001, host: '127.0.0.1' },
+          },
+        ]),
+      ],
     }).compile();
 
     app = moduleFixture.createNestApplication();
@@ -52,8 +60,8 @@ describe('AppController (e2e)', () => {
     hashRepository = app.get<Model<DidHash>>(getModelToken(DidHash.name));
     didRepository = app.get<Model<DidId>>(getModelToken(DidId.name));
     clientRedis = app.get(REDIS_INJECTION);
-    parseClientService = app.get<ParseClientService>(ParseClientService);
     persistClientService = app.get<PersistClientService>(PersistClientService);
+    parseClientService = new ParseClientService(app.get('ParseClient'));
   }, 35000);
 
   beforeEach(async () => {
@@ -119,7 +127,7 @@ describe('AppController (e2e)', () => {
       console.error(e);
     } finally {
       await printDepsLogs(dockerDeps);
-      await stopAndRemoveAllDeps();
+      // await stopAndRemoveAllDeps();
     }
   }, 60000);
 });
