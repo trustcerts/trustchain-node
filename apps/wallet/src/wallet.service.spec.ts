@@ -21,6 +21,7 @@ describe('MyService', () => {
     }).compile();
     app = moduleFixture.createNestApplication();
     await app.init();
+
     service = app.get<WalletService>(WalletService);
     _path = join(`${process.env.STORAGE!}`, 'wallet.json');
   });

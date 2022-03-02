@@ -51,6 +51,7 @@ describe('ValidatorController (e2e)', () => {
     await addRedisEndpoint(app);
     await app.startAllMicroservices();
     await app.init();
+
     clientRedis = app.get(REDIS_INJECTION);
     walletClientService = app.get(WalletClientService);
     hashService = app.get(HashService);

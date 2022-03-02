@@ -51,6 +51,7 @@ describe('ObserverController (e2e)', () => {
     await addRedisEndpoint(app);
     await app.startAllMicroservices();
     await app.init();
+
     clientRedis = app.get(REDIS_INJECTION);
     didCachedService = app.get(DidIdCachedService);
     walletClientService = app.get(WalletClientService);

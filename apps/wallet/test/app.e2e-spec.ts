@@ -58,6 +58,7 @@ describe('AppController (e2e)', () => {
     await addTCPEndpoint(app);
     await app.startAllMicroservices();
     await app.init();
+
     path = join(`${app.get(ConfigService).storagePath}`, 'wallet.json');
     clientRedis = app.get(REDIS_INJECTION);
     clientTCP = app.get('WalletClient');

@@ -57,6 +57,7 @@ describe('AppController (e2e)', () => {
     await addTCPEndpoint(app);
     await app.startAllMicroservices();
     await app.init();
+
     hashRepository = app.get<Model<DidHash>>(getModelToken(DidHash.name));
     didRepository = app.get<Model<DidId>>(getModelToken(DidId.name));
     clientRedis = app.get(REDIS_INJECTION);
