@@ -115,7 +115,7 @@ export class WalletClientService implements OnModuleDestroy {
   }
 
   /**
-   * Requests a signed did to be added to the network.
+   * Requests a signed did to be added to the network. Returns a list of validators to connect with
    */
   async requestSignedDid(invite: InviteNode): Promise<string[]> {
     this.logger.debug({

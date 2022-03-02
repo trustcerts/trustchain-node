@@ -324,7 +324,7 @@ export function stopAndRemoveAllDeps(): Promise<void> {
  * Prints the logs of the dependent docker containers.
  */
 export async function printDepsLogs(services: string[]): Promise<void> {
-  const exludedServices = ['db', 'redis'];
+  const exludedServices = ['db'];
   services = services.filter((service) => !exludedServices.includes(service));
   await new Promise<void>((resolve) => {
     exec(

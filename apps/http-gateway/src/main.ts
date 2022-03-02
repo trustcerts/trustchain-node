@@ -7,7 +7,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import { addHelmet, addRedisEndpoint, getLogger } from '@shared/main-functions';
 import { build, version } from '@shared/build';
-import { json } from 'body-parser';
+import { json, urlencoded } from 'express';
 /**
  * Function to configure and start a http gateway micro service.
  */
@@ -21,8 +21,10 @@ async function bootstrap() {
     applicationOptions,
   );
   app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
-  app.useGlobalPipes(new ValidationPipe());
+  // TODO validation rules are not applied: ERROR [ExceptionsHandler] request entity too large
   app.use(json({ limit: '1mb' }));
+  app.use(urlencoded({ limit: '1mb', extended: true }));
+  app.useGlobalPipes(new ValidationPipe());
   const options = new DocumentBuilder()
     .setTitle('Gateway interaction')
     .setDescription('Explore the functionality of an gateway')

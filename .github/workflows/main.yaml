@@ -166,9 +166,15 @@ jobs:
       matrix:
         services:
           [
-            http-gateway,            
+            http-gateway,
+            http-observer,
+            http-validator,
+            network-gateway,
+            network-observer,
             network-validator,
+            persist,
             parse,
+            wallet,
           ]
       fail-fast: false
     steps:
