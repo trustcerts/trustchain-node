@@ -30,7 +30,7 @@ describe('Network Observer (e2e)', () => {
   let p2PService: P2PService;
   let httpService: HttpService;
   let logger: Logger;
-  let dockerDeps: string[] = ['db', 'wallet', 'persist', 'redis'];
+  let dockerDeps: string[] = ['db', 'wallet', 'persist', 'redis' , 'parse'];
 
   beforeAll(async () => {
     config({ path: 'test/.env' });

@@ -46,7 +46,7 @@ describe('Network Gateway (e2e)', () => {
   let httpService: HttpService;
   let logger: Logger;
   let didTransaction: { did: DidId; transaction: TransactionDto };
-  let dockerDeps: string[] = ['db', 'wallet', 'persist', 'redis'];
+  let dockerDeps: string[] = ['db', 'wallet', 'persist', 'redis' , 'parse'];
 
   beforeAll(async () => {
     console.time('before');
