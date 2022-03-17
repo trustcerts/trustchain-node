@@ -263,7 +263,7 @@ jobs:
       - name: TrustCerts Custom Blockchain
         uses: trustcerts/blockchain-custom-action@v1.0.0
         env:
-          NETOWRK_SIZE: normal 
+          NETWORK_SIZE: normal 
 
 
       - name: run test
