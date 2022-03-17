@@ -260,11 +260,11 @@ jobs:
       - name: load docker images
         run: node tools/load-docker-images.mjs
 
-      - name: Start blockchain-nodes
-        run: |
-          cd ./test/network/trustchain-config/config-example/network
-          ./all.sh up -d
-          ./initNodes.sh
+      - name: TrustCerts Custom Blockchain
+        uses: trustcerts/blockchain-custom-action@v1.0.0
+        env:
+          NETOWRK_SIZE: normal 
+
 
       - name: run test
         run: npm run test:network
