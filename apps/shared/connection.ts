@@ -1,7 +1,7 @@
 import { Socket as ClientSocket } from 'socket.io-client';
 import { HttpService } from '@nestjs/axios';
 import { Logger } from 'winston';
-import { RoleManageType } from '@tc/did-id/constants';
+import { RoleManageType } from '@tc/transactions/did-id/constants';
 import { Socket as ServerSocket } from 'socket.io';
 import { lastValueFrom } from 'rxjs';
 import { wait } from './helpers';

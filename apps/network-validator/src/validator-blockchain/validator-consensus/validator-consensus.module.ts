@@ -1,6 +1,6 @@
 import { BlockCheckModule } from '@tc/blockchain/block-check/block-check.module';
 import { ConsensusHealthIndicator } from './consensus.health';
-import { DidIdCachedModule } from '@tc/did-id/cached/did-id-cached.module';
+import { DidIdCachedModule } from '@tc/transactions/did-id/cached/did-id-cached.module';
 import { Module } from '@nestjs/common';
 import { P2PModule } from '@tc/p2-p';
 import { PersistClientModule } from '@tc/persist-client/persist-client.module';

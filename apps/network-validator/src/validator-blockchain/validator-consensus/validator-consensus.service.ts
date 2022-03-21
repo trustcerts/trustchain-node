@@ -8,7 +8,7 @@ import {
 } from '@tc/blockchain/blockchain.events';
 import { ConfigService } from '@tc/config/config.service';
 import { Connection } from '@shared/connection';
-import { DidIdCachedService } from '@tc/did-id/cached/did-id-cached.service';
+import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
 import { P2PService } from '@tc/p2-p';
@@ -19,7 +19,7 @@ import { ValidatorService } from './validator/validator.service';
 import Timeout = NodeJS.Timeout;
 import { Gauge } from 'prom-client';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';
-import { RoleManageType } from '@tc/did-id/constants';
+import { RoleManageType } from '@tc/transactions/did-id/constants';
 
 /**
  * Service that is responsible for the consensus to find valid blocks.

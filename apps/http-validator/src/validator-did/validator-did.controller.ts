@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { ClientTCP } from '@nestjs/microservices';
 import { ConfigService } from '@tc/config';
-import { CreateDidIdDto } from '@tc/did-id/dto/create-did-id.dto';
+import { CreateDidIdDto } from '@tc/transactions/did-id/dto/create-did-id.dto';
 import { InviteRequest } from '@tc/invite/schemas/invite-request.schema';
 import { InviteService } from '@tc/invite/invite.service';
 import { MaintenanceGuard } from '@tc/config/version/maintenance.guard';

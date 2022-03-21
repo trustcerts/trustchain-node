@@ -22,7 +22,7 @@ import { Server } from 'socket.io';
 import { io } from 'socket.io-client';
 import { HttpService } from '@nestjs/axios';
 import { config } from 'dotenv';
-import { RoleManageType } from '@tc/did-id/constants';
+import { RoleManageType } from '@tc/transactions/did-id/constants';
 
 describe('Network Observer (e2e)', () => {
   let app: INestApplication;
@@ -30,7 +30,7 @@ describe('Network Observer (e2e)', () => {
   let p2PService: P2PService;
   let httpService: HttpService;
   let logger: Logger;
-  let dockerDeps: string[] = ['db', 'wallet', 'persist', 'redis' , 'parse'];
+  let dockerDeps: string[] = ['db', 'wallet', 'persist', 'redis', 'parse'];
 
   beforeAll(async () => {
     config({ path: 'test/.env' });

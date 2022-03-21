@@ -18,7 +18,7 @@ import { HttpValidatorService } from './http-validator.service';
 import { InviteService } from '@tc/invite';
 import { Logger } from 'winston';
 import { NodeGuard } from '@shared/guards/node-guard.service';
-import { RoleManageType } from '@tc/did-id/constants';
+import { RoleManageType } from '@tc/transactions/did-id/constants';
 
 /**
  * Controller to handle requests to the Validator.

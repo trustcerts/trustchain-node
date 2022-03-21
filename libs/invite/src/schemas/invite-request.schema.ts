@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Document } from 'mongoose';
 import { IsEnum, IsOptional, IsString } from 'class-validator';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { RoleManageType } from '@tc/did-id/constants';
+import { RoleManageType } from '@tc/transactions/did-id/constants';
 
 export type InviteRequestDocument = InviteRequest & Document;
 

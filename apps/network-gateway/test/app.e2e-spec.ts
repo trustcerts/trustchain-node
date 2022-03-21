@@ -11,7 +11,7 @@ import {
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { DidId } from '@trustcerts/core';
 import { WalletClientService } from '@tc/wallet-client';
-import { DidIdCachedService } from '@tc/did-id/cached/did-id-cached.service';
+import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
 import { wait } from '@shared/helpers';
 import { addRedisEndpoint } from '@shared/main-functions';
 import { P2PService } from '@tc/p2-p';
@@ -35,7 +35,7 @@ import {
 } from '@tc/blockchain/blockchain.events';
 import { HttpService } from '@nestjs/axios';
 import { config } from 'dotenv';
-import { RoleManageType } from '@tc/did-id/constants';
+import { RoleManageType } from '@tc/transactions/did-id/constants';
 
 describe('Network Gateway (e2e)', () => {
   let app: INestApplication;

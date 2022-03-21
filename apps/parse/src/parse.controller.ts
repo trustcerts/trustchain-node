@@ -4,7 +4,7 @@ import { Controller, Inject } from '@nestjs/common';
 import { EventPattern, MessagePattern, Transport } from '@nestjs/microservices';
 import { Logger } from 'winston';
 import { ParseService } from './parse.service';
-import { ParsingService } from '@shared/transactions/parsing.service';
+import { ParsingService } from '@tc/transactions/transactions/parsing.service';
 import { SYSTEM_RESET } from '@tc/event-client/constants';
 import { existsSync, rmSync } from 'fs';
 import { join } from 'path';

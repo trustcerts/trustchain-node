@@ -4,7 +4,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { HttpObserverModule } from '../src/http-observer.module';
 import { ClientRedis } from '@nestjs/microservices';
 import { REDIS_INJECTION } from '@tc/event-client/constants';
-import { DidIdCachedService } from '@tc/did-id/cached/did-id-cached.service';
+import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
 import { WalletClientService } from '@tc/wallet-client';
 import { InviteNode } from '@tc/invite/dto/invite-node.dto';
 import { addRedisEndpoint } from '@shared/main-functions';
@@ -22,7 +22,7 @@ import { HttpObserverService } from '../src/http-observer.service';
 import { wait } from '@shared/helpers';
 import { config } from 'dotenv';
 import { ParseClientService } from '@tc/parse-client/parse-client.service';
-import { RoleManageType } from '@tc/did-id/constants';
+import { RoleManageType } from '@tc/transactions/did-id/constants';
 
 describe('ObserverController (e2e)', () => {
   let app: INestApplication;

@@ -1,6 +1,6 @@
 import { Connection } from 'mongoose';
-import { DID_ID_CONNECTION } from '@tc/did-id/constants';
-import { HASH_CONNECTION } from '@tc/did-hash/constants';
+import { DID_ID_CONNECTION } from '@tc/transactions/did-id/constants';
+import { HASH_CONNECTION } from '@tc/transactions/did-hash/constants';
 import { INVITE_CONNECTION } from '@tc/invite/constants';
 import { InjectConnection } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';

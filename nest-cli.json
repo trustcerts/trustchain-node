@@ -202,40 +202,13 @@
         "tsConfigPath": "libs/clients/event-client/tsconfig.lib.json"
       }
     },
-    "did-id": {
+    "transactions": {
       "type": "library",
-      "root": "libs/transactions/did-id",
+      "root": "libs/transactions",
       "entryFile": "index",
-      "sourceRoot": "libs/transactions/did-id/src",
+      "sourceRoot": "libs/transactions/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/transactions/did-id/tsconfig.lib.json"
-      }
-    },
-    "did-hash": {
-      "type": "library",
-      "root": "libs/transactions/did-hash",
-      "entryFile": "index",
-      "sourceRoot": "libs/transactions/did-hash/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/transactions/did-hash/tsconfig.lib.json"
-      }
-    },
-    "did-template": {
-      "type": "library",
-      "root": "libs/transactions/did-template",
-      "entryFile": "index",
-      "sourceRoot": "libs/transactions/did-template/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/transactions/did-template/tsconfig.lib.json"
-      }
-    },
-    "did-schema": {
-      "type": "library",
-      "root": "libs/transactions/did-schema",
-      "entryFile": "index",
-      "sourceRoot": "libs/transactions/did-schema/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/transactions/did-schema/tsconfig.lib.json"
+        "tsConfigPath": "libs/transactions/tsconfig.lib.json"
       }
     }
   }

@@ -1,4 +1,4 @@
-import { CachedService } from '@shared/cache.service';
+import { CachedService } from '@tc/transactions/transactions/cache.service';
 import { ConfigService } from '@tc/config';
 import { ConflictException } from '@nestjs/common';
 import { DidResolver } from '@trustcerts/core';
@@ -7,7 +7,7 @@ import { Logger } from 'winston';
 import { PersistedTransaction } from '@shared/http/dto/persisted-transaction';
 import { SignatureInfo } from '@tc/blockchain/transaction/signature-info';
 import { SignatureType } from '@tc/blockchain/transaction/signature-type';
-import { TransactionCheck } from '@shared/transactions/transaction.check';
+import { TransactionCheck } from '@tc/transactions/transactions/transaction-check.service';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 import { WalletClientService } from '@tc/wallet-client';

@@ -1,4 +1,4 @@
-import { DidIdCachedModule } from '@tc/did-id/cached/did-id-cached.module';
+import { DidIdCachedModule } from '@tc/transactions/did-id/cached/did-id-cached.module';
 import { EventClientModule } from '@tc/event-client';
 import { GatewayBlockchainController } from './gateway-blockchain.controller';
 import { GatewayBlockchainService } from './gateway-blockchain.service';

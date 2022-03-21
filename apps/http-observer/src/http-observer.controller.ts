@@ -13,7 +13,7 @@ import { InviteNode } from '@tc/invite/dto/invite-node.dto';
 import { Logger } from 'winston';
 import { NodeGuard } from '@shared/guards/node-guard.service';
 import { REDIS_INJECTION } from '@tc/event-client/constants';
-import { RoleManageType } from '@tc/did-id/constants';
+import { RoleManageType } from '@tc/transactions/did-id/constants';
 
 /**
  * Controller to interact with the Observer.

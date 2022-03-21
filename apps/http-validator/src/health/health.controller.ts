@@ -1,7 +1,7 @@
 import { ConfigService } from '@tc/config';
 import { Connection } from '@shared/connection';
 import { Controller, Get } from '@nestjs/common';
-import { DID_ID_CONNECTION } from '@tc/did-id/constants';
+import { DID_ID_CONNECTION } from '@tc/transactions/did-id/constants';
 import {
   HealthCheck,
   HealthCheckService,

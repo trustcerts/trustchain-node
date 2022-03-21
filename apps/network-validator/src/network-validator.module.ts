@@ -21,8 +21,8 @@ import {
 } from '@shared/validation-rules';
 
 import { BlockReceivedModule } from '@tc/p2-p/block-received/block-received.module';
-import { DidIdCachedModule } from '@tc/did-id/cached/did-id-cached.module';
-import { DidIdDbModule } from '@tc/did-id/db/did-id-db.module';
+import { DidIdCachedModule } from '@tc/transactions/did-id/cached/did-id-cached.module';
+import { DidIdDbModule } from '@tc/transactions/did-id/db/did-id-db.module';
 import { EventClientModule } from '@tc/event-client';
 import { HttpConfigService } from '@shared/http-config.service';
 import { HttpModule } from '@nestjs/axios';
