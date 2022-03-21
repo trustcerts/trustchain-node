@@ -1,7 +1,7 @@
 /**
  * Sets the built version during the ci process to track errors in sentry.
  */
-export const build = 'BUILD';
+export const build = '$GITHUB_SHA';
 
 /**
  * Sets the build date.
