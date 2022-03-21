@@ -102,11 +102,6 @@
                                 <a href="#checkDoubleHashDB" >checkDoubleHashDB</a>
                             </li>
                             <li>
-                                    <span class="modifier">Public</span>
-                                    <span class="modifier">Async</span>
-                                <a href="#checkRevocation" >checkRevocation</a>
-                            </li>
-                            <li>
                                     <span class="modifier">Protected</span>
                                     <span class="modifier">Async</span>
                                 <a href="#findHash" >findHash</a>
@@ -120,17 +115,11 @@
                                 <a href="#getType" >getType</a>
                             </li>
                             <li>
+                                    <span class="modifier">Async</span>
                                 <a href="#getValidation" >getValidation</a>
                             </li>
                             <li>
-                                    <span class="modifier">Private</span>
-                                    <span class="modifier">Async</span>
-                                <a href="#isIssuer" >isIssuer</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Private</span>
-                                    <span class="modifier">Async</span>
-                                <a href="#isIssuerAuthorized" >isIssuerAuthorized</a>
+                                <a href="#hasController" >hasController</a>
                             </li>
                             <li>
                                     <span class="modifier">Async</span>
@@ -360,8 +349,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="57"
-                            class="link-to-prism">libs/transactions/hash/src/hash-blockchain/hash-transaction-check/hash-transaction-check.service.ts:57</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="77"
+                            class="link-to-prism">libs/transactions/hash/src/hash-blockchain/hash-transaction-check/hash-transaction-check.service.ts:77</a></div>
                 </td>
             </tr>
 
@@ -369,80 +358,6 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-description"><p>Checks if hash is already in the database.</p>
-</div>
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>transaction</td>
-                                    <td>
-                                                <code><a href="../classes/HashDidTransactionDto.html" target="_self" >HashDidTransactionDto</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="checkRevocation"></a>
-                    <span class="name">
-                        <span class="modifier">Public</span>
-                        <span class="modifier">Async</span>
-                        <span ><b>checkRevocation</b></span>
-                        <a href="#checkRevocation"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>checkRevocation(transaction: <a href="../classes/HashDidTransactionDto.html" target="_self">HashDidTransactionDto</a>)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="81"
-                            class="link-to-prism">libs/transactions/hash/src/hash-blockchain/hash-transaction-check/hash-transaction-check.service.ts:81</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Checks if the hash with the given hash is in the database and is not revoked.</p>
 </div>
 
                     <div class="io-description">
@@ -508,8 +423,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="123"
-                            class="link-to-prism">libs/transactions/hash/src/hash-blockchain/hash-transaction-check/hash-transaction-check.service.ts:123</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="92"
+                            class="link-to-prism">libs/transactions/hash/src/hash-blockchain/hash-transaction-check/hash-transaction-check.service.ts:92</a></div>
                 </td>
             </tr>
 
@@ -581,8 +496,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="130"
-                            class="link-to-prism">libs/transactions/hash/src/hash-blockchain/hash-transaction-check/hash-transaction-check.service.ts:130</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="99"
+                            class="link-to-prism">libs/transactions/hash/src/hash-blockchain/hash-transaction-check/hash-transaction-check.service.ts:99</a></div>
                 </td>
             </tr>
 
@@ -628,7 +543,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:115</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:84</a></code>
 </div>
                 </td>
             </tr>
@@ -651,6 +566,7 @@
                 <td class="col-md-4">
                     <a name="getValidation"></a>
                     <span class="name">
+                        <span class="modifier">Async</span>
                         <span ><b>getValidation</b></span>
                         <a href="#getValidation"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -658,7 +574,8 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getValidation(transaction: <a href="../classes/HashDidTransactionDto.html" target="_self">HashDidTransactionDto</a>, addedTransactions: <a href="../classes/TransactionDto.html" target="_self">Map&lt;string | TransactionDto&gt;</a>)</code>
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getValidation(transaction: <a href="../classes/HashDidTransactionDto.html" target="_self">HashDidTransactionDto</a>, addedTransactions: <a href="../classes/TransactionDto.html" target="_self">Map&lt;string | TransactionDto&gt;</a>)</code>
                 </td>
             </tr>
 
@@ -671,7 +588,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:139</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:108</a></code>
 </div>
                 </td>
             </tr>
@@ -738,120 +655,31 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="isIssuer"></a>
+                    <a name="hasController"></a>
                     <span class="name">
-                        <span class="modifier">Private</span>
-                        <span class="modifier">Async</span>
-                        <span ><b>isIssuer</b></span>
-                        <a href="#isIssuer"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>hasController</b></span>
+                        <a href="#hasController"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>isIssuer(transactionIssuerId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, hashIssuerId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+<code>hasController(transaction: <a href="../classes/HashDidTransactionDto.html" target="_self">HashDidTransactionDto</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="106"
-                            class="link-to-prism">libs/transactions/hash/src/hash-blockchain/hash-transaction-check/hash-transaction-check.service.ts:106</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="56"
+                            class="link-to-prism">libs/transactions/hash/src/hash-blockchain/hash-transaction-check/hash-transaction-check.service.ts:56</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Checks if the did is authorized to revoke the hash.</p>
-</div>
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>transactionIssuerId</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td>hashIssuerId</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>    <code>unknown</code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="isIssuerAuthorized"></a>
-                    <span class="name">
-                        <span class="modifier">Private</span>
-                        <span class="modifier">Async</span>
-                        <span ><b>isIssuerAuthorized</b></span>
-                        <a href="#isIssuerAuthorized"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>isIssuerAuthorized(transaction: <a href="../classes/HashDidTransactionDto.html" target="_self">HashDidTransactionDto</a>)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="67"
-                            class="link-to-prism">libs/transactions/hash/src/hash-blockchain/hash-transaction-check/hash-transaction-check.service.ts:67</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Checks if the issuer is authorized to perform this action.</p>
+                    <div class="io-description"><p>Checks if the new element has a controller.</p>
 </div>
 
                     <div class="io-description">
@@ -1238,6 +1066,26 @@ export class HashTransactionCheckService extends TransactionCheck {
   }
 
   /**
+   * Checks if the new element has a controller.
+   */
+  hasController(transaction: HashDidTransactionDto) {
+    return this.cachedService.getById(transaction.body.value.id).then(
+      () &#x3D;&gt; Promise.resolve(),
+      () &#x3D;&gt; {
+        if (
+          transaction.body.value.controller &amp;&amp;
+          transaction.body.value.controller.add &amp;&amp;
+          transaction.body.value.controller.add.length &gt; 0
+        ) {
+          return Promise.resolve();
+        } else {
+          throw new Error(&#x27;no controller for&#x27;);
+        }
+      },
+    );
+  }
+
+  /**
    * Checks if hash is already in the database.
    * @param transaction
    */
@@ -1246,57 +1094,6 @@ export class HashTransactionCheckService extends TransactionCheck {
     if (hash) {
       throw new Error(&#x60;Hash already signed: ${transaction.body.value.id}&#x60;);
     }
-  }
-
-  /**
-   * Checks if the issuer is authorized to perform this action.
-   */
-  private async isIssuerAuthorized(transaction: HashDidTransactionDto) {
-    // check if the identifier is authorized.
-    const issuer &#x3D; await this.didCachedService.getDidByKey(
-      transaction.signature.values[0].identifier,
-    );
-    if (!issuer.roles.includes(RoleManageType.Client)) {
-      throw Error(&#x27;issuer is not authorized to create hash transactions&#x27;);
-    }
-  }
-
-  /**
-   * Checks if the hash with the given hash is in the database and is not revoked.
-   * @param transaction
-   */
-  public async checkRevocation(transaction: HashDidTransactionDto) {
-    const hash &#x3D; await this.findHash(transaction.body.value.id);
-    if (!hash) {
-      throw new Error(&#x60;Hash to revoke doesn&#x27;t exist.&#x60;);
-    }
-    // TODO implement
-    // if (hash.revoked !&#x3D;&#x3D; undefined) {
-    //   throw new Error(&#x27;Hash already revoked.&#x27;);
-    // }
-    if (
-      !(await this.isIssuer(
-        transaction.signature.values[0].identifier,
-        hash.signature.values[0].identifier,
-      ))
-    ) {
-      throw new Error(&#x27;Only the original issuer can revoke the hash.&#x27;);
-    }
-    return;
-  }
-
-  /**
-   * Checks if the did is authorized to revoke the hash.
-   * @param transactionIssuerId
-   * @param hashIssuerId
-   */
-  private async isIssuer(transactionIssuerId: string, hashIssuerId: string) {
-    const didTransaction &#x3D; await this.didCachedService.getDidByKey(
-      transactionIssuerId,
-    );
-    // TODO validate if the controller is allowed to revoke a hash.
-    const didHash &#x3D; await this.didCachedService.getDidByKey(hashIssuerId);
-    return didTransaction.id &#x3D;&#x3D;&#x3D; didHash.id;
   }
 
   protected getType(): TransactionType {
@@ -1323,14 +1120,12 @@ export class HashTransactionCheckService extends TransactionCheck {
    * @param transaction
    * @param addedTransactions
    */
-  getValidation(
+  async getValidation(
     transaction: HashDidTransactionDto,
     addedTransactions: Map&lt;string, TransactionDto&gt;,
   ): Promise&lt;void&gt; {
-    this.checkDoubleHash(
-      transaction as HashDidTransactionDto,
-      addedTransactions,
-    );
+    this.checkDoubleHash(transaction, addedTransactions);
+    await this.hasController(transaction);
     return Promise.resolve();
   }
 }

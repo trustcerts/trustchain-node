@@ -1242,6 +1242,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="classes/BcEntity.html" data-type="entity-link" >BcEntity</a>
                             </li>
                             <li class="link">
+                                <a href="classes/Block.html" data-type="entity-link" >Block</a>
+                            </li>
+                            <li class="link">
                                 <a href="classes/BlockchainGateway.html" data-type="entity-link" >BlockchainGateway</a>
                             </li>
                             <li class="link">
@@ -1434,9 +1437,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="classes/ProposedBlock.html" data-type="entity-link" >ProposedBlock</a>
                             </li>
                             <li class="link">
-                                <a href="classes/ProposedSignatures.html" data-type="entity-link" >ProposedSignatures</a>
-                            </li>
-                            <li class="link">
                                 <a href="classes/PublicKeyJwkDto.html" data-type="entity-link" >PublicKeyJwkDto</a>
                             </li>
                             <li class="link">
@@ -1568,9 +1568,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             <span class="icon ion-ios-arrow-down"></span>
                         </div>
                         <ul class="links collapse " ${ isNormalMode ? ' id="interfaces-links"' : 'id="xs-interfaces-links"' }>
-                            <li class="link">
-                                <a href="interfaces/Block.html" data-type="entity-link" >Block</a>
-                            </li>
                             <li class="link">
                                 <a href="interfaces/EnvConfig.html" data-type="entity-link" >EnvConfig</a>
                             </li>
