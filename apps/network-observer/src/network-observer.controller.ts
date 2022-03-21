@@ -8,8 +8,8 @@ import {
 import { EventPattern, Transport } from '@nestjs/microservices';
 import { Logger } from 'winston';
 import { P2PService } from '@tc/p2-p';
-import { RoleManageType } from '@tc/did-id/constants';
-import { SYSTEM_RESET } from '@tc/event-client/constants';
+import { RoleManageType } from '@tc/transactions/did-id/constants';
+import { SYSTEM_RESET } from '@tc/clients/event-client/constants';
 
 /**
  * Endpoint to interact with the network service of the Observer

@@ -11,16 +11,16 @@ import {
   Identifier,
 } from '@trustcerts/core';
 import { DidIdRegister } from '@trustcerts/did-id-create';
-import { DidIdTransactionDto } from '@tc/did-id/dto/did-id-transaction.dto';
-import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
-import { WalletClientService } from '@tc/wallet-client';
+import { DidIdTransactionDto } from '@tc/transactions/did-id/dto/did-id-transaction.dto';
+import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
+import { WalletClientService } from '@tc/clients/wallet-client';
 import { ClientRedis } from '@nestjs/microservices';
-import { REDIS_INJECTION } from '@tc/event-client/constants';
+import { REDIS_INJECTION } from '@tc/clients/event-client/constants';
 import { addRedisEndpoint } from '@shared/main-functions';
 import { HashService } from '@tc/blockchain';
-import { RoleManageType } from '@tc/did-id/constants';
-import { TemplateTransactionDto } from '@tc/template/dto/template.transaction.dto';
-import { CompressionType } from '@tc/template/dto/compressiontype.dto';
+import { RoleManageType } from '@tc/transactions/did-id/constants';
+import { TemplateTransactionDto } from '@tc/transactions/did-template/dto/template.transaction.dto';
+import { CompressionType } from '@tc/transactions/did-template/dto/compressiontype.dto';
 import { InviteRequest } from '@tc/invite/schemas/invite-request.schema';
 import { InviteNode } from '@tc/invite/dto/invite-node.dto';
 import * as fs from 'fs';
@@ -39,10 +39,10 @@ import { HttpGatewayService } from '../src/http-gateway.service';
 import { wait } from '@shared/helpers';
 import { InviteService } from '@tc/invite';
 import { TextEncoder } from 'util';
-import { HashDidTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
-import { CreateDidIdDto } from '@tc/did-id/dto/create-did-id.dto';
+import { HashDidTransactionDto } from '@tc/transactions/did-hash/dto/hash-transaction.dto';
+import { CreateDidIdDto } from '@tc/transactions/did-id/dto/create-did-id.dto';
 import { config } from 'dotenv';
-import { ParseClientService } from '@tc/parse-client/parse-client.service';
+import { ParseClientService } from '@tc/clients/parse-client/parse-client.service';
 
 describe('Http Gateway (e2e)', () => {
   let app: INestApplication;

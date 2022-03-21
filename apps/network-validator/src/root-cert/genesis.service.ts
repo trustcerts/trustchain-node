@@ -3,19 +3,19 @@ import { BlockReceivedService } from '@tc/p2-p/block-received/block-received.ser
 import { ConfigService } from '@tc/config/config.service';
 import { Connection } from '@shared/connection';
 import { DidCreation, VerificationRelationshipType } from '@trustcerts/core';
-import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
+import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
 import { DidIdRegister } from '@trustcerts/did-id-create';
-import { DidIdTransactionDto } from '@tc/did-id/dto/did-id-transaction.dto';
+import { DidIdTransactionDto } from '@tc/transactions/did-id/dto/did-id-transaction.dto';
 import { HashService } from '@tc/blockchain';
 import { HttpService } from '@nestjs/axios';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
 import { ProposedBlock } from '@tc/blockchain/block/proposed-block.dto';
-import { RoleManageType } from '@tc/did-id/constants';
+import { RoleManageType } from '@tc/transactions/did-id/constants';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
 import { SignatureInfo } from '@tc/blockchain/transaction/signature-info';
 import { SignatureType } from '@tc/blockchain/transaction/signature-type';
-import { WalletClientService } from '@tc/wallet-client';
+import { WalletClientService } from '@tc/clients/wallet-client';
 import { lastValueFrom } from 'rxjs';
 
 /**

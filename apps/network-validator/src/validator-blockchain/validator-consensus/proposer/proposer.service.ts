@@ -15,7 +15,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
 import { P2PService } from '@tc/p2-p';
 import { ParticipantConsensus } from '../participant-consensus';
-import { PersistClientService } from '@tc/persist-client';
+import { PersistClientService } from '@tc/clients/persist-client';
 import { ProposedBlock } from '@tc/blockchain/block/proposed-block.dto';
 import { ProposedSignatures } from '@tc/blockchain/block/proposed-signatures.dto';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
@@ -23,7 +23,7 @@ import { SignatureService } from '@tc/blockchain/signature/signature.service';
 import { Subject } from 'rxjs';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { ValidatorBlockchainService } from '../../validator-blockchain.service';
-import { WalletClientService } from '@tc/wallet-client';
+import { WalletClientService } from '@tc/clients/wallet-client';
 
 /**
  * Service that handles all actions of a proposer.

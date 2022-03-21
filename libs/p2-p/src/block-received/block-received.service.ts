@@ -1,8 +1,8 @@
 import { Block } from '@tc/blockchain/block/block.interface';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
-import { ParseClientService } from '@tc/parse-client/parse-client.service';
-import { PersistClientService } from '@tc/persist-client/persist-client.service';
+import { ParseClientService } from '@tc/clients/parse-client/parse-client.service';
+import { PersistClientService } from '@tc/clients/persist-client/persist-client.service';
 
 /**
  * Responsible to share new blocks to the internal services.

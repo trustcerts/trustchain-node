@@ -4,10 +4,10 @@ import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import * as fs from 'fs';
 import { InviteRequest } from '@tc/invite/schemas/invite-request.schema';
-import { RoleManageType } from '@tc/did-id/constants';
-import { WalletClientService } from '@tc/wallet-client';
+import { RoleManageType } from '@tc/transactions/did-id/constants';
+import { WalletClientService } from '@tc/clients/wallet-client';
 import { Identifier } from '@trustcerts/core';
-import { REDIS_INJECTION } from '@tc/event-client/constants';
+import { REDIS_INJECTION } from '@tc/clients/event-client/constants';
 import { ClientRedis } from '@nestjs/microservices';
 import { HashService } from '@tc/blockchain';
 import { addRedisEndpoint } from '@shared/main-functions';
@@ -22,7 +22,7 @@ import { HttpValidatorService } from '../src/http-validator.service';
 import { wait } from '@shared/helpers';
 import { DidIdRegister } from '@trustcerts/did-id-create';
 import { config } from 'dotenv';
-import { CreateDidIdDto } from '@tc/did-id/dto/create-did-id.dto';
+import { CreateDidIdDto } from '@tc/transactions/did-id/dto/create-did-id.dto';
 
 describe('ValidatorController (e2e)', () => {
   let app: INestApplication;

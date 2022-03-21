@@ -1,4 +1,4 @@
-import { CachedService } from '@shared/cache.service';
+import { CachedService } from '@tc/transactions/transactions/cache.service';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 

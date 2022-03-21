@@ -5,7 +5,10 @@ import * as request from 'supertest';
 import { addRedisEndpoint } from '@shared/main-functions';
 import { ClientRedis } from '@nestjs/microservices';
 import { wait } from '@shared/helpers';
-import { REDIS_INJECTION, SYSTEM_RESET } from '@tc/event-client/constants';
+import {
+  REDIS_INJECTION,
+  SYSTEM_RESET,
+} from '@tc/clients/event-client/constants';
 import { P2PService } from '@tc/p2-p';
 import * as fs from 'fs';
 import { Logger } from 'winston';
@@ -22,7 +25,7 @@ import { Server } from 'socket.io';
 import { io } from 'socket.io-client';
 import { HttpService } from '@nestjs/axios';
 import { config } from 'dotenv';
-import { RoleManageType } from '@tc/did-id/constants';
+import { RoleManageType } from '@tc/transactions/did-id/constants';
 
 describe('Network Observer (e2e)', () => {
   let app: INestApplication;
@@ -30,7 +33,7 @@ describe('Network Observer (e2e)', () => {
   let p2PService: P2PService;
   let httpService: HttpService;
   let logger: Logger;
-  let dockerDeps: string[] = ['db', 'wallet', 'persist', 'redis' , 'parse'];
+  let dockerDeps: string[] = ['db', 'wallet', 'persist', 'redis', 'parse'];
 
   beforeAll(async () => {
     config({ path: 'test/.env' });

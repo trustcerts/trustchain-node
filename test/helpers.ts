@@ -6,31 +6,31 @@ import {
   SignatureContent,
   VerificationRelationshipType,
 } from '@trustcerts/core';
-import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
-import { DidIdTransactionDto } from '@tc/did-id/dto/did-id-transaction.dto';
+import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
+import { DidIdTransactionDto } from '@tc/transactions/did-id/dto/did-id-transaction.dto';
 import { HashService } from '@tc/blockchain/hash.service';
 import { RedisClient } from '@nestjs/microservices/external/redis.interface';
 import { SignatureInfo } from '@tc/blockchain/transaction/signature-info';
 import { SignatureType } from '@tc/blockchain/transaction/signature-type';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
-import { WalletClientService } from '@tc/wallet-client';
+import { WalletClientService } from '@tc/clients/wallet-client';
 import { exec } from 'child_process';
 import http = require('http');
 import express = require('express');
-import { CompressionType } from '@tc/template/dto/compressiontype.dto';
+import { CompressionType } from '@tc/transactions/did-template/dto/compressiontype.dto';
 import { DidIdRegister } from '@trustcerts/did-id-create';
-import { HashDidTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
+import { HashDidTransactionDto } from '@tc/transactions/did-hash/dto/hash-transaction.dto';
 import { MESSAGE_EVENT } from '@nestjs/microservices/constants';
-import { ParseClientService } from '@tc/parse-client/parse-client.service';
-import { SchemaTransactionDto } from '@tc/schema/dto/schema.transaction.dto';
+import { ParseClientService } from '@tc/clients/parse-client/parse-client.service';
+import { SchemaTransactionDto } from '@tc/transactions/did-schema/dto/schema.transaction.dto';
 import { Server } from 'socket.io';
 import { Subject } from 'rxjs';
 import {
   TRANSACTION_CREATED,
   TRANSACTION_PARSED,
-} from '@tc/event-client/constants';
-import { TemplateTransactionDto } from '@tc/template/dto/template.transaction.dto';
+} from '@tc/clients/event-client/constants';
+import { TemplateTransactionDto } from '@tc/transactions/did-template/dto/template.transaction.dto';
 import { TransactionMetadata } from '@tc/blockchain/transaction/transaction-metadata';
 
 /**

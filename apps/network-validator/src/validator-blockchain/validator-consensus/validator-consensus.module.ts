@@ -1,15 +1,15 @@
 import { BlockCheckModule } from '@tc/blockchain/block-check/block-check.module';
 import { ConsensusHealthIndicator } from './consensus.health';
-import { DidIdCachedModule } from '@tc/did-id/did-id-cached/did-id-cached.module';
+import { DidIdCachedModule } from '@tc/transactions/did-id/cached/did-id-cached.module';
 import { Module } from '@nestjs/common';
 import { P2PModule } from '@tc/p2-p';
-import { PersistClientModule } from '@tc/persist-client/persist-client.module';
+import { PersistClientModule } from '@tc/clients/persist-client/persist-client.module';
 import { ProposerService } from './proposer/proposer.service';
 import { SignatureModule } from '@tc/blockchain/signature/signature.module';
 import { ValidatorBlockchainModule } from '../validator-blockchain.module';
 import { ValidatorConsensusService } from './validator-consensus.service';
 import { ValidatorService } from './validator/validator.service';
-import { WalletClientModule } from '@tc/wallet-client/wallet-client.module';
+import { WalletClientModule } from '@tc/clients/wallet-client/wallet-client.module';
 import { makeGaugeProvider } from '@willsoto/nestjs-prometheus';
 
 @Module({

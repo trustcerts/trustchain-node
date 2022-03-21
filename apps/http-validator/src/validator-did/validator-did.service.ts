@@ -1,12 +1,12 @@
 import { ConfigService } from '@tc/config';
-import { CreateDidIdDto } from '@tc/did-id/dto/create-did-id.dto';
-import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
+import { CreateDidIdDto } from '@tc/transactions/did-id/dto/create-did-id.dto';
+import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
 import { DidIdRegister } from '@trustcerts/did-id-create';
-import { DidIdTransactionDto } from '@tc/did-id/dto/did-id-transaction.dto';
+import { DidIdTransactionDto } from '@tc/transactions/did-id/dto/did-id-transaction.dto';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
 import { PersistedTransaction } from '@shared/http/dto/persisted-transaction';
-import { RoleManageType } from '@tc/did-id/constants';
+import { RoleManageType } from '@tc/transactions/did-id/constants';
 import { SignatureInfo } from '@tc/blockchain/transaction/signature-info';
 import { SignatureType } from '@tc/blockchain/transaction/signature-type';
 import { ValidatorBlockchainService } from '../validator-blockchain/validator-blockchain.service';
@@ -16,7 +16,7 @@ import {
   getFingerPrint,
   importKey,
 } from '@trustcerts/core';
-import { WalletClientService } from '@tc/wallet-client';
+import { WalletClientService } from '@tc/clients/wallet-client';
 
 /**
  * Service that signs or revokes public keys from gateways.

@@ -2,16 +2,16 @@ import { BlockCheckModule } from '@tc/blockchain/block-check/block-check.module'
 import { BlockReceivedModule } from '@tc/p2-p/block-received/block-received.module';
 import { BlockchainGateway } from './blockchain.gateway';
 import { ConfigModule } from '@tc/config';
-import { DidIdBlockchainModule } from '@tc/did-id/did-id-blockchain/did-id-blockchain.module';
-import { EventClientModule } from '@tc/event-client';
-import { HashBlockchainModule } from '@tc/hash/hash-blockchain/hash-blockchain.module';
+import { DidIdBlockchainModule } from '@tc/transactions/did-id/validation/did-id-blockchain.module';
+import { EventClientModule } from '@tc/clients/event-client';
+import { HashBlockchainModule } from '@tc/transactions/did-hash/validation/hash-blockchain.module';
 import { HashModule } from '@tc/blockchain';
 import { HttpConfigService } from '@shared/http-config.service';
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { P2PModule } from '@tc/p2-p';
-import { SchemaBlockchainModule } from '@tc/schema/schema-blockchain/schema-blockchain.module';
-import { TemplateBlockchainModule } from '@tc/template/template-blockchain/template-blockchain.module';
+import { SchemaBlockchainModule } from '@tc/transactions/did-schema/validation/schema-blockchain.module';
+import { TemplateBlockchainModule } from '@tc/transactions/did-template/validation/template-blockchain.module';
 import { ValidatorBlockchainService } from './validator-blockchain.service';
 
 @Module({
@@ -21,14 +21,15 @@ import { ValidatorBlockchainService } from './validator-blockchain.service';
       useClass: HttpConfigService,
     }),
     HashModule,
-    HashBlockchainModule,
-    SchemaBlockchainModule,
-    DidIdBlockchainModule,
-    TemplateBlockchainModule,
     P2PModule,
     BlockCheckModule,
     EventClientModule,
     BlockReceivedModule,
+
+    HashBlockchainModule,
+    SchemaBlockchainModule,
+    DidIdBlockchainModule,
+    TemplateBlockchainModule,
   ],
   providers: [BlockchainGateway, ValidatorBlockchainService],
   exports: [ValidatorBlockchainService, HashModule],

@@ -3,7 +3,7 @@ import { ConfigService } from '@tc/config';
 import { EventPattern, Transport } from '@nestjs/microservices';
 import { HttpService } from './http.service';
 import { Logger } from 'winston';
-import { NEW_IDENTIFIER } from '@tc/wallet-client/constants';
+import { NEW_IDENTIFIER } from '@tc/clients/wallet-client/constants';
 import { NodeGuard } from '../guards/node-guard.service';
 import { Post, UnauthorizedException, UseGuards } from '@nestjs/common';
 

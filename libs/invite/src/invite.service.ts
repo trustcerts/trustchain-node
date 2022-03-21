@@ -5,7 +5,7 @@ import {
   Injectable,
   UnprocessableEntityException,
 } from '@nestjs/common';
-import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
+import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
 import { DidIdRegister } from '@trustcerts/did-id-create';
 import { InjectModel } from '@nestjs/mongoose';
 import {

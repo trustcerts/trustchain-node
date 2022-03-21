@@ -6,11 +6,11 @@ import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 
-import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
-import { PersistClientService } from '@tc/persist-client';
+import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
+import { PersistClientService } from '@tc/clients/persist-client';
 import { TextEncoder } from 'util';
 import { TransactionChecks } from '@tc/blockchain/block-check/transaction-checks.interface';
-import { WalletClientService } from '@tc/wallet-client';
+import { WalletClientService } from '@tc/clients/wallet-client';
 
 /**
  * Service to check if a block is valid and can be added to the blockchain.

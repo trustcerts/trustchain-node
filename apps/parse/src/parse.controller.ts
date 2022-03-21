@@ -1,11 +1,11 @@
-import { BLOCK_PARSE, CHAIN_REBUILD } from '@tc/parse-client/constants';
+import { BLOCK_PARSE, CHAIN_REBUILD } from '@tc/clients/parse-client/constants';
 import { Block } from '@tc/blockchain/block/block.interface';
 import { Controller, Inject } from '@nestjs/common';
 import { EventPattern, MessagePattern, Transport } from '@nestjs/microservices';
 import { Logger } from 'winston';
 import { ParseService } from './parse.service';
-import { ParsingService } from '@shared/transactions/parsing.service';
-import { SYSTEM_RESET } from '@tc/event-client/constants';
+import { ParsingService } from '@tc/transactions/transactions/parsing.service';
+import { SYSTEM_RESET } from '@tc/clients/event-client/constants';
 import { existsSync, rmSync } from 'fs';
 import { join } from 'path';
 /**

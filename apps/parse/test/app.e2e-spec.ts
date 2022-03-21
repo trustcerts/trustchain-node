@@ -1,13 +1,16 @@
 import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ParseModule } from '../src/parse.module';
-import { REDIS_INJECTION, SYSTEM_RESET } from '@tc/event-client/constants';
+import {
+  REDIS_INJECTION,
+  SYSTEM_RESET,
+} from '@tc/clients/event-client/constants';
 import { Block } from '@tc/blockchain/block/block.interface';
 import { ClientRedis, ClientsModule, Transport } from '@nestjs/microservices';
-import { DidHash } from '@tc/hash/schemas/did-hash.schema';
-import { DidId } from '@tc/did-id/schemas/did-id.schema';
+import { DidHash } from '@tc/transactions/did-hash/schemas/did-hash.schema';
+import { DidId } from '@tc/transactions/did-id/schemas/did-id.schema';
 import { addRedisEndpoint, addTCPEndpoint } from '@shared/main-functions';
-import { PersistClientService } from '@tc/persist-client';
+import { PersistClientService } from '@tc/clients/persist-client';
 import {
   generateTestDidIdTransaction,
   generateTestHashTransaction,
@@ -20,11 +23,11 @@ import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { wait } from '@shared/helpers';
 import { Model } from 'mongoose';
 import { getModelToken } from '@nestjs/mongoose';
-import { HashDidTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
-import { DidIdTransactionDto } from '@tc/did-id/dto/did-id-transaction.dto';
+import { HashDidTransactionDto } from '@tc/transactions/did-hash/dto/hash-transaction.dto';
+import { DidIdTransactionDto } from '@tc/transactions/did-id/dto/did-id-transaction.dto';
 import { config } from 'dotenv';
-import { ParseClientService } from '@tc/parse-client/parse-client.service';
-import { ParseClientModule } from '@tc/parse-client';
+import { ParseClientService } from '@tc/clients/parse-client/parse-client.service';
+import { ParseClientModule } from '@tc/clients/parse-client';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;

@@ -157,85 +157,22 @@
         "tsConfigPath": "libs/p2-p/tsconfig.lib.json"
       }
     },
-    "wallet-client": {
+    "transactions": {
       "type": "library",
-      "root": "libs/clients/clients/wallet-client",
+      "root": "libs/transactions",
       "entryFile": "index",
-      "sourceRoot": "libs/clients/clients/wallet-client/src",
+      "sourceRoot": "libs/transactions/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/clients/clients/wallet-client/tsconfig.lib.json"
+        "tsConfigPath": "libs/transactions/tsconfig.lib.json"
       }
     },
-    "persist-client": {
+    "clients": {
       "type": "library",
-      "root": "libs/clients/persist-client",
+      "root": "libs/clients",
       "entryFile": "index",
-      "sourceRoot": "libs/clients/persist-client/src",
+      "sourceRoot": "libs/clients/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/clients/persist-client/tsconfig.lib.json"
-      }
-    },
-    "parse-client": {
-      "type": "library",
-      "root": "libs/clients/parse-client",
-      "entryFile": "index",
-      "sourceRoot": "libs/clients/parse-client/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/clients/parse-client/tsconfig.lib.json"
-      }
-    },
-    "network-client": {
-      "type": "library",
-      "root": "libs/clients/network-client",
-      "entryFile": "index",
-      "sourceRoot": "libs/clients/network-client/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/clients/network-client/tsconfig.lib.json"
-      }
-    },
-    "event-client": {
-      "type": "library",
-      "root": "libs/clients/event-client",
-      "entryFile": "index",
-      "sourceRoot": "libs/clients/event-client/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/clients/event-client/tsconfig.lib.json"
-      }
-    },
-    "did": {
-      "type": "library",
-      "root": "libs/transactions/did",
-      "entryFile": "index",
-      "sourceRoot": "libs/transactions/did-id/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/transactions/did/tsconfig.lib.json"
-      }
-    },
-    "hash": {
-      "type": "library",
-      "root": "libs/transactions/hash",
-      "entryFile": "index",
-      "sourceRoot": "libs/transactions/hash/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/transactions/hash/tsconfig.lib.json"
-      }
-    },
-    "template": {
-      "type": "library",
-      "root": "libs/transactions/template",
-      "entryFile": "index",
-      "sourceRoot": "libs/transactions/template/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/transactions/template/tsconfig.lib.json"
-      }
-    },
-    "schema": {
-      "type": "library",
-      "root": "libs/transactions/schema",
-      "entryFile": "index",
-      "sourceRoot": "libs/transactions/schema/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/transactions/schema/tsconfig.lib.json"
+        "tsConfigPath": "libs/clients/tsconfig.lib.json"
       }
     }
   }
