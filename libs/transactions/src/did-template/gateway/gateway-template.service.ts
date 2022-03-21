@@ -8,7 +8,7 @@ import { Logger } from 'winston';
 import { TemplateCachedService } from '@tc/transactions/did-template/cached/template-cached.service';
 import { TemplateTransactionCheckService } from '@tc/transactions/did-template/validation/template-transaction-check.service';
 import { TemplateTransactionDto } from '@tc/transactions/did-template/dto/template.transaction.dto';
-import { WalletClientService } from '@tc/wallet-client';
+import { WalletClientService } from '@tc/clients/wallet-client';
 
 /**
  * Service to handle incoming templates.

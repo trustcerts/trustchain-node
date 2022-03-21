@@ -18,11 +18,7 @@ export default {
     '@tc/blockchain(.*)': '<rootDir>/libs/blockchain/src$1',
     '@tc/invite(.*)': '<rootDir>/libs/invite/src$1',
     '@tc/p2-p(.*)': '<rootDir>/libs/p2-p/src$1',
-    '@tc/wallet-client(.*)': '<rootDir>/libs/clients/wallet-client/src$1',
-    '@tc/persist-client(.*)': '<rootDir>/libs/clients/persist-client/src$1',
-    '@tc/parse-client(.*)': '<rootDir>/libs/clients/parse-client/src$1',
-    '@tc/network-client(.*)': '<rootDir>/libs/clients/network-client/src$1',
-    '@tc/event-client(.*)': '<rootDir>/libs/clients/event-client/src$1',
+    '@tc/clients(.*)': '<rootDir>/libs/clients/src$1',
     '@tc/transactions(.*)': '<rootDir>/libs/transactions/src/$1',
   },
 };

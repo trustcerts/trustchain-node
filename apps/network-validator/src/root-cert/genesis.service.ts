@@ -15,7 +15,7 @@ import { RoleManageType } from '@tc/transactions/did-id/constants';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
 import { SignatureInfo } from '@tc/blockchain/transaction/signature-info';
 import { SignatureType } from '@tc/blockchain/transaction/signature-type';
-import { WalletClientService } from '@tc/wallet-client';
+import { WalletClientService } from '@tc/clients/wallet-client';
 import { lastValueFrom } from 'rxjs';
 
 /**

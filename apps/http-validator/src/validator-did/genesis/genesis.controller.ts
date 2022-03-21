@@ -14,7 +14,7 @@ import {
 } from '@nestjs/common';
 import { CERT_ROOT_INIT } from '../../constants';
 import { ClientTCP } from '@nestjs/microservices';
-import { NETWORK_TCP_INJECTION } from '@tc/network-client/constants';
+import { NETWORK_TCP_INJECTION } from '@tc/clients/network-client/constants';
 import { NodeGuard } from '@shared/guards/node-guard.service';
 
 /**

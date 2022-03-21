@@ -14,7 +14,7 @@ import { SignatureInfo } from '@tc/blockchain/transaction/signature-info';
 import { SignatureType } from '@tc/blockchain/transaction/signature-type';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
-import { WalletClientService } from '@tc/wallet-client';
+import { WalletClientService } from '@tc/clients/wallet-client';
 import { exec } from 'child_process';
 import http = require('http');
 import express = require('express');
@@ -22,14 +22,14 @@ import { CompressionType } from '@tc/transactions/did-template/dto/compressionty
 import { DidIdRegister } from '@trustcerts/did-id-create';
 import { HashDidTransactionDto } from '@tc/transactions/did-hash/dto/hash-transaction.dto';
 import { MESSAGE_EVENT } from '@nestjs/microservices/constants';
-import { ParseClientService } from '@tc/parse-client/parse-client.service';
+import { ParseClientService } from '@tc/clients/parse-client/parse-client.service';
 import { SchemaTransactionDto } from '@tc/transactions/did-schema/dto/schema.transaction.dto';
 import { Server } from 'socket.io';
 import { Subject } from 'rxjs';
 import {
   TRANSACTION_CREATED,
   TRANSACTION_PARSED,
-} from '@tc/event-client/constants';
+} from '@tc/clients/event-client/constants';
 import { TemplateTransactionDto } from '@tc/transactions/did-template/dto/template.transaction.dto';
 import { TransactionMetadata } from '@tc/blockchain/transaction/transaction-metadata';
 

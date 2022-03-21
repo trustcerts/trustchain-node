@@ -2,7 +2,10 @@ import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { PersistModule } from '../src/persist.module';
 import { ClientRedis, ClientsModule, Transport } from '@nestjs/microservices';
-import { REDIS_INJECTION, SYSTEM_RESET } from '@tc/event-client/constants';
+import {
+  REDIS_INJECTION,
+  SYSTEM_RESET,
+} from '@tc/clients/event-client/constants';
 import * as fs from 'fs';
 import { addRedisEndpoint, addTCPEndpoint } from '@shared/main-functions';
 import { join } from 'path';
@@ -18,7 +21,10 @@ import {
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { ConfigService } from '@tc/config/config.service';
 import { config } from 'dotenv';
-import { PersistClientModule, PersistClientService } from '@tc/persist-client';
+import {
+  PersistClientModule,
+  PersistClientService,
+} from '@tc/clients/persist-client';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;

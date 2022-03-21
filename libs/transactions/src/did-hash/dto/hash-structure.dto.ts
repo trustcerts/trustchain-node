@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { DID_ID_NAME } from '@tc/transactions/did-id/constants';
 import { DidStructure } from '@tc/transactions/transactions/did/dto/did-structure.dto';
 import { IsIn, IsString, Matches } from 'class-validator';
-import { WalletClientService } from '@tc/wallet-client';
+import { WalletClientService } from '@tc/clients/wallet-client';
 import { getDid } from '@shared/helpers';
 
 /**

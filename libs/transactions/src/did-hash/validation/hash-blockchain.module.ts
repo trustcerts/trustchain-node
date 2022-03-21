@@ -4,7 +4,7 @@ import {
   HashSchema,
 } from '@tc/transactions/did-hash/schemas/did-hash.schema';
 import { DidIdCachedModule } from '@tc/transactions/did-id/cached/did-id-cached.module';
-import { EventClientModule } from '@tc/event-client';
+import { EventClientModule } from '@tc/clients/event-client';
 import { HASH_CONNECTION } from '@tc/transactions/did-hash/constants';
 import { HashCachedModule } from '@tc/transactions/did-hash/cached/hash-cached.module';
 import { HashDbModule } from '@tc/transactions/did-hash/db/hash-db.module';

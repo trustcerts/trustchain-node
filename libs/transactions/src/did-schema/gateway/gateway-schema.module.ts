@@ -4,7 +4,7 @@ import { GatewaySchemaService } from './gateway-schema.service';
 import { Module } from '@nestjs/common';
 import { SchemaBlockchainModule } from '@tc/transactions/did-schema/validation/schema-blockchain.module';
 import { SchemaCachedModule } from '@tc/transactions/did-schema/cached/schema-cached.module';
-import { WalletClientModule } from '@tc/wallet-client';
+import { WalletClientModule } from '@tc/clients/wallet-client';
 
 @Module({
   imports: [

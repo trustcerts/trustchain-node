@@ -14,7 +14,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
 import { Key } from '@tc/transactions/did-id/schemas/key.schema';
 import { Model } from 'mongoose';
-import { PersistClientService } from '@tc/persist-client';
+import { PersistClientService } from '@tc/clients/persist-client';
 import { RoleManageType } from '@tc/transactions/did-id/constants';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 

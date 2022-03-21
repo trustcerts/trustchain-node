@@ -19,7 +19,7 @@ import { PersistedTransaction } from '@shared/http/dto/persisted-transaction';
 import {
   REDIS_INJECTION,
   TRANSACTION_CREATED,
-} from '@tc/event-client/constants';
+} from '@tc/clients/event-client/constants';
 
 /**
  * Service that is used to send transactions to the validators and responds to the Client.

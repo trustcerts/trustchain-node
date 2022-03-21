@@ -7,10 +7,10 @@ import {
   REDIS_INJECTION,
   SYSTEM_RESET,
   TRANSACTION_CREATED,
-} from '@tc/event-client/constants';
+} from '@tc/clients/event-client/constants';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { DidId } from '@trustcerts/core';
-import { WalletClientService } from '@tc/wallet-client';
+import { WalletClientService } from '@tc/clients/wallet-client';
 import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
 import { wait } from '@shared/helpers';
 import { addRedisEndpoint } from '@shared/main-functions';

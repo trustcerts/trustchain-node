@@ -8,7 +8,7 @@ import { Logger } from 'winston';
 import { SchemaCachedService } from '@tc/transactions/did-schema/cached/schema-cached.service';
 import { SchemaTransactionCheckService } from '@tc/transactions/did-schema/validation/schema-transaction-check.service';
 import { SchemaTransactionDto } from '@tc/transactions/did-schema/dto/schema.transaction.dto';
-import { WalletClientService } from '@tc/wallet-client';
+import { WalletClientService } from '@tc/clients/wallet-client';
 
 /**
  * Service to handle incoming schemas.

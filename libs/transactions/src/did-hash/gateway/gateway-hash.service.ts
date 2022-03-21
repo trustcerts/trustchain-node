@@ -10,7 +10,7 @@ import { HashResponse } from '../dto/hash-respnse.dto';
 import { HashService } from '@tc/blockchain/hash.service';
 import { HashTransactionCheckService } from '@tc/transactions/did-hash/validation/hash-transaction-check.service';
 import { Logger } from 'winston';
-import { WalletClientService } from '@tc/wallet-client';
+import { WalletClientService } from '@tc/clients/wallet-client';
 
 /**
  * Service to validate requests from the api to the blockchain level.

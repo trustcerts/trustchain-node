@@ -16,7 +16,7 @@ import { Logger } from 'winston';
 import { Model } from 'mongoose';
 import { ParseService } from '@apps/parse/src/parse.service';
 import { ParsingService } from '@tc/transactions/transactions/parsing.service';
-import { REDIS_INJECTION } from '@tc/event-client/constants';
+import { REDIS_INJECTION } from '@tc/clients/event-client/constants';
 import { SchemaCachedService } from '@tc/transactions/did-schema/cached/schema-cached.service';
 import { TemplateTransactionDto } from '../dto/template.transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';

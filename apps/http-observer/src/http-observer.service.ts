@@ -4,9 +4,12 @@ import { HttpService } from '@shared/http/http.service';
 import { Inject, Injectable } from '@nestjs/common';
 import { InviteNode } from '@tc/invite/dto/invite-node.dto';
 import { Logger } from 'winston';
-import { PARSE_TCP_INJECTION } from '@tc/parse-client/constants';
-import { REDIS_INJECTION, SYSTEM_INIT } from '@tc/event-client/constants';
-import { WalletClientService } from '@tc/wallet-client';
+import { PARSE_TCP_INJECTION } from '@tc/clients/parse-client/constants';
+import {
+  REDIS_INJECTION,
+  SYSTEM_INIT,
+} from '@tc/clients/event-client/constants';
+import { WalletClientService } from '@tc/clients/wallet-client';
 
 /**
  * Service to interact with the Observer from external.

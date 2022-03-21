@@ -2,7 +2,7 @@ import { Block } from '@tc/blockchain/block/block.interface';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
 import { Parser } from './parser.interface';
-import { PersistClientService } from '@tc/persist-client';
+import { PersistClientService } from '@tc/clients/persist-client';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 
 /**

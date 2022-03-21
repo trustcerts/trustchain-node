@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { DidDocument } from '@tc/transactions/transactions/did/did-document.dto';
+import { DidDocument } from '@tc/transactions/transactions/did/dto/did-document.dto';
 import { DidPublicKey } from './did-public-key.dto';
 import { DidService } from './did-service.dto';
 import { RoleManageType } from '@tc/transactions/did-id/constants';

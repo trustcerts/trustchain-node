@@ -12,7 +12,7 @@ import { HttpObserverService } from './http-observer.service';
 import { InviteNode } from '@tc/invite/dto/invite-node.dto';
 import { Logger } from 'winston';
 import { NodeGuard } from '@shared/guards/node-guard.service';
-import { REDIS_INJECTION } from '@tc/event-client/constants';
+import { REDIS_INJECTION } from '@tc/clients/event-client/constants';
 import { RoleManageType } from '@tc/transactions/did-id/constants';
 
 /**

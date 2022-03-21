@@ -16,7 +16,7 @@ import { HashService } from '@tc/blockchain/hash.service';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
 import { P2PService } from '@tc/p2-p';
-import { REDIS_INJECTION } from '@tc/event-client/constants';
+import { REDIS_INJECTION } from '@tc/clients/event-client/constants';
 import { RoleManageType } from '@tc/transactions/did-id/constants';
 import { Socket as ServerSocket } from 'socket.io';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';

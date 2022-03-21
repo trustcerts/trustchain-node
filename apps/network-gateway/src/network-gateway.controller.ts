@@ -10,7 +10,10 @@ import { Logger } from 'winston';
 import { NetworkGatewayService } from './network-gateway.service';
 import { P2PService } from '@tc/p2-p';
 import { RoleManageType } from '@tc/transactions/did-id/constants';
-import { SYSTEM_RESET, TRANSACTION_CREATED } from '@tc/event-client/constants';
+import {
+  SYSTEM_RESET,
+  TRANSACTION_CREATED,
+} from '@tc/clients/event-client/constants';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 
 /**

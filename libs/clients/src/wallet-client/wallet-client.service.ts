@@ -6,7 +6,7 @@ import { HttpService } from '@nestjs/axios';
 import { Inject, Injectable, OnModuleDestroy } from '@nestjs/common';
 import { InviteNode } from '@tc/invite/dto/invite-node.dto';
 import { Logger } from 'winston';
-import { PublicKeyInformation } from '@tc/wallet-client/constants';
+import { PublicKeyInformation } from '@tc/clients/wallet-client/constants';
 import { PublicKeyJwkDto } from '@tc/transactions/did-id/dto/public-key-jwk.dto';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
 import {
@@ -14,7 +14,7 @@ import {
   WALLET_PUB_KEY,
   WALLET_SET_ID,
   WALLET_SIGN,
-} from '@tc/wallet-client/endpoints';
+} from '@tc/clients/wallet-client/endpoints';
 import { WALLET_TCP_INJECTION } from './constants';
 import { importKey, sortKeys, verifySignature } from '@trustcerts/core';
 import { lastValueFrom } from 'rxjs';

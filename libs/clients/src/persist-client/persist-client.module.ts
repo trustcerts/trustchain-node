@@ -1,12 +1,12 @@
-import { ClientModule } from '@shared/client.module';
+import { ClientModule } from '@tc/clients/client.module';
 import { ConfigModule, ConfigService } from '@tc/config';
 import { HttpConfigService } from '@shared/http-config.service';
 import { HttpModule, HttpService } from '@nestjs/axios';
 import { Inject, Module, OnApplicationBootstrap } from '@nestjs/common';
 import { Logger } from 'winston';
-import { PARSE_PORT_HTTP, PARSE_URL } from './constants';
-import { ParseClientService } from './parse-client.service';
-import { parseTcpProvider } from '@tc/parse-client/parse.provider';
+import { PERSIST_PORT_HTTP, PERSIST_URL } from './constants';
+import { PersistClientService } from './persist-client.service';
+import { persistTcpProvider } from '@tc/clients/persist-client/persist.provider';
 
 @Module({
   imports: [
@@ -15,31 +15,25 @@ import { parseTcpProvider } from '@tc/parse-client/parse.provider';
       useClass: HttpConfigService,
     }),
   ],
-  providers: [parseTcpProvider, ParseClientService],
-  exports: [parseTcpProvider, ParseClientService],
+  providers: [persistTcpProvider, PersistClientService],
+  exports: [persistTcpProvider, PersistClientService],
 })
-export class ParseClientModule
+export class PersistClientModule
   extends ClientModule
   implements OnApplicationBootstrap
 {
-  /**
-   *
-   * @param logger
-   * @param httpService
-   * @param configService
-   */
   constructor(
     @Inject('winston') logger: Logger,
     httpService: HttpService,
-    configService: ConfigService,
+    protected configService: ConfigService,
   ) {
     super(configService, httpService, logger);
   }
 
   async onApplicationBootstrap(): Promise<void> {
     await this.isHealthy(
-      this.configService.getString(PARSE_URL),
-      this.configService.getNumber(PARSE_PORT_HTTP),
+      this.configService.getString(PERSIST_URL),
+      this.configService.getNumber(PERSIST_PORT_HTTP),
     );
   }
 }

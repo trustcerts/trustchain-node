@@ -6,7 +6,7 @@ import {
   ApiResponse,
 } from '@nestjs/swagger';
 import { CachedService } from '@tc/transactions/transactions/cache.service';
-import { DidDocumentMetaData } from './did-document-meta-data.dto';
+import { DidDocumentMetaData } from './dto/did-document-meta-data.dto';
 import { DidTransaction } from './schemas/did-transaction.schema';
 import { DocResponse } from './dto/doc-response.dto';
 import { Get, NotFoundException, Param, Query } from '@nestjs/common';

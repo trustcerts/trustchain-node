@@ -8,7 +8,7 @@ import { HashCachedModule } from '@tc/transactions/did-hash/cached/hash-cached.m
 import { HttpConfigService } from '@shared/http-config.service';
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
-import { WalletClientModule } from '@tc/wallet-client';
+import { WalletClientModule } from '@tc/clients/wallet-client';
 
 @Module({
   imports: [

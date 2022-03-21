@@ -4,7 +4,7 @@ import {
   DidTemplateTransaction,
   TemplateTransactionSchema,
 } from '../schemas/did-template-transaction.schema';
-import { EventClientModule } from '@tc/event-client';
+import { EventClientModule } from '@tc/clients/event-client';
 import { HashModule } from '@tc/blockchain';
 import { Module, forwardRef } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';

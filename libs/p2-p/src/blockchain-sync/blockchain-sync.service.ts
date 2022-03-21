@@ -5,7 +5,7 @@ import { ConfigService } from '@tc/config';
 import { Connection } from '@shared/connection';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
-import { PersistClientService } from '@tc/persist-client';
+import { PersistClientService } from '@tc/clients/persist-client';
 import { Socket as ServerSocket } from 'socket.io';
 import { WS_BLOCK_MISSING } from '@tc/blockchain/blockchain.events';
 

@@ -8,7 +8,7 @@ import {
 } from '@tc/transactions/did-id/schemas/did-id-transaction.schema';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { PersistClientModule } from '@tc/persist-client';
+import { PersistClientModule } from '@tc/clients/persist-client';
 
 @Module({
   imports: [

@@ -9,8 +9,8 @@ import { DidTransactionDto } from './did/dto/did.transaction.dto';
 import { HashService } from '@tc/blockchain';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';
 import { Model } from 'mongoose';
-import { PersistedTransaction } from '../../../../apps/shared/http/dto/persisted-transaction';
-import { TRANSACTION_PARSED } from '@tc/event-client/constants';
+import { PersistedTransaction } from '@shared/http/dto/persisted-transaction';
+import { TRANSACTION_PARSED } from '@tc/clients/event-client/constants';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 
 /**

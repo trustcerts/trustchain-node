@@ -10,7 +10,7 @@ import { SignatureType } from '@tc/blockchain/transaction/signature-type';
 import { TransactionCheck } from '@tc/transactions/transactions/transaction-check.service';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
-import { WalletClientService } from '@tc/wallet-client';
+import { WalletClientService } from '@tc/clients/wallet-client';
 
 /**
  * Base Service to add a transaction.

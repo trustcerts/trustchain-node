@@ -1,5 +1,5 @@
 import { ConfigModule, ConfigService } from '@tc/config';
-import { EventClientModule } from '@tc/event-client';
+import { EventClientModule } from '@tc/clients/event-client';
 import { HealthController } from './health/health.controller';
 import { Module } from '@nestjs/common';
 import { PersistController } from './persist.controller';

@@ -13,7 +13,7 @@ import {
   REDIS_INJECTION,
   SYSTEM_RESET,
   TRANSACTION_CREATED,
-} from '@tc/event-client/constants';
+} from '@tc/clients/event-client/constants';
 import { wait } from '@shared/helpers';
 import {
   createWSServer,
@@ -27,14 +27,14 @@ import {
 import { Server } from 'socket.io';
 import { io } from 'socket.io-client';
 import { WS_TRANSACTION } from '@tc/blockchain/blockchain.events';
-import { WalletClientService } from '@tc/wallet-client/wallet-client.service';
+import { WalletClientService } from '@tc/clients/wallet-client/wallet-client.service';
 import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
 import { DidId } from '@trustcerts/core';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { RoleManageType } from '@tc/transactions/did-id/constants';
 import { HttpService } from '@nestjs/axios';
 import { config } from 'dotenv';
-import { ParseClientService } from '@tc/parse-client/parse-client.service';
+import { ParseClientService } from '@tc/clients/parse-client/parse-client.service';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;

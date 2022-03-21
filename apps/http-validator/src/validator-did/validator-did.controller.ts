@@ -15,7 +15,7 @@ import { CreateDidIdDto } from '@tc/transactions/did-id/dto/create-did-id.dto';
 import { InviteRequest } from '@tc/invite/schemas/invite-request.schema';
 import { InviteService } from '@tc/invite/invite.service';
 import { MaintenanceGuard } from '@tc/config/version/maintenance.guard';
-import { NETWORK_TCP_INJECTION } from '@tc/network-client/constants';
+import { NETWORK_TCP_INJECTION } from '@tc/clients/network-client/constants';
 import { NetworkGuard } from '@shared/guards/network-guard.service';
 import { NodeGuard } from '@shared/guards/node-guard.service';
 import { VALIDATOR_ENDPOINT } from '@tc/p2-p/constant';

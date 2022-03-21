@@ -3,7 +3,7 @@ import { BlockReceivedModule } from '@tc/p2-p/block-received/block-received.modu
 import { BlockchainGateway } from './blockchain.gateway';
 import { ConfigModule } from '@tc/config';
 import { DidIdBlockchainModule } from '@tc/transactions/did-id/validation/did-id-blockchain.module';
-import { EventClientModule } from '@tc/event-client';
+import { EventClientModule } from '@tc/clients/event-client';
 import { HashBlockchainModule } from '@tc/transactions/did-hash/validation/hash-blockchain.module';
 import { HashModule } from '@tc/blockchain';
 import { HttpConfigService } from '@shared/http-config.service';
