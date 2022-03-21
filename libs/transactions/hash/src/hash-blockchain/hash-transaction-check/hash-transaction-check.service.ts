@@ -51,6 +51,26 @@ export class HashTransactionCheckService extends TransactionCheck {
   }
 
   /**
+   * Checks if the new element has a controller.
+   */
+  hasController(transaction: HashDidTransactionDto) {
+    return this.cachedService.getById(transaction.body.value.id).then(
+      () => Promise.resolve(),
+      () => {
+        if (
+          transaction.body.value.controller &&
+          transaction.body.value.controller.add &&
+          transaction.body.value.controller.add.length > 0
+        ) {
+          return Promise.resolve();
+        } else {
+          throw new Error('no controller for');
+        }
+      },
+    );
+  }
+
+  /**
    * Checks if hash is already in the database.
    * @param transaction
    */
@@ -59,57 +79,6 @@ export class HashTransactionCheckService extends TransactionCheck {
     if (hash) {
       throw new Error(`Hash already signed: ${transaction.body.value.id}`);
     }
-  }
-
-  /**
-   * Checks if the issuer is authorized to perform this action.
-   */
-  private async isIssuerAuthorized(transaction: HashDidTransactionDto) {
-    // check if the identifier is authorized.
-    const issuer = await this.didCachedService.getDidByKey(
-      transaction.signature.values[0].identifier,
-    );
-    if (!issuer.roles.includes(RoleManageType.Client)) {
-      throw Error('issuer is not authorized to create hash transactions');
-    }
-  }
-
-  /**
-   * Checks if the hash with the given hash is in the database and is not revoked.
-   * @param transaction
-   */
-  public async checkRevocation(transaction: HashDidTransactionDto) {
-    const hash = await this.findHash(transaction.body.value.id);
-    if (!hash) {
-      throw new Error(`Hash to revoke doesn't exist.`);
-    }
-    // TODO implement
-    // if (hash.revoked !== undefined) {
-    //   throw new Error('Hash already revoked.');
-    // }
-    if (
-      !(await this.isIssuer(
-        transaction.signature.values[0].identifier,
-        hash.signature.values[0].identifier,
-      ))
-    ) {
-      throw new Error('Only the original issuer can revoke the hash.');
-    }
-    return;
-  }
-
-  /**
-   * Checks if the did is authorized to revoke the hash.
-   * @param transactionIssuerId
-   * @param hashIssuerId
-   */
-  private async isIssuer(transactionIssuerId: string, hashIssuerId: string) {
-    const didTransaction = await this.didCachedService.getDidByKey(
-      transactionIssuerId,
-    );
-    // TODO validate if the controller is allowed to revoke a hash.
-    const didHash = await this.didCachedService.getDidByKey(hashIssuerId);
-    return didTransaction.id === didHash.id;
   }
 
   protected getType(): TransactionType {
@@ -136,14 +105,12 @@ export class HashTransactionCheckService extends TransactionCheck {
    * @param transaction
    * @param addedTransactions
    */
-  getValidation(
+  async getValidation(
     transaction: HashDidTransactionDto,
     addedTransactions: Map<string, TransactionDto>,
   ): Promise<void> {
-    this.checkDoubleHash(
-      transaction as HashDidTransactionDto,
-      addedTransactions,
-    );
+    this.checkDoubleHash(transaction, addedTransactions);
+    await this.hasController(transaction);
     return Promise.resolve();
   }
 }

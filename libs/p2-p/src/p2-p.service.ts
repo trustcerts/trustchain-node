@@ -692,7 +692,7 @@ export class P2PService implements BeforeApplicationShutdown {
       this.responseValidators(peers).then();
 
       endpoint.socket.on(WS_BLOCK, async (block: Block) => {
-        const errors = await validateSync(plainToClass(ProposedBlock, block));
+        const errors = await validateSync(plainToClass(Block, block));
         if (errors.length > 0) {
           this.logger.error({
             message: `received block is invalid: ${JSON.stringify(errors)}`,
@@ -705,7 +705,7 @@ export class P2PService implements BeforeApplicationShutdown {
         }
         // Check index
         const blockCount = await this.persistClientService.getBlockCounter();
-        if (blockCount !== block.index - 1) {
+        if (block.index - blockCount > 1) {
           // put in queue
           this.queue.push(block);
           // Were already blocks in queue?
@@ -730,6 +730,16 @@ export class P2PService implements BeforeApplicationShutdown {
               this.processBlock(endpoint, this.queue[i]);
             }
           }
+        } else if (block.index <= blockCount) {
+          this.logger.warn({
+            message: `Block number is too small, got ${
+              block.index
+            } instead of ${blockCount + 1}`,
+            labels: {
+              source: this.constructor.name,
+              identifier: endpoint.identifier,
+            },
+          });
         } else {
           this.processBlock(endpoint, block);
         }
@@ -756,9 +766,7 @@ export class P2PService implements BeforeApplicationShutdown {
    */
   private processBlock(endpoint: Connection, block: Block) {
     this.signatureService.validateSignatures(block).then(
-      () => {
-        this.networkService.addBlock(block);
-      },
+      () => this.networkService.addBlock(block),
       (e) => {
         this.logger.error({
           message: JSON.stringify(block, null, 4),
