@@ -6,7 +6,7 @@ import {
   SignatureContent,
   VerificationRelationshipType,
 } from '@trustcerts/core';
-import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
+import { DidIdCachedService } from '@tc/did-id/cached/did-id-cached.service';
 import { DidIdTransactionDto } from '@tc/did-id/dto/did-id-transaction.dto';
 import { HashService } from '@tc/blockchain/hash.service';
 import { RedisClient } from '@nestjs/microservices/external/redis.interface';
@@ -18,19 +18,19 @@ import { WalletClientService } from '@tc/wallet-client';
 import { exec } from 'child_process';
 import http = require('http');
 import express = require('express');
-import { CompressionType } from '@tc/template/dto/compressiontype.dto';
+import { CompressionType } from '@tc/did-template/dto/compressiontype.dto';
 import { DidIdRegister } from '@trustcerts/did-id-create';
-import { HashDidTransactionDto } from '@tc/hash/dto/hash-transaction.dto';
+import { HashDidTransactionDto } from '@tc/did-hash/dto/hash-transaction.dto';
 import { MESSAGE_EVENT } from '@nestjs/microservices/constants';
 import { ParseClientService } from '@tc/parse-client/parse-client.service';
-import { SchemaTransactionDto } from '@tc/schema/dto/schema.transaction.dto';
+import { SchemaTransactionDto } from '@tc/did-schema/dto/schema.transaction.dto';
 import { Server } from 'socket.io';
 import { Subject } from 'rxjs';
 import {
   TRANSACTION_CREATED,
   TRANSACTION_PARSED,
 } from '@tc/event-client/constants';
-import { TemplateTransactionDto } from '@tc/template/dto/template.transaction.dto';
+import { TemplateTransactionDto } from '@tc/did-template/dto/template.transaction.dto';
 import { TransactionMetadata } from '@tc/blockchain/transaction/transaction-metadata';
 
 /**

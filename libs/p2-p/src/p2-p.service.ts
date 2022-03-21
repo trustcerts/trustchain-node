@@ -20,7 +20,7 @@ import { BlockReceivedService } from './block-received/block-received.service';
 import { BlockchainSyncService } from '@tc/p2-p/blockchain-sync/blockchain-sync.service';
 import { ConnectDto } from '@tc/p2-p/dto/connect.dto';
 import { Connection } from '@shared/connection';
-import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
+import { DidIdCachedService } from '@tc/did-id/cached/did-id-cached.service';
 import { Gauge } from 'prom-client';
 import { HandshakeService } from '@tc/p2-p/handshake/handshake.service';
 import { HttpService } from '@nestjs/axios';

@@ -1,6 +1,6 @@
 import { CONNECTION_CHALLENGE } from '@tc/blockchain/blockchain.events';
 import { Connection } from '@shared/connection';
-import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
+import { DidIdCachedService } from '@tc/did-id/cached/did-id-cached.service';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';

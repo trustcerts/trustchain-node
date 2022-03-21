@@ -16,7 +16,7 @@ export default {
     '@test/(.*)': '<rootDir>/test/$1',
     '@tc/config(.*)': '<rootDir>/libs/config/src$1',
     '@tc/blockchain(.*)': '<rootDir>/libs/blockchain/src$1',
-    '@tc/hash(.*)': '<rootDir>/libs/transactions/hash/src$1',
+    '@tc/did-hash(.*)': '<rootDir>/libs/transactions/hash/src$1',
     '@tc/invite(.*)': '<rootDir>/libs/invite/src$1',
     '@tc/p2-p(.*)': '<rootDir>/libs/p2-p/src$1',
     '@tc/wallet-client(.*)': '<rootDir>/libs/clients/wallet-client/src$1',
@@ -25,7 +25,7 @@ export default {
     '@tc/network-client(.*)': '<rootDir>/libs/clients/network-client/src$1',
     '@tc/event-client(.*)': '<rootDir>/libs/clients/event-client/src$1',
     '@tc/did-id(.*)': '<rootDir>/libs/transactions/did-id/src$1',
-    '@tc/template(.*)': '<rootDir>/libs/transactions/template/src$1',
-    '@tc/schema(.*)': '<rootDir>/libs/transactions/schema/src$1',
+    '@tc/did-template(.*)': '<rootDir>/libs/transactions/template/src$1',
+    '@tc/did-schema(.*)': '<rootDir>/libs/transactions/schema/src$1',
   },
 };

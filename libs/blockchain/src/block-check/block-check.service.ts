@@ -6,7 +6,7 @@ import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 
-import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
+import { DidIdCachedService } from '@tc/did-id/cached/did-id-cached.service';
 import { PersistClientService } from '@tc/persist-client';
 import { TextEncoder } from 'util';
 import { TransactionChecks } from '@tc/blockchain/block-check/transaction-checks.interface';

@@ -1,6 +1,6 @@
 import { ConfigService } from '@tc/config';
 import { CreateDidIdDto } from '@tc/did-id/dto/create-did-id.dto';
-import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
+import { DidIdCachedService } from '@tc/did-id/cached/did-id-cached.service';
 import { DidIdRegister } from '@trustcerts/did-id-create';
 import { DidIdTransactionDto } from '@tc/did-id/dto/did-id-transaction.dto';
 import { Inject, Injectable } from '@nestjs/common';

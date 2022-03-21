@@ -3,7 +3,7 @@ import { BlockReceivedService } from '@tc/p2-p/block-received/block-received.ser
 import { ConfigService } from '@tc/config/config.service';
 import { Connection } from '@shared/connection';
 import { DidCreation, VerificationRelationshipType } from '@trustcerts/core';
-import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
+import { DidIdCachedService } from '@tc/did-id/cached/did-id-cached.service';
 import { DidIdRegister } from '@trustcerts/did-id-create';
 import { DidIdTransactionDto } from '@tc/did-id/dto/did-id-transaction.dto';
 import { HashService } from '@tc/blockchain';

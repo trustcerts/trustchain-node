@@ -8,7 +8,7 @@ import { ValidatorDidController } from './validator-did.controller';
 import { ValidatorDidService } from './validator-did.service';
 import { WalletClientModule } from '@tc/wallet-client';
 
-import { DidIdCachedModule } from '@tc/did-id/did-id-cached/did-id-cached.module';
+import { DidIdCachedModule } from '@tc/did-id/cached/did-id-cached.module';
 import { GenesisController } from './genesis/genesis.controller';
 
 @Module({

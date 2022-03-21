@@ -37,12 +37,12 @@
       "@tc/event-client/*": ["libs/clients/event-client/src/*"],
       "@tc/did-id": ["libs/transactions/did-id/src"],
       "@tc/did-id/*": ["libs/transactions/did-id/src/*"],
-      "@tc/template": ["libs/transactions/template/src"],
-      "@tc/template/*": ["libs/transactions/template/src/*"],
-      "@tc/hash": ["libs/transactions/hash/src"],
-      "@tc/hash/*": ["libs/transactions/hash/src/*"],
-      "@tc/schema": ["libs/transactions/schema/src"],
-      "@tc/schema/*": ["libs/transactions/schema/src/*"]
+      "@tc/did-template": ["libs/transactions/did-template/src"],
+      "@tc/did-template/*": ["libs/transactions/did-template/src/*"],
+      "@tc/did-hash": ["libs/transactions/did-hash/src"],
+      "@tc/did-hash/*": ["libs/transactions/did-hash/src/*"],
+      "@tc/did-schema": ["libs/transactions/did-schema/src"],
+      "@tc/did-schema/*": ["libs/transactions/did-schema/src/*"]
     }
   },
   "exclude": ["node_modules", "dist", "sdk/**"]

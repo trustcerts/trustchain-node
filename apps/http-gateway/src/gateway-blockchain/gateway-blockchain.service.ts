@@ -10,7 +10,7 @@ import { HashService } from '@tc/blockchain/hash.service';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 
 import { ClientRedis } from '@nestjs/microservices';
-import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
+import { DidIdCachedService } from '@tc/did-id/cached/did-id-cached.service';
 import { EventEmitter } from 'events';
 import { Gauge } from 'prom-client';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';

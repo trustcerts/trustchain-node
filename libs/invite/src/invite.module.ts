@@ -1,4 +1,4 @@
-import { DidIdCachedModule } from '@tc/did-id/did-id-cached/did-id-cached.module';
+import { DidIdCachedModule } from '@tc/did-id/cached/did-id-cached.module';
 import { INVITE_CONNECTION } from './constants';
 import { InviteDbModule } from './invite-db/invite-db.module';
 import {

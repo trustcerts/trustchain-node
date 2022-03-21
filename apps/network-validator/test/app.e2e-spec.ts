@@ -28,7 +28,7 @@ import { Server } from 'socket.io';
 import { io } from 'socket.io-client';
 import { WS_TRANSACTION } from '@tc/blockchain/blockchain.events';
 import { WalletClientService } from '@tc/wallet-client/wallet-client.service';
-import { DidIdCachedService } from '@tc/did-id/did-id-cached/did-id-cached.service';
+import { DidIdCachedService } from '@tc/did-id/cached/did-id-cached.service';
 import { DidId } from '@trustcerts/core';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { RoleManageType } from '@tc/did-id/constants';

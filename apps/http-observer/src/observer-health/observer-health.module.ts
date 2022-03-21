@@ -1,4 +1,4 @@
-import { DidIdDbModule } from '@tc/did-id/did-id-db/did-id-db.module';
+import { DidIdDbModule } from '@tc/did-id/db/did-id-db.module';
 import { HashModule } from '@tc/blockchain';
 import { Module } from '@nestjs/common';
 import { ObserverHealthController } from './observer-health.controller';
