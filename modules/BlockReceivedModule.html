@@ -57,13 +57,13 @@
 <title>cluster_BlockReceivedModule</title>
 <polygon fill="none" stroke="black" stroke-dasharray="1,5" points="8,-32.8 8,-230.8 536,-230.8 536,-32.8 8,-32.8"/>
 </g>
-<g id="clust6" class="cluster">
-<title>cluster_BlockReceivedModule_providers</title>
-<polygon fill="none" stroke="black" points="314,-40.8 314,-92.8 528,-92.8 528,-40.8 314,-40.8"/>
-</g>
 <g id="clust4" class="cluster">
 <title>cluster_BlockReceivedModule_exports</title>
 <polygon fill="none" stroke="black" points="154,-170.8 154,-222.8 318,-222.8 318,-170.8 154,-170.8"/>
+</g>
+<g id="clust6" class="cluster">
+<title>cluster_BlockReceivedModule_providers</title>
+<polygon fill="none" stroke="black" points="314,-40.8 314,-92.8 528,-92.8 528,-40.8 314,-40.8"/>
 </g>
 <g id="clust3" class="cluster">
 <title>cluster_BlockReceivedModule_imports</title>
@@ -202,8 +202,8 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { BlockReceivedService } from &#x27;./block-received.service&#x27;;
 import { Module } from &#x27;@nestjs/common&#x27;;
-import { ParseClientModule } from &#x27;@tc/parse-client&#x27;;
-import { PersistClientModule } from &#x27;@tc/persist-client/persist-client.module&#x27;;
+import { ParseClientModule } from &#x27;@tc/clients/parse-client&#x27;;
+import { PersistClientModule } from &#x27;@tc/clients/persist-client/persist-client.module&#x27;;
 
 @Module({
   imports: [PersistClientModule, ParseClientModule],

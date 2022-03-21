@@ -280,12 +280,12 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { EventClientModule } from &#x27;@tc/event-client&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { EventClientModule } from &#x27;@tc/clients/event-client&#x27;;
 import { Module } from &#x27;@nestjs/common&#x27;;
-import { NetworkClientModule } from &#x27;@tc/network-client&#x27;;
-import { ParseClientModule } from &#x27;@tc/parse-client&#x27;;
-import { PersistClientModule } from &#x27;@tc/persist-client&#x27;;
-import { WalletClientModule } from &#x27;@tc/wallet-client&#x27;;
+import { NetworkClientModule } from &#x27;@tc/clients/network-client&#x27;;
+import { ParseClientModule } from &#x27;@tc/clients/parse-client&#x27;;
+import { PersistClientModule } from &#x27;@tc/clients/persist-client&#x27;;
+import { WalletClientModule } from &#x27;@tc/clients/wallet-client&#x27;;
 
 @Module({
   imports: [

@@ -374,11 +374,11 @@ import {
 } from &#x27;@nestjs/common&#x27;;
 import { ClientTCP } from &#x27;@nestjs/microservices&#x27;;
 import { ConfigService } from &#x27;@tc/config&#x27;;
-import { CreateDidIdDto } from &#x27;@tc/did-id/dto/create-did-id.dto&#x27;;
+import { CreateDidIdDto } from &#x27;@tc/transactions/did-id/dto/create-did-id.dto&#x27;;
 import { InviteRequest } from &#x27;@tc/invite/schemas/invite-request.schema&#x27;;
 import { InviteService } from &#x27;@tc/invite/invite.service&#x27;;
 import { MaintenanceGuard } from &#x27;@tc/config/version/maintenance.guard&#x27;;
-import { NETWORK_TCP_INJECTION } from &#x27;@tc/network-client/constants&#x27;;
+import { NETWORK_TCP_INJECTION } from &#x27;@tc/clients/network-client/constants&#x27;;
 import { NetworkGuard } from &#x27;@shared/guards/network-guard.service&#x27;;
 import { NodeGuard } from &#x27;@shared/guards/node-guard.service&#x27;;
 import { VALIDATOR_ENDPOINT } from &#x27;@tc/p2-p/constant&#x27;;

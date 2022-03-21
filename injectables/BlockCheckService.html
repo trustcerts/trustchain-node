@@ -1336,11 +1336,11 @@ import { SignatureDto } from &#x27;@tc/blockchain/transaction/signature.dto&#x27
 import { TransactionDto } from &#x27;@tc/blockchain/transaction/transaction.dto&#x27;;
 import { TransactionType } from &#x27;@tc/blockchain/transaction/transaction-type&#x27;;
 
-import { DidIdCachedService } from &#x27;@tc/did-id/did-id-cached/did-id-cached.service&#x27;;
-import { PersistClientService } from &#x27;@tc/persist-client&#x27;;
+import { DidIdCachedService } from &#x27;@tc/transactions/did-id/cached/did-id-cached.service&#x27;;
+import { PersistClientService } from &#x27;@tc/clients/persist-client&#x27;;
 import { TextEncoder } from &#x27;util&#x27;;
 import { TransactionChecks } from &#x27;@tc/blockchain/block-check/transaction-checks.interface&#x27;;
-import { WalletClientService } from &#x27;@tc/wallet-client&#x27;;
+import { WalletClientService } from &#x27;@tc/clients/wallet-client&#x27;;
 
 /**
  * Service to check if a block is valid and can be added to the blockchain.

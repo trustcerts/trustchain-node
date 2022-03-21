@@ -57,13 +57,13 @@
 <title>cluster_ParseClientModule</title>
 <polygon fill="none" stroke="black" stroke-dasharray="1,5" points="8,-32.8 8,-230.8 210,-230.8 210,-32.8 8,-32.8"/>
 </g>
-<g id="clust4" class="cluster">
-<title>cluster_ParseClientModule_exports</title>
-<polygon fill="none" stroke="black" points="38,-170.8 38,-222.8 180,-222.8 180,-170.8 38,-170.8"/>
-</g>
 <g id="clust6" class="cluster">
 <title>cluster_ParseClientModule_providers</title>
 <polygon fill="none" stroke="black" points="16,-40.8 16,-92.8 202,-92.8 202,-40.8 16,-40.8"/>
+</g>
+<g id="clust4" class="cluster">
+<title>cluster_ParseClientModule_exports</title>
+<polygon fill="none" stroke="black" points="38,-170.8 38,-222.8 180,-222.8 180,-170.8 38,-170.8"/>
 </g>
 <!-- ParseClientService  -->
 <g id="node1" class="node">
@@ -125,7 +125,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>libs/clients/parse-client/src/parse-client.module.ts</code>
+            <code>libs/clients/src/parse-client/parse-client.module.ts</code>
         </p>
 
 
@@ -183,7 +183,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="39"
-                            class="link-to-prism">libs/clients/parse-client/src/parse-client.module.ts:39</a></div>
+                            class="link-to-prism">libs/clients/src/parse-client/parse-client.module.ts:39</a></div>
                 </td>
             </tr>
 
@@ -204,7 +204,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ClientModule } from &#x27;@shared/client.module&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ClientModule } from &#x27;@tc/clients/client.module&#x27;;
 import { ConfigModule, ConfigService } from &#x27;@tc/config&#x27;;
 import { HttpConfigService } from &#x27;@shared/http-config.service&#x27;;
 import { HttpModule, HttpService } from &#x27;@nestjs/axios&#x27;;
@@ -212,7 +212,7 @@ import { Inject, Module, OnApplicationBootstrap } from &#x27;@nestjs/common&#x27
 import { Logger } from &#x27;winston&#x27;;
 import { PARSE_PORT_HTTP, PARSE_URL } from &#x27;./constants&#x27;;
 import { ParseClientService } from &#x27;./parse-client.service&#x27;;
-import { parseTcpProvider } from &#x27;@tc/parse-client/parse.provider&#x27;;
+import { parseTcpProvider } from &#x27;@tc/clients/parse-client/parse.provider&#x27;;
 
 @Module({
   imports: [

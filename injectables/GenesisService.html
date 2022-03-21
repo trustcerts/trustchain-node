@@ -928,19 +928,19 @@ import { BlockReceivedService } from &#x27;@tc/p2-p/block-received/block-receive
 import { ConfigService } from &#x27;@tc/config/config.service&#x27;;
 import { Connection } from &#x27;@shared/connection&#x27;;
 import { DidCreation, VerificationRelationshipType } from &#x27;@trustcerts/core&#x27;;
-import { DidIdCachedService } from &#x27;@tc/did-id/did-id-cached/did-id-cached.service&#x27;;
+import { DidIdCachedService } from &#x27;@tc/transactions/did-id/cached/did-id-cached.service&#x27;;
 import { DidIdRegister } from &#x27;@trustcerts/did-id-create&#x27;;
-import { DidIdTransactionDto } from &#x27;@tc/did-id/dto/did-id-transaction.dto&#x27;;
+import { DidIdTransactionDto } from &#x27;@tc/transactions/did-id/dto/did-id-transaction.dto&#x27;;
 import { HashService } from &#x27;@tc/blockchain&#x27;;
 import { HttpService } from &#x27;@nestjs/axios&#x27;;
 import { Inject, Injectable } from &#x27;@nestjs/common&#x27;;
 import { Logger } from &#x27;winston&#x27;;
 import { ProposedBlock } from &#x27;@tc/blockchain/block/proposed-block.dto&#x27;;
-import { RoleManageType } from &#x27;@tc/did-id/constants&#x27;;
+import { RoleManageType } from &#x27;@tc/transactions/did-id/constants&#x27;;
 import { SignatureDto } from &#x27;@tc/blockchain/transaction/signature.dto&#x27;;
 import { SignatureInfo } from &#x27;@tc/blockchain/transaction/signature-info&#x27;;
 import { SignatureType } from &#x27;@tc/blockchain/transaction/signature-type&#x27;;
-import { WalletClientService } from &#x27;@tc/wallet-client&#x27;;
+import { WalletClientService } from &#x27;@tc/clients/wallet-client&#x27;;
 import { lastValueFrom } from &#x27;rxjs&#x27;;
 
 /**

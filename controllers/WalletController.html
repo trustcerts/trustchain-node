@@ -420,15 +420,15 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Controller } from &#x27;@nestjs/common&#x27;;
 import { EventPattern, MessagePattern, Transport } from &#x27;@nestjs/microservices&#x27;;
-import { PublicKeyInformation } from &#x27;@tc/wallet-client/constants&#x27;;
-import { SYSTEM_RESET } from &#x27;@tc/event-client/constants&#x27;;
+import { PublicKeyInformation } from &#x27;@tc/clients/wallet-client/constants&#x27;;
+import { SYSTEM_RESET } from &#x27;@tc/clients/event-client/constants&#x27;;
 import { SignatureDto } from &#x27;@tc/blockchain/transaction/signature.dto&#x27;;
 import {
   WALLET_GET_ID,
   WALLET_PUB_KEY,
   WALLET_SET_ID,
   WALLET_SIGN,
-} from &#x27;@tc/wallet-client/endpoints&#x27;;
+} from &#x27;@tc/clients/wallet-client/endpoints&#x27;;
 import { WalletService } from &#x27;./wallet.service&#x27;;
 
 /**

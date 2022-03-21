@@ -149,7 +149,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>libs/transactions/did-id/src/did-id-parsing/did-id-parsing.module.ts</code>
+            <code>libs/transactions/src/did-id/parse/did-id-parsing.module.ts</code>
         </p>
 
 
@@ -190,15 +190,15 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { DID_ID_CONNECTION } from &#x27;@tc/did-id/constants&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { DID_ID_CONNECTION } from &#x27;@tc/transactions/did-id/constants&#x27;;
 import { DidId, DidIdSchema } from &#x27;../schemas/did-id.schema&#x27;;
-import { DidIdDbModule } from &#x27;../did-id-db/did-id-db.module&#x27;;
+import { DidIdDbModule } from &#x27;../db/did-id-db.module&#x27;;
 import { DidIdParsingService } from &#x27;./did-id-parsing.service&#x27;;
 import {
   DidIdTransaction,
   DidTransactionSchema,
-} from &#x27;@tc/did-id/schemas/did-id-transaction.schema&#x27;;
-import { EventClientModule } from &#x27;@tc/event-client&#x27;;
+} from &#x27;@tc/transactions/did-id/schemas/did-id-transaction.schema&#x27;;
+import { EventClientModule } from &#x27;@tc/clients/event-client&#x27;;
 import { HashModule } from &#x27;@tc/blockchain&#x27;;
 import { Module, forwardRef } from &#x27;@nestjs/common&#x27;;
 import { MongooseModule } from &#x27;@nestjs/mongoose&#x27;;

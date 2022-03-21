@@ -56,7 +56,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>apps/http-observer/src/observer-template/observer-template.controller.ts</code>
+            <code>libs/transactions/src/did-template/observer/observer-template.controller.ts</code>
         </p>
 
             <p class="comment">
@@ -142,7 +142,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="37"
-                            class="link-to-prism">apps/http-observer/src/observer-template/observer-template.controller.ts:37</a></div>
+                            class="link-to-prism">libs/transactions/src/did-template/observer/observer-template.controller.ts:37</a></div>
                 </td>
             </tr>
 
@@ -198,12 +198,12 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiOperation, ApiParam, ApiResponse, ApiTags } from &#x27;@nestjs/swagger&#x27;;
 import { Controller, Get, Param, UseGuards } from &#x27;@nestjs/common&#x27;;
-import { DidControllerMixin } from &#x27;@shared/did/did.controller&#x27;;
-import { DidTemplate } from &#x27;@tc/template/schemas/did-template.schema&#x27;;
-import { DidTemplateTransaction } from &#x27;@tc/template/schemas/did-template-transaction.schema&#x27;;
+import { DidControllerMixin } from &#x27;@tc/transactions/transactions/did/did.controller&#x27;;
+import { DidTemplate } from &#x27;@tc/transactions/did-template/schemas/did-template.schema&#x27;;
+import { DidTemplateTransaction } from &#x27;@tc/transactions/did-template/schemas/did-template-transaction.schema&#x27;;
 import { MaintenanceGuard } from &#x27;@tc/config/version/maintenance.guard&#x27;;
-import { TemplateCachedService } from &#x27;@tc/template/template-cached/template-cached.service&#x27;;
-import { TemplateDocResponse } from &#x27;@tc/template/dto/doc-response.dto&#x27;;
+import { TemplateCachedService } from &#x27;@tc/transactions/did-template/cached/template-cached.service&#x27;;
+import { TemplateDocResponse } from &#x27;@tc/transactions/did-template/dto/doc-response.dto&#x27;;
 
 /**
  * Controls template requests.

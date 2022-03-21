@@ -59,7 +59,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>apps/http-gateway/src/gateway-schema/gateway-schema.service.ts</code>
+            <code>libs/transactions/src/did-schema/gateway/gateway-schema.service.ts</code>
         </p>
 
 
@@ -147,7 +147,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">apps/http-gateway/src/gateway-schema/gateway-schema.service.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">libs/transactions/src/did-schema/gateway/gateway-schema.service.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -287,7 +287,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="51"
-                            class="link-to-prism">apps/http-gateway/src/gateway-schema/gateway-schema.service.ts:51</a></div>
+                            class="link-to-prism">libs/transactions/src/did-schema/gateway/gateway-schema.service.ts:51</a></div>
                 </td>
             </tr>
 
@@ -604,7 +604,7 @@
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="../classes/DidResolver.html" target="_self" >DidResolver</a></code>
+                        <i>Type : </i>        <code><a href="../classes/Did.html" target="_self" >DidResolver</a></code>
 
                     </td>
                 </tr>
@@ -632,15 +632,15 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ConfigService } from &#x27;@tc/config&#x27;;
 import { DidSchemaResolver } from &#x27;@trustcerts/schema-verify&#x27;;
-import { GatewayBlockchainService } from &#x27;../gateway-blockchain/gateway-blockchain.service&#x27;;
-import { GatewayTransactionService } from &#x27;../gateway-transaction.service&#x27;;
+import { GatewayBlockchainService } from &#x27;@apps/http-gateway/src/gateway-blockchain/gateway-blockchain.service&#x27;;
+import { GatewayTransactionService } from &#x27;@apps/http-gateway/src/gateway-transaction.service&#x27;;
 import { HashService } from &#x27;@tc/blockchain&#x27;;
 import { Inject, Injectable } from &#x27;@nestjs/common&#x27;;
 import { Logger } from &#x27;winston&#x27;;
-import { SchemaCachedService } from &#x27;@tc/schema/schema-cached/schema-cached.service&#x27;;
-import { SchemaTransactionCheckService } from &#x27;@tc/schema/schema-blockchain/schema-transaction-check/schema-transaction-check.service&#x27;;
-import { SchemaTransactionDto } from &#x27;@tc/schema/dto/schema.transaction.dto&#x27;;
-import { WalletClientService } from &#x27;@tc/wallet-client&#x27;;
+import { SchemaCachedService } from &#x27;@tc/transactions/did-schema/cached/schema-cached.service&#x27;;
+import { SchemaTransactionCheckService } from &#x27;@tc/transactions/did-schema/validation/schema-transaction-check.service&#x27;;
+import { SchemaTransactionDto } from &#x27;@tc/transactions/did-schema/dto/schema.transaction.dto&#x27;;
+import { WalletClientService } from &#x27;@tc/clients/wallet-client&#x27;;
 
 /**
  * Service to handle incoming schemas.

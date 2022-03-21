@@ -113,7 +113,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">apps/network-validator/src/validator-health/validator-health.service.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">apps/network-validator/src/validator-health/validator-health.service.ts:18</a></div>
                             </td>
                         </tr>
 
@@ -191,7 +191,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">apps/network-validator/src/validator-health/validator-health.service.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">apps/network-validator/src/validator-health/validator-health.service.ts:18</a></div>
                         </td>
                     </tr>
 
@@ -213,7 +213,10 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ConfigService } from &#x27;@tc/config&#x27;;
 import { Injectable } from &#x27;@nestjs/common&#x27;;
 import { MicroserviceHealthIndicator } from &#x27;@nestjs/terminus&#x27;;
-import { PERSIST_PORT_TCP, PERSIST_URL } from &#x27;@tc/persist-client/constants&#x27;;
+import {
+  PERSIST_PORT_TCP,
+  PERSIST_URL,
+} from &#x27;@tc/clients/persist-client/constants&#x27;;
 import { Transport } from &#x27;@nestjs/microservices&#x27;;
 
 /**

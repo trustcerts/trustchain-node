@@ -292,19 +292,19 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import * as Joi from &#x27;joi&#x27;;
 import { ConfigModule } from &#x27;@tc/config/config.module&#x27;;
 import { ConfigService } from &#x27;@tc/config&#x27;;
-import { EventClientModule } from &#x27;@tc/event-client&#x27;;
-import { GatewayDidModule } from &#x27;./gateway-did/gateway-did.module&#x27;;
-import { GatewayHashModule } from &#x27;./gateway-hash/gateway-hash.module&#x27;;
-import { GatewaySchemaModule } from &#x27;./gateway-schema/gateway-schema.module&#x27;;
-import { GatewayTemplateModule } from &#x27;./gateway-template/gateway-template.module&#x27;;
+import { EventClientModule } from &#x27;@tc/clients/event-client&#x27;;
+import { GatewayDidModule } from &#x27;@tc/transactions/did-id/gateway/gateway-did.module&#x27;;
+import { GatewayHashModule } from &#x27;@tc/transactions/did-hash/gateway/gateway-hash.module&#x27;;
+import { GatewaySchemaModule } from &#x27;@tc/transactions/did-schema/gateway/gateway-schema.module&#x27;;
+import { GatewayTemplateModule } from &#x27;@tc/transactions/did-template/gateway/gateway-template.module&#x27;;
 import { HttpGatewayController } from &#x27;./http-gateway.controller&#x27;;
 import { HttpGatewayService } from &#x27;./http-gateway.service&#x27;;
 import { Identifier } from &#x27;@trustcerts/core&#x27;;
 import { InviteModule } from &#x27;@tc/invite/invite.module&#x27;;
 import { Module } from &#x27;@nestjs/common&#x27;;
-import { ParseClientModule } from &#x27;@tc/parse-client&#x27;;
+import { ParseClientModule } from &#x27;@tc/clients/parse-client&#x27;;
 import { PrometheusModule } from &#x27;@willsoto/nestjs-prometheus&#x27;;
-import { WalletClientModule } from &#x27;@tc/wallet-client&#x27;;
+import { WalletClientModule } from &#x27;@tc/clients/wallet-client&#x27;;
 import { WinstonModule } from &#x27;nest-winston&#x27;;
 import {
   dbConnectionValidation,
@@ -340,11 +340,12 @@ import {
         enabled: false,
       },
     }),
-    GatewayHashModule,
     InviteModule,
     EventClientModule,
     ParseClientModule,
     WalletClientModule,
+
+    GatewayHashModule,
     GatewayDidModule,
     GatewayTemplateModule,
     GatewaySchemaModule,

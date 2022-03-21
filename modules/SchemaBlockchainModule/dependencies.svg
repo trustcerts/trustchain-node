@@ -18,13 +18,13 @@
 <title>cluster_SchemaBlockchainModule_providers</title>
 <polygon fill="none" stroke="black" points="332,-40.8 332,-92.8 630,-92.8 630,-40.8 332,-40.8"/>
 </g>
-<g id="clust4" class="cluster">
-<title>cluster_SchemaBlockchainModule_exports</title>
-<polygon fill="none" stroke="black" points="140,-170.8 140,-222.8 364,-222.8 364,-170.8 140,-170.8"/>
-</g>
 <g id="clust3" class="cluster">
 <title>cluster_SchemaBlockchainModule_imports</title>
 <polygon fill="none" stroke="black" points="16,-40.8 16,-92.8 324,-92.8 324,-40.8 16,-40.8"/>
+</g>
+<g id="clust4" class="cluster">
+<title>cluster_SchemaBlockchainModule_exports</title>
+<polygon fill="none" stroke="black" points="140,-170.8 140,-222.8 364,-222.8 364,-170.8 140,-170.8"/>
 </g>
 <!-- BlockCheckModule -->
 <g id="node1" class="node">

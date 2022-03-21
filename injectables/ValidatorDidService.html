@@ -393,14 +393,14 @@ transaction hash is triggered when the cert was persisted into the blockchain.</
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ConfigService } from &#x27;@tc/config&#x27;;
-import { CreateDidIdDto } from &#x27;@tc/did-id/dto/create-did-id.dto&#x27;;
-import { DidIdCachedService } from &#x27;@tc/did-id/did-id-cached/did-id-cached.service&#x27;;
+import { CreateDidIdDto } from &#x27;@tc/transactions/did-id/dto/create-did-id.dto&#x27;;
+import { DidIdCachedService } from &#x27;@tc/transactions/did-id/cached/did-id-cached.service&#x27;;
 import { DidIdRegister } from &#x27;@trustcerts/did-id-create&#x27;;
-import { DidIdTransactionDto } from &#x27;@tc/did-id/dto/did-id-transaction.dto&#x27;;
+import { DidIdTransactionDto } from &#x27;@tc/transactions/did-id/dto/did-id-transaction.dto&#x27;;
 import { Inject, Injectable } from &#x27;@nestjs/common&#x27;;
 import { Logger } from &#x27;winston&#x27;;
 import { PersistedTransaction } from &#x27;@shared/http/dto/persisted-transaction&#x27;;
-import { RoleManageType } from &#x27;@tc/did-id/constants&#x27;;
+import { RoleManageType } from &#x27;@tc/transactions/did-id/constants&#x27;;
 import { SignatureInfo } from &#x27;@tc/blockchain/transaction/signature-info&#x27;;
 import { SignatureType } from &#x27;@tc/blockchain/transaction/signature-type&#x27;;
 import { ValidatorBlockchainService } from &#x27;../validator-blockchain/validator-blockchain.service&#x27;;
@@ -410,7 +410,7 @@ import {
   getFingerPrint,
   importKey,
 } from &#x27;@trustcerts/core&#x27;;
-import { WalletClientService } from &#x27;@tc/wallet-client&#x27;;
+import { WalletClientService } from &#x27;@tc/clients/wallet-client&#x27;;
 
 /**
  * Service that signs or revokes public keys from gateways.

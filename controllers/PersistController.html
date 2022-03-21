@@ -451,14 +451,14 @@
   BLOCKS_REQUEST,
   BLOCK_COUNTER,
   BLOCK_REQUEST,
-} from &#x27;@tc/persist-client/constants&#x27;;
+} from &#x27;@tc/clients/persist-client/constants&#x27;;
 import { BLOCK_PERSIST } from &#x27;./constants&#x27;;
 import { Block } from &#x27;@tc/blockchain/block/block.interface&#x27;;
 import { Controller, Inject } from &#x27;@nestjs/common&#x27;;
 import { EventPattern, MessagePattern, Transport } from &#x27;@nestjs/microservices&#x27;;
 import { Logger } from &#x27;winston&#x27;;
 import { PersistService } from &#x27;./persist.service&#x27;;
-import { SYSTEM_RESET } from &#x27;@tc/event-client/constants&#x27;;
+import { SYSTEM_RESET } from &#x27;@tc/clients/event-client/constants&#x27;;
 
 /**
  * Endpoint to interact with other services inside a node.

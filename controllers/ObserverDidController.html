@@ -56,7 +56,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>apps/http-observer/src/observer-did/observer-did.controller.ts</code>
+            <code>libs/transactions/src/did-id/observer/observer-did.controller.ts</code>
         </p>
 
             <p class="comment">
@@ -139,7 +139,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="39"
-                            class="link-to-prism">apps/http-observer/src/observer-did/observer-did.controller.ts:39</a></div>
+                            class="link-to-prism">libs/transactions/src/did-id/observer/observer-did.controller.ts:39</a></div>
                 </td>
             </tr>
 
@@ -163,11 +163,11 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiOperation, ApiResponse, ApiTags } from &#x27;@nestjs/swagger&#x27;;
 import { Controller, Get, UseGuards } from &#x27;@nestjs/common&#x27;;
-import { DidControllerMixin } from &#x27;@shared/did/did.controller&#x27;;
-import { DidIdCachedService } from &#x27;@tc/did-id/did-id-cached/did-id-cached.service&#x27;;
-import { DidIdTransaction } from &#x27;@tc/did-id/schemas/did-id-transaction.schema&#x27;;
+import { DidControllerMixin } from &#x27;@tc/transactions/transactions/did/did.controller&#x27;;
+import { DidIdCachedService } from &#x27;@tc/transactions/did-id/cached/did-id-cached.service&#x27;;
+import { DidIdTransaction } from &#x27;@tc/transactions/did-id/schemas/did-id-transaction.schema&#x27;;
 import { GenesisBlock } from &#x27;@tc/blockchain/block/genesis-block.dto&#x27;;
-import { IdDocResponse } from &#x27;@tc/did-id/dto/doc-response.dto&#x27;;
+import { IdDocResponse } from &#x27;@tc/transactions/did-id/dto/doc-response.dto&#x27;;
 import { MaintenanceGuard } from &#x27;@tc/config/version/maintenance.guard&#x27;;
 
 /**

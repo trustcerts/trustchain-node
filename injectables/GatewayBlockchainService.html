@@ -679,7 +679,7 @@ import { HashService } from &#x27;@tc/blockchain/hash.service&#x27;;
 import { TransactionDto } from &#x27;@tc/blockchain/transaction/transaction.dto&#x27;;
 
 import { ClientRedis } from &#x27;@nestjs/microservices&#x27;;
-import { DidIdCachedService } from &#x27;@tc/did-id/did-id-cached/did-id-cached.service&#x27;;
+import { DidIdCachedService } from &#x27;@tc/transactions/did-id/cached/did-id-cached.service&#x27;;
 import { EventEmitter } from &#x27;events&#x27;;
 import { Gauge } from &#x27;prom-client&#x27;;
 import { InjectMetric } from &#x27;@willsoto/nestjs-prometheus&#x27;;
@@ -688,7 +688,7 @@ import { PersistedTransaction } from &#x27;@shared/http/dto/persisted-transactio
 import {
   REDIS_INJECTION,
   TRANSACTION_CREATED,
-} from &#x27;@tc/event-client/constants&#x27;;
+} from &#x27;@tc/clients/event-client/constants&#x27;;
 
 /**
  * Service that is used to send transactions to the validators and responds to the Client.

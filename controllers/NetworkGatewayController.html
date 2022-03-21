@@ -145,8 +145,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="52"
-                            class="link-to-prism">apps/network-gateway/src/network-gateway.controller.ts:52</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="55"
+                            class="link-to-prism">apps/network-gateway/src/network-gateway.controller.ts:55</a></div>
                 </td>
             </tr>
 
@@ -191,8 +191,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="64"
-                            class="link-to-prism">apps/network-gateway/src/network-gateway.controller.ts:64</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="67"
+                            class="link-to-prism">apps/network-gateway/src/network-gateway.controller.ts:67</a></div>
                 </td>
             </tr>
 
@@ -264,8 +264,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="37"
-                            class="link-to-prism">apps/network-gateway/src/network-gateway.controller.ts:37</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="40"
+                            class="link-to-prism">apps/network-gateway/src/network-gateway.controller.ts:40</a></div>
                 </td>
             </tr>
 
@@ -310,8 +310,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="72"
-                            class="link-to-prism">apps/network-gateway/src/network-gateway.controller.ts:72</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="75"
+                            class="link-to-prism">apps/network-gateway/src/network-gateway.controller.ts:75</a></div>
                 </td>
             </tr>
 
@@ -344,8 +344,11 @@ import { EventPattern, Transport } from &#x27;@nestjs/microservices&#x27;;
 import { Logger } from &#x27;winston&#x27;;
 import { NetworkGatewayService } from &#x27;./network-gateway.service&#x27;;
 import { P2PService } from &#x27;@tc/p2-p&#x27;;
-import { RoleManageType } from &#x27;@tc/did-id/constants&#x27;;
-import { SYSTEM_RESET, TRANSACTION_CREATED } from &#x27;@tc/event-client/constants&#x27;;
+import { RoleManageType } from &#x27;@tc/transactions/did-id/constants&#x27;;
+import {
+  SYSTEM_RESET,
+  TRANSACTION_CREATED,
+} from &#x27;@tc/clients/event-client/constants&#x27;;
 import { TransactionDto } from &#x27;@tc/blockchain/transaction/transaction.dto&#x27;;
 
 /**

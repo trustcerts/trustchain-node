@@ -194,14 +194,14 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import * as Joi from &#x27;joi&#x27;;
 import { ConfigModule, ConfigService } from &#x27;@tc/config&#x27;;
-import { EventClientModule } from &#x27;@tc/event-client&#x27;;
+import { EventClientModule } from &#x27;@tc/clients/event-client&#x27;;
 import { HealthController } from &#x27;./health/health.controller&#x27;;
 import { Module } from &#x27;@nestjs/common&#x27;;
 import { NetworkObserverController } from &#x27;./network-observer.controller&#x27;;
 import { P2PModule } from &#x27;@tc/p2-p&#x27;;
 import { PrometheusModule } from &#x27;@willsoto/nestjs-prometheus&#x27;;
 import { TerminusModule } from &#x27;@nestjs/terminus&#x27;;
-import { WalletClientModule } from &#x27;@tc/wallet-client&#x27;;
+import { WalletClientModule } from &#x27;@tc/clients/wallet-client&#x27;;
 import { WinstonModule } from &#x27;nest-winston&#x27;;
 import {
   dbConnectionValidation,

@@ -121,7 +121,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">apps/shared/http/http.service.ts:10</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">apps/shared/http/http.service.ts:16</a></div>
                             </td>
                         </tr>
 
@@ -213,8 +213,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="27"
-                            class="link-to-prism">apps/shared/http/http.service.ts:27</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="33"
+                            class="link-to-prism">apps/shared/http/http.service.ts:33</a></div>
                 </td>
             </tr>
 
@@ -253,8 +253,8 @@ the database is incomplete.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="42"
-                            class="link-to-prism">apps/shared/http/http.service.ts:42</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="48"
+                            class="link-to-prism">apps/shared/http/http.service.ts:48</a></div>
                 </td>
             </tr>
 
@@ -282,11 +282,17 @@ the database is incomplete.</p>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CHAIN_REBUILD, PARSE_TCP_INJECTION } from &#x27;@tc/parse-client/constants&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  CHAIN_REBUILD,
+  PARSE_TCP_INJECTION,
+} from &#x27;@tc/clients/parse-client/constants&#x27;;
 import { ClientRedis, ClientTCP } from &#x27;@nestjs/microservices&#x27;;
 import { ConfigService } from &#x27;@tc/config&#x27;;
 import { Inject } from &#x27;@nestjs/common&#x27;;
-import { REDIS_INJECTION, SYSTEM_RESET } from &#x27;@tc/event-client/constants&#x27;;
+import {
+  REDIS_INJECTION,
+  SYSTEM_RESET,
+} from &#x27;@tc/clients/event-client/constants&#x27;;
 
 /**
  * Base class for http services.

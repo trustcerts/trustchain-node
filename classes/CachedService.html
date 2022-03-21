@@ -63,7 +63,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>apps/shared/cache.service.ts</code>
+            <code>libs/transactions/src/transactions/cache.service.ts</code>
         </p>
 
 
@@ -154,7 +154,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">apps/shared/cache.service.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -223,13 +223,13 @@
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="../classes/DidResolver.html" target="_self" >DidResolver</a></code>
+                        <i>Type : </i>        <code><a href="../classes/Did.html" target="_self" >DidResolver</a></code>
 
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">apps/shared/cache.service.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:17</a></div>
                         </td>
                     </tr>
 
@@ -266,7 +266,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="29"
-                            class="link-to-prism">apps/shared/cache.service.ts:29</a></div>
+                            class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:29</a></div>
                 </td>
             </tr>
 
@@ -352,7 +352,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="63"
-                            class="link-to-prism">apps/shared/cache.service.ts:63</a></div>
+                            class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:63</a></div>
                 </td>
             </tr>
 
@@ -433,7 +433,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="119"
-                            class="link-to-prism">apps/shared/cache.service.ts:119</a></div>
+                            class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:119</a></div>
                 </td>
             </tr>
 
@@ -524,7 +524,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="76"
-                            class="link-to-prism">apps/shared/cache.service.ts:76</a></div>
+                            class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:76</a></div>
                 </td>
             </tr>
 
@@ -609,7 +609,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="165"
-                            class="link-to-prism">apps/shared/cache.service.ts:165</a></div>
+                            class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:165</a></div>
                 </td>
             </tr>
 
@@ -702,7 +702,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="50"
-                            class="link-to-prism">apps/shared/cache.service.ts:50</a></div>
+                            class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:50</a></div>
                 </td>
             </tr>
 
@@ -763,11 +763,11 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Did } from &#x27;./did/schemas/did.schema&#x27;;
-import { DidDocumentMetaData } from &#x27;./did/did-document-meta-data&#x27;;
-import { DidId } from &#x27;@tc/did-id/schemas/did-id.schema&#x27;;
+import { DidDocumentMetaData } from &#x27;@tc/transactions/transactions/did/dto/did-document-meta-data.dto&#x27;;
+import { DidId } from &#x27;@tc/transactions/did-id/schemas/did-id.schema&#x27;;
 import { DidResolver } from &#x27;@trustcerts/core&#x27;;
 import { DidTransaction } from &#x27;./did/schemas/did-transaction.schema&#x27;;
-import { DocResponse } from &#x27;./did/doc-response.dto&#x27;;
+import { DocResponse } from &#x27;./did/dto/doc-response.dto&#x27;;
 import { Model, Schema } from &#x27;mongoose&#x27;;
 import { NotFoundException } from &#x27;@nestjs/common&#x27;;
 import { SignatureContent } from &#x27;@trustcerts/core&#x27;;

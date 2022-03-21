@@ -14,13 +14,13 @@
 <title>cluster_GatewayBlockchainModule</title>
 <polygon fill="none" stroke="black" stroke-dasharray="1,5" points="8,-32.8 8,-230.8 684,-230.8 684,-32.8 8,-32.8"/>
 </g>
-<g id="clust4" class="cluster">
-<title>cluster_GatewayBlockchainModule_exports</title>
-<polygon fill="none" stroke="black" points="260,-170.8 260,-222.8 560,-222.8 560,-170.8 260,-170.8"/>
-</g>
 <g id="clust3" class="cluster">
 <title>cluster_GatewayBlockchainModule_imports</title>
 <polygon fill="none" stroke="black" points="276,-40.8 276,-92.8 676,-92.8 676,-40.8 276,-40.8"/>
+</g>
+<g id="clust4" class="cluster">
+<title>cluster_GatewayBlockchainModule_exports</title>
+<polygon fill="none" stroke="black" points="260,-170.8 260,-222.8 560,-222.8 560,-170.8 260,-170.8"/>
 </g>
 <g id="clust6" class="cluster">
 <title>cluster_GatewayBlockchainModule_providers</title>

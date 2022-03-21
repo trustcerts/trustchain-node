@@ -165,7 +165,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>libs/transactions/did-id/src/did-id-blockchain/did-id-blockchain.module.ts</code>
+            <code>libs/transactions/src/did-id/validation/did-id-blockchain.module.ts</code>
         </p>
 
 
@@ -218,13 +218,13 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { BlockCheckModule } from &#x27;@tc/blockchain/block-check/block-check.module&#x27;;
 import { DID_ID_CONNECTION } from &#x27;../constants&#x27;;
 import { DidId, DidIdSchema } from &#x27;../schemas/did-id.schema&#x27;;
-import { DidIdCachedModule } from &#x27;../did-id-cached/did-id-cached.module&#x27;;
-import { DidIdDbModule } from &#x27;../did-id-db/did-id-db.module&#x27;;
+import { DidIdCachedModule } from &#x27;../cached/did-id-cached.module&#x27;;
+import { DidIdDbModule } from &#x27;../db/did-id-db.module&#x27;;
 import {
   DidIdTransaction,
   DidTransactionSchema,
 } from &#x27;../schemas/did-id-transaction.schema&#x27;;
-import { DidIdTransactionCheckService } from &#x27;./did-id-transaction-check/did-id-transaction-check.service&#x27;;
+import { DidIdTransactionCheckService } from &#x27;./did-id-transaction-check.service&#x27;;
 import { Module } from &#x27;@nestjs/common&#x27;;
 import { MongooseModule } from &#x27;@nestjs/mongoose&#x27;;
 

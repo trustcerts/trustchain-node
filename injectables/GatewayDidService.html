@@ -59,7 +59,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>apps/http-gateway/src/gateway-did/gateway-did.service.ts</code>
+            <code>libs/transactions/src/did-id/gateway/gateway-did.service.ts</code>
         </p>
 
 
@@ -169,7 +169,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">apps/http-gateway/src/gateway-did/gateway-did.service.ts:31</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">libs/transactions/src/did-id/gateway/gateway-did.service.ts:31</a></div>
                             </td>
                         </tr>
 
@@ -307,7 +307,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="80"
-                            class="link-to-prism">apps/http-gateway/src/gateway-did/gateway-did.service.ts:80</a></div>
+                            class="link-to-prism">libs/transactions/src/did-id/gateway/gateway-did.service.ts:80</a></div>
                 </td>
             </tr>
 
@@ -393,7 +393,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="170"
-                            class="link-to-prism">apps/http-gateway/src/gateway-did/gateway-did.service.ts:170</a></div>
+                            class="link-to-prism">libs/transactions/src/did-id/gateway/gateway-did.service.ts:170</a></div>
                 </td>
             </tr>
 
@@ -467,7 +467,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="95"
-                            class="link-to-prism">apps/http-gateway/src/gateway-did/gateway-did.service.ts:95</a></div>
+                            class="link-to-prism">libs/transactions/src/did-id/gateway/gateway-did.service.ts:95</a></div>
                 </td>
             </tr>
 
@@ -541,7 +541,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="132"
-                            class="link-to-prism">apps/http-gateway/src/gateway-did/gateway-did.service.ts:132</a></div>
+                            class="link-to-prism">libs/transactions/src/did-id/gateway/gateway-did.service.ts:132</a></div>
                 </td>
             </tr>
 
@@ -633,7 +633,7 @@ broadcasted.</p>
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="66"
-                            class="link-to-prism">apps/http-gateway/src/gateway-did/gateway-did.service.ts:66</a></div>
+                            class="link-to-prism">libs/transactions/src/did-id/gateway/gateway-did.service.ts:66</a></div>
                 </td>
             </tr>
 
@@ -955,7 +955,7 @@ broadcasted.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">apps/http-gateway/src/gateway-did/gateway-did.service.ts:31</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">libs/transactions/src/did-id/gateway/gateway-did.service.ts:31</a></div>
                         </td>
                     </tr>
 
@@ -976,7 +976,7 @@ broadcasted.</p>
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="../classes/DidResolver.html" target="_self" >DidResolver</a></code>
+                        <i>Type : </i>        <code><a href="../classes/Did.html" target="_self" >DidResolver</a></code>
 
                     </td>
                 </tr>
@@ -1003,7 +1003,7 @@ broadcasted.</p>
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ConfigService } from &#x27;@tc/config&#x27;;
-import { CreateDidIdDto } from &#x27;@tc/did-id/dto/create-did-id.dto&#x27;;
+import { CreateDidIdDto } from &#x27;@tc/transactions/did-id/dto/create-did-id.dto&#x27;;
 import {
   DidId,
   DidIdResolver,
@@ -1012,20 +1012,20 @@ import {
   getFingerPrint,
   importKey,
 } from &#x27;@trustcerts/core&#x27;;
-import { DidIdCachedService } from &#x27;@tc/did-id/did-id-cached/did-id-cached.service&#x27;;
+import { DidIdCachedService } from &#x27;@tc/transactions/did-id/cached/did-id-cached.service&#x27;;
 import { DidIdRegister } from &#x27;@trustcerts/did-id-create&#x27;;
-import { DidIdTransactionCheckService } from &#x27;@tc/did-id/did-id-blockchain/did-id-transaction-check/did-id-transaction-check.service&#x27;;
-import { DidIdTransactionDto } from &#x27;@tc/did-id/dto/did-id-transaction.dto&#x27;;
+import { DidIdTransactionCheckService } from &#x27;@tc/transactions/did-id/validation/did-id-transaction-check.service&#x27;;
+import { DidIdTransactionDto } from &#x27;@tc/transactions/did-id/dto/did-id-transaction.dto&#x27;;
 import { DidResponse } from &#x27;./responses&#x27;;
-import { GatewayBlockchainService } from &#x27;../gateway-blockchain/gateway-blockchain.service&#x27;;
-import { GatewayTransactionService } from &#x27;../gateway-transaction.service&#x27;;
+import { GatewayBlockchainService } from &#x27;@apps/http-gateway/src/gateway-blockchain/gateway-blockchain.service&#x27;;
+import { GatewayTransactionService } from &#x27;@apps/http-gateway/src/gateway-transaction.service&#x27;;
 import { HashService } from &#x27;@tc/blockchain&#x27;;
 import { Inject, Injectable, NotFoundException } from &#x27;@nestjs/common&#x27;;
 import { Logger } from &#x27;winston&#x27;;
-import { RoleManageType } from &#x27;@tc/did-id/constants&#x27;;
+import { RoleManageType } from &#x27;@tc/transactions/did-id/constants&#x27;;
 import { SignatureInfo } from &#x27;@tc/blockchain/transaction/signature-info&#x27;;
 import { SignatureType } from &#x27;@tc/blockchain/transaction/signature-type&#x27;;
-import { WalletClientService } from &#x27;@tc/wallet-client&#x27;;
+import { WalletClientService } from &#x27;@tc/clients/wallet-client&#x27;;
 
 /**
  * Administrates did objects.

@@ -141,8 +141,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="97"
-                            class="link-to-prism">apps/http-validator/src/health/health.controller.ts:97</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="106"
+                            class="link-to-prism">apps/http-validator/src/health/health.controller.ts:106</a></div>
                 </td>
             </tr>
 
@@ -187,8 +187,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="110"
-                            class="link-to-prism">apps/http-validator/src/health/health.controller.ts:110</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="119"
+                            class="link-to-prism">apps/http-validator/src/health/health.controller.ts:119</a></div>
                 </td>
             </tr>
 
@@ -213,7 +213,7 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ConfigService } from &#x27;@tc/config&#x27;;
 import { Connection } from &#x27;@shared/connection&#x27;;
 import { Controller, Get } from &#x27;@nestjs/common&#x27;;
-import { DID_ID_CONNECTION } from &#x27;@tc/did-id/constants&#x27;;
+import { DID_ID_CONNECTION } from &#x27;@tc/transactions/did-id/constants&#x27;;
 import {
   HealthCheck,
   HealthCheckService,
@@ -223,10 +223,19 @@ import {
 import { HealthIndicatorFunction } from &#x27;@nestjs/terminus/dist/health-indicator&#x27;;
 import { INVITE_CONNECTION } from &#x27;@tc/invite/constants&#x27;;
 import { InjectConnection } from &#x27;@nestjs/mongoose&#x27;;
-import { NETWORK_PORT_TCP, NETWORK_URL } from &#x27;@tc/network-client/constants&#x27;;
-import { PERSIST_PORT_TCP, PERSIST_URL } from &#x27;@tc/persist-client/constants&#x27;;
+import {
+  NETWORK_PORT_TCP,
+  NETWORK_URL,
+} from &#x27;@tc/clients/network-client/constants&#x27;;
+import {
+  PERSIST_PORT_TCP,
+  PERSIST_URL,
+} from &#x27;@tc/clients/persist-client/constants&#x27;;
 import { Transport } from &#x27;@nestjs/microservices&#x27;;
-import { WALLET_PORT_TCP, WALLET_URL } from &#x27;@tc/wallet-client/constants&#x27;;
+import {
+  WALLET_PORT_TCP,
+  WALLET_URL,
+} from &#x27;@tc/clients/wallet-client/constants&#x27;;
 
 /**
  * Health check endpoint for this service and the node.

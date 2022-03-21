@@ -173,7 +173,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>apps/http-gateway/src/gateway-hash/gateway-hash.module.ts</code>
+            <code>libs/transactions/src/did-hash/gateway/gateway-hash.module.ts</code>
         </p>
 
 
@@ -230,16 +230,16 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ConfigModule } from &#x27;@tc/config&#x27;;
-import { DidIdCachedModule } from &#x27;@tc/did-id/did-id-cached/did-id-cached.module&#x27;;
-import { GatewayBlockchainModule } from &#x27;../gateway-blockchain/gateway-blockchain.module&#x27;;
+import { DidIdCachedModule } from &#x27;@tc/transactions/did-id/cached/did-id-cached.module&#x27;;
+import { GatewayBlockchainModule } from &#x27;@apps/http-gateway/src/gateway-blockchain/gateway-blockchain.module&#x27;;
 import { GatewayHashController } from &#x27;./gateway-hash.controller&#x27;;
 import { GatewayHashService } from &#x27;./gateway-hash.service&#x27;;
-import { HashBlockchainModule } from &#x27;@tc/hash/hash-blockchain/hash-blockchain.module&#x27;;
-import { HashCachedModule } from &#x27;@tc/hash/hash-cached/hash-cached.module&#x27;;
+import { HashBlockchainModule } from &#x27;@tc/transactions/did-hash/validation/hash-blockchain.module&#x27;;
+import { HashCachedModule } from &#x27;@tc/transactions/did-hash/cached/hash-cached.module&#x27;;
 import { HttpConfigService } from &#x27;@shared/http-config.service&#x27;;
 import { HttpModule } from &#x27;@nestjs/axios&#x27;;
 import { Module } from &#x27;@nestjs/common&#x27;;
-import { WalletClientModule } from &#x27;@tc/wallet-client&#x27;;
+import { WalletClientModule } from &#x27;@tc/clients/wallet-client&#x27;;
 
 @Module({
   imports: [

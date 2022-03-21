@@ -161,7 +161,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>apps/http-gateway/src/gateway-schema/gateway-schema.module.ts</code>
+            <code>libs/transactions/src/did-schema/gateway/gateway-schema.module.ts</code>
         </p>
 
 
@@ -214,13 +214,13 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { GatewayBlockchainModule } from &#x27;../gateway-blockchain/gateway-blockchain.module&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { GatewayBlockchainModule } from &#x27;@apps/http-gateway/src/gateway-blockchain/gateway-blockchain.module&#x27;;
 import { GatewaySchemaController } from &#x27;./gateway-schema.controller&#x27;;
 import { GatewaySchemaService } from &#x27;./gateway-schema.service&#x27;;
 import { Module } from &#x27;@nestjs/common&#x27;;
-import { SchemaBlockchainModule } from &#x27;@tc/schema/schema-blockchain/schema-blockchain.module&#x27;;
-import { SchemaCachedModule } from &#x27;@tc/schema/schema-cached/schema-cached.module&#x27;;
-import { WalletClientModule } from &#x27;@tc/wallet-client&#x27;;
+import { SchemaBlockchainModule } from &#x27;@tc/transactions/did-schema/validation/schema-blockchain.module&#x27;;
+import { SchemaCachedModule } from &#x27;@tc/transactions/did-schema/cached/schema-cached.module&#x27;;
+import { WalletClientModule } from &#x27;@tc/clients/wallet-client&#x27;;
 
 @Module({
   imports: [

@@ -59,7 +59,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>apps/http-gateway/src/gateway-hash/gateway-hash.service.ts</code>
+            <code>libs/transactions/src/did-hash/gateway/gateway-hash.service.ts</code>
         </p>
 
 
@@ -151,7 +151,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">apps/http-gateway/src/gateway-hash/gateway-hash.service.ts:19</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">libs/transactions/src/did-hash/gateway/gateway-hash.service.ts:19</a></div>
                             </td>
                         </tr>
 
@@ -303,7 +303,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="54"
-                            class="link-to-prism">apps/http-gateway/src/gateway-hash/gateway-hash.service.ts:54</a></div>
+                            class="link-to-prism">libs/transactions/src/did-hash/gateway/gateway-hash.service.ts:54</a></div>
                 </td>
             </tr>
 
@@ -376,7 +376,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="78"
-                            class="link-to-prism">apps/http-gateway/src/gateway-hash/gateway-hash.service.ts:78</a></div>
+                            class="link-to-prism">libs/transactions/src/did-hash/gateway/gateway-hash.service.ts:78</a></div>
                 </td>
             </tr>
 
@@ -698,7 +698,7 @@
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="../classes/DidResolver.html" target="_self" >DidResolver</a></code>
+                        <i>Type : </i>        <code><a href="../classes/Did.html" target="_self" >DidResolver</a></code>
 
                     </td>
                 </tr>
@@ -726,17 +726,17 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ConfigService } from &#x27;@tc/config&#x27;;
 import { ConflictException, Inject, Injectable } from &#x27;@nestjs/common&#x27;;
-import { DidIdCachedService } from &#x27;@tc/did-id/did-id-cached/did-id-cached.service&#x27;;
+import { DidIdCachedService } from &#x27;@tc/transactions/did-id/cached/did-id-cached.service&#x27;;
 import { DidSignatureResolver } from &#x27;@trustcerts/signature-verify&#x27;;
-import { GatewayBlockchainService } from &#x27;../gateway-blockchain/gateway-blockchain.service&#x27;;
-import { GatewayTransactionService } from &#x27;../gateway-transaction.service&#x27;;
-import { HashCachedService } from &#x27;@tc/hash/hash-cached/hash-cached.service&#x27;;
-import { HashDidTransactionDto } from &#x27;@tc/hash/dto/hash-transaction.dto&#x27;;
-import { HashResponse } from &#x27;./dto/hash.respnse&#x27;;
+import { GatewayBlockchainService } from &#x27;@apps/http-gateway/src/gateway-blockchain/gateway-blockchain.service&#x27;;
+import { GatewayTransactionService } from &#x27;@apps/http-gateway/src/gateway-transaction.service&#x27;;
+import { HashCachedService } from &#x27;@tc/transactions/did-hash/cached/hash-cached.service&#x27;;
+import { HashDidTransactionDto } from &#x27;@tc/transactions/did-hash/dto/hash-transaction.dto&#x27;;
+import { HashResponse } from &#x27;../dto/hash-respnse.dto&#x27;;
 import { HashService } from &#x27;@tc/blockchain/hash.service&#x27;;
-import { HashTransactionCheckService } from &#x27;@tc/hash/hash-blockchain/hash-transaction-check/hash-transaction-check.service&#x27;;
+import { HashTransactionCheckService } from &#x27;@tc/transactions/did-hash/validation/hash-transaction-check.service&#x27;;
 import { Logger } from &#x27;winston&#x27;;
-import { WalletClientService } from &#x27;@tc/wallet-client&#x27;;
+import { WalletClientService } from &#x27;@tc/clients/wallet-client&#x27;;
 
 /**
  * Service to validate requests from the api to the blockchain level.

@@ -125,7 +125,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>libs/clients/persist-client/src/persist-client.module.ts</code>
+            <code>libs/clients/src/persist-client/persist-client.module.ts</code>
         </p>
 
 
@@ -183,7 +183,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="33"
-                            class="link-to-prism">libs/clients/persist-client/src/persist-client.module.ts:33</a></div>
+                            class="link-to-prism">libs/clients/src/persist-client/persist-client.module.ts:33</a></div>
                 </td>
             </tr>
 
@@ -204,7 +204,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ClientModule } from &#x27;@shared/client.module&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ClientModule } from &#x27;@tc/clients/client.module&#x27;;
 import { ConfigModule, ConfigService } from &#x27;@tc/config&#x27;;
 import { HttpConfigService } from &#x27;@shared/http-config.service&#x27;;
 import { HttpModule, HttpService } from &#x27;@nestjs/axios&#x27;;
@@ -212,7 +212,7 @@ import { Inject, Module, OnApplicationBootstrap } from &#x27;@nestjs/common&#x27
 import { Logger } from &#x27;winston&#x27;;
 import { PERSIST_PORT_HTTP, PERSIST_URL } from &#x27;./constants&#x27;;
 import { PersistClientService } from &#x27;./persist-client.service&#x27;;
-import { persistTcpProvider } from &#x27;@tc/persist-client/persist.provider&#x27;;
+import { persistTcpProvider } from &#x27;@tc/clients/persist-client/persist.provider&#x27;;
 
 @Module({
   imports: [

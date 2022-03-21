@@ -121,7 +121,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>apps/http-observer/src/observer-hash/observer-hash.module.ts</code>
+            <code>libs/transactions/src/did-hash/observer/observer-hash.module.ts</code>
         </p>
 
 
@@ -160,13 +160,13 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ConfigModule } from &#x27;@tc/config&#x27;;
-import { HashCachedModule } from &#x27;@tc/hash/hash-cached/hash-cached.module&#x27;;
+import { HashCachedModule } from &#x27;@tc/transactions/did-hash/cached/hash-cached.module&#x27;;
 import { HttpConfigService } from &#x27;@shared/http-config.service&#x27;;
 import { HttpModule } from &#x27;@nestjs/axios&#x27;;
 import { Module } from &#x27;@nestjs/common&#x27;;
 import { ObserverHashController } from &#x27;./observer-hash.controller&#x27;;
 import { ObserverHashGateway } from &#x27;./observer-hash.gateway&#x27;;
-import { TrackingModule } from &#x27;../tracking/tracking.module&#x27;;
+import { TrackingModule } from &#x27;@apps/http-observer/src/tracking/tracking.module&#x27;;
 
 @Module({
   imports: [

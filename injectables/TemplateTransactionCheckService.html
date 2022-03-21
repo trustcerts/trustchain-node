@@ -59,7 +59,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>libs/transactions/template/src/template-blockchain/template-transaction-check/template-transaction-check.service.ts</code>
+            <code>libs/transactions/src/did-template/validation/template-transaction-check.service.ts</code>
         </p>
 
 
@@ -147,7 +147,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">libs/transactions/template/src/template-blockchain/template-transaction-check/template-transaction-check.service.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">libs/transactions/src/did-template/validation/template-transaction-check.service.ts:16</a></div>
                             </td>
                         </tr>
 
@@ -251,7 +251,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="52"
-                            class="link-to-prism">libs/transactions/template/src/template-blockchain/template-transaction-check/template-transaction-check.service.ts:52</a></div>
+                            class="link-to-prism">libs/transactions/src/did-template/validation/template-transaction-check.service.ts:52</a></div>
                 </td>
             </tr>
 
@@ -336,7 +336,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="43"
-                            class="link-to-prism">libs/transactions/template/src/template-blockchain/template-transaction-check/template-transaction-check.service.ts:43</a></div>
+                            class="link-to-prism">libs/transactions/src/did-template/validation/template-transaction-check.service.ts:43</a></div>
                 </td>
             </tr>
 
@@ -794,13 +794,13 @@ Check will pass if the transaction does not exists yet or the signer is authoriz
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { BlockCheckService } from &#x27;@tc/blockchain/block-check/block-check.service&#x27;;
-import { DidIdCachedService } from &#x27;@tc/did-id/did-id-cached/did-id-cached.service&#x27;;
+import { DidIdCachedService } from &#x27;@tc/transactions/did-id/cached/did-id-cached.service&#x27;;
 import { Inject, Injectable } from &#x27;@nestjs/common&#x27;;
 import { Logger } from &#x27;winston&#x27;;
-import { RoleManageType } from &#x27;@tc/did-id/constants&#x27;;
-import { TemplateCachedService } from &#x27;@tc/template/template-cached/template-cached.service&#x27;;
-import { TemplateTransactionDto } from &#x27;@tc/template/dto/template.transaction.dto&#x27;;
-import { TransactionCheck } from &#x27;@shared/transactions/transaction.check&#x27;;
+import { RoleManageType } from &#x27;@tc/transactions/did-id/constants&#x27;;
+import { TemplateCachedService } from &#x27;@tc/transactions/did-template/cached/template-cached.service&#x27;;
+import { TemplateTransactionDto } from &#x27;../dto/template.transaction.dto&#x27;;
+import { TransactionCheck } from &#x27;@tc/transactions/transactions/transaction-check.service&#x27;;
 import { TransactionDto } from &#x27;@tc/blockchain/transaction/transaction.dto&#x27;;
 import { TransactionType } from &#x27;@tc/blockchain/transaction/transaction-type&#x27;;
 

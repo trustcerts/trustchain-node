@@ -63,7 +63,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>apps/shared/did/doc-response.dto.ts</code>
+            <code>libs/transactions/src/transactions/did/dto/doc-response.dto.ts</code>
         </p>
 
 
@@ -146,7 +146,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">apps/shared/did/doc-response.dto.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">libs/transactions/src/transactions/did/dto/doc-response.dto.ts:14</a></div>
                         </td>
                     </tr>
 
@@ -187,7 +187,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">apps/shared/did/doc-response.dto.ts:33</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">libs/transactions/src/transactions/did/dto/doc-response.dto.ts:32</a></div>
                         </td>
                     </tr>
 
@@ -228,7 +228,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">apps/shared/did/doc-response.dto.ts:24</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">libs/transactions/src/transactions/did/dto/doc-response.dto.ts:23</a></div>
                         </td>
                     </tr>
 
@@ -255,13 +255,12 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
 import { DidDocument } from &#x27;./did-document.dto&#x27;;
-import { DidDocumentMetaData } from &#x27;./did-document-meta-data&#x27;;
+import { DidDocumentMetaData } from &#x27;./did-document-meta-data.dto&#x27;;
 import { SignatureInfo } from &#x27;@tc/blockchain/transaction/signature-info&#x27;;
 
 /**
  * Response of a parsed did document.
  */
-
 export class DocResponse {
   /**
    * parsed did document

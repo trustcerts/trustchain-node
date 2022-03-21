@@ -14,115 +14,115 @@
 <title>cluster_HttpObserverModule</title>
 <polygon fill="none" stroke="black" stroke-dasharray="1,5" points="8,-32.8 8,-157.8 1280,-157.8 1280,-32.8 8,-32.8"/>
 </g>
-<g id="clust3" class="cluster">
-<title>cluster_HttpObserverModule_imports</title>
-<polygon fill="none" stroke="black" points="226,-40.8 226,-92.8 1272,-92.8 1272,-40.8 226,-40.8"/>
-</g>
 <g id="clust6" class="cluster">
 <title>cluster_HttpObserverModule_providers</title>
-<polygon fill="none" stroke="black" points="16,-40.8 16,-92.8 218,-92.8 218,-40.8 16,-40.8"/>
+<polygon fill="none" stroke="black" points="1070,-40.8 1070,-92.8 1272,-92.8 1272,-40.8 1070,-40.8"/>
+</g>
+<g id="clust3" class="cluster">
+<title>cluster_HttpObserverModule_imports</title>
+<polygon fill="none" stroke="black" points="16,-40.8 16,-92.8 1062,-92.8 1062,-40.8 16,-40.8"/>
 </g>
 <!-- ConfigModule -->
 <g id="node1" class="node">
 <title>ConfigModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="1264.44,-84.8 1261.44,-88.8 1240.44,-88.8 1237.44,-84.8 1165.56,-84.8 1165.56,-48.8 1264.44,-48.8 1264.44,-84.8"/>
-<text text-anchor="middle" x="1215" y="-62.6" font-family="Times,serif" font-size="14.00">ConfigModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="1054.44,-84.8 1051.44,-88.8 1030.44,-88.8 1027.44,-84.8 955.56,-84.8 955.56,-48.8 1054.44,-48.8 1054.44,-84.8"/>
+<text text-anchor="middle" x="1005" y="-62.6" font-family="Times,serif" font-size="14.00">ConfigModule</text>
 </g>
 <!-- HttpObserverModule -->
 <g id="node8" class="node">
 <title>HttpObserverModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="770.74,-149.8 767.74,-153.8 746.74,-153.8 743.74,-149.8 635.26,-149.8 635.26,-113.8 770.74,-113.8 770.74,-149.8"/>
-<text text-anchor="middle" x="703" y="-127.6" font-family="Times,serif" font-size="14.00">HttpObserverModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="720.74,-149.8 717.74,-153.8 696.74,-153.8 693.74,-149.8 585.26,-149.8 585.26,-113.8 720.74,-113.8 720.74,-149.8"/>
+<text text-anchor="middle" x="653" y="-127.6" font-family="Times,serif" font-size="14.00">HttpObserverModule</text>
 </g>
 <!-- ConfigModule&#45;&gt;HttpObserverModule -->
 <g id="edge1" class="edge">
 <title>ConfigModule&#45;&gt;HttpObserverModule</title>
-<path fill="none" stroke="black" d="M1215,-85.09C1215,-107.01 1215,-140.8 1215,-140.8 1215,-140.8 780.99,-140.8 780.99,-140.8"/>
-<polygon fill="black" stroke="black" points="780.99,-137.3 770.99,-140.8 780.99,-144.3 780.99,-137.3"/>
+<path fill="none" stroke="black" d="M1005,-84.91C1005,-104.14 1005,-131.8 1005,-131.8 1005,-131.8 730.87,-131.8 730.87,-131.8"/>
+<polygon fill="black" stroke="black" points="730.87,-128.3 720.87,-131.8 730.87,-135.3 730.87,-128.3"/>
 </g>
 <!-- HttpSharedModule -->
 <g id="node2" class="node">
 <title>HttpSharedModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="1147.81,-84.8 1144.81,-88.8 1123.81,-88.8 1120.81,-84.8 1024.19,-84.8 1024.19,-48.8 1147.81,-48.8 1147.81,-84.8"/>
-<text text-anchor="middle" x="1086" y="-62.6" font-family="Times,serif" font-size="14.00">HttpSharedModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="937.81,-84.8 934.81,-88.8 913.81,-88.8 910.81,-84.8 814.19,-84.8 814.19,-48.8 937.81,-48.8 937.81,-84.8"/>
+<text text-anchor="middle" x="876" y="-62.6" font-family="Times,serif" font-size="14.00">HttpSharedModule</text>
 </g>
 <!-- HttpSharedModule&#45;&gt;HttpObserverModule -->
 <g id="edge2" class="edge">
 <title>HttpSharedModule&#45;&gt;HttpObserverModule</title>
-<path fill="none" stroke="black" d="M1086,-84.91C1086,-104.14 1086,-131.8 1086,-131.8 1086,-131.8 781.03,-131.8 781.03,-131.8"/>
-<polygon fill="black" stroke="black" points="781.03,-128.3 771.03,-131.8 781.03,-135.3 781.03,-128.3"/>
+<path fill="none" stroke="black" d="M876,-84.83C876,-101.2 876,-122.8 876,-122.8 876,-122.8 730.82,-122.8 730.82,-122.8"/>
+<polygon fill="black" stroke="black" points="730.82,-119.3 720.82,-122.8 730.82,-126.3 730.82,-119.3"/>
 </g>
 <!-- ObserverDidModule -->
 <g id="node3" class="node">
 <title>ObserverDidModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="1005.85,-84.8 1002.85,-88.8 981.85,-88.8 978.85,-84.8 874.15,-84.8 874.15,-48.8 1005.85,-48.8 1005.85,-84.8"/>
-<text text-anchor="middle" x="940" y="-62.6" font-family="Times,serif" font-size="14.00">ObserverDidModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="795.85,-84.8 792.85,-88.8 771.85,-88.8 768.85,-84.8 664.15,-84.8 664.15,-48.8 795.85,-48.8 795.85,-84.8"/>
+<text text-anchor="middle" x="730" y="-62.6" font-family="Times,serif" font-size="14.00">ObserverDidModule</text>
 </g>
 <!-- ObserverDidModule&#45;&gt;HttpObserverModule -->
 <g id="edge3" class="edge">
 <title>ObserverDidModule&#45;&gt;HttpObserverModule</title>
-<path fill="none" stroke="black" d="M940,-84.83C940,-101.2 940,-122.8 940,-122.8 940,-122.8 780.91,-122.8 780.91,-122.8"/>
-<polygon fill="black" stroke="black" points="780.91,-119.3 770.91,-122.8 780.91,-126.3 780.91,-119.3"/>
+<path fill="none" stroke="black" d="M692.47,-84.91C692.47,-84.91 692.47,-103.79 692.47,-103.79"/>
+<polygon fill="black" stroke="black" points="688.97,-103.79 692.47,-113.79 695.97,-103.79 688.97,-103.79"/>
 </g>
 <!-- ObserverHashModule -->
 <g id="node4" class="node">
 <title>ObserverHashModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="855.62,-84.8 852.62,-88.8 831.62,-88.8 828.62,-84.8 716.38,-84.8 716.38,-48.8 855.62,-48.8 855.62,-84.8"/>
-<text text-anchor="middle" x="786" y="-62.6" font-family="Times,serif" font-size="14.00">ObserverHashModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="645.62,-84.8 642.62,-88.8 621.62,-88.8 618.62,-84.8 506.38,-84.8 506.38,-48.8 645.62,-48.8 645.62,-84.8"/>
+<text text-anchor="middle" x="576" y="-62.6" font-family="Times,serif" font-size="14.00">ObserverHashModule</text>
 </g>
 <!-- ObserverHashModule&#45;&gt;HttpObserverModule -->
 <g id="edge4" class="edge">
 <title>ObserverHashModule&#45;&gt;HttpObserverModule</title>
-<path fill="none" stroke="black" d="M743.53,-84.91C743.53,-84.91 743.53,-103.79 743.53,-103.79"/>
-<polygon fill="black" stroke="black" points="740.03,-103.79 743.53,-113.79 747.03,-103.79 740.03,-103.79"/>
+<path fill="none" stroke="black" d="M615.47,-84.91C615.47,-84.91 615.47,-103.79 615.47,-103.79"/>
+<polygon fill="black" stroke="black" points="611.97,-103.79 615.47,-113.79 618.97,-103.79 611.97,-103.79"/>
 </g>
 <!-- ObserverSchemaModule -->
 <g id="node5" class="node">
 <title>ObserverSchemaModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="698.67,-84.8 695.67,-88.8 674.67,-88.8 671.67,-84.8 543.33,-84.8 543.33,-48.8 698.67,-48.8 698.67,-84.8"/>
-<text text-anchor="middle" x="621" y="-62.6" font-family="Times,serif" font-size="14.00">ObserverSchemaModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="488.67,-84.8 485.67,-88.8 464.67,-88.8 461.67,-84.8 333.33,-84.8 333.33,-48.8 488.67,-48.8 488.67,-84.8"/>
+<text text-anchor="middle" x="411" y="-62.6" font-family="Times,serif" font-size="14.00">ObserverSchemaModule</text>
 </g>
 <!-- ObserverSchemaModule&#45;&gt;HttpObserverModule -->
 <g id="edge5" class="edge">
 <title>ObserverSchemaModule&#45;&gt;HttpObserverModule</title>
-<path fill="none" stroke="black" d="M666.86,-84.91C666.86,-84.91 666.86,-103.79 666.86,-103.79"/>
-<polygon fill="black" stroke="black" points="663.36,-103.79 666.86,-113.79 670.36,-103.79 663.36,-103.79"/>
+<path fill="none" stroke="black" d="M411,-84.83C411,-101.2 411,-122.8 411,-122.8 411,-122.8 574.95,-122.8 574.95,-122.8"/>
+<polygon fill="black" stroke="black" points="574.95,-126.3 584.95,-122.8 574.95,-119.3 574.95,-126.3"/>
 </g>
 <!-- ObserverTemplateModule -->
 <g id="node6" class="node">
 <title>ObserverTemplateModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="525.72,-84.8 522.72,-88.8 501.72,-88.8 498.72,-84.8 362.28,-84.8 362.28,-48.8 525.72,-48.8 525.72,-84.8"/>
-<text text-anchor="middle" x="444" y="-62.6" font-family="Times,serif" font-size="14.00">ObserverTemplateModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="315.72,-84.8 312.72,-88.8 291.72,-88.8 288.72,-84.8 152.28,-84.8 152.28,-48.8 315.72,-48.8 315.72,-84.8"/>
+<text text-anchor="middle" x="234" y="-62.6" font-family="Times,serif" font-size="14.00">ObserverTemplateModule</text>
 </g>
 <!-- ObserverTemplateModule&#45;&gt;HttpObserverModule -->
 <g id="edge6" class="edge">
 <title>ObserverTemplateModule&#45;&gt;HttpObserverModule</title>
-<path fill="none" stroke="black" d="M444,-84.83C444,-101.2 444,-122.8 444,-122.8 444,-122.8 624.95,-122.8 624.95,-122.8"/>
-<polygon fill="black" stroke="black" points="624.95,-126.3 634.95,-122.8 624.95,-119.3 624.95,-126.3"/>
+<path fill="none" stroke="black" d="M234,-84.91C234,-104.14 234,-131.8 234,-131.8 234,-131.8 575.21,-131.8 575.21,-131.8"/>
+<polygon fill="black" stroke="black" points="575.21,-135.3 585.21,-131.8 575.21,-128.3 575.21,-135.3"/>
 </g>
 <!-- TrackingModule -->
 <g id="node7" class="node">
 <title>TrackingModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="344.08,-84.8 341.08,-88.8 320.08,-88.8 317.08,-84.8 233.92,-84.8 233.92,-48.8 344.08,-48.8 344.08,-84.8"/>
-<text text-anchor="middle" x="289" y="-62.6" font-family="Times,serif" font-size="14.00">TrackingModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="134.08,-84.8 131.08,-88.8 110.08,-88.8 107.08,-84.8 23.92,-84.8 23.92,-48.8 134.08,-48.8 134.08,-84.8"/>
+<text text-anchor="middle" x="79" y="-62.6" font-family="Times,serif" font-size="14.00">TrackingModule</text>
 </g>
 <!-- TrackingModule&#45;&gt;HttpObserverModule -->
 <g id="edge7" class="edge">
 <title>TrackingModule&#45;&gt;HttpObserverModule</title>
-<path fill="none" stroke="black" d="M289,-84.91C289,-104.14 289,-131.8 289,-131.8 289,-131.8 625.1,-131.8 625.1,-131.8"/>
-<polygon fill="black" stroke="black" points="625.1,-135.3 635.1,-131.8 625.1,-128.3 625.1,-135.3"/>
+<path fill="none" stroke="black" d="M79,-85.09C79,-107.01 79,-140.8 79,-140.8 79,-140.8 575.18,-140.8 575.18,-140.8"/>
+<polygon fill="black" stroke="black" points="575.18,-144.3 585.18,-140.8 575.18,-137.3 575.18,-144.3"/>
 </g>
 <!-- HttpObserverService -->
 <g id="node9" class="node">
 <title>HttpObserverService</title>
-<ellipse fill="#fdb462" stroke="black" cx="117" cy="-66.8" rx="92.59" ry="18"/>
-<text text-anchor="middle" x="117" y="-62.6" font-family="Times,serif" font-size="14.00">HttpObserverService</text>
+<ellipse fill="#fdb462" stroke="black" cx="1171" cy="-66.8" rx="92.59" ry="18"/>
+<text text-anchor="middle" x="1171" y="-62.6" font-family="Times,serif" font-size="14.00">HttpObserverService</text>
 </g>
 <!-- HttpObserverService&#45;&gt;HttpObserverModule -->
 <g id="edge8" class="edge">
 <title>HttpObserverService&#45;&gt;HttpObserverModule</title>
-<path fill="none" stroke="black" d="M117,-85.09C117,-107.01 117,-140.8 117,-140.8 117,-140.8 625.21,-140.8 625.21,-140.8"/>
-<polygon fill="black" stroke="black" points="625.21,-144.3 635.21,-140.8 625.21,-137.3 625.21,-144.3"/>
+<path fill="none" stroke="black" d="M1171,-85.09C1171,-107.01 1171,-140.8 1171,-140.8 1171,-140.8 730.99,-140.8 730.99,-140.8"/>
+<polygon fill="black" stroke="black" points="730.99,-137.3 720.99,-140.8 730.99,-144.3 730.99,-137.3"/>
 </g>
 </g>
 </svg>

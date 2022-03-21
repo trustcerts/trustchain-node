@@ -1486,7 +1486,7 @@ consensus after the last connected Validator.</p>
 } from &#x27;@tc/blockchain/blockchain.events&#x27;;
 import { ConfigService } from &#x27;@tc/config/config.service&#x27;;
 import { Connection } from &#x27;@shared/connection&#x27;;
-import { DidIdCachedService } from &#x27;@tc/did-id/did-id-cached/did-id-cached.service&#x27;;
+import { DidIdCachedService } from &#x27;@tc/transactions/did-id/cached/did-id-cached.service&#x27;;
 import { Inject, Injectable } from &#x27;@nestjs/common&#x27;;
 import { Logger } from &#x27;winston&#x27;;
 import { P2PService } from &#x27;@tc/p2-p&#x27;;
@@ -1497,7 +1497,7 @@ import { ValidatorService } from &#x27;./validator/validator.service&#x27;;
 import Timeout &#x3D; NodeJS.Timeout;
 import { Gauge } from &#x27;prom-client&#x27;;
 import { InjectMetric } from &#x27;@willsoto/nestjs-prometheus&#x27;;
-import { RoleManageType } from &#x27;@tc/did-id/constants&#x27;;
+import { RoleManageType } from &#x27;@tc/transactions/did-id/constants&#x27;;
 
 /**
  * Service that is responsible for the consensus to find valid blocks.

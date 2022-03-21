@@ -56,7 +56,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>libs/clients/event-client/src/event-client.module.ts</code>
+            <code>libs/clients/src/event-client/event-client.module.ts</code>
         </p>
 
 
@@ -96,7 +96,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="24"
-                            class="link-to-prism">libs/clients/event-client/src/event-client.module.ts:24</a></div>
+                            class="link-to-prism">libs/clients/src/event-client/event-client.module.ts:24</a></div>
                 </td>
             </tr>
 
@@ -135,7 +135,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="20"
-                            class="link-to-prism">libs/clients/event-client/src/event-client.module.ts:20</a></div>
+                            class="link-to-prism">libs/clients/src/event-client/event-client.module.ts:20</a></div>
                 </td>
             </tr>
 
@@ -161,8 +161,8 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ClientRedis } from &#x27;@nestjs/microservices&#x27;;
 import { Inject, Module, OnApplicationBootstrap } from &#x27;@nestjs/common&#x27;;
 import { Logger } from &#x27;winston&#x27;;
-import { REDIS_INJECTION } from &#x27;@tc/event-client/constants&#x27;;
-import { redisProvider } from &#x27;@tc/event-client/redis.provider&#x27;;
+import { REDIS_INJECTION } from &#x27;@tc/clients/event-client/constants&#x27;;
+import { redisProvider } from &#x27;@tc/clients/event-client/redis.provider&#x27;;
 
 @Module({
   providers: [redisProvider],

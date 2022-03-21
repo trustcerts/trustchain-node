@@ -59,7 +59,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>libs/transactions/schema/src/schema-parsing/schema-parsing.service.ts</code>
+            <code>libs/transactions/src/did-schema/parse/schema-parsing.service.ts</code>
         </p>
 
 
@@ -157,7 +157,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">libs/transactions/schema/src/schema-parsing/schema-parsing.service.ts:26</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">libs/transactions/src/did-schema/parse/schema-parsing.service.ts:26</a></div>
                             </td>
                         </tr>
 
@@ -442,7 +442,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:71</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:74</a></code>
 </div>
                 </td>
             </tr>
@@ -520,7 +520,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:54</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:57</a></code>
 </div>
                 </td>
             </tr>
@@ -597,7 +597,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:43</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:46</a></code>
 </div>
                 </td>
             </tr>
@@ -677,7 +677,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:89</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:92</a></code>
 </div>
                 </td>
             </tr>
@@ -775,7 +775,7 @@
                         </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:20</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:23</a></code>
 </div>
                         </td>
                     </tr>
@@ -798,7 +798,7 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ClientRedis } from &#x27;@nestjs/microservices&#x27;;
 import { Counter } from &#x27;prom-client&#x27;;
 import { DidId } from &#x27;@trustcerts/core&#x27;;
-import { DidIdDocument } from &#x27;@tc/did-id/schemas/did-id.schema&#x27;;
+import { DidIdDocument } from &#x27;@tc/transactions/did-id/schemas/did-id.schema&#x27;;
 import { DidSchema, SchemaDocument } from &#x27;../schemas/did-schema.schema&#x27;;
 import {
   DidSchemaTransaction,
@@ -811,8 +811,8 @@ import { InjectModel } from &#x27;@nestjs/mongoose&#x27;;
 import { Logger } from &#x27;winston&#x27;;
 import { Model } from &#x27;mongoose&#x27;;
 import { ParseService } from &#x27;@apps/parse/src/parse.service&#x27;;
-import { ParsingService } from &#x27;@shared/transactions/parsing.service&#x27;;
-import { REDIS_INJECTION } from &#x27;@tc/event-client/constants&#x27;;
+import { ParsingService } from &#x27;@tc/transactions/transactions/parsing.service&#x27;;
+import { REDIS_INJECTION } from &#x27;@tc/clients/event-client/constants&#x27;;
 import { SchemaTransactionDto } from &#x27;../dto/schema.transaction.dto&#x27;;
 import { TransactionType } from &#x27;@tc/blockchain/transaction/transaction-type&#x27;;
 

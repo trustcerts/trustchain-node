@@ -61,13 +61,13 @@
 <title>cluster_P2PModule_providers</title>
 <polygon fill="none" stroke="black" points="937,-40.8 937,-92.8 1248,-92.8 1248,-40.8 937,-40.8"/>
 </g>
-<g id="clust4" class="cluster">
-<title>cluster_P2PModule_exports</title>
-<polygon fill="none" stroke="black" points="490,-170.8 490,-222.8 732,-222.8 732,-170.8 490,-170.8"/>
-</g>
 <g id="clust3" class="cluster">
 <title>cluster_P2PModule_imports</title>
 <polygon fill="none" stroke="black" points="16,-40.8 16,-92.8 929,-92.8 929,-40.8 16,-40.8"/>
+</g>
+<g id="clust4" class="cluster">
+<title>cluster_P2PModule_exports</title>
+<polygon fill="none" stroke="black" points="490,-170.8 490,-222.8 732,-222.8 732,-170.8 490,-170.8"/>
 </g>
 <!-- BlockReceivedModule -->
 <g id="node1" class="node">
@@ -307,12 +307,12 @@ import { P2PService } from &#x27;./p2-p.service&#x27;;
 import { BlockReceivedModule } from &#x27;./block-received/block-received.module&#x27;;
 import { BlockchainSyncModule } from &#x27;@tc/p2-p/blockchain-sync/blockchain-sync.module&#x27;;
 import { ConfigModule } from &#x27;@tc/config&#x27;;
-import { DidIdCachedModule } from &#x27;@tc/did-id/did-id-cached/did-id-cached.module&#x27;;
+import { DidIdCachedModule } from &#x27;@tc/transactions/did-id/cached/did-id-cached.module&#x27;;
 import { HttpConfigService } from &#x27;@shared/http-config.service&#x27;;
 import { HttpModule } from &#x27;@nestjs/axios&#x27;;
-import { PersistClientModule } from &#x27;@tc/persist-client&#x27;;
+import { PersistClientModule } from &#x27;@tc/clients/persist-client&#x27;;
 import { SignatureModule } from &#x27;@tc/blockchain/signature/signature.module&#x27;;
-import { WalletClientModule } from &#x27;@tc/wallet-client&#x27;;
+import { WalletClientModule } from &#x27;@tc/clients/wallet-client&#x27;;
 import { makeGaugeProvider } from &#x27;@willsoto/nestjs-prometheus&#x27;;
 
 @Module({

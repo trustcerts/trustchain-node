@@ -173,7 +173,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>libs/transactions/template/src/template-parsing/template-parsing.module.ts</code>
+            <code>libs/transactions/src/did-template/parse/template-parsing.module.ts</code>
         </p>
 
 
@@ -220,13 +220,13 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { DidIdCachedModule } from &#x27;@tc/did-id/did-id-cached/did-id-cached.module&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { DidIdCachedModule } from &#x27;@tc/transactions/did-id/cached/did-id-cached.module&#x27;;
 import { DidTemplate, TemplateSchema } from &#x27;../schemas/did-template.schema&#x27;;
 import {
   DidTemplateTransaction,
   TemplateTransactionSchema,
 } from &#x27;../schemas/did-template-transaction.schema&#x27;;
-import { EventClientModule } from &#x27;@tc/event-client&#x27;;
+import { EventClientModule } from &#x27;@tc/clients/event-client&#x27;;
 import { HashModule } from &#x27;@tc/blockchain&#x27;;
 import { Module, forwardRef } from &#x27;@nestjs/common&#x27;;
 import { MongooseModule } from &#x27;@nestjs/mongoose&#x27;;
@@ -235,9 +235,9 @@ import {
   PrometheusModule,
   makeCounterProvider,
 } from &#x27;@willsoto/nestjs-prometheus&#x27;;
-import { SchemaCachedModule } from &#x27;@tc/schema/schema-cached/schema-cached.module&#x27;;
+import { SchemaCachedModule } from &#x27;@tc/transactions/did-schema/cached/schema-cached.module&#x27;;
 import { TEMPLATE_CONNECTION } from &#x27;../constants&#x27;;
-import { TemplateDbModule } from &#x27;../template-db/template-db.module&#x27;;
+import { TemplateDbModule } from &#x27;../db/template-db.module&#x27;;
 import { TemplateParsingService } from &#x27;./template-parsing.service&#x27;;
 
 @Module({

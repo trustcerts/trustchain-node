@@ -173,7 +173,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>apps/http-gateway/src/gateway-did/gateway-did.module.ts</code>
+            <code>libs/transactions/src/did-id/gateway/gateway-did.module.ts</code>
         </p>
 
 
@@ -229,14 +229,14 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { DidIdBlockchainModule } from &#x27;@tc/did-id/did-id-blockchain/did-id-blockchain.module&#x27;;
-import { DidIdCachedModule } from &#x27;@tc/did-id/did-id-cached/did-id-cached.module&#x27;;
-import { GatewayBlockchainModule } from &#x27;../gateway-blockchain/gateway-blockchain.module&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { DidIdBlockchainModule } from &#x27;@tc/transactions/did-id/validation/did-id-blockchain.module&#x27;;
+import { DidIdCachedModule } from &#x27;@tc/transactions/did-id/cached/did-id-cached.module&#x27;;
+import { GatewayBlockchainModule } from &#x27;@apps/http-gateway/src/gateway-blockchain/gateway-blockchain.module&#x27;;
 import { GatewayDidController } from &#x27;./gateway-did.controller&#x27;;
 import { GatewayDidService } from &#x27;./gateway-did.service&#x27;;
 import { InviteModule } from &#x27;@tc/invite&#x27;;
 import { Module } from &#x27;@nestjs/common&#x27;;
-import { WalletClientModule } from &#x27;@tc/wallet-client&#x27;;
+import { WalletClientModule } from &#x27;@tc/clients/wallet-client&#x27;;
 
 @Module({
   imports: [

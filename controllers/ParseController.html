@@ -294,14 +294,14 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { BLOCK_PARSE, CHAIN_REBUILD } from &#x27;@tc/parse-client/constants&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { BLOCK_PARSE, CHAIN_REBUILD } from &#x27;@tc/clients/parse-client/constants&#x27;;
 import { Block } from &#x27;@tc/blockchain/block/block.interface&#x27;;
 import { Controller, Inject } from &#x27;@nestjs/common&#x27;;
 import { EventPattern, MessagePattern, Transport } from &#x27;@nestjs/microservices&#x27;;
 import { Logger } from &#x27;winston&#x27;;
 import { ParseService } from &#x27;./parse.service&#x27;;
-import { ParsingService } from &#x27;@shared/transactions/parsing.service&#x27;;
-import { SYSTEM_RESET } from &#x27;@tc/event-client/constants&#x27;;
+import { ParsingService } from &#x27;@tc/transactions/transactions/parsing.service&#x27;;
+import { SYSTEM_RESET } from &#x27;@tc/clients/event-client/constants&#x27;;
 import { existsSync, rmSync } from &#x27;fs&#x27;;
 import { join } from &#x27;path&#x27;;
 /**

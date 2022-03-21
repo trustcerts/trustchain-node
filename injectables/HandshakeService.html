@@ -347,11 +347,11 @@ fails, the method will return a rejection so the socket can be closed because th
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CONNECTION_CHALLENGE } from &#x27;@tc/blockchain/blockchain.events&#x27;;
 import { Connection } from &#x27;@shared/connection&#x27;;
-import { DidIdCachedService } from &#x27;@tc/did-id/did-id-cached/did-id-cached.service&#x27;;
+import { DidIdCachedService } from &#x27;@tc/transactions/did-id/cached/did-id-cached.service&#x27;;
 import { Inject, Injectable } from &#x27;@nestjs/common&#x27;;
 import { Logger } from &#x27;winston&#x27;;
 import { SignatureDto } from &#x27;@tc/blockchain/transaction/signature.dto&#x27;;
-import { WalletClientService } from &#x27;@tc/wallet-client&#x27;;
+import { WalletClientService } from &#x27;@tc/clients/wallet-client&#x27;;
 import { randomBytes } from &#x27;crypto&#x27;;
 
 /**

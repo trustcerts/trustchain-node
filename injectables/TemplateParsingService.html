@@ -59,7 +59,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>libs/transactions/template/src/template-parsing/template-parsing.service.ts</code>
+            <code>libs/transactions/src/did-template/parse/template-parsing.service.ts</code>
         </p>
 
 
@@ -161,7 +161,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">libs/transactions/template/src/template-parsing/template-parsing.service.ts:30</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">libs/transactions/src/did-template/parse/template-parsing.service.ts:30</a></div>
                             </td>
                         </tr>
 
@@ -452,7 +452,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="127"
-                            class="link-to-prism">libs/transactions/template/src/template-parsing/template-parsing.service.ts:127</a></div>
+                            class="link-to-prism">libs/transactions/src/did-template/parse/template-parsing.service.ts:127</a></div>
                 </td>
             </tr>
 
@@ -543,7 +543,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:71</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:74</a></code>
 </div>
                 </td>
             </tr>
@@ -621,7 +621,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:54</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:57</a></code>
 </div>
                 </td>
             </tr>
@@ -698,7 +698,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:43</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:46</a></code>
 </div>
                 </td>
             </tr>
@@ -778,7 +778,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:89</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:92</a></code>
 </div>
                 </td>
             </tr>
@@ -876,7 +876,7 @@
                         </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:20</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:23</a></code>
 </div>
                         </td>
                     </tr>
@@ -899,8 +899,8 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ClientRedis } from &#x27;@nestjs/microservices&#x27;;
 import { Counter } from &#x27;prom-client&#x27;;
 import { DidId } from &#x27;@trustcerts/core&#x27;;
-import { DidIdDocument } from &#x27;@tc/did-id/schemas/did-id.schema&#x27;;
-import { DidSchema } from &#x27;@tc/schema/schemas/did-schema.schema&#x27;;
+import { DidIdDocument } from &#x27;@tc/transactions/did-id/schemas/did-id.schema&#x27;;
+import { DidSchema } from &#x27;@tc/transactions/did-schema/schemas/did-schema.schema&#x27;;
 import { DidTemplate, TemplateDocument } from &#x27;../schemas/did-template.schema&#x27;;
 import {
   DidTemplateTransaction,
@@ -913,9 +913,9 @@ import { InjectModel } from &#x27;@nestjs/mongoose&#x27;;
 import { Logger } from &#x27;winston&#x27;;
 import { Model } from &#x27;mongoose&#x27;;
 import { ParseService } from &#x27;@apps/parse/src/parse.service&#x27;;
-import { ParsingService } from &#x27;@shared/transactions/parsing.service&#x27;;
-import { REDIS_INJECTION } from &#x27;@tc/event-client/constants&#x27;;
-import { SchemaCachedService } from &#x27;@tc/schema/schema-cached/schema-cached.service&#x27;;
+import { ParsingService } from &#x27;@tc/transactions/transactions/parsing.service&#x27;;
+import { REDIS_INJECTION } from &#x27;@tc/clients/event-client/constants&#x27;;
+import { SchemaCachedService } from &#x27;@tc/transactions/did-schema/cached/schema-cached.service&#x27;;
 import { TemplateTransactionDto } from &#x27;../dto/template.transaction.dto&#x27;;
 import { TransactionType } from &#x27;@tc/blockchain/transaction/transaction-type&#x27;;
 import { existsSync, mkdirSync, writeFileSync } from &#x27;fs&#x27;;

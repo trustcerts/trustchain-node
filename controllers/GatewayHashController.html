@@ -56,7 +56,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>apps/http-gateway/src/gateway-hash/gateway-hash.controller.ts</code>
+            <code>libs/transactions/src/did-hash/gateway/gateway-hash.controller.ts</code>
         </p>
 
             <p class="comment">
@@ -142,7 +142,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="36"
-                            class="link-to-prism">apps/http-gateway/src/gateway-hash/gateway-hash.controller.ts:36</a></div>
+                            class="link-to-prism">libs/transactions/src/did-hash/gateway/gateway-hash.controller.ts:36</a></div>
                 </td>
             </tr>
 
@@ -204,8 +204,8 @@
 } from &#x27;@nestjs/swagger&#x27;;
 import { Body, Controller, Post, UseGuards } from &#x27;@nestjs/common&#x27;;
 import { GatewayHashService } from &#x27;./gateway-hash.service&#x27;;
-import { HashDidTransactionDto } from &#x27;@tc/hash/dto/hash-transaction.dto&#x27;;
-import { HashResponse } from &#x27;./dto/hash.respnse&#x27;;
+import { HashDidTransactionDto } from &#x27;@tc/transactions/did-hash/dto/hash-transaction.dto&#x27;;
+import { HashResponse } from &#x27;../dto/hash-respnse.dto&#x27;;
 import { MaintenanceGuard } from &#x27;@tc/config/version/maintenance.guard&#x27;;
 
 /**
