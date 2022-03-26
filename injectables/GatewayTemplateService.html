@@ -654,7 +654,7 @@ import { WalletClientService } from &#x27;@tc/clients/wallet-client&#x27;;
  * Service to handle incoming templates.
  */
 @Injectable()
-export class GatewayTemplateService extends GatewayTransactionService {
+export class GatewayTemplateService extends GatewayTransactionService&lt;DidTemplateResolver&gt; {
   /**
    * Loads required services.
    * @param gatewayBlockchainService

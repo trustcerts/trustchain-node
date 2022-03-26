@@ -147,7 +147,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">libs/transactions/src/did-template/validation/template-transaction-check.service.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">libs/transactions/src/did-template/validation/template-transaction-check.service.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -250,8 +250,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="52"
-                            class="link-to-prism">libs/transactions/src/did-template/validation/template-transaction-check.service.ts:52</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="53"
+                            class="link-to-prism">libs/transactions/src/did-template/validation/template-transaction-check.service.ts:53</a></div>
                 </td>
             </tr>
 
@@ -335,8 +335,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="43"
-                            class="link-to-prism">libs/transactions/src/did-template/validation/template-transaction-check.service.ts:43</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="44"
+                            class="link-to-prism">libs/transactions/src/did-template/validation/template-transaction-check.service.ts:44</a></div>
                 </td>
             </tr>
 
@@ -387,7 +387,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:35</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:36</a></code>
 </div>
                 </td>
             </tr>
@@ -439,7 +439,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:75</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:76</a></code>
 </div>
                 </td>
             </tr>
@@ -795,6 +795,7 @@ Check will pass if the transaction does not exists yet or the signer is authoriz
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { BlockCheckService } from &#x27;@tc/blockchain/block-check/block-check.service&#x27;;
 import { DidIdCachedService } from &#x27;@tc/transactions/did-id/cached/did-id-cached.service&#x27;;
+import { DidTemplateResolver } from &#x27;@trustcerts/template-verify&#x27;;
 import { Inject, Injectable } from &#x27;@nestjs/common&#x27;;
 import { Logger } from &#x27;winston&#x27;;
 import { RoleManageType } from &#x27;@tc/transactions/did-id/constants&#x27;;
@@ -808,7 +809,7 @@ import { TransactionType } from &#x27;@tc/blockchain/transaction/transaction-typ
  * Validates a template before it gets into a block.
  */
 @Injectable()
-export class TemplateTransactionCheckService extends TransactionCheck {
+export class TemplateTransactionCheckService extends TransactionCheck&lt;DidTemplateResolver&gt; {
   /**
    * Injects required services
    * @param blockCheckService

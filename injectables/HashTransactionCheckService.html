@@ -160,7 +160,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">libs/transactions/src/did-hash/validation/hash-transaction-check.service.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">libs/transactions/src/did-hash/validation/hash-transaction-check.service.ts:18</a></div>
                             </td>
                         </tr>
 
@@ -263,8 +263,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="38"
-                            class="link-to-prism">libs/transactions/src/did-hash/validation/hash-transaction-check.service.ts:38</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="39"
+                            class="link-to-prism">libs/transactions/src/did-hash/validation/hash-transaction-check.service.ts:39</a></div>
                 </td>
             </tr>
 
@@ -349,8 +349,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="77"
-                            class="link-to-prism">libs/transactions/src/did-hash/validation/hash-transaction-check.service.ts:77</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="78"
+                            class="link-to-prism">libs/transactions/src/did-hash/validation/hash-transaction-check.service.ts:78</a></div>
                 </td>
             </tr>
 
@@ -423,8 +423,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="95"
-                            class="link-to-prism">libs/transactions/src/did-hash/validation/hash-transaction-check.service.ts:95</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="96"
+                            class="link-to-prism">libs/transactions/src/did-hash/validation/hash-transaction-check.service.ts:96</a></div>
                 </td>
             </tr>
 
@@ -496,8 +496,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="102"
-                            class="link-to-prism">libs/transactions/src/did-hash/validation/hash-transaction-check.service.ts:102</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="103"
+                            class="link-to-prism">libs/transactions/src/did-hash/validation/hash-transaction-check.service.ts:103</a></div>
                 </td>
             </tr>
 
@@ -543,7 +543,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:87</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:88</a></code>
 </div>
                 </td>
             </tr>
@@ -590,7 +590,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:111</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:112</a></code>
 </div>
                 </td>
             </tr>
@@ -673,8 +673,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="56"
-                            class="link-to-prism">libs/transactions/src/did-hash/validation/hash-transaction-check.service.ts:56</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="57"
+                            class="link-to-prism">libs/transactions/src/did-hash/validation/hash-transaction-check.service.ts:57</a></div>
                 </td>
             </tr>
 
@@ -1018,6 +1018,7 @@ Check will pass if the transaction does not exists yet or the signer is authoriz
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { BlockCheckService } from &#x27;@tc/blockchain/block-check/block-check.service&#x27;;
 import { DidHash } from &#x27;@tc/transactions/did-hash/schemas/did-hash.schema&#x27;;
 import { DidIdCachedService } from &#x27;@tc/transactions/did-id/cached/did-id-cached.service&#x27;;
+import { DidSignatureResolver } from &#x27;@trustcerts/signature-verify&#x27;;
 import { HashCachedService } from &#x27;@tc/transactions/did-hash/cached/hash-cached.service&#x27;;
 import { HashDidTransactionDto } from &#x27;@tc/transactions/did-hash/dto/hash-transaction.dto&#x27;;
 import { Inject, Injectable } from &#x27;@nestjs/common&#x27;;
@@ -1031,7 +1032,7 @@ import { TransactionType } from &#x27;@tc/blockchain/transaction/transaction-typ
  * Service that implements required function to validate a transaction of a specific type.
  */
 @Injectable()
-export class HashTransactionCheckService extends TransactionCheck {
+export class HashTransactionCheckService extends TransactionCheck&lt;DidSignatureResolver&gt; {
   /**
    * Injects required services
    * @param hashModel

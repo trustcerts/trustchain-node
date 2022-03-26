@@ -135,7 +135,7 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(blockCheckService: <a href="../injectables/BlockCheckService.html" target="_self">BlockCheckService</a>, cachedService: <a href="../classes/CachedService.html" target="_self">CachedService</a>, didCachedService: <a href="../injectables/DidIdCachedService.html" target="_self">DidIdCachedService</a>, logger: Logger)</code>
+<code>constructor(blockCheckService: <a href="../injectables/BlockCheckService.html" target="_self">BlockCheckService</a>, cachedService: CachedService<Res>, didCachedService: <a href="../injectables/DidIdCachedService.html" target="_self">DidIdCachedService</a>, logger: Logger)</code>
                     </td>
                 </tr>
                         <tr>
@@ -175,7 +175,7 @@
                                                         <td>cachedService</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../classes/CachedService.html" target="_self" >CachedService</a></code>
+                                                                    <code>CachedService&lt;Res&gt;</code>
                                                         </td>
                                                   
                                                     <td>
@@ -624,16 +624,16 @@ Check will pass if the transaction does not exists yet or the signer is authoriz
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { BlockCheckService } from &#x27;@tc/blockchain/block-check/block-check.service&#x27;;
 import { CachedService } from &#x27;./cache.service&#x27;;
 import { DidIdCachedService } from &#x27;@tc/transactions/did-id/cached/did-id-cached.service&#x27;;
+import { DidResolver, sortKeys } from &#x27;@trustcerts/core&#x27;;
 import { Logger } from &#x27;winston&#x27;;
 import { SignatureDto } from &#x27;@tc/blockchain/transaction/signature.dto&#x27;;
 import { TransactionDto } from &#x27;@tc/blockchain/transaction/transaction.dto&#x27;;
 import { TransactionType } from &#x27;@tc/blockchain/transaction/transaction-type&#x27;;
-import { sortKeys } from &#x27;@trustcerts/core&#x27;;
 
 /**
  * Service that implements required function to validate a transaction of a specific type.
  */
-export abstract class TransactionCheck {
+export abstract class TransactionCheck&lt;Res extends DidResolver&gt; {
   /**
    * Registers the implemented function at the block check so the transaction can be checked.
    * @param blockCheckService
@@ -641,7 +641,7 @@ export abstract class TransactionCheck {
    */
   constructor(
     blockCheckService: BlockCheckService,
-    protected cachedService: CachedService,
+    protected cachedService: CachedService&lt;Res&gt;,
     protected didCachedService: DidIdCachedService,
     protected readonly logger: Logger,
   ) {
