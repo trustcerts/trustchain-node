@@ -162,7 +162,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">libs/transactions/src/did-template/cached/template-cached.service.ts:20</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">libs/transactions/src/did-template/cached/template-cached.service.ts:19</a></div>
                             </td>
                         </tr>
 
@@ -239,8 +239,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="55"
-                            class="link-to-prism">libs/transactions/src/did-template/cached/template-cached.service.ts:55</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="54"
+                            class="link-to-prism">libs/transactions/src/did-template/cached/template-cached.service.ts:54</a></div>
                 </td>
             </tr>
 
@@ -312,8 +312,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="39"
-                            class="link-to-prism">libs/transactions/src/did-template/cached/template-cached.service.ts:39</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="38"
+                            class="link-to-prism">libs/transactions/src/did-template/cached/template-cached.service.ts:38</a></div>
                 </td>
             </tr>
 
@@ -391,7 +391,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:29</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:36</a></code>
 </div>
                 </td>
             </tr>
@@ -483,7 +483,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:63</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:70</a></code>
 </div>
                 </td>
             </tr>
@@ -570,7 +570,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:119</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:129</a></code>
 </div>
                 </td>
             </tr>
@@ -586,6 +586,8 @@
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Returns a document based on the id and optional version parameters</p>
+</div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
@@ -667,7 +669,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:76</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:83</a></code>
 </div>
                 </td>
             </tr>
@@ -758,7 +760,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:165</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:175</a></code>
 </div>
                 </td>
             </tr>
@@ -857,7 +859,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:50</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:57</a></code>
 </div>
                 </td>
             </tr>
@@ -928,7 +930,8 @@
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>new DidTemplateResolver()</code>
+                        <i>Type : </i>    <code>Res</code>
+
                     </td>
                 </tr>
                         <tr>
@@ -944,6 +947,12 @@
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>resolver instance to load dids.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -971,9 +980,7 @@ import { join } from &#x27;path&#x27;;
  * Handles requests to get a cached template.
  */
 @Injectable()
-export class TemplateCachedService extends CachedService {
-  protected resolver &#x3D; new DidTemplateResolver();
-
+export class TemplateCachedService extends CachedService&lt;DidTemplateResolver&gt; {
   /**
    * Injects required dependencies.
    * @param didModel
@@ -984,6 +991,7 @@ export class TemplateCachedService extends CachedService {
     @InjectModel(DidTemplate.name) protected didModel: Model&lt;TemplateDocument&gt;,
   ) {
     super(transactionModel, didModel);
+    this.resolver &#x3D; new DidTemplateResolver();
   }
 
   /**

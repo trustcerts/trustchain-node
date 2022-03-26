@@ -154,12 +154,14 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:20</a></div>
                             </td>
                         </tr>
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>inject required models to query the database</p>
+</div>
                             <div>
                                     <b>Parameters :</b>
                                     <table class="params">
@@ -223,16 +225,22 @@
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="../classes/Did.html" target="_self" >DidResolver</a></code>
+                        <i>Type : </i>    <code>Res</code>
 
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:20</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>resolver instance to load dids.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -265,8 +273,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="29"
-                            class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:29</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="36"
+                            class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:36</a></div>
                 </td>
             </tr>
 
@@ -351,8 +359,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="63"
-                            class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:63</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="70"
+                            class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:70</a></div>
                 </td>
             </tr>
 
@@ -432,8 +440,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="119"
-                            class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:119</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="129"
+                            class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:129</a></div>
                 </td>
             </tr>
 
@@ -448,6 +456,8 @@
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Returns a document based on the id and optional version parameters</p>
+</div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
@@ -523,8 +533,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="76"
-                            class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:76</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="83"
+                            class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:83</a></div>
                 </td>
             </tr>
 
@@ -608,8 +618,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="165"
-                            class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:165</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="175"
+                            class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:175</a></div>
                 </td>
             </tr>
 
@@ -701,8 +711,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="50"
-                            class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:50</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="57"
+                            class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:57</a></div>
                 </td>
             </tr>
 
@@ -777,10 +787,17 @@ import { VersionInformation } from &#x27;./did/version-information&#x27;;
 /**
  * Base service to interact with cached transactions from the database.
  */
-export abstract class CachedService {
-  protected resolver!: DidResolver;
+export abstract class CachedService&lt;Res extends DidResolver&gt; {
+  /**
+   * resolver instance to load dids.
+   */
+  protected resolver!: Res;
 
+  /**
+   * inject required models to query the database
+   */
   constructor(
+    // TODO replace type any for better usage
     // protected transactionModel: Model&lt;DidTransaction&gt;,
     // protected didModel: Model&lt;DidDocument&gt;,
     protected transactionModel: Model&lt;any&gt;,
@@ -880,6 +897,9 @@ export abstract class CachedService {
     return result;
   }
 
+  /**
+   * Returns a document based on the id and optional version parameters
+   */
   async getDocument&lt;T extends DocResponse&gt;(
     id: string,
     version: { time: string; id: number },
