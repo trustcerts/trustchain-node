@@ -30,7 +30,7 @@ export class GatewayTransactionService<Res extends DidResolver> {
    */
   constructor(
     protected readonly gatewayBlockchainService: GatewayBlockchainService,
-    protected readonly transactionCheckService: TransactionCheck,
+    protected readonly transactionCheckService: TransactionCheck<Res>,
     protected readonly cachedService: CachedService<Res>,
     protected readonly walletService: WalletClientService,
     protected readonly logger: Logger,

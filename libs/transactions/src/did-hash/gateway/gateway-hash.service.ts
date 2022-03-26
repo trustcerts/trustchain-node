@@ -16,7 +16,7 @@ import { WalletClientService } from '@tc/clients/wallet-client';
  * Service to validate requests from the api to the blockchain level.
  */
 @Injectable()
-export class GatewayHashService extends GatewayTransactionService {
+export class GatewayHashService extends GatewayTransactionService<DidSignatureResolver> {
   /**
    * Loads required services.
    * @param gatewayBlockchainService

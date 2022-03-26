@@ -14,7 +14,7 @@ import { WalletClientService } from '@tc/clients/wallet-client';
  * Service to handle incoming schemas.
  */
 @Injectable()
-export class GatewaySchemaService extends GatewayTransactionService {
+export class GatewaySchemaService extends GatewayTransactionService<DidSchemaResolver> {
   /**
    * Loads required services.
    * @param gatewayBlockchainService

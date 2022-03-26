@@ -7,6 +7,7 @@ import {
 } from '@nestjs/swagger';
 import { CachedService } from '@tc/transactions/transactions/cache.service';
 import { DidDocumentMetaData } from './dto/did-document-meta-data.dto';
+import { DidResolver } from '@trustcerts/core';
 import { DidTransaction } from './schemas/did-transaction.schema';
 import { DocResponse } from './dto/doc-response.dto';
 import { Get, NotFoundException, Param, Query } from '@nestjs/common';
@@ -20,7 +21,7 @@ export function DidControllerMixin<
 >(options: { doc: typeof DocResponse; trans: typeof DidTransaction }): any {
   @ApiExtraModels(DocResponse, DidTransaction)
   class DidController {
-    constructor(protected didCachedService: CachedService) {}
+    constructor(protected didCachedService: CachedService<DidResolver>) {}
 
     /**
      * Returns the transactions of a did document.

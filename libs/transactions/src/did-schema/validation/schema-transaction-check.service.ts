@@ -1,5 +1,6 @@
 import { BlockCheckService } from '@tc/blockchain/block-check/block-check.service';
 import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
+import { DidSchemaResolver } from '@trustcerts/schema-verify';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
 import { RoleManageType } from '@tc/transactions/did-id/constants';
@@ -14,7 +15,7 @@ import Ajv from 'ajv';
  * Validates a schema before it gets into a block.
  */
 @Injectable()
-export class SchemaTransactionCheckService extends TransactionCheck {
+export class SchemaTransactionCheckService extends TransactionCheck<DidSchemaResolver> {
   /**
    * Ajv instance to validate schemas.
    */

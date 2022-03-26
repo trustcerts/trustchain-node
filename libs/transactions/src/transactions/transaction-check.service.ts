@@ -1,16 +1,16 @@
 import { BlockCheckService } from '@tc/blockchain/block-check/block-check.service';
 import { CachedService } from './cache.service';
 import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
+import { DidResolver, sortKeys } from '@trustcerts/core';
 import { Logger } from 'winston';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
-import { sortKeys } from '@trustcerts/core';
 
 /**
  * Service that implements required function to validate a transaction of a specific type.
  */
-export abstract class TransactionCheck {
+export abstract class TransactionCheck<Res extends DidResolver> {
   /**
    * Registers the implemented function at the block check so the transaction can be checked.
    * @param blockCheckService
@@ -18,7 +18,7 @@ export abstract class TransactionCheck {
    */
   constructor(
     blockCheckService: BlockCheckService,
-    protected cachedService: CachedService,
+    protected cachedService: CachedService<Res>,
     protected didCachedService: DidIdCachedService,
     protected readonly logger: Logger,
   ) {

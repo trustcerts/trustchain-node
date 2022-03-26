@@ -1,4 +1,5 @@
 import { CachedService } from '@tc/transactions/transactions/cache.service';
+import { DidResolver } from '@trustcerts/core';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 
@@ -34,5 +35,5 @@ export interface TransactionChecks {
   /**
    * Cache service instance to get relevant function calls
    */
-  cachedService: CachedService;
+  cachedService: CachedService<DidResolver>;
 }

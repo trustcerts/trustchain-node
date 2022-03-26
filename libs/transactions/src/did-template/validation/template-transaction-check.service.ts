@@ -1,5 +1,6 @@
 import { BlockCheckService } from '@tc/blockchain/block-check/block-check.service';
 import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
+import { DidTemplateResolver } from '@trustcerts/template-verify';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
 import { RoleManageType } from '@tc/transactions/did-id/constants';
@@ -13,7 +14,7 @@ import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
  * Validates a template before it gets into a block.
  */
 @Injectable()
-export class TemplateTransactionCheckService extends TransactionCheck {
+export class TemplateTransactionCheckService extends TransactionCheck<DidTemplateResolver> {
   /**
    * Injects required services
    * @param blockCheckService

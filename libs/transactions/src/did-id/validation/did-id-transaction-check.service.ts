@@ -1,6 +1,7 @@
 import { BlockCheckService } from '@tc/blockchain/block-check/block-check.service';
 import { DidId } from '@tc/transactions/did-id/schemas/did-id.schema';
 import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
+import { DidIdResolver } from '@trustcerts/core';
 import { DidIdTransactionDto } from '@tc/transactions/did-id/dto/did-id-transaction.dto';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
@@ -13,7 +14,7 @@ import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
  * Service that implements required function to validate a transaction of a specific type.
  */
 @Injectable()
-export class DidIdTransactionCheckService extends TransactionCheck {
+export class DidIdTransactionCheckService extends TransactionCheck<DidIdResolver> {
   /**
    * Injects required services
    * @param blockCheckService

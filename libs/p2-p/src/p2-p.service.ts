@@ -27,7 +27,6 @@ import { HttpService } from '@nestjs/axios';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';
 import { Logger } from 'winston';
 import { PersistClientService } from '@tc/clients/persist-client';
-import { ProposedBlock } from '@tc/blockchain/block/proposed-block.dto';
 import { RoleManageType } from '@tc/transactions/did-id/constants';
 import { Socket as ServerSocket } from 'socket.io';
 import { SignatureService } from '@tc/blockchain/signature/signature.service';
