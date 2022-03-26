@@ -22,9 +22,7 @@ import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
  * Service to interact with cached dids.
  */
 @Injectable()
-export class DidIdCachedService extends CachedService {
-  protected resolver = new DidIdResolver();
-
+export class DidIdCachedService extends CachedService<DidIdResolver> {
   /**
    * Injects required services.
    * @param transactionModel
@@ -40,6 +38,7 @@ export class DidIdCachedService extends CachedService {
     private readonly persistClientService: PersistClientService,
   ) {
     super(transactionModel, didModel);
+    this.resolver = new DidIdResolver();
   }
 
   /**

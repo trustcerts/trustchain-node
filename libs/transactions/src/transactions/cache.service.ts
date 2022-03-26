@@ -13,10 +13,17 @@ import { VersionInformation } from './did/version-information';
 /**
  * Base service to interact with cached transactions from the database.
  */
-export abstract class CachedService {
-  protected resolver!: DidResolver;
+export abstract class CachedService<Res extends DidResolver> {
+  /**
+   * resolver instance to load dids.
+   */
+  protected resolver!: Res;
 
+  /**
+   * inject required models to query the database
+   */
   constructor(
+    // TODO replace type any for better usage
     // protected transactionModel: Model<DidTransaction>,
     // protected didModel: Model<DidDocument>,
     protected transactionModel: Model<any>,
@@ -116,6 +123,9 @@ export abstract class CachedService {
     return result;
   }
 
+  /**
+   * Returns a document based on the id and optional version parameters
+   */
   async getDocument<T extends DocResponse>(
     id: string,
     version: { time: string; id: number },

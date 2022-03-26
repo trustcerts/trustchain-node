@@ -13,9 +13,7 @@ import { Model } from 'mongoose';
  * Handles requests to get a cached schema.
  */
 @Injectable()
-export class SchemaCachedService extends CachedService {
-  protected resolver = new DidSchemaResolver();
-
+export class SchemaCachedService extends CachedService<DidSchemaResolver> {
   /**
    * Injects required dependencies.
    * @param schemaModel
@@ -27,5 +25,6 @@ export class SchemaCachedService extends CachedService {
     protected didModel: Model<SchemaDocument>,
   ) {
     super(transactionModel, didModel);
+    this.resolver = new DidSchemaResolver();
   }
 }

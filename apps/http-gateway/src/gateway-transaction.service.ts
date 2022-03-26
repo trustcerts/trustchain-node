@@ -15,8 +15,12 @@ import { WalletClientService } from '@tc/clients/wallet-client';
 /**
  * Base Service to add a transaction.
  */
-export class GatewayTransactionService {
-  protected didResolver!: DidResolver;
+export class GatewayTransactionService<Res extends DidResolver> {
+  // TODO pass DidResolver Class so the procted class is set correctly
+  /**
+   * Resolved a did.
+   */
+  protected didResolver!: Res;
 
   /**
    * Injects required services
@@ -27,7 +31,7 @@ export class GatewayTransactionService {
   constructor(
     protected readonly gatewayBlockchainService: GatewayBlockchainService,
     protected readonly transactionCheckService: TransactionCheck,
-    protected readonly cachedService: CachedService,
+    protected readonly cachedService: CachedService<Res>,
     protected readonly walletService: WalletClientService,
     protected readonly logger: Logger,
     protected readonly configService: ConfigService,
@@ -78,6 +82,9 @@ export class GatewayTransactionService {
     });
   }
 
+  /**
+   * Adds a signature to the transaction to proof it was correct.
+   */
   public async addDidDocSignature(transaction: TransactionDto) {
     const values = await this.cachedService.getTransactions(
       transaction.body.value.id,

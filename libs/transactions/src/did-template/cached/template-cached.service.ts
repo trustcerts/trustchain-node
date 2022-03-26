@@ -16,9 +16,7 @@ import { join } from 'path';
  * Handles requests to get a cached template.
  */
 @Injectable()
-export class TemplateCachedService extends CachedService {
-  protected resolver = new DidTemplateResolver();
-
+export class TemplateCachedService extends CachedService<DidTemplateResolver> {
   /**
    * Injects required dependencies.
    * @param didModel
@@ -29,6 +27,7 @@ export class TemplateCachedService extends CachedService {
     @InjectModel(DidTemplate.name) protected didModel: Model<TemplateDocument>,
   ) {
     super(transactionModel, didModel);
+    this.resolver = new DidTemplateResolver();
   }
 
   /**

@@ -1,4 +1,3 @@
-// import {} from '@trustcerts/signature-verify';
 import { CachedService } from '@tc/transactions/transactions/cache.service';
 import {
   DidHash,
@@ -16,9 +15,7 @@ import { Model } from 'mongoose';
  * Service to interact with hashes.
  */
 @Injectable()
-export class HashCachedService extends CachedService {
-  protected resolver = new DidSignatureResolver();
-
+export class HashCachedService extends CachedService<DidSignatureResolver> {
   /**
    * Injects the required services and repositories.
    * @param didModel
@@ -29,6 +26,7 @@ export class HashCachedService extends CachedService {
     protected transactionModel: Model<HashTransactionDocument>,
   ) {
     super(transactionModel, didModel);
+    this.resolver = new DidSignatureResolver();
   }
 
   /**

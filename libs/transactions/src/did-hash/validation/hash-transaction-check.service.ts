@@ -81,6 +81,9 @@ export class HashTransactionCheckService extends TransactionCheck {
     }
   }
 
+  /**
+   * Returns the type of the transaction.
+   */
   protected getType(): TransactionType {
     return TransactionType.Hash;
   }

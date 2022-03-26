@@ -71,6 +71,9 @@ export abstract class ParsingService {
     }
   }
 
+  /**
+   * Adds the document to the database.
+   */
   protected async addDocument(transaction: DidTransactionDto): Promise<void> {
     const did = new this.didTransactionRepository({
       index: await this.hashService.hashTransaction(transaction),
@@ -87,8 +90,14 @@ export abstract class ParsingService {
     await did.save();
   }
 
+  /**
+   * upates the did of the database by parsing the transaction. Stores the result at the end.
+   */
   protected abstract parseDid(transaction: DidTransactionDto): Promise<void>;
 
+  /**
+   * Updates the core values of a did object like controllers, signature or block information.
+   */
   protected async updateCoreValues(did: Did, transaction: DidTransactionDto) {
     // update the controllers
     if (transaction.body.value.controller) {

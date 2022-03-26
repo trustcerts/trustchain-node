@@ -8,12 +8,18 @@ import { SchemaTransactionDto } from '@tc/transactions/did-schema/dto/schema.tra
 import { TransactionCheck } from '@tc/transactions/transactions/transaction-check.service';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
+import Ajv from 'ajv';
 
 /**
  * Validates a schema before it gets into a block.
  */
 @Injectable()
 export class SchemaTransactionCheckService extends TransactionCheck {
+  /**
+   * Ajv instance to validate schemas.
+   */
+  private ajv: Ajv;
+
   /**
    * Injects required services
    * @param blockCheckService
@@ -26,6 +32,7 @@ export class SchemaTransactionCheckService extends TransactionCheck {
     @Inject('winston') logger: Logger,
   ) {
     super(blockCheckService, schemaCachedService, didCachedService, logger);
+    this.ajv = new Ajv();
   }
 
   /**
@@ -42,6 +49,15 @@ export class SchemaTransactionCheckService extends TransactionCheck {
    */
   protected getIdentifier(): RoleManageType {
     return RoleManageType.Client;
+  }
+
+  /**
+   * Validates if the schema is a json-ld schema that can be used to validate json input.
+   */
+  public validateSchema(transaction: SchemaTransactionDto) {
+    if (!this.ajv.validateSchema(JSON.parse(transaction.body.value.schema!))) {
+      throw Error('input does not match with schema');
+    }
   }
 
   /**

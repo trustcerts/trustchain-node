@@ -76,6 +76,9 @@ export function generateTestHashTransaction(id = '1'): HashDidTransactionDto {
   };
 }
 
+/**
+ * Generates a did id test transaction
+ */
 export function generateTestDidIdTransaction(): DidIdTransactionDto {
   return {
     ...transactionProperties,
@@ -165,6 +168,9 @@ export async function signContent(
   transaction.signature.values = [await walletService.signIssuer(content)];
 }
 
+/**
+ * default values of a transaction to reuse them during testing.
+ */
 export const transactionProperties: {
   metadata: TransactionMetadata;
   version: number;

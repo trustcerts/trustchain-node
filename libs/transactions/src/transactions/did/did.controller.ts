@@ -11,6 +11,9 @@ import { DidTransaction } from './schemas/did-transaction.schema';
 import { DocResponse } from './dto/doc-response.dto';
 import { Get, NotFoundException, Param, Query } from '@nestjs/common';
 
+/**
+ * Default class for an observer to handle did requests.
+ */
 export function DidControllerMixin<
   D extends DocResponse,
   T extends DidTransaction,
