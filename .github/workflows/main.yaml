@@ -313,16 +313,7 @@ jobs:
           CI_TAG: latest
           TAG_RELEASE: beta
 
-  # TODO put this step into another file since it is CD
-  deploy:
-    if: github.ref == 'refs/heads/main'
-    needs: release
-    runs-on: ubuntu-latest
-    steps:
-      - name: Prepare
-        run: echo test
-
-  build-and-deploy:
+  deploy-doc:
     if: github.ref == 'refs/heads/main'
     needs: release
     runs-on: ubuntu-latest
