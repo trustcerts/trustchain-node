@@ -251,7 +251,7 @@ jobs:
         run: node tools/load-docker-images.mjs
 
       - name: TrustCerts Custom Blockchain
-        uses: trustcerts/blockchain-custom-action@v1.0.1
+        uses: trustcerts/blockchain-custom-action@main
         with:
           network_size: normal
 
