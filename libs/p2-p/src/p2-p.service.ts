@@ -743,6 +743,8 @@ export class P2PService implements BeforeApplicationShutdown {
           this.processBlock(endpoint, block);
         }
       });
+      // request missing blocks again since between the validator sync and the ws_block listener a new block could be sent without listening to it.
+      await this.blockchainSyncService.request(endpoint);
     } else {
       endpoint.socket.once(IS_ENDPOINT_LISTENING_FOR_VALIDATORS, () => {
         endpoint.socket.emit(ENDPOINT_LISTENING_FOR_VALIDATORS);
