@@ -5,7 +5,7 @@ import {
   Injectable,
   UnprocessableEntityException,
 } from '@nestjs/common';
-import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
+import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
 import { DidIdRegister } from '@trustcerts/did-id-create';
 import { InjectModel } from '@nestjs/mongoose';
 import {
@@ -30,7 +30,7 @@ export class InviteService {
   constructor(
     @InjectModel(InviteRequest.name)
     private inviteModel: Model<InviteRequestDocument>,
-    private readonly didCachedService: DidCachedService,
+    private readonly didCachedService: DidIdCachedService,
     private readonly configService: ConfigService,
     @Inject('winston') private readonly logger: Logger,
   ) {}

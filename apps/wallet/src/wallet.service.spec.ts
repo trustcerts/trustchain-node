@@ -4,7 +4,7 @@ import { join } from 'path';
 import * as fs from 'fs';
 import { WalletModule } from './wallet.module';
 import { INestApplication } from '@nestjs/common';
-import { startDependencies, stopDependencies } from '../../../test/helpers';
+import { startDependencies, stopAndRemoveAllDeps } from '../../../test/helpers';
 import { wait } from '@shared/helpers';
 
 describe('MyService', () => {
@@ -21,6 +21,7 @@ describe('MyService', () => {
     }).compile();
     app = moduleFixture.createNestApplication();
     await app.init();
+
     service = app.get<WalletService>(WalletService);
     _path = join(`${process.env.STORAGE!}`, 'wallet.json');
   });
@@ -71,6 +72,6 @@ describe('MyService', () => {
   });
   afterAll(async () => {
     await app.close();
-    await stopDependencies(['redis']);
+    await stopAndRemoveAllDeps();
   });
 });

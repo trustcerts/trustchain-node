@@ -1,16 +1,14 @@
 import { ConfigService } from '@tc/config';
-import { CreateDidDto } from '@tc/did/dto/create-did.dto';
-import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
+import { CreateDidIdDto } from '@tc/transactions/did-id/dto/create-did-id.dto';
+import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
 import { DidIdRegister } from '@trustcerts/did-id-create';
-import { DidTransactionDto } from '@tc/did/dto/did.transaction.dto';
+import { DidIdTransactionDto } from '@tc/transactions/did-id/dto/did-id-transaction.dto';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
-import { PersistedTransaction } from '@shared/http/persisted-transaction';
-import { RoleManageAddEnum } from '@tc/did/constants';
-import {
-  SignatureInfo,
-  SignatureType,
-} from '@tc/blockchain/transaction/transaction.dto';
+import { PersistedTransaction } from '@shared/http/dto/persisted-transaction';
+import { RoleManageType } from '@tc/transactions/did-id/constants';
+import { SignatureInfo } from '@tc/blockchain/transaction/signature-info';
+import { SignatureType } from '@tc/blockchain/transaction/signature-type';
 import { ValidatorBlockchainService } from '../validator-blockchain/validator-blockchain.service';
 import {
   VerificationRelationshipType,
@@ -18,7 +16,7 @@ import {
   getFingerPrint,
   importKey,
 } from '@trustcerts/core';
-import { WalletClientService } from '@tc/wallet-client';
+import { WalletClientService } from '@tc/clients/wallet-client';
 
 /**
  * Service that signs or revokes public keys from gateways.
@@ -36,7 +34,7 @@ export class ValidatorDidService {
   constructor(
     private readonly validatorBlockchainService: ValidatorBlockchainService,
     private readonly walletService: WalletClientService,
-    private readonly didCachedService: DidCachedService,
+    private readonly didCachedService: DidIdCachedService,
     private readonly configService: ConfigService,
     @Inject('winston') private readonly logger: Logger,
   ) {}
@@ -47,8 +45,8 @@ export class ValidatorDidService {
    * @param role
    */
   createDid(
-    createCert: CreateDidDto,
-    role: RoleManageAddEnum,
+    createCert: CreateDidIdDto,
+    role: RoleManageType,
   ): Promise<PersistedTransaction> {
     return this.setDid(createCert, [role]);
   }
@@ -60,8 +58,8 @@ export class ValidatorDidService {
    * @param roles
    */
   private async setDid(
-    createCert: CreateDidDto,
-    roles: RoleManageAddEnum[] = [],
+    createCert: CreateDidIdDto,
+    roles: RoleManageType[] = [],
   ): Promise<PersistedTransaction> {
     // add the did
     const did = DidIdRegister.create({
@@ -93,7 +91,7 @@ export class ValidatorDidService {
 
     // add transaction
     const didDocSignature: SignatureInfo = {
-      type: SignatureType.single,
+      type: SignatureType.Single,
       values: [
         await this.walletService.signIssuer({
           document: did.getDocument(),
@@ -101,12 +99,12 @@ export class ValidatorDidService {
         }),
       ],
     };
-    const transaction = new DidTransactionDto(
+    const transaction = new DidIdTransactionDto(
       did.getChanges(),
       didDocSignature,
     );
     transaction.signature = {
-      type: SignatureType.single,
+      type: SignatureType.Single,
       values: [
         await this.walletService.signIssuer(
           this.didCachedService.getValues(transaction),

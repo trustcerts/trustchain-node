@@ -20,15 +20,14 @@ import { BlockReceivedService } from './block-received/block-received.service';
 import { BlockchainSyncService } from '@tc/p2-p/blockchain-sync/blockchain-sync.service';
 import { ConnectDto } from '@tc/p2-p/dto/connect.dto';
 import { Connection } from '@shared/connection';
-import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
+import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
 import { Gauge } from 'prom-client';
 import { HandshakeService } from '@tc/p2-p/handshake/handshake.service';
 import { HttpService } from '@nestjs/axios';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';
 import { Logger } from 'winston';
-import { PersistClientService } from '@tc/persist-client';
-import { ProposedBlock } from '@tc/blockchain/block/proposed-block.dto';
-import { RoleManageAddEnum } from '@tc/did/constants';
+import { PersistClientService } from '@tc/clients/persist-client';
+import { RoleManageType } from '@tc/transactions/did-id/constants';
 import { Socket as ServerSocket } from 'socket.io';
 import { SignatureService } from '@tc/blockchain/signature/signature.service';
 import { lastValueFrom } from 'rxjs';
@@ -67,6 +66,11 @@ export class P2PService implements BeforeApplicationShutdown {
   shutdown = false;
 
   /**
+   * Queue for incoming blocks
+   */
+  private queue: Block[] = [];
+
+  /**
    * Constructor to add a P2PService
    * @param httpService
    * @param configService
@@ -86,7 +90,7 @@ export class P2PService implements BeforeApplicationShutdown {
     private readonly networkService: BlockReceivedService,
     private readonly blockchainSyncService: BlockchainSyncService,
     private readonly handshakeService: HandshakeService,
-    private readonly didCachedService: DidCachedService,
+    private readonly didCachedService: DidIdCachedService,
     private readonly persistClientService: PersistClientService,
     private readonly signatureService: SignatureService,
     @Inject('winston') private readonly logger: Logger,
@@ -152,7 +156,7 @@ export class P2PService implements BeforeApplicationShutdown {
    */
   get validatorConnections(): Connection[] {
     return this.connections.filter(
-      (connection) => connection.type === 'validator',
+      (connection) => connection.type === RoleManageType.Validator,
     );
   }
 
@@ -246,10 +250,10 @@ export class P2PService implements BeforeApplicationShutdown {
         (roles) => roles[0],
         () => {
           // return Validator because the blockchain is empty and the first connection is always a Validator
-          return RoleManageAddEnum.Validator;
+          return RoleManageType.Validator;
         },
       )
-      .then((type: RoleManageAddEnum) => {
+      .then((type: RoleManageType) => {
         endpoint.type = type;
         if (
           !this.connections.find(
@@ -583,7 +587,7 @@ export class P2PService implements BeforeApplicationShutdown {
       // wait one second so the Validator can register the required events.
       await this.addConnection(endpoint);
       setTimeout(() => {
-        endpoint.type = RoleManageAddEnum.Validator;
+        endpoint.type = RoleManageType.Validator;
         this.addListeners(endpoint);
       }, 1000);
     } else {
@@ -648,7 +652,7 @@ export class P2PService implements BeforeApplicationShutdown {
     endpoint.socket.once(IS_ENDPOINT_LISTENING_FOR_BLOCKS, () => {
       endpoint.socket.emit(ENDPOINT_LISTENING_FOR_BLOCKS);
     });
-    if (endpoint.type === 'validator') {
+    if (endpoint.type === RoleManageType.Validator) {
       const validators: string[] =
         this.configService.getConfig('VALIDATORS') ?? [];
       if (validators.indexOf(endpoint.peer) === -1 && endpoint.peer !== null) {
@@ -687,7 +691,7 @@ export class P2PService implements BeforeApplicationShutdown {
       this.responseValidators(peers).then();
 
       endpoint.socket.on(WS_BLOCK, async (block: Block) => {
-        const errors = await validateSync(plainToClass(ProposedBlock, block));
+        const errors = await validateSync(plainToClass(Block, block));
         if (errors.length > 0) {
           this.logger.error({
             message: `received block is invalid: ${JSON.stringify(errors)}`,
@@ -698,28 +702,46 @@ export class P2PService implements BeforeApplicationShutdown {
           });
           return;
         }
-        this.signatureService.validateSignatures(block).then(
-          () => {
-            this.networkService.addBlock(block);
-          },
-          (e) => {
-            this.logger.error({
-              message: JSON.stringify(block, null, 4),
-              labels: {
-                source: this.constructor.name,
-                identifier: endpoint.identifier,
-                rejected: true,
-              },
-            });
-            this.logger.error({
-              message: e,
+        // Check index
+        const blockCount = await this.persistClientService.getBlockCounter();
+        if (block.index - blockCount > 1) {
+          // put in queue
+          this.queue.push(block);
+          // Were already blocks in queue?
+          if (this.queue.length == 1) {
+            this.logger.warn({
+              message: `request missing blocks: ${blockCount + 1} to ${
+                block.index - 1
+              }`,
               labels: {
                 source: this.constructor.name,
                 identifier: endpoint.identifier,
               },
             });
-          },
-        );
+            // Get the missing blocks (and persist and parse them)
+            await this.blockchainSyncService.requestMissingBlocks(
+              endpoint.socket,
+              blockCount + 1,
+              block.index - blockCount - 1,
+            );
+            // do for every block in queue:
+            for (let i = 0; i < this.queue.length; i++) {
+              this.processBlock(endpoint, this.queue[i]);
+            }
+          }
+        } else if (block.index <= blockCount) {
+          this.logger.warn({
+            message: `Block number is too small, got ${
+              block.index
+            } instead of ${blockCount + 1}`,
+            labels: {
+              source: this.constructor.name,
+              identifier: endpoint.identifier,
+            },
+          });
+        } else {
+          this.processBlock(endpoint, block);
+        }
       });
     } else {
       endpoint.socket.once(IS_ENDPOINT_LISTENING_FOR_VALIDATORS, () => {
@@ -734,6 +756,34 @@ export class P2PService implements BeforeApplicationShutdown {
       });
     }
     this.connectionChanges.emit(CONNECTION_ADDED, endpoint);
+  }
+
+  /**
+   * Validate and add block
+   * @param endpoint which sent the block
+   * @param block block to validate and add
+   */
+  private processBlock(endpoint: Connection, block: Block) {
+    this.signatureService.validateSignatures(block).then(
+      () => this.networkService.addBlock(block),
+      (e) => {
+        this.logger.error({
+          message: JSON.stringify(block, null, 4),
+          labels: {
+            source: this.constructor.name,
+            identifier: endpoint.identifier,
+            rejected: true,
+          },
+        });
+        this.logger.error({
+          message: e,
+          labels: {
+            source: this.constructor.name,
+            identifier: endpoint.identifier,
+          },
+        });
+      },
+    );
   }
 
   /**

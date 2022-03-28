@@ -1,11 +1,11 @@
 import { Controller, HttpException } from '@nestjs/common';
 import { EventPattern, Transport } from '@nestjs/microservices';
 import { GatewayBlockchainService } from './gateway-blockchain.service';
-import { PersistedTransaction } from '@shared/http/persisted-transaction';
+import { PersistedTransaction } from '@shared/http/dto/persisted-transaction';
 import {
   TRANSACTION_PARSED,
   TRANSACTION_REJECTED,
-} from '@tc/event-client/constants';
+} from '@tc/clients/event-client/constants';
 
 /**
  * Events the service listens to. Only listens to events inside of the system.

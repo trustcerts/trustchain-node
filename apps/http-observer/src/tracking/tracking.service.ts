@@ -1,10 +1,13 @@
 import { ConflictException, Inject, Injectable } from '@nestjs/common';
-import { Did } from '@trustcerts/core';
-import { DidDocument } from '@tc/did/schemas/did.schema';
-import { Hash } from '@tc/hash/schemas/hash.schema';
+import { DidHash } from '@tc/transactions/did-hash/schemas/did-hash.schema';
+import {
+  DidId,
+  DidIdDocument,
+} from '@tc/transactions/did-id/schemas/did-id.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Logger } from 'winston';
 import { Model } from 'mongoose';
+import { Tracking, TrackingDocument } from './schemas/tracking.schema';
 
 /**
  * Service to track the requests
@@ -18,27 +21,30 @@ export class TrackingService {
    */
   constructor(
     @Inject('winston') protected readonly logger: Logger,
-    @InjectModel(Did.name)
-    private didModel: Model<DidDocument>,
+    @InjectModel(DidId.name)
+    private didModel: Model<DidIdDocument>,
+    @InjectModel(Tracking.name)
+    private trackingModel: Model<TrackingDocument>,
   ) {}
 
   /**
    * Stores the result in a log to parse it later
    * @param hash
    */
-  public async save(hash: Hash, origin: string) {
+  public async save(hash: DidHash, origin: string) {
+    // TODO implement again
     const issuer = await this.didModel.findOne({
-      id: hash.signature[0].identifier.split('#')[0],
+      id: hash.signature.values[0].identifier.split('#')[0],
     });
     if (!issuer) {
       throw new ConflictException('issuer not found');
     }
-    // const tracking = new this.trackingModel({
-    //   hash: hash.hash,
-    //   issuer: issuer.id,
-    //   origin,
-    // });
-    // await tracking.save();
+    const tracking = new this.trackingModel({
+      hash: hash.id,
+      issuer: issuer.id,
+      origin,
+    });
+    await tracking.save();
     this.logger.info({
       message: `${origin}: ${hash} was checked`,
       labels: { source: this.constructor.name, issuer },

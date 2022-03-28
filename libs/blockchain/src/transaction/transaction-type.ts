@@ -1,19 +1,12 @@
 export enum TransactionType {
   // Done by clients
-  HashCreation = 'HashCreation',
-  HashRevocation = 'HashRevocation',
-  // Security Features
-  SecurityLimit = 'SecurityLimit',
-  SecurityRecaptcha = 'SecurityRecaptcha',
+  Hash = 'Hash',
 
   // DID
   Did = 'Did',
 
   // VC
-  SchemaCreation = 'SchemaCreation',
-  ClaimDefinition = 'ClaimDefinition',
-  RevocationRegistryCreation = 'RevocationRegistryCreation',
-  RevocationEntry = 'RevocationEntry',
+  Schema = 'Schema',
 
   // Template
   Template = 'Template',

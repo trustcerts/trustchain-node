@@ -1,10 +1,10 @@
 import { Controller, HttpException } from '@nestjs/common';
 import { EventPattern, Transport } from '@nestjs/microservices';
-import { PersistedTransaction } from '@shared/http/persisted-transaction';
+import { PersistedTransaction } from '@shared/http/dto/persisted-transaction';
 import {
   TRANSACTION_PARSED,
   TRANSACTION_REJECTED,
-} from '@tc/event-client/constants';
+} from '@tc/clients/event-client/constants';
 import { ValidatorBlockchainService } from './validator-blockchain.service';
 
 /**

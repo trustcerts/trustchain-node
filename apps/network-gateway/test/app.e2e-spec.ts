@@ -7,11 +7,11 @@ import {
   REDIS_INJECTION,
   SYSTEM_RESET,
   TRANSACTION_CREATED,
-} from '@tc/event-client/constants';
+} from '@tc/clients/event-client/constants';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { DidId } from '@trustcerts/core';
-import { WalletClientService } from '@tc/wallet-client';
-import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
+import { WalletClientService } from '@tc/clients/wallet-client';
+import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
 import { wait } from '@shared/helpers';
 import { addRedisEndpoint } from '@shared/main-functions';
 import { P2PService } from '@tc/p2-p';
@@ -23,6 +23,9 @@ import {
   closeServer,
   createDidForTesting,
   createWSServer,
+  printDepsLogs,
+  startDependencies,
+  stopAndRemoveAllDeps,
 } from '@test/helpers';
 import { Server } from 'socket.io';
 import { io } from 'socket.io-client';
@@ -31,37 +34,43 @@ import {
   WS_TRANSACTION_REJECTED,
 } from '@tc/blockchain/blockchain.events';
 import { HttpService } from '@nestjs/axios';
+import { config } from 'dotenv';
+import { RoleManageType } from '@tc/transactions/did-id/constants';
 
 describe('Network Gateway (e2e)', () => {
   let app: INestApplication;
   let walletService: WalletClientService;
-  let didCachedService: DidCachedService;
+  let didCachedService: DidIdCachedService;
   let clientRedis: ClientRedis;
   let p2PService: P2PService;
   let httpService: HttpService;
   let logger: Logger;
   let didTransaction: { did: DidId; transaction: TransactionDto };
+  let dockerDeps: string[] = ['db', 'wallet', 'persist', 'redis', 'parse'];
 
   beforeAll(async () => {
+    config({ path: 'test/.env' });
+    config({ path: 'test/test.env', override: true });
+    await startDependencies(dockerDeps);
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [NetworkGatewayModule],
     }).compile();
     app = moduleFixture.createNestApplication();
-    await app.init();
     await addRedisEndpoint(app);
     await app.startAllMicroservices();
+    await app.init();
 
     httpService = app.get(HttpService);
     clientRedis = app.get<ClientRedis>(REDIS_INJECTION);
     walletService = app.get(WalletClientService);
-    didCachedService = app.get(DidCachedService);
+    didCachedService = app.get(DidIdCachedService);
     p2PService = app.get(P2PService);
-  }, 15000);
+  }, 60000);
 
   it('should return the type of the node and the service that was exposed', () => {
     return request(app.getHttpServer()).get('/').expect(200).expect({
       serviceType: 'network',
-      nodeType: 'gateway',
+      nodeType: RoleManageType.Gateway,
     });
   });
 
@@ -155,8 +164,15 @@ describe('Network Gateway (e2e)', () => {
   });
 
   afterAll(async () => {
-    fs.rmdirSync(app.get(ConfigService).storagePath, { recursive: true });
-    clientRedis.close();
-    await app.close().catch(() => {});
-  });
+    try {
+      fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
+      clientRedis.close();
+      await app.close();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      await printDepsLogs(dockerDeps);
+      await stopAndRemoveAllDeps();
+    }
+  }, 25000);
 });

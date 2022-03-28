@@ -1,18 +1,19 @@
 import * as Joi from 'joi';
 import { ConfigModule } from '@tc/config/config.module';
 import { ConfigService } from '@tc/config';
-import { EventClientModule } from '@tc/event-client';
-import { GatewayDidModule } from './gateway-did/gateway-did.module';
-import { GatewayHashModule } from './gateway-hash/gateway-hash.module';
-import { GatewayTemplateModule } from './gateway-template/gateway-template.module';
+import { EventClientModule } from '@tc/clients/event-client';
+import { GatewayDidModule } from '@tc/transactions/did-id/gateway/gateway-did.module';
+import { GatewayHashModule } from '@tc/transactions/did-hash/gateway/gateway-hash.module';
+import { GatewaySchemaModule } from '@tc/transactions/did-schema/gateway/gateway-schema.module';
+import { GatewayTemplateModule } from '@tc/transactions/did-template/gateway/gateway-template.module';
 import { HttpGatewayController } from './http-gateway.controller';
 import { HttpGatewayService } from './http-gateway.service';
 import { Identifier } from '@trustcerts/core';
 import { InviteModule } from '@tc/invite/invite.module';
 import { Module } from '@nestjs/common';
-import { ParseClientModule } from '@tc/parse-client';
+import { ParseClientModule } from '@tc/clients/parse-client';
 import { PrometheusModule } from '@willsoto/nestjs-prometheus';
-import { WalletClientModule } from '@tc/wallet-client';
+import { WalletClientModule } from '@tc/clients/wallet-client';
 import { WinstonModule } from 'nest-winston';
 import {
   dbConnectionValidation,
@@ -48,13 +49,15 @@ import {
         enabled: false,
       },
     }),
-    GatewayHashModule,
     InviteModule,
     EventClientModule,
     ParseClientModule,
     WalletClientModule,
+
+    GatewayHashModule,
     GatewayDidModule,
     GatewayTemplateModule,
+    GatewaySchemaModule,
   ],
   controllers: [HttpGatewayController],
   providers: [HttpGatewayService],

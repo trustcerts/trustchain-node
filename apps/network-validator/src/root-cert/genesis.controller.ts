@@ -1,7 +1,7 @@
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Block } from '@tc/blockchain/block/block.interface';
 import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
-import { CERT_ROOT_INIT } from '@tc/event-client/constants';
+import { CERT_ROOT_INIT } from '@apps/http-validator/src/constants';
 import { GenesisService } from './genesis.service';
 import { MessagePattern, RpcException, Transport } from '@nestjs/microservices';
 import { NetworkGuard } from '@shared/guards/network-guard.service';

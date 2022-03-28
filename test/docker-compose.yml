@@ -13,248 +13,16 @@ volumes:
   db_shared:
 
 x-db-custom: &db-variables
-  DB_TYPE: mysql
-  DB_HOST: ${DB_HOST-db}  
+  DB_TYPE: mongo
+  DB_HOST: ${DB_HOST-db}
   DB_USERNAME: ${DB_USERNAME-root}
   DB_PASSWORD: ${DB_PASSWORD-rootpw}
   DB_DATABASE: ${DB_DATABASE-trustchain}
 
 services:
-  test-e2e-ci:
-    image: trustcerts/trustchain-dev:${IMAGE_TAG-dev}
-    command: npm run test:e2e-ci
-    privileged: true
-    environment:
-      IDENTIFIER: ${IDENTIFIER}
-      LOG_LEVEL: ${LOG_LEVEL-info}
-      <<: *db-variables
-    volumes:
-      - ../:/app
-      - /app/node_modules
-      - /var/run/docker.sock:/var/run/docker.sock
-      - db_shared:/app/db_shared
-    depends_on:
-      - redis
-      - db
-      - wallet
-      - parse
-      - persist
-      - http
-      - network
-    networks:
-      internal:
-
-  test-e2e:
-    image: trustcerts/trustchain-dev:${IMAGE_TAG-dev}
-    command: npm run test:e2e
-    privileged: true
-    environment:
-      IDENTIFIER: ${IDENTIFIER}
-      LOG_LEVEL: ${LOG_LEVEL-info}
-      <<: *db-variables
-    volumes:
-      - ../:/app
-      - /app/node_modules
-      - /var/run/docker.sock:/var/run/docker.sock
-      - db_shared:/app/db_shared
-    depends_on:
-      - redis
-      - db
-      - wallet
-      - parse
-      - persist
-      - http
-      - network
-    networks:
-      internal:
-
-  test-persist:
-    image: trustcerts/trustchain-dev:${IMAGE_TAG-dev}
-    command: npm run test:e2e-persist
-    depends_on:
-      - redis      
-    environment:
-      IDENTIFIER: ${IDENTIFIER}
-      LOG_LEVEL: ${LOG_LEVEL-info}
-    volumes:
-      - ../:/app
-      - /app/node_modules
-    networks:
-      internal:
-
-  test-parse:
-    image: trustcerts/trustchain-dev:${IMAGE_TAG-dev}
-    command: npm run test:e2e-parse
-    depends_on:
-      - redis
-      - db
-      - persist
-    environment:
-      IDENTIFIER: ${IDENTIFIER}
-      LOG_LEVEL: ${LOG_LEVEL-info}
-      <<: *db-variables
-    volumes:
-      - ../:/app
-      - /app/node_modules
-    networks:
-      internal:
-
-  test-wallet:
-    image: trustcerts/trustchain-dev:${IMAGE_TAG-dev}
-    command: npm run test:e2e-wallet
-    depends_on:
-      - redis
-    environment:
-      IDENTIFIER: ${IDENTIFIER}
-      LOG_LEVEL: ${LOG_LEVEL-info}
-    volumes:
-      - ../:/app
-      - /app/node_modules
-    networks:
-      internal:
-
-  test-http-gateway:
-    image: trustcerts/trustchain-dev:${IMAGE_TAG-dev}
-    command: npm run test:e2e-http-gateway
-    depends_on:
-      - redis
-      - db
-      - parse
-      - persist
-      - wallet
-    environment:
-      IDENTIFIER: ${IDENTIFIER}
-      LOG_LEVEL: ${LOG_LEVEL-info}
-      RESET: ${RESET-false}
-      <<: *db-variables
-    volumes:
-      - ../:/app
-      - /app/node_modules
-    networks:
-      internal:
-
-  test-http-observer:
-    image: trustcerts/trustchain-dev:${IMAGE_TAG-dev}
-    command: npm run test:e2e-http-observer
-    depends_on:
-      - redis
-      - db
-      - parse
-      - persist
-      - wallet
-      - network
-    environment:
-      IDENTIFIER: ${IDENTIFIER}
-      LOG_LEVEL: ${LOG_LEVEL-info}
-      RESET: ${RESET-false}
-      <<: *db-variables
-    volumes:
-      - ../:/app
-      - /app/node_modules
-      - db_shared:/app/db_shared
-    networks:
-      internal:
-
-  test-http-validator:
-    image: trustcerts/trustchain-dev:${IMAGE_TAG-dev}
-    command: npm run test:e2e-http-validator
-    depends_on:
-      - redis
-      - db
-      - parse
-      - persist
-      - wallet
-      - network
-    environment:
-      IDENTIFIER: ${IDENTIFIER}
-      LOG_LEVEL: ${LOG_LEVEL-info}
-      RESET: ${RESET-false}
-      <<: *db-variables
-    volumes:
-      - ../:/app
-      - /app/node_modules
-    networks:
-      internal:
-
-  test-network-gateway:
-    image: trustcerts/trustchain-dev:${IMAGE_TAG-dev}
-    command: npm run test:e2e-network-gateway
-    depends_on:
-      - redis
-      - persist
-      - wallet
-      - db
-    environment:      
-      OWN_PEER: network:3000
-      IDENTIFIER: ${IDENTIFIER}
-      LOG_LEVEL: ${LOG_LEVEL-info}
-      <<: *db-variables
-    volumes:
-      - ../:/app
-      - /app/node_modules
-    networks:
-      internal:
-
-  test-network-observer:
-    image: trustcerts/trustchain-dev:${IMAGE_TAG-dev}
-    command: npm run test:e2e-network-observer
-    depends_on:
-      - redis
-      - persist
-      - wallet
-      - db
-    environment:
-      OWN_PEER: network:3000
-      IDENTIFIER: ${IDENTIFIER}
-      LOG_LEVEL: ${LOG_LEVEL-info}
-      <<: *db-variables
-    volumes:
-      - ../:/app
-      - /app/node_modules
-    networks:
-      internal:
-
-  test-network-validator:
-    image: trustcerts/trustchain-dev:${IMAGE_TAG-dev}
-    command: npm run test:e2e-network-validator
-    depends_on:
-      - redis
-      - db
-      - persist
-      - parse
-      - wallet
-      - network
-    environment:
-      OWN_PEER: network:3000
-      IDENTIFIER: ${IDENTIFIER}
-      LOG_LEVEL: ${LOG_LEVEL-info}
-      <<: *db-variables
-    volumes:
-      - ../:/app
-      - /app/node_modules
-    networks:
-      internal:
-
-  test-wallet:
-    image: trustcerts/trustchain-dev:${IMAGE_TAG-dev}
-    command: npm run test:e2e-wallet
-    depends_on:
-      - redis
-    environment:
-      IDENTIFIER: ${IDENTIFIER}
-      LOG_LEVEL: ${LOG_LEVEL-info}
-    volumes:
-      - ../:/app
-      - /app/node_modules
-    networks:
-      internal:
-      
-
   wallet:
     image: trustcerts/trustchain-wallet:${IMAGE_TAG-dev}
     restart: ${RESTART-always}
-    depends_on:
-      - redis
     environment:
       IDENTIFIER: ${IDENTIFIER}
       LOG_LEVEL: ${LOG_LEVEL-info}
@@ -262,13 +30,13 @@ services:
       - wallet:/app/storage
     networks:
       internal:
+    ports:
+      - ${PUBLISH_WALLET_PORT_HTTP}:3000
+      - ${PUBLISH_WALLET_PORT_TCP}:3001
 
   parse:
     image: trustcerts/trustchain-parse:${IMAGE_TAG-dev}
     restart: ${RESTART-always}
-    depends_on:
-      - redis
-      - db
     environment:
       IDENTIFIER: ${IDENTIFIER}
       LOG_LEVEL: ${LOG_LEVEL-info}
@@ -278,12 +46,13 @@ services:
       - db_shared:/app/db_shared
     networks:
       internal:
+    ports:
+      - ${PUBLISH_PARSE_PORT_HTTP}:3000
+      - ${PUBLISH_PARSE_PORT_TCP}:3001
 
   persist:
     image: trustcerts/trustchain-persist:${IMAGE_TAG-dev}
     restart: ${RESTART-always}
-    depends_on:
-      - redis
     environment:
       IDENTIFIER: ${IDENTIFIER}
       LOG_LEVEL: ${LOG_LEVEL-info}
@@ -291,38 +60,33 @@ services:
       - persist:/app/storage
     networks:
       internal:
+    ports:
+      - ${PUBLISH_PERSIST_PORT_HTTP}:3000
+      - ${PUBLISH_PERSIST_PORT_TCP}:3001
 
-  http:
-    image: trustcerts/trustchain-http-${NODE_TYPE}:${IMAGE_TAG-dev}
-    restart: ${RESTART-always}
-    depends_on:
-      - redis
-      - db
-      - parse
-      - wallet
-    environment:
-      NODE_SECRET: ${NODE_SECRET}
-      NETWORK_SECRET: ${NETWORK_SECRET}
-      IDENTIFIER: ${IDENTIFIER}
-      LOG_LEVEL: ${LOG_LEVEL-info}
-      RESET: ${RESET-false}
-      <<: *db-variables
-    volumes:
-      - http:/app/storage
-    networks:
-      internal:
+  # http:
+  #   image: trustcerts/trustchain-http-${NODE_TYPE}:${IMAGE_TAG-dev}
+  #   restart: ${RESTART-always}
+  #   environment:
+  #     NODE_SECRET: ${NODE_SECRET}
+  #     NETWORK_SECRET: ${NETWORK_SECRET}
+  #     IDENTIFIER: ${IDENTIFIER}
+  #     LOG_LEVEL: ${LOG_LEVEL-info}
+  #     RESET: ${RESET-false}
+  #     <<: *db-variables
+  #   volumes:
+  #     - http:/app/storage
+  #   networks:
+  #     internal:
+  #   ports:
+  #     - ${PUBLISH_HTTP_PORT_HTTP}:3000
+  #     - ${PUBLISH_HTTP_PORT_TCP}:3001
 
-  network:
-    image: trustcerts/trustchain-network-${NODE_TYPE}:${IMAGE_TAG-dev}
+  network-validator:
+    image: trustcerts/trustchain-network-validator:${IMAGE_TAG-dev}
     restart: ${RESTART-always}
-    depends_on:
-      - redis
-      - db
-      - parse
-      - persist
-      - wallet
     environment:
-      OWN_PEER: network:3000      
+      OWN_PEER: ${OWN_PEER-info}
       NETWORK_SECRET: ${NETWORK_SECRET}
       CHUNK_SIZE: ${CHUNK_SIZE-100}
       IDENTIFIER: ${IDENTIFIER}
@@ -333,22 +97,67 @@ services:
       - network:/app/storage
     networks:
       internal:
-  
+    ports:
+      - ${PUBLISH_NETWORK_PORT_HTTP}:3000
+      - ${PUBLISH_NETWORK_PORT_TCP}:3001
+
+  network-gateway:
+    image: trustcerts/trustchain-network-gateway:${IMAGE_TAG-dev}
+    restart: ${RESTART-always}
+    environment:
+      OWN_PEER: ${OWN_PEER-info}
+      NETWORK_SECRET: ${NETWORK_SECRET}
+      CHUNK_SIZE: ${CHUNK_SIZE-100}
+      IDENTIFIER: ${IDENTIFIER}
+      LOG_LEVEL: ${LOG_LEVEL-info}
+      RECONNECT: ${RECONNECT-true}
+      <<: *db-variables
+    volumes:
+      - network:/app/storage
+    networks:
+      internal:
+    ports:
+      - ${PUBLISH_NETWORK_PORT_HTTP}:3000
+      - ${PUBLISH_NETWORK_PORT_TCP}:3001
+
+  network-observer:
+    image: trustcerts/trustchain-network-observer:${IMAGE_TAG-dev}
+    restart: ${RESTART-always}
+    environment:
+      OWN_PEER: ${OWN_PEER-info}
+      NETWORK_SECRET: ${NETWORK_SECRET}
+      CHUNK_SIZE: ${CHUNK_SIZE-100}
+      IDENTIFIER: ${IDENTIFIER}
+      LOG_LEVEL: ${LOG_LEVEL-info}
+      RECONNECT: ${RECONNECT-true}
+      <<: *db-variables
+    volumes:
+      - network:/app/storage
+    networks:
+      internal:
+    ports:
+      - ${PUBLISH_NETWORK_PORT_HTTP}:3000
+      - ${PUBLISH_NETWORK_PORT_TCP}:3001
+
   db:
     image: mongo
     restart: ${RESTART-always}
+    volumes:
+      - db:/data/db
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME-root}
       MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD-rootpw}
       MONGO_INITDB_DATABASE: ${DB_DATABASE-trustchain}
-    volumes:
-      - db:/data/db
-      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+    ports:
+      - ${PUBLISH_DB_PORT}:27017
     networks:
       internal:
 
   redis:
     image: redis
     restart: ${RESTART-always}
+    ports:
+      - ${PUBLISH_REDIS_PORT}:6379
     networks:
       internal:

@@ -58,7 +58,7 @@ export async function addTCPEndpoint(app: INestApplication) {
   app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.TCP,
     options: {
-      host: '0.0.0.0',
+      host: configService.getString('TCP_URL'),
       port: configService.getNumber('TCP_PORT'),
     },
   });

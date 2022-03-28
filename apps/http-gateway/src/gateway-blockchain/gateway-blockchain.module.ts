@@ -1,5 +1,5 @@
-import { DidCachedModule } from '@tc/did/did-cached/did-cached.module';
-import { EventClientModule } from '@tc/event-client';
+import { DidIdCachedModule } from '@tc/transactions/did-id/cached/did-id-cached.module';
+import { EventClientModule } from '@tc/clients/event-client';
 import { GatewayBlockchainController } from './gateway-blockchain.controller';
 import { GatewayBlockchainService } from './gateway-blockchain.service';
 import { HashModule } from '@tc/blockchain/hashModule';
@@ -17,7 +17,7 @@ import {
       },
     }),
     HashModule,
-    DidCachedModule,
+    DidIdCachedModule,
     EventClientModule,
   ],
   providers: [

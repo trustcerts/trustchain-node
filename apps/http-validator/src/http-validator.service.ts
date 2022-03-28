@@ -2,8 +2,8 @@ import { ClientRedis, ClientTCP } from '@nestjs/microservices';
 import { ConfigService } from '@tc/config';
 import { HttpService } from '@shared/http/http.service';
 import { Inject, Injectable } from '@nestjs/common';
-import { PARSE_TCP_INJECTION } from '@tc/parse-client/constants';
-import { REDIS_INJECTION } from '@tc/event-client/constants';
+import { PARSE_TCP_INJECTION } from '@tc/clients/parse-client/constants';
+import { REDIS_INJECTION } from '@tc/clients/event-client/constants';
 
 /**
  * Service for the http controller to interact with the internal system.

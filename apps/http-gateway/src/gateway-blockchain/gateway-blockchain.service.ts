@@ -10,16 +10,16 @@ import { HashService } from '@tc/blockchain/hash.service';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 
 import { ClientRedis } from '@nestjs/microservices';
-import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
+import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
 import { EventEmitter } from 'events';
 import { Gauge } from 'prom-client';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';
 import { Logger } from 'winston';
-import { PersistedTransaction } from '@shared/http/persisted-transaction';
+import { PersistedTransaction } from '@shared/http/dto/persisted-transaction';
 import {
   REDIS_INJECTION,
   TRANSACTION_CREATED,
-} from '@tc/event-client/constants';
+} from '@tc/clients/event-client/constants';
 
 /**
  * Service that is used to send transactions to the validators and responds to the Client.
@@ -56,7 +56,7 @@ export class GatewayBlockchainService {
    */
   constructor(
     private readonly hashService: HashService,
-    private readonly didCachedService: DidCachedService,
+    private readonly didCachedService: DidIdCachedService,
     @Inject('winston') private readonly logger: Logger,
     @Inject(REDIS_INJECTION) private readonly clientRedis: ClientRedis,
     @InjectMetric('gateway_transactionPool')
@@ -71,7 +71,7 @@ export class GatewayBlockchainService {
    */
   async addTransaction(
     transaction: TransactionDto,
-    type?: string,
+    type?: 'own',
   ): Promise<PersistedTransaction> {
     // TODO improve function
     if (this.transactions.includes(transaction)) {

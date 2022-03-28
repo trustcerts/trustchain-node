@@ -1,4 +1,4 @@
-import { EventClientModule } from '@tc/event-client';
+import { EventClientModule } from '@tc/clients/event-client';
 import { HashModule } from '@tc/blockchain';
 import { Module } from '@nestjs/common';
 import { ValidatorBlockchainController } from './validator-blockchain.controller';

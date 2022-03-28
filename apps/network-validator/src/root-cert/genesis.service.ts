@@ -2,22 +2,20 @@ import { Block } from '@tc/blockchain/block/block.interface';
 import { BlockReceivedService } from '@tc/p2-p/block-received/block-received.service';
 import { ConfigService } from '@tc/config/config.service';
 import { Connection } from '@shared/connection';
-import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
 import { DidCreation, VerificationRelationshipType } from '@trustcerts/core';
+import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
 import { DidIdRegister } from '@trustcerts/did-id-create';
-import { DidTransactionDto } from '@tc/did/dto/did.transaction.dto';
+import { DidIdTransactionDto } from '@tc/transactions/did-id/dto/did-id-transaction.dto';
 import { HashService } from '@tc/blockchain';
 import { HttpService } from '@nestjs/axios';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
 import { ProposedBlock } from '@tc/blockchain/block/proposed-block.dto';
-import { RoleManageAddEnum } from '@tc/did/constants';
+import { RoleManageType } from '@tc/transactions/did-id/constants';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
-import {
-  SignatureInfo,
-  SignatureType,
-} from '@tc/blockchain/transaction/transaction.dto';
-import { WalletClientService } from '@tc/wallet-client';
+import { SignatureInfo } from '@tc/blockchain/transaction/signature-info';
+import { SignatureType } from '@tc/blockchain/transaction/signature-type';
+import { WalletClientService } from '@tc/clients/wallet-client';
 import { lastValueFrom } from 'rxjs';
 
 /**
@@ -43,7 +41,7 @@ export class GenesisService {
   constructor(
     private readonly configService: ConfigService,
     private readonly walletClientService: WalletClientService,
-    private readonly didCachedService: DidCachedService,
+    private readonly didCachedService: DidIdCachedService,
     @Inject('winston') private readonly logger: Logger,
     private readonly httpService: HttpService,
     private readonly hashService: HashService,
@@ -68,7 +66,8 @@ export class GenesisService {
     });
 
     // request all transactions
-    const transactions: DidTransactionDto[] = await this.requestTransactions();
+    const transactions: DidIdTransactionDto[] =
+      await this.requestTransactions();
 
     // build genesis block
     const proposedBlock: ProposedBlock = {
@@ -165,7 +164,7 @@ export class GenesisService {
   /**
    * Requests values from all validators.
    */
-  private requestTransactions(): Promise<DidTransactionDto[]> {
+  private requestTransactions(): Promise<DidIdTransactionDto[]> {
     return Promise.all(
       this.connections.map(async (connection: Connection) => {
         this.logger.debug({
@@ -173,7 +172,7 @@ export class GenesisService {
           labels: { source: this.constructor.name },
         });
         const response = await lastValueFrom(
-          this.httpService.get<DidTransactionDto>(
+          this.httpService.get<DidIdTransactionDto>(
             `${await connection.getHttpEndpoint()}/did/self`,
             {
               headers: {
@@ -245,7 +244,7 @@ export class GenesisService {
   /**
    * Returns a self signed certificate to put it in the first block.
    */
-  async getSelfSigned(): Promise<DidTransactionDto> {
+  async getSelfSigned(): Promise<DidIdTransactionDto> {
     // creates a new did
     const creation: DidCreation = {};
     if (this.configService.getString('DID') !== '') {
@@ -266,7 +265,7 @@ export class GenesisService {
       key.id.split('#')[1],
       VerificationRelationshipType.authentication,
     );
-    did.addRole(RoleManageAddEnum.Validator);
+    did.addRole(RoleManageType.Validator);
     // TODO update endpoint if microservice is not api.
     did.addService(
       'name',
@@ -276,10 +275,10 @@ export class GenesisService {
     );
 
     const didDocSignature: SignatureInfo = {
-      type: SignatureType.single,
+      type: SignatureType.Single,
       values: [await this.walletClientService.signIssuer(did.getDocument())],
     };
-    const transaction = new DidTransactionDto(
+    const transaction = new DidIdTransactionDto(
       did.getChanges(),
       didDocSignature,
     );

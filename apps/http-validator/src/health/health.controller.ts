@@ -1,7 +1,7 @@
 import { ConfigService } from '@tc/config';
 import { Connection } from '@shared/connection';
 import { Controller, Get } from '@nestjs/common';
-import { DID_CONNECTION } from '@tc/did/constants';
+import { DID_ID_CONNECTION } from '@tc/transactions/did-id/constants';
 import {
   HealthCheck,
   HealthCheckService,
@@ -11,10 +11,19 @@ import {
 import { HealthIndicatorFunction } from '@nestjs/terminus/dist/health-indicator';
 import { INVITE_CONNECTION } from '@tc/invite/constants';
 import { InjectConnection } from '@nestjs/mongoose';
-import { NETWORK_PORT_TCP, NETWORK_URL } from '@tc/network-client/constants';
-import { PERSIST_PORT_TCP, PERSIST_URL } from '@tc/persist-client/constants';
+import {
+  NETWORK_PORT_TCP,
+  NETWORK_URL,
+} from '@tc/clients/network-client/constants';
+import {
+  PERSIST_PORT_TCP,
+  PERSIST_URL,
+} from '@tc/clients/persist-client/constants';
 import { Transport } from '@nestjs/microservices';
-import { WALLET_PORT_TCP, WALLET_URL } from '@tc/wallet-client/constants';
+import {
+  WALLET_PORT_TCP,
+  WALLET_URL,
+} from '@tc/clients/wallet-client/constants';
 
 /**
  * Health check endpoint for this service and the node.
@@ -38,7 +47,7 @@ export class HealthController {
     private healthCheckService: HealthCheckService,
     private readonly microserviceHealthIndicator: MicroserviceHealthIndicator,
     protected readonly db: MongooseHealthIndicator,
-    @InjectConnection(DID_CONNECTION)
+    @InjectConnection(DID_ID_CONNECTION)
     protected readonly didConnection: Connection,
     @InjectConnection(INVITE_CONNECTION)
     protected readonly inviteConnection: Connection,

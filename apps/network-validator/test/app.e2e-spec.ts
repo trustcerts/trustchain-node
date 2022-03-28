@@ -13,24 +13,28 @@ import {
   REDIS_INJECTION,
   SYSTEM_RESET,
   TRANSACTION_CREATED,
-} from '@tc/event-client/constants';
+} from '@tc/clients/event-client/constants';
 import { wait } from '@shared/helpers';
 import {
   createWSServer,
   createDidForTesting,
   setBlock,
-  sendBlock,
   closeServer,
+  startDependencies,
+  stopAndRemoveAllDeps,
+  printDepsLogs,
 } from '@test/helpers';
 import { Server } from 'socket.io';
 import { io } from 'socket.io-client';
 import { WS_TRANSACTION } from '@tc/blockchain/blockchain.events';
-import { WalletClientService } from '@tc/wallet-client/wallet-client.service';
-import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
+import { WalletClientService } from '@tc/clients/wallet-client/wallet-client.service';
+import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
 import { DidId } from '@trustcerts/core';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
-import { RoleManageAddEnum } from '@tc/did/constants';
+import { RoleManageType } from '@tc/transactions/did-id/constants';
 import { HttpService } from '@nestjs/axios';
+import { config } from 'dotenv';
+import { ParseClientService } from '@tc/clients/parse-client/parse-client.service';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -39,37 +43,42 @@ describe('AppController (e2e)', () => {
   let p2PService: P2PService;
   let clientRedis: ClientRedis;
   let walletClientService: WalletClientService;
-  let didCachedService: DidCachedService;
+  let didCachedService: DidIdCachedService;
   let didTransaction: { did: DidId; transaction: TransactionDto };
+  let parseClientService: ParseClientService;
+  let dockerDeps: string[] = ['db', 'parse', 'wallet', 'persist', 'redis'];
 
   beforeAll(async () => {
-    process.env.OWN_PEER = 'network:3000';
-    process.env.NETWORK_SECRET = 'iAmJustASecret';
+    config({ path: 'test/.env' });
+    config({ path: 'test/test.env', override: true });
+    await startDependencies(dockerDeps);
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [NetworkValidatorModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();
-    await app.init();
     await addRedisEndpoint(app);
     await app.startAllMicroservices();
+    await app.init();
 
     walletClientService = app.get(WalletClientService);
-    didCachedService = app.get(DidCachedService);
+    didCachedService = app.get(DidIdCachedService);
     clientRedis = app.get<ClientRedis>(REDIS_INJECTION);
     p2PService = app.get(P2PService);
+    parseClientService = app.get<ParseClientService>(ParseClientService);
 
     didTransaction = await createDidForTesting(
       walletClientService,
       didCachedService,
     );
-    sendBlock(setBlock([didTransaction.transaction], 1), clientRedis, true);
-  }, 15000);
+    const block = setBlock([didTransaction.transaction], 1);
+    await parseClientService.parseBlock(block);
+  }, 60000);
 
   it('Returns the type of the node and the service that was exposed', () => {
     return request(app.getHttpServer()).get('/').expect(200).expect({
       serviceType: 'network',
-      nodeType: 'validator',
+      nodeType: RoleManageType.Validator,
     });
   });
 
@@ -79,13 +88,14 @@ describe('AppController (e2e)', () => {
 
   it('should Checks if the node has amount of Validator', async () => {
     const connection = new Connection(logger, httpService);
-    connection.type = RoleManageAddEnum.Validator;
+    connection.type = RoleManageType.Validator;
+    connection.socket = io('ws://localhost:4000');
     await p2PService.addConnection(connection);
     await request(app.getHttpServer())
       .get('/mashed?amount=1')
       .set('authorization', 'Bearer ' + process.env.NETWORK_SECRET)
       .expect(200);
-    connection.disconnect;
+    connection.disconnect();
     p2PService.removeConnection(connection.identifier);
   });
 
@@ -117,11 +127,8 @@ describe('AppController (e2e)', () => {
           walletClientService,
           didCachedService,
         );
-        await sendBlock(
-          setBlock([didTransaction.transaction], 1),
-          clientRedis,
-          true,
-        );
+        const block = setBlock([didTransaction.transaction], 1);
+        await parseClientService.parseBlock(block);
         clientRedis.emit(TRANSACTION_CREATED, didTransaction.transaction);
       });
     });
@@ -146,8 +153,15 @@ describe('AppController (e2e)', () => {
   }, 10000);
 
   afterAll(async () => {
-    await wait(5000);
-    fs.rmdirSync(app.get(ConfigService).storagePath, { recursive: true });
-    await app.close().catch(() => {});
-  }, 15000);
+    try {
+      fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
+      clientRedis.close();
+      await app.close();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      await printDepsLogs(dockerDeps);
+      await stopAndRemoveAllDeps();
+    }
+  }, 25000);
 });

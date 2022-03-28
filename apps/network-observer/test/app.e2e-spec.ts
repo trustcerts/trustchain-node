@@ -5,16 +5,27 @@ import * as request from 'supertest';
 import { addRedisEndpoint } from '@shared/main-functions';
 import { ClientRedis } from '@nestjs/microservices';
 import { wait } from '@shared/helpers';
-import { REDIS_INJECTION, SYSTEM_RESET } from '@tc/event-client/constants';
+import {
+  REDIS_INJECTION,
+  SYSTEM_RESET,
+} from '@tc/clients/event-client/constants';
 import { P2PService } from '@tc/p2-p';
 import * as fs from 'fs';
 import { Logger } from 'winston';
 import { ConfigService } from '@tc/config/config.service';
 import { Connection } from '@shared/connection';
-import { closeServer, createWSServer } from '@test/helpers';
+import {
+  closeServer,
+  createWSServer,
+  printDepsLogs,
+  startDependencies,
+  stopAndRemoveAllDeps,
+} from '@test/helpers';
 import { Server } from 'socket.io';
 import { io } from 'socket.io-client';
 import { HttpService } from '@nestjs/axios';
+import { config } from 'dotenv';
+import { RoleManageType } from '@tc/transactions/did-id/constants';
 
 describe('Network Observer (e2e)', () => {
   let app: INestApplication;
@@ -22,8 +33,12 @@ describe('Network Observer (e2e)', () => {
   let p2PService: P2PService;
   let httpService: HttpService;
   let logger: Logger;
+  let dockerDeps: string[] = ['db', 'wallet', 'persist', 'redis', 'parse'];
 
   beforeAll(async () => {
+    config({ path: 'test/.env' });
+    config({ path: 'test/test.env', override: true });
+    await startDependencies(dockerDeps);
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [NetworkObserverModule],
     }).compile();
@@ -34,12 +49,12 @@ describe('Network Observer (e2e)', () => {
 
     clientRedis = app.get<ClientRedis>(REDIS_INJECTION);
     p2PService = app.get(P2PService);
-  }, 15000);
+  }, 60000);
 
   it('should return the type of the node and the service that was exposed', () => {
     return request(app.getHttpServer()).get('/').expect(200).expect({
       serviceType: 'network',
-      nodeType: 'observer',
+      nodeType: RoleManageType.Observer,
     });
   });
 
@@ -63,7 +78,15 @@ describe('Network Observer (e2e)', () => {
   });
 
   afterAll(async () => {
-    fs.rmdirSync(app.get(ConfigService).storagePath, { recursive: true });
-    await app.close().catch(() => {});
-  }, 15000);
+    try {
+      fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
+      clientRedis.close();
+      await app.close();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      await printDepsLogs(dockerDeps);
+      await stopAndRemoveAllDeps();
+    }
+  }, 25000);
 });

@@ -1,14 +1,14 @@
 /**
  * Sets the built version during the ci process to track errors in sentry.
  */
-export const build = 'f20cfc7657a97641';
+export const build = '$GITHUB_SHA';
 
 /**
  * Sets the build date.
  */
-export const buildDate = 1609753616315;
+export const buildDate = 0;
 
 /**
  * Sets the version number.
  */
-export const version = '1.0.0';
+export const version = '';

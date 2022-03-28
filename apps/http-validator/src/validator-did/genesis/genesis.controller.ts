@@ -12,9 +12,9 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { CERT_ROOT_INIT } from '@tc/event-client/constants';
+import { CERT_ROOT_INIT } from '../../constants';
 import { ClientTCP } from '@nestjs/microservices';
-import { NETWORK_TCP_INJECTION } from '@tc/network-client/constants';
+import { NETWORK_TCP_INJECTION } from '@tc/clients/network-client/constants';
 import { NodeGuard } from '@shared/guards/node-guard.service';
 
 /**
@@ -45,6 +45,7 @@ export class GenesisController {
     description: 'The rootCert has been successfully created.',
   })
   async requestCert(@Body() peers: string[]) {
+    // TODO move this to a network client service
     return new Promise<void>((resolve, reject) => {
       this.clientNetwork.send(CERT_ROOT_INIT, peers).subscribe({
         complete: () => {

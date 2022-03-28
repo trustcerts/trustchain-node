@@ -5,7 +5,7 @@ import { ConfigService } from '@tc/config';
 import { Connection } from '@shared/connection';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
-import { PersistClientService } from '@tc/persist-client';
+import { PersistClientService } from '@tc/clients/persist-client';
 import { Socket as ServerSocket } from 'socket.io';
 import { WS_BLOCK_MISSING } from '@tc/blockchain/blockchain.events';
 
@@ -89,16 +89,48 @@ export class BlockchainSyncService {
    */
   private getChunk(client: ClientSocket | ServerSocket): Promise<Block[]> {
     return this.persistClientService.getBlockCounter().then((counter) => {
-      return new Promise((resolve) => {
-        client.emit(
-          WS_BLOCK_MISSING,
-          {
-            start: counter + 1,
-            size: this.chunkSize,
-          },
-          (blocks: Block[]) => resolve(blocks),
-        );
-      });
+      return this.getMissingBlocks(client, counter + 1, this.chunkSize);
+    });
+  }
+
+  /**
+   * Gets defined blocks and adds them to the blockchain
+   * @param client node to get the blocks from
+   * @param start index of first block to get
+   * @param size number of blocks to get
+   */
+  async requestMissingBlocks(
+    client: ClientSocket | ServerSocket,
+    start: number,
+    size: number,
+  ) {
+    const blocks = await this.getMissingBlocks(client, start, size);
+    for (const block of blocks) {
+      await this.networkService.addBlock(block);
+    }
+  }
+
+  /**
+   * Gets defined blocks from given node
+   * @param client given node to get the blocks from
+   * @param start start index of first block to get
+   * @param size size number of blocks to get
+   * @returns
+   */
+  private getMissingBlocks(
+    client: ClientSocket | ServerSocket,
+    start: number,
+    size: number,
+  ): Promise<Block[]> {
+    return new Promise((resolve) => {
+      client.emit(
+        WS_BLOCK_MISSING,
+        {
+          start: start,
+          size: size,
+        },
+        (blocks: Block[]) => resolve(blocks),
+      );
     });
   }
 }

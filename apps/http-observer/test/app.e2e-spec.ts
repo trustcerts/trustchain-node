@@ -3,28 +3,47 @@ import * as request from 'supertest';
 import { Test, TestingModule } from '@nestjs/testing';
 import { HttpObserverModule } from '../src/http-observer.module';
 import { ClientRedis } from '@nestjs/microservices';
-import { REDIS_INJECTION } from '@tc/event-client/constants';
-import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
-import { WalletClientService } from '@tc/wallet-client';
+import { REDIS_INJECTION } from '@tc/clients/event-client/constants';
+import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
+import { WalletClientService } from '@tc/clients/wallet-client';
 import { InviteNode } from '@tc/invite/dto/invite-node.dto';
 import { addRedisEndpoint } from '@shared/main-functions';
 import * as fs from 'fs';
 import { ConfigService } from '@tc/config/config.service';
-import { createTemplate } from '@test/helpers';
+import {
+  createHash,
+  createSchema,
+  createTemplate,
+  printDepsLogs,
+  startDependencies,
+  stopAndRemoveAllDeps,
+} from '@test/helpers';
 import { HttpObserverService } from '../src/http-observer.service';
 import { wait } from '@shared/helpers';
+import { config } from 'dotenv';
+import { ParseClientService } from '@tc/clients/parse-client/parse-client.service';
+import { RoleManageType } from '@tc/transactions/did-id/constants';
 
 describe('ObserverController (e2e)', () => {
   let app: INestApplication;
-  let didCachedService: DidCachedService;
+  let didCachedService: DidIdCachedService;
   let walletClientService: WalletClientService;
   let clientRedis: ClientRedis;
+  let parseClientService: ParseClientService;
   let httpObserverService: HttpObserverService;
+  let dockerDeps: string[] = [
+    'db',
+    'wallet',
+    'parse',
+    'persist',
+    'redis',
+    'network-observer',
+  ];
 
   beforeAll(async () => {
-    // TODO better set variables in .env file and pass it to the container. this allows the test to share an env variable
-    process.env.NODE_SECRET = 'iAmJustASecret';
-    process.env.RESET = 'true';
+    config({ path: 'test/.env' });
+    config({ path: 'test/test.env', override: true });
+    await startDependencies(dockerDeps);
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [HttpObserverModule],
     }).compile();
@@ -34,10 +53,11 @@ describe('ObserverController (e2e)', () => {
     await app.init();
 
     clientRedis = app.get(REDIS_INJECTION);
-    didCachedService = app.get(DidCachedService);
+    didCachedService = app.get(DidIdCachedService);
     walletClientService = app.get(WalletClientService);
     httpObserverService = app.get(HttpObserverService);
-  }, 15000);
+    parseClientService = app.get(ParseClientService);
+  }, 60000);
 
   beforeEach(async () => {
     httpObserverService.reset();
@@ -48,7 +68,7 @@ describe('ObserverController (e2e)', () => {
   it('should give the information about the service', async () => {
     return request(app.getHttpServer()).get('/').expect(200).expect({
       serviceType: 'http',
-      nodeType: 'observer',
+      nodeType: RoleManageType.Observer,
     });
   });
 
@@ -73,37 +93,49 @@ describe('ObserverController (e2e)', () => {
   });
 
   it('should look for an entry to the hash', async () => {
+    // TODO use Identifier.generate('hash', 'foobar')
     const hash =
-      '9991d650bd700b85f15ec25e0df27gcfa988a4401378b9e3b95c8fe8d1a5b61e';
-    await createTemplate(
+      'did:trust:tc:dev:hash:9991d650bd700b85f15ec25e0df27gcfa988a4401378b9e3b95c8fe8d1a5b61e';
+    await createHash(
       hash,
       walletClientService,
       didCachedService,
-      clientRedis,
+      parseClientService,
     );
     return request(app.getHttpServer()).get(`/hash/${hash}`).expect(200);
   });
 
-  //#Template_Section
-  it('should look for an entry to the template', async () => {
-    let { templateTransaction } = await createTemplate(
-      '9991d650bd700b85f15ec25e0df27gcfa988a4401378b9e3b95c8fe8d1a5b61e',
+  //#Schema_Section
+  it('should look for an entry to the schema', async () => {
+    let { schemaTransaction } = await createSchema(
+      '<h1>Hello there</h1>',
       walletClientService,
       didCachedService,
-      clientRedis,
+      parseClientService,
     );
-    return request(app.getHttpServer())
-      .get(`/template/${templateTransaction.body.value.id}`)
+    request(app.getHttpServer())
+      .get(`/schema/${schemaTransaction.body.value.id}`)
       .expect(200);
+
+    request(app.getHttpServer())
+      .get(`/schema/${schemaTransaction.body.value.id}12322`)
+      .expect(404);
   });
 
   //#Did_Section
   it('should return transaction to assemble a did document', async () => {
-    let { didTransaction } = await createTemplate(
-      '9991d650bd700b85f15ec2ase0d0275cfa988a4401378b9e3b95c8fe8d1a5b61e',
+    const schema = await createSchema(
+      'my schema',
       walletClientService,
       didCachedService,
-      clientRedis,
+      parseClientService,
+    );
+    let { didTransaction } = await createTemplate(
+      '<h1>Hello there</h1>',
+      schema.schemaTransaction.body.value.id,
+      walletClientService,
+      didCachedService,
+      parseClientService,
     );
     return request(app.getHttpServer())
       .get(`/did/${didTransaction.did.id}`)
@@ -111,11 +143,18 @@ describe('ObserverController (e2e)', () => {
   });
 
   it('should return the did document to a did', async () => {
-    let { didTransaction } = await createTemplate(
-      '9991d650bd700b85f15ec2523d0275cfa988a4401378b9e3b95c8fe8d1a5b61e',
+    const schema = await createSchema(
+      'my schema',
       walletClientService,
       didCachedService,
-      clientRedis,
+      parseClientService,
+    );
+    let { didTransaction } = await createTemplate(
+      '<h1>Hello there</h1>',
+      schema.schemaTransaction.body.value.id,
+      walletClientService,
+      didCachedService,
+      parseClientService,
     );
     return request(app.getHttpServer())
       .get(`/did/${didTransaction.did.id}/doc`)
@@ -123,11 +162,18 @@ describe('ObserverController (e2e)', () => {
   });
 
   it('should return the diddocument-metadata to a did', async () => {
-    let { didTransaction } = await createTemplate(
-      '9991d650bd700b85f15ec25ecd0275cfa988a4401378b9e3b95c8fe8d1a5b61e',
+    const schema = await createSchema(
+      'my schema',
       walletClientService,
       didCachedService,
-      clientRedis,
+      parseClientService,
+    );
+    let { didTransaction } = await createTemplate(
+      '<h1>Hello there</h1>',
+      schema.schemaTransaction.body.value.id,
+      walletClientService,
+      didCachedService,
+      parseClientService,
     );
     return request(app.getHttpServer())
       .get(`/did/${didTransaction.did.id}/metadata`)
@@ -136,24 +182,34 @@ describe('ObserverController (e2e)', () => {
 
   //#Rebuild&Reset_Section
   it('should rebuild the pki and hash database based on local blockchain', async () => {
-    await createTemplate(
-      '9991d650bd700b85f15ec25efd0275cfa988a4401378b9e3b95c8fe8d1a5b61e',
+    const schema = await createSchema(
+      'my schema',
       walletClientService,
       didCachedService,
-      clientRedis,
+      parseClientService,
+    );
+    let { didTransaction } = await createTemplate(
+      '<h1>Hello there</h1>',
+      schema.schemaTransaction.body.value.id,
+      walletClientService,
+      didCachedService,
+      parseClientService,
     );
     return request(app.getHttpServer())
       .post(`/rebuild`)
       .set('authorization', 'Bearer ' + process.env.NODE_SECRET)
       .expect(201);
-  }, 15000);
+  }, 60000);
 
   it('should clean and reset', async () => {
-    let { didTransaction } = await createTemplate(
-      '9991d650bd700b85f15ec25e1d0275cfa988a4401378b9e3b95c8fe8d1a5b61e',
+    // TODO use Identifier.generate('hash', 'foobar')
+    const hash =
+      'did:trust:tc:dev:hash:9991d650bd700b85f15ec25e0df27gcfa988a4401378b9e3b95c8fe8d1a5b61e';
+    let { didTransaction } = await createHash(
+      hash,
       walletClientService,
       didCachedService,
-      clientRedis,
+      parseClientService,
     );
     const res = await request(app.getHttpServer())
       .get(`/did/${didTransaction.did.id}`)
@@ -166,12 +222,19 @@ describe('ObserverController (e2e)', () => {
     await wait(2000);
     return request(app.getHttpServer())
       .get(`/did/${didTransaction.did.id}`)
-      .expect(200)
-      .expect([]);
-  }, 15000);
+      .expect(404);
+  }, 60000);
 
   afterAll(async () => {
-    fs.rmdirSync(app.get(ConfigService).storagePath, { recursive: true });
-    await app.close().catch(() => {});
-  }, 15000);
+    try {
+      fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
+      clientRedis.close();
+      await app.close();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      await printDepsLogs(dockerDeps);
+      await stopAndRemoveAllDeps();
+    }
+  }, 60000);
 });

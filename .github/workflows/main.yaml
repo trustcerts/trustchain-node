@@ -14,7 +14,7 @@ on:
 #   PR_NUMBER: ${{ github.event.pull_request.number }}
 
 jobs:
-  build:
+  prebuild:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -37,12 +37,45 @@ jobs:
       - name: Install dependencies
         run: npm ci --ignore-scripts
 
+      - name: Eslint check
+        run: npm run lint
+
+      - name: generate documentation folder
+        run: npm run doc:build
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.2.5
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: documentation
+  build:
+    runs-on: ubuntu-latest
+    needs: prebuild
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Check commit coverage
+        run: npm run coverage
+
       - name: Cache build node
         uses: actions/cache@v2
         id: build-dist-folder
         with:
           path: ./dist
-          key: build-${{ hashFiles('./apps') }}-${{ hashFiles('./libs') }}
+          key: build-${{ hashFiles('./apps') }}-${{ hashFiles('./libs') }}-
           restore-keys: build-
 
       - name: Build code
@@ -72,7 +105,7 @@ jobs:
         id: build-dist-folder
         with:
           path: ./dist
-          key: build-${{ hashFiles('./apps') }}-${{ hashFiles('./libs') }}
+          key: build-${{ hashFiles('./apps') }}-${{ hashFiles('./libs') }}-
           restore-keys: build-
 
       - name: Build Docker
@@ -86,7 +119,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ./docker-dist
-          key: build-${{ hashFiles('./apps') }}-${{ hashFiles('./libs') }}-${{ hashFiles('package-lock.json') }}
+          key: build-${{ hashFiles('./apps') }}-${{ hashFiles('./libs') }}-${{ hashFiles('package-lock.json') }}-${{ hashFiles('./build') }}-
           restore-keys: buildDocker-
 
       - name: Save Docker Image
@@ -125,6 +158,7 @@ jobs:
           path: ./*.xml
 
   # TODO check if containers have to be build before the e2e test
+  # TODO check if we moved completely to npm run test
   e2e:
     needs: build-packages
     runs-on: ubuntu-latest
@@ -142,6 +176,7 @@ jobs:
             parse,
             wallet,
           ]
+      fail-fast: false
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -155,21 +190,23 @@ jobs:
           key: npm-${{ hashFiles('package-lock.json') }}
           restore-keys: npm-
 
+      # TODO cache node modules folder inside a job
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
       - name: Cache base build Image
         uses: actions/cache@v2
         with:
           path: ./docker-dist
-          key: build-${{ hashFiles('./apps') }}-${{ hashFiles('./libs') }}-${{ hashFiles('package-lock.json') }}
+          key: build-${{ hashFiles('./apps') }}-${{ hashFiles('./libs') }}-${{ hashFiles('package-lock.json') }}-${{ hashFiles('./build') }}-
           restore-keys: buildDocker-
 
       - name: load docker images
         run: node tools/load-docker-images.mjs
 
       - name: e2e test
-        run: |
-          printf "\nIMAGE_TAG=latest\n" >> test/.env
-          cat test/.env
-          docker-compose -f test/docker-compose.yml --env-file test/.env run test-${{ matrix.services }} npm run test:e2e-${{ matrix.services }}-ci
+        # TODO check if call is correct for ci usage
+        run: npm run test -- -c ./apps/${{ matrix.services}}/test/jest-e2e.ts --detectOpenHandles --forceExit
 
       - name: Upload E2E Test Results
         if: always()
@@ -215,24 +252,36 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ./docker-dist
-          key: build-${{ hashFiles('./apps') }}-${{ hashFiles('./libs') }}-${{ hashFiles('package-lock.json') }}
+          key: build-${{ hashFiles('./apps') }}-${{ hashFiles('./libs') }}-${{ hashFiles('package-lock.json') }}-${{ hashFiles('./build') }}-
           restore-keys: buildDocker-
 
       - name: load docker images
         run: node tools/load-docker-images.mjs
 
-      - name: generate config folder
-        run: npm run trusty-generate
-
-      - name: Start blockchain-nodes
-        run: |
-          docker network create test-network
-          cd ./config
-          ./all.sh up -d
-          ./initNodes.sh
+      - name: TrustCerts Custom Blockchain
+        uses: trustcerts/blockchain-custom-action@v1.0.1
+        with:
+          network_size: normal
 
       - name: run test
         run: npm run test:network
+
+      - name: Collect docker logs on failure
+        if: failure()
+        uses: jwalton/gh-docker-logs@v1
+        with:
+          dest: './logs'
+
+      - name: Tar logs
+        if: failure()
+        run: tar cvzf ./logs.tgz ./logs
+
+      - name: Upload logs to GitHub
+        if: failure()
+        uses: actions/upload-artifact@master
+        with:
+          name: logs.tgz
+          path: ./logs.tgz
 
   release:
     if: contains( github.ref, 'main')
@@ -254,7 +303,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ./docker-dist
-          key: build-${{ hashFiles('./apps') }}-${{ hashFiles('./libs') }}-${{ hashFiles('package-lock.json') }}
+          key: build-${{ hashFiles('./apps') }}-${{ hashFiles('./libs') }}-${{ hashFiles('package-lock.json') }}-
           restore-keys: buildDocker-
 
       - name: load docker images
@@ -280,3 +329,23 @@ jobs:
     steps:
       - name: Prepare
         run: echo test
+
+  build-and-deploy:
+    if: contains( github.ref, 'main')
+    needs: release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # TODO include the --unitTestCoverage [json-summary] from the tests above
+      - name: Install and Build
+        run: |
+          npm install -g @compodoc/compodoc          
+          npm run doc
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4.2.3
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: documentation # The folder the action should deploy.

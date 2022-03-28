@@ -2,10 +2,7 @@ import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { Test, TestingModule } from '@nestjs/testing';
 import { HttpGatewayModule } from '../src/http-gateway.module';
-import {
-  SignatureType,
-  TransactionDto,
-} from '@tc/blockchain/transaction/transaction.dto';
+import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 import {
   Did,
@@ -14,21 +11,16 @@ import {
   Identifier,
 } from '@trustcerts/core';
 import { DidIdRegister } from '@trustcerts/did-id-create';
-import { DidTransactionDto } from '@tc/did/dto/did.transaction.dto';
-import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
-import { HashCachedService } from '@tc/hash/hash-cached/hash-cached.service';
-import { WalletClientService } from '@tc/wallet-client';
+import { DidIdTransactionDto } from '@tc/transactions/did-id/dto/did-id-transaction.dto';
+import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
+import { WalletClientService } from '@tc/clients/wallet-client';
 import { ClientRedis } from '@nestjs/microservices';
-import { REDIS_INJECTION } from '@tc/event-client/constants';
-import { HashCreationTransactionDto } from '@tc/hash/dto/hash-creation.transaction.dto';
+import { REDIS_INJECTION } from '@tc/clients/event-client/constants';
 import { addRedisEndpoint } from '@shared/main-functions';
 import { HashService } from '@tc/blockchain';
-import { RoleManageAddEnum } from '@tc/did/constants';
-import {
-  CompressionType,
-  TemplateTransactionDto,
-} from '@tc/template/dto/template.transaction.dto';
-import { CreateDidDto } from '@tc/did/dto/create-did.dto';
+import { RoleManageType } from '@tc/transactions/did-id/constants';
+import { TemplateTransactionDto } from '@tc/transactions/did-template/dto/template.transaction.dto';
+import { CompressionType } from '@tc/transactions/did-template/dto/compressiontype.dto';
 import { InviteRequest } from '@tc/invite/schemas/invite-request.schema';
 import { InviteNode } from '@tc/invite/dto/invite-node.dto';
 import * as fs from 'fs';
@@ -36,31 +28,45 @@ import { ConfigService } from '@tc/config/config.service';
 import {
   createDidForTesting,
   setBlock,
-  sendBlock,
-  transactionProperties,
   signContent,
   addListenerToTransactionParsed,
-  createTemplate,
+  transactionProperties,
+  startDependencies,
+  printDepsLogs,
+  stopAndRemoveAllDeps,
 } from '@test/helpers';
 import { HttpGatewayService } from '../src/http-gateway.service';
 import { wait } from '@shared/helpers';
 import { InviteService } from '@tc/invite';
 import { TextEncoder } from 'util';
+import { HashDidTransactionDto } from '@tc/transactions/did-hash/dto/hash-transaction.dto';
+import { CreateDidIdDto } from '@tc/transactions/did-id/dto/create-did-id.dto';
+import { config } from 'dotenv';
+import { ParseClientService } from '@tc/clients/parse-client/parse-client.service';
 
 describe('Http Gateway (e2e)', () => {
   let app: INestApplication;
-  let didCachedService: DidCachedService;
-  let hashCachedService: HashCachedService;
+  let didCachedService: DidIdCachedService;
   let walletClientService: WalletClientService;
   let hashService: HashService;
   let clientRedis: ClientRedis;
+  let parseClientService: ParseClientService;
   let httpGateWayService: HttpGatewayService;
   let didTransaction: { did: Did; transaction: TransactionDto };
   let inviteService: InviteService;
+  let dockerDeps: string[] = [
+    'db',
+    'wallet',
+    'parse',
+    'persist',
+    'redis',
+    'network-gateway',
+  ];
 
   beforeAll(async () => {
-    process.env.NODE_SECRET = 'iAmJustASecret';
-    process.env.RESET = 'true';
+    config({ path: 'test/.env' });
+    config({ path: 'test/test.env', override: true });
+    await startDependencies(dockerDeps);
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [HttpGatewayModule],
     }).compile();
@@ -71,12 +77,12 @@ describe('Http Gateway (e2e)', () => {
 
     clientRedis = app.get(REDIS_INJECTION);
     inviteService = app.get(InviteService);
-    didCachedService = app.get(DidCachedService);
-    hashCachedService = app.get(HashCachedService);
+    didCachedService = app.get(DidIdCachedService);
     walletClientService = app.get(WalletClientService);
     hashService = app.get(HashService);
     httpGateWayService = app.get(HttpGatewayService);
-  }, 15000);
+    parseClientService = app.get(ParseClientService);
+  }, 60000);
 
   beforeEach(async () => {
     httpGateWayService.reset();
@@ -85,11 +91,8 @@ describe('Http Gateway (e2e)', () => {
       walletClientService,
       didCachedService,
     );
-    await sendBlock(
-      setBlock([didTransaction.transaction], 1),
-      clientRedis,
-      true,
-    );
+    const block = setBlock([didTransaction.transaction], 1);
+    await parseClientService.parseBlock(block);
   });
   // #Init_Section
   it('should give the information about the service', () => {
@@ -123,14 +126,14 @@ describe('Http Gateway (e2e)', () => {
 
   //#Hash_Section
   it('should create a hash', async () => {
-    const hashCreation: HashCreationTransactionDto = {
+    const hashCreation: HashDidTransactionDto = {
       ...transactionProperties,
       body: {
         version: 1,
         date: new Date().toISOString(),
-        type: TransactionType.HashCreation,
+        type: TransactionType.Hash,
         value: {
-          hash: '9991d650bd700b85f15ec25e0d0275cfa988a4401378b9e3b95c8fe8d1a5b61e',
+          id: 'did:trust:tc:dev:hash:HPaE7KKZ3J9Dku44h15nzQjbjJ6QuVQmRTFLkaTFG3gR',
           algorithm: 'sha256',
         },
       },
@@ -138,57 +141,56 @@ describe('Http Gateway (e2e)', () => {
     await signContent(hashCreation, walletClientService),
       addListenerToTransactionParsed(clientRedis, hashService);
     return request(app.getHttpServer())
-      .post('/hash/create')
+      .post('/hash')
       .send(hashCreation)
       .expect(201);
   }, 10000);
 
   it('should revoke a hash', async () => {
-    const hashCreation: HashCreationTransactionDto = {
+    const hashCreation: HashDidTransactionDto = {
       ...transactionProperties,
       body: {
         version: 1,
         date: new Date().toISOString(),
-        type: TransactionType.HashCreation,
+        type: TransactionType.Hash,
         value: {
-          hash: '9991df50bd701b85f15ec25e0d0275cfas88a4401378b9e3b95c8fe9d1a5b61e',
+          controller: {
+            add: [didTransaction.did.id],
+          },
+          id: 'did:trust:tc:dev:hash:HPaE7KKZ3J9Dku44h15nzQjbjJ6QuVQmRTFLkaTFG3gR',
           algorithm: 'sha256',
         },
       },
     };
     await signContent(hashCreation, walletClientService);
-    await sendBlock(setBlock([hashCreation], 2), clientRedis, true);
-    const hashRevocation: HashCreationTransactionDto = {
+    await parseClientService.parseBlock(setBlock([hashCreation], 2));
+    const hashRevocation: HashDidTransactionDto = {
       ...transactionProperties,
       body: {
         version: 1,
         date: new Date().toISOString(),
-        type: TransactionType.HashRevocation,
+        type: TransactionType.Hash,
         value: {
-          hash: '9991df50bd701b85f15ec25e0d0275cfas88a4401378b9e3b95c8fe9d1a5b61e',
-          algorithm: 'sha256',
+          id: 'did:trust:tc:dev:hash:HPaE7KKZ3J9Dku44h15nzQjbjJ6QuVQmRTFLkaTFG3gR',
+          revoked: new Date().toString(),
         },
       },
     };
     await signContent(hashRevocation, walletClientService),
       addListenerToTransactionParsed(clientRedis, hashService);
     return request(app.getHttpServer())
-      .post('/hash/revoke')
+      .post('/hash')
       .send(hashRevocation)
       .expect(201);
   }, 7000);
 
   // #Did_Section
   it('test documents bigger as 1mb', async () => {
-    const didDocTransaction: DidTransactionDto = {
+    const didDocTransaction: DidIdTransactionDto = {
       ...transactionProperties,
       body: {
         version: 1,
         date: new Date().toISOString(),
-        didDocSignature: {
-          type: SignatureType.single,
-          values: [],
-        },
         type: TransactionType.Did,
         value: {
           id: Identifier.generate('id'),
@@ -219,15 +221,11 @@ describe('Http Gateway (e2e)', () => {
   });
 
   it('should add a did document', async () => {
-    const didDocTransaction: DidTransactionDto = {
+    const didDocTransaction: DidIdTransactionDto = {
       ...transactionProperties,
       body: {
         version: 1,
         date: new Date().toISOString(),
-        didDocSignature: {
-          type: SignatureType.single,
-          values: [],
-        },
         type: TransactionType.Did,
         value: {
           id: Identifier.generate('id'),
@@ -247,7 +245,7 @@ describe('Http Gateway (e2e)', () => {
       id: didTransaction.did.id,
       secret: 'test_secret',
       name: 'test_name',
-      role: RoleManageAddEnum.Validator,
+      role: RoleManageType.Validator,
     };
     return request(app.getHttpServer())
       .post('/did/invite')
@@ -262,11 +260,11 @@ describe('Http Gateway (e2e)', () => {
       id: did.id,
       secret: 'test_secret',
       name: 'test_name',
-      role: RoleManageAddEnum.Gateway,
+      role: RoleManageType.Gateway,
     };
     await inviteService.createInvite(invite);
     const pair = await generateCryptoKeyPair();
-    const testCerts: CreateDidDto = {
+    const testCerts: CreateDidIdDto = {
       identifier: did.id,
       secret: 'test_secret',
       publicKey: await exportKey(pair.publicKey!),
@@ -288,7 +286,7 @@ describe('Http Gateway (e2e)', () => {
         date: new Date().toISOString(),
         type: TransactionType.Template,
         value: {
-          schema: 'test',
+          schemaId: 'test',
           id: Identifier.generate('tmp'),
           template: 'string',
           compression: {
@@ -315,27 +313,19 @@ describe('Http Gateway (e2e)', () => {
   }, 8000);
 
   it('should clean and reset', async () => {
-    const hash =
-      '9991d650bd700b85f15ec25e1d0275cfa988a4401378b9e3b95c8fe8d1a5b61e';
-    await createTemplate(
-      hash,
-      walletClientService,
-      didCachedService,
-      clientRedis,
-    );
-    expect(await hashCachedService.getHash(hash)).toHaveProperty(`block`);
-    await request(app.getHttpServer())
-      .post(`/reset`)
-      .set('authorization', 'Bearer ' + process.env.NODE_SECRET)
-      .expect(201);
-    await wait(2000);
-    expect(await hashCachedService.getHash(hash)).toBeNull();
-  });
+    // TODO implement besser case
+  }, 60000);
 
   afterAll(async () => {
-    fs.rmdirSync(app.get(ConfigService).storagePath, { recursive: true });
-    clientRedis.close();
-    await app.close().catch(() => {});
-  }),
-    15000;
+    try {
+      fs.rmSync(app.get(ConfigService).storagePath, { recursive: true });
+      clientRedis.close();
+      await app.close();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      await printDepsLogs(dockerDeps);
+      await stopAndRemoveAllDeps();
+    }
+  }, 60000);
 });

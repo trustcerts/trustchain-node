@@ -8,7 +8,7 @@ import {
 } from '@tc/blockchain/blockchain.events';
 import { ConfigService } from '@tc/config/config.service';
 import { Connection } from '@shared/connection';
-import { DidCachedService } from '@tc/did/did-cached/did-cached.service';
+import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
 import { P2PService } from '@tc/p2-p';
@@ -19,6 +19,7 @@ import { ValidatorService } from './validator/validator.service';
 import Timeout = NodeJS.Timeout;
 import { Gauge } from 'prom-client';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';
+import { RoleManageType } from '@tc/transactions/did-id/constants';
 
 /**
  * Service that is responsible for the consensus to find valid blocks.
@@ -85,7 +86,7 @@ export class ValidatorConsensusService {
     @Inject('winston') private readonly logger: Logger,
     private readonly validatorService: ValidatorService,
     private readonly proposerService: ProposerService,
-    private readonly didCachedService: DidCachedService,
+    private readonly didCachedService: DidIdCachedService,
     @InjectMetric('validator_min') private promValidatorMin: Gauge<string>,
     @InjectMetric('validator_max') private promValidatorMax: Gauge<string>,
   ) {
@@ -123,7 +124,7 @@ export class ValidatorConsensusService {
     this.p2PService.connectionChanges.on(
       CONNECTION_ADDED,
       (connection: Connection) => {
-        if (connection.type === 'validator') {
+        if (connection.type === RoleManageType.Validator) {
           this.logger.debug({
             message: `round ${this.roundNumber}: register for ${connection.identifier}`,
             labels: { source: this.constructor.name },
@@ -162,7 +163,7 @@ export class ValidatorConsensusService {
     this.p2PService.connectionChanges.on(
       CONNECTION_REMOVED,
       (connection: Connection) => {
-        if (connection.type === 'validator') {
+        if (connection.type === RoleManageType.Validator) {
           // TODO remove the function listeners from above to prevent a memory leak
           this.validatorRemoved();
         }

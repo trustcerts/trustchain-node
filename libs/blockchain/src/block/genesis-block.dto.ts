@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Block } from '@tc/blockchain/block/block.interface';
-import { DidTransactionDto } from '../../../transactions/did/src/dto/did.transaction.dto';
+import { DidIdTransactionDto } from '@tc/transactions/did-id/dto/did-id-transaction.dto';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
 
 /**
@@ -45,7 +45,7 @@ export class GenesisBlock implements Block {
   @ApiProperty({
     description: 'transactions that are included in this block',
   })
-  transactions!: DidTransactionDto[];
+  transactions!: DidIdTransactionDto[];
 
   /**
    * version of this block.

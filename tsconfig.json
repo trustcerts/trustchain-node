@@ -25,24 +25,10 @@
       "@tc/invite/*": ["libs/invite/src/*"],
       "@tc/p2-p": ["libs/p2-p/src"],
       "@tc/p2-p/*": ["libs/p2-p/src/*"],
-      "@tc/wallet-client": ["libs/clients/wallet-client/src"],
-      "@tc/wallet-client/*": ["libs/clients/wallet-client/src/*"],
-      "@tc/persist-client": ["libs/clients/persist-client/src"],
-      "@tc/persist-client/*": ["libs/clients/persist-client/src/*"],
-      "@tc/parse-client": ["libs/clients/parse-client/src"],
-      "@tc/parse-client/*": ["libs/clients/parse-client/src/*"],
-      "@tc/network-client": ["libs/clients/network-client/src"],
-      "@tc/network-client/*": ["libs/clients/network-client/src/*"],
-      "@tc/event-client": ["libs/clients/event-client/src"],
-      "@tc/event-client/*": ["libs/clients/event-client/src/*"],
-      "@tc/did": ["libs/transactions/did/src"],
-      "@tc/did/*": ["libs/transactions/did/src/*"],
-      "@tc/template": ["libs/transactions/template/src"],
-      "@tc/template/*": ["libs/transactions/template/src/*"],
-      "@tc/hash": ["libs/transactions/hash/src"],
-      "@tc/hash/*": ["libs/transactions/hash/src/*"],
-      "@tc/security": ["libs/transactions/security/src"],
-      "@tc/security/*": ["libs/transactions/security/src/*"]
+      "@tc/transactions": ["libs/transactions/src"],
+      "@tc/transactions/*": ["libs/transactions/src/*"],
+      "@tc/clients": ["libs/clients/src"],
+      "@tc/clients/*": ["libs/clients/src/*"]
     }
   },
   "exclude": ["node_modules", "dist", "sdk/**"]

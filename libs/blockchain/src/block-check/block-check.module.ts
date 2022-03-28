@@ -1,18 +1,18 @@
 import { BlockCheckService } from '@tc/blockchain/block-check/block-check.service';
-import { DidCachedModule } from '@tc/did/did-cached/did-cached.module';
+import { DidIdCachedModule } from '@tc/transactions/did-id/cached/did-id-cached.module';
 import { HashModule } from '@tc/blockchain';
 import { Module } from '@nestjs/common';
-import { PersistClientModule } from '@tc/persist-client';
-import { WalletClientModule } from '@tc/wallet-client';
+import { PersistClientModule } from '@tc/clients/persist-client';
+import { WalletClientModule } from '@tc/clients/wallet-client';
 
 @Module({
   imports: [
     HashModule,
-    DidCachedModule,
+    DidIdCachedModule,
     WalletClientModule,
     PersistClientModule,
   ],
   providers: [BlockCheckService],
-  exports: [BlockCheckService],
+  exports: [BlockCheckService, DidIdCachedModule],
 })
 export class BlockCheckModule {}
