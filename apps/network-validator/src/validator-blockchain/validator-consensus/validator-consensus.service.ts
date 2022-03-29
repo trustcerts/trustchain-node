@@ -302,33 +302,34 @@ export class ValidatorConsensusService {
 
   /**
    * Resets the consensus because validators failed to generate a block in the last rounds.
+   * Right now the process is killed since this makes sure all variables are resetted.
    */
   private reset() {
     process.exit(1);
     return;
-    this.proposer = this.configService.getConfig('IDENTIFIER');
-    this.roundNumber = 0;
-    this.failedRuns = 0;
-    const resetInterval = setInterval(() => {
-      const promises = this.p2PService.validatorConnections.map((connection) =>
-        this.checkIfHealthy(connection),
-      );
-      Promise.all(promises).then(
-        (results: Array<{ identifier: string; reset: boolean }> | any[]) => {
-          const resetCounter = results.filter((result) => result.reset).length;
-          if (results.length > 0 && resetCounter === results.length) {
-            this.logger.info({
-              message: `round ${this.roundNumber}: all ${results.length} validators agreed to reset consensus`,
-              labels: { source: this.constructor.name },
-            });
-            clearInterval(resetInterval);
-            setTimeout(async () => {
-              await this.startRound();
-            }, 2000);
-          }
-        },
-      );
-    }, 500);
+    // this.proposer = this.configService.getConfig('IDENTIFIER');
+    // this.roundNumber = 0;
+    // this.failedRuns = 0;
+    // const resetInterval = setInterval(() => {
+    //   const promises = this.p2PService.validatorConnections.map((connection) =>
+    //     this.checkIfHealthy(connection),
+    //   );
+    //   Promise.all(promises).then(
+    //     (results: Array<{ identifier: string; reset: boolean }> | any[]) => {
+    //       const resetCounter = results.filter((result) => result.reset).length;
+    //       if (results.length > 0 && resetCounter === results.length) {
+    //         this.logger.info({
+    //           message: `round ${this.roundNumber}: all ${results.length} validators agreed to reset consensus`,
+    //           labels: { source: this.constructor.name },
+    //         });
+    //         clearInterval(resetInterval);
+    //         setTimeout(async () => {
+    //           await this.startRound();
+    //         }, 2000);
+    //       }
+    //     },
+    //   );
+    // }, 500);
   }
 
   /**
