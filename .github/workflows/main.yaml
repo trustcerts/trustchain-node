@@ -207,6 +207,9 @@ jobs:
           name: E2E Test Results ${{ matrix.services }}
           path: ./coverage
 
+      - name: Upload coverage reports to Codecov with GitHub Action
+        uses: codecov/codecov-action@v2
+
   publish-test-results:
     name: 'Publish Unit Tests Results'
     needs: e2e
