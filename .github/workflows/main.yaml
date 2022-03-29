@@ -204,8 +204,8 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v2
         with:
-          name: E2E Test Results ${{ matrix.service }}
-          path: ./*.xml
+          name: E2E Test Results ${{ matrix.services }}
+          path: ./coverage
 
   publish-test-results:
     name: 'Publish Unit Tests Results'

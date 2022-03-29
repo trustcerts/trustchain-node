@@ -8,6 +8,12 @@ const config: Config.InitialOptions = {
   ...jestConfig,
   rootDir: '../../../',
   testRegex: '.e2e-spec.ts$',
+  collectCoverageFrom: [
+    '<rootDir>/apps/wallet/src/**',
+    '!<rootDir>/apps/wallet/src/*.*.spec.ts',
+    '!<rootDir>/apps/wallet/src/**/*.*.spec.ts',
+    '!<rootDir>/apps/wallet/src/main.ts',
+  ],
   roots: ['<rootDir>/apps/wallet/', '<rootDir>/libs/'],
 };
 

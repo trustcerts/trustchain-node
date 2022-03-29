@@ -8,6 +8,12 @@ const config: Config.InitialOptions = {
   ...jestConfig,
   rootDir: '../../../',
   testRegex: '.e2e-spec.ts$',
+  collectCoverageFrom: [
+    '<rootDir>/apps/parse/src/**',
+    '!<rootDir>/apps/parse/src/*.*.spec.ts',
+    '!<rootDir>/apps/parse/src/**/*.*.spec.ts',
+    '!<rootDir>/apps/parse/src/main.ts',
+  ],
   roots: ['<rootDir>/apps/parse/', '<rootDir>/libs/'],
 };
 
