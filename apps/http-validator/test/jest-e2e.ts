@@ -8,6 +8,12 @@ const config: Config.InitialOptions = {
   ...jestConfig,
   rootDir: '../../../',
   testRegex: '.e2e-spec.ts$',
+  collectCoverageFrom: [
+    '<rootDir>/apps/http-validator/src/**',
+    '!<rootDir>/apps/http-validator/src/*.*.spec.ts',
+    '!<rootDir>/apps/http-validator/src/**/*.*.spec.ts',
+    '!<rootDir>/apps/http-validator/src/main.ts',
+  ],
   roots: ['<rootDir>/apps/http-validator/', '<rootDir>/libs/'],
 };
 
