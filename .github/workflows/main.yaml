@@ -40,14 +40,6 @@ jobs:
       - name: Eslint check
         run: npm run lint
 
-      - name: generate documentation folder
-        run: npm run doc:build
-
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4.2.5
-        with:
-          branch: gh-pages # The branch the action should deploy to.
-          folder: documentation
   build:
     runs-on: ubuntu-latest
     needs: prebuild
@@ -206,7 +198,7 @@ jobs:
 
       - name: e2e test
         # TODO check if call is correct for ci usage
-        run: npm run test -- -c ./apps/${{ matrix.services}}/test/jest-e2e.ts --detectOpenHandles --forceExit
+        run: npm run test -- -c ./apps/${{ matrix.services}}/test/jest-e2e.ts --detectOpenHandles --forceExit --coverage --ci --reporters=default --reporters=jest-junit
 
       - name: Upload E2E Test Results
         if: always()
@@ -259,32 +251,15 @@ jobs:
         run: node tools/load-docker-images.mjs
 
       - name: TrustCerts Custom Blockchain
-        uses: trustcerts/blockchain-custom-action@v1.0.1
+        uses: trustcerts/blockchain-custom-action@main
         with:
           network_size: normal
 
       - name: run test
         run: npm run test:network
 
-      - name: Collect docker logs on failure
-        if: failure()
-        uses: jwalton/gh-docker-logs@v1
-        with:
-          dest: './logs'
-
-      - name: Tar logs
-        if: failure()
-        run: tar cvzf ./logs.tgz ./logs
-
-      - name: Upload logs to GitHub
-        if: failure()
-        uses: actions/upload-artifact@master
-        with:
-          name: logs.tgz
-          path: ./logs.tgz
-
   release:
-    if: contains( github.ref, 'main')
+    if: github.ref == 'refs/heads/main'
     needs: network-test
     runs-on: ubuntu-latest
     steps:
@@ -321,31 +296,19 @@ jobs:
           CI_TAG: latest
           TAG_RELEASE: beta
 
-  # TODO put this step into another file since it is CD
-  deploy:
-    if: contains( github.ref, 'main')
-    needs: release
-    runs-on: ubuntu-latest
-    steps:
-      - name: Prepare
-        run: echo test
-
-  build-and-deploy:
-    if: contains( github.ref, 'main')
+  deploy-doc:
+    if: github.ref == 'refs/heads/main'
     needs: release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      # TODO include the --unitTestCoverage [json-summary] from the tests above
-      - name: Install and Build
-        run: |
-          npm install -g @compodoc/compodoc          
-          npm run doc
+      - name: generate documentation folder
+        run: npm run doc:build
 
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4.2.3
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
           branch: gh-pages # The branch the action should deploy to.
-          folder: documentation # The folder the action should deploy.
+          folder: documentation
