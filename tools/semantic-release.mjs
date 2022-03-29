@@ -60,8 +60,8 @@ try {
     console.log('No release published.');
   }
   // Get stdout and stderr content
-  const logs = stdoutBuffer.getContentsAsString('utf8');
-  const errors = stderrBuffer.getContentsAsString('utf8');
+  // const logs = stdoutBuffer.getContentsAsString('utf8');
+  // const errors = stderrBuffer.getContentsAsString('utf8');
 } catch (err) {
   console.error('The automated release failed with %O', err);
 }
