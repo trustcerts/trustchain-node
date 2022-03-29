@@ -28,9 +28,10 @@
     "test:network": "jest -c ./test/network/jest.network.ts --coverage",
     "test:unit": "jest -c jest.unit.ts --coverage",
     "test:unit-ci": "jest -c jest.unit.ts --coverage --ci --reporters=default --reporters=jest-junit",
-    "doc": "npx compodoc -p tsconfig.json -w --theme material -s -r 8000",
-    "doc:build": "npx compodoc -p tsconfig.json -w --theme material",
-    "coverage": "npx compodoc -p tsconfig.json --coverageTest 95 --coverageTestShowOnlyFailed",
+    "test:unit-persist": "jest ./apps/persist/src",
+    "doc": "compodoc -p tsconfig.json -w --theme material -s -r 8000",
+    "doc:build": "compodoc -p tsconfig.json -w --theme material",
+    "coverage": "compodoc -p tsconfig.json --coverageTest 95 --coverageTestShowOnlyFailed",
     "watch:wallet": "nest build wallet --watch",
     "watch:parse": "nest build parse --watch",
     "watch:persist": "nest build persist --watch",
@@ -42,6 +43,7 @@
     "watch:network-validator": "nest build network-validator --watch"
   },
   "dependencies": {
+    "@compodoc/compodoc": "^1.1.18",
     "@nestjs/axios": "^0.0.4",
     "@nestjs/common": "^8.2.4",
     "@nestjs/core": "^8.2.4",
@@ -79,6 +81,7 @@
     "winston-loki": "^6.0.3"
   },
   "devDependencies": {
+    "@compodoc/compodoc": "^1.1.17",
     "@nestjs/cli": "^8.2.0",
     "@nestjs/schematics": "^8.0.5",
     "@nestjs/testing": "^8.2.4",
