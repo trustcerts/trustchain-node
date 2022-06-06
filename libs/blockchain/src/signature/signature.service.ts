@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { ProposedBlock } from '@tc/blockchain/block/proposed-block.dto';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
 import { WalletClientService } from '@tc/clients/wallet-client';
-import { sortKeys } from '@trustcerts/core';
+import { sortKeys } from '@trustcerts/crypto';
 
 /**
  * Bundles function to verify a signature.

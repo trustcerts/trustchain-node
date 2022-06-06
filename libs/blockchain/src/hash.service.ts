@@ -1,7 +1,7 @@
 import { Block } from '@tc/blockchain/block/block.interface';
 import { Injectable } from '@nestjs/common';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
-import { getHash } from '@trustcerts/core';
+import { getHash } from '@trustcerts/crypto';
 
 /**
  * Contains the function to interact with the blockchain.

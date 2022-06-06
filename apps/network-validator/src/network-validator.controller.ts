@@ -7,13 +7,13 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
+import { DidRoles } from '@tc/transactions/did-id/dto/did-roles.dto';
 import { EventPattern, Transport } from '@nestjs/microservices';
 import { LIST_NOT_EMPTY } from '@tc/blockchain/blockchain.events';
 import { Logger } from 'winston';
 import { NetworkGuard } from '@shared/guards/network-guard.service';
 import { NetworkValidatorService } from './network-validator.service';
 import { P2PService } from '@tc/p2-p';
-import { RoleManageType } from '@tc/transactions/did-id/constants';
 import {
   SYSTEM_RESET,
   TRANSACTION_CREATED,
@@ -65,7 +65,7 @@ export class NetworkValidatorController implements OnApplicationBootstrap {
   public information() {
     return {
       serviceType: 'network',
-      nodeType: RoleManageType.Validator,
+      nodeType: DidRoles.Validator,
     };
   }
 

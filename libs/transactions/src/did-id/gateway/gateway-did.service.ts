@@ -2,14 +2,12 @@ import { ConfigService } from '@tc/config';
 import { CreateDidIdDto } from '@tc/transactions/did-id/dto/create-did-id.dto';
 import {
   DidId,
+  DidIdRegister,
   DidIdResolver,
+  DidRoles,
   VerificationRelationshipType,
-  exportKey,
-  getFingerPrint,
-  importKey,
-} from '@trustcerts/core';
+} from '@trustcerts/did';
 import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
-import { DidIdRegister } from '@trustcerts/did-id-create';
 import { DidIdTransactionCheckService } from '@tc/transactions/did-id/validation/did-id-transaction-check.service';
 import { DidIdTransactionDto } from '@tc/transactions/did-id/dto/did-id-transaction.dto';
 import { DidResponse } from './responses';
@@ -18,10 +16,10 @@ import { GatewayTransactionService } from '@apps/http-gateway/src/gateway-transa
 import { HashService } from '@tc/blockchain';
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { Logger } from 'winston';
-import { RoleManageType } from '@tc/transactions/did-id/constants';
 import { SignatureInfo } from '@tc/blockchain/transaction/signature-info';
 import { SignatureType } from '@tc/blockchain/transaction/signature-type';
 import { WalletClientService } from '@tc/clients/wallet-client';
+import { exportKey, getFingerPrint, importKey } from '@trustcerts/crypto';
 
 /**
  * Administrates did objects.
@@ -75,10 +73,7 @@ export class GatewayDidService extends GatewayTransactionService<DidIdResolver> 
    * @param createCert
    * @param role
    */
-  createDid(
-    createCert: CreateDidIdDto,
-    role: RoleManageType,
-  ): Promise<DidResponse> {
+  createDid(createCert: CreateDidIdDto, role: DidRoles): Promise<DidResponse> {
     return this.didCachedService.getDid(createCert.identifier).then(
       () => this.resetModification(createCert),
       () => this.setDid(createCert, [role]),
@@ -129,7 +124,7 @@ export class GatewayDidService extends GatewayTransactionService<DidIdResolver> 
    */
   private async setDid(
     createCert: CreateDidIdDto,
-    roles: RoleManageType[] = [],
+    roles: DidRoles[] = [],
   ): Promise<DidResponse> {
     // add the did
     const did = DidIdRegister.create({
@@ -178,6 +173,7 @@ export class GatewayDidService extends GatewayTransactionService<DidIdResolver> 
       ],
     };
     const transaction = new DidIdTransactionDto(
+      //@ts-ignore
       did.getChanges(),
       didDocSignature,
     );

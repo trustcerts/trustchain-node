@@ -1,22 +1,17 @@
 import { ConfigService } from '@tc/config';
 import { CreateDidIdDto } from '@tc/transactions/did-id/dto/create-did-id.dto';
 import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
-import { DidIdRegister } from '@trustcerts/did-id-create';
+import { DidIdRegister, VerificationRelationshipType } from '@trustcerts/did';
 import { DidIdTransactionDto } from '@tc/transactions/did-id/dto/did-id-transaction.dto';
+import { DidRoles } from '@tc/transactions/did-id/dto/did-roles.dto';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
 import { PersistedTransaction } from '@shared/http/dto/persisted-transaction';
-import { RoleManageType } from '@tc/transactions/did-id/constants';
 import { SignatureInfo } from '@tc/blockchain/transaction/signature-info';
 import { SignatureType } from '@tc/blockchain/transaction/signature-type';
 import { ValidatorBlockchainService } from '../validator-blockchain/validator-blockchain.service';
-import {
-  VerificationRelationshipType,
-  exportKey,
-  getFingerPrint,
-  importKey,
-} from '@trustcerts/core';
 import { WalletClientService } from '@tc/clients/wallet-client';
+import { exportKey, getFingerPrint, importKey } from '@trustcerts/crypto';
 
 /**
  * Service that signs or revokes public keys from gateways.
@@ -46,7 +41,7 @@ export class ValidatorDidService {
    */
   createDid(
     createCert: CreateDidIdDto,
-    role: RoleManageType,
+    role: DidRoles,
   ): Promise<PersistedTransaction> {
     return this.setDid(createCert, [role]);
   }
@@ -59,7 +54,7 @@ export class ValidatorDidService {
    */
   private async setDid(
     createCert: CreateDidIdDto,
-    roles: RoleManageType[] = [],
+    roles: DidRoles[] = [],
   ): Promise<PersistedTransaction> {
     // add the did
     const did = DidIdRegister.create({
@@ -100,6 +95,7 @@ export class ValidatorDidService {
       ],
     };
     const transaction = new DidIdTransactionDto(
+      //@ts-ignore
       did.getChanges(),
       didDocSignature,
     );

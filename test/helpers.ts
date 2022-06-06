@@ -2,10 +2,11 @@ import { Block } from '@tc/blockchain/block/block.interface';
 import { ClientRedis } from '@nestjs/microservices';
 import {
   DidId,
+  DidIdRegister,
   Identifier,
   SignatureContent,
   VerificationRelationshipType,
-} from '@trustcerts/core';
+} from '@trustcerts/did';
 import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
 import { DidIdTransactionDto } from '@tc/transactions/did-id/dto/did-id-transaction.dto';
 import { HashService } from '@tc/blockchain/hash.service';
@@ -19,7 +20,6 @@ import { exec } from 'child_process';
 import http = require('http');
 import express = require('express');
 import { CompressionType } from '@tc/transactions/did-template/dto/compressiontype.dto';
-import { DidIdRegister } from '@trustcerts/did-id-create';
 import { HashDidTransactionDto } from '@tc/transactions/did-hash/dto/hash-transaction.dto';
 import { MESSAGE_EVENT } from '@nestjs/microservices/constants';
 import { ParseClientService } from '@tc/clients/parse-client/parse-client.service';

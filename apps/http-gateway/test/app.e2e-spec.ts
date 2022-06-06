@@ -4,13 +4,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { HttpGatewayModule } from '../src/http-gateway.module';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
-import {
-  Did,
-  exportKey,
-  generateCryptoKeyPair,
-  Identifier,
-} from '@trustcerts/core';
-import { DidIdRegister } from '@trustcerts/did-id-create';
+import { exportKey, generateCryptoKeyPair } from '@trustcerts/crypto';
+import { Did, DidIdRegister, Identifier } from '@trustcerts/did';
 import { DidIdTransactionDto } from '@tc/transactions/did-id/dto/did-id-transaction.dto';
 import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
 import { WalletClientService } from '@tc/clients/wallet-client';
@@ -18,7 +13,7 @@ import { ClientRedis } from '@nestjs/microservices';
 import { REDIS_INJECTION } from '@tc/clients/event-client/constants';
 import { addRedisEndpoint } from '@shared/main-functions';
 import { HashService } from '@tc/blockchain';
-import { RoleManageType } from '@tc/transactions/did-id/constants';
+import { DidRoles } from '@tc/transactions/did-id/constants';
 import { TemplateTransactionDto } from '@tc/transactions/did-template/dto/template.transaction.dto';
 import { CompressionType } from '@tc/transactions/did-template/dto/compressiontype.dto';
 import { InviteRequest } from '@tc/invite/schemas/invite-request.schema';
@@ -245,7 +240,7 @@ describe('Http Gateway (e2e)', () => {
       id: didTransaction.did.id,
       secret: 'test_secret',
       name: 'test_name',
-      role: RoleManageType.Validator,
+      role: DidRoles.Validator,
     };
     return request(app.getHttpServer())
       .post('/did/invite')
@@ -260,7 +255,7 @@ describe('Http Gateway (e2e)', () => {
       id: did.id,
       secret: 'test_secret',
       name: 'test_name',
-      role: RoleManageType.Gateway,
+      role: DidRoles.Gateway,
     };
     await inviteService.createInvite(invite);
     const pair = await generateCryptoKeyPair();

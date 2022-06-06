@@ -5,11 +5,11 @@ import {
   Inject,
   OnApplicationBootstrap,
 } from '@nestjs/common';
+import { DidRoles } from '@tc/transactions/did-id/dto/did-roles.dto';
 import { EventPattern, Transport } from '@nestjs/microservices';
 import { Logger } from 'winston';
 import { NetworkGatewayService } from './network-gateway.service';
 import { P2PService } from '@tc/p2-p';
-import { RoleManageType } from '@tc/transactions/did-id/constants';
 import {
   SYSTEM_RESET,
   TRANSACTION_CREATED,
@@ -55,7 +55,7 @@ export class NetworkGatewayController implements OnApplicationBootstrap {
   public information() {
     return {
       serviceType: 'network',
-      nodeType: RoleManageType.Gateway,
+      nodeType: DidRoles.Gateway,
     };
   }
 

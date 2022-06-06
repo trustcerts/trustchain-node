@@ -28,9 +28,8 @@ import {
   stopAndRemoveAllDeps,
 } from '@test/helpers';
 import { ConfigService } from '@tc/config/config.service';
-import { DidId } from '@trustcerts/core';
+import { DidId, DidIdRegister } from '@trustcerts/did';
 import { lastValueFrom } from 'rxjs';
-import { DidIdRegister } from '@trustcerts/did-id-create';
 import { config } from 'dotenv';
 
 describe('AppController (e2e)', () => {

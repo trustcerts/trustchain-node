@@ -88,7 +88,6 @@ export class ConfigService {
       LOKI_LOG_LEVEL: Joi.string()
         .valid('debug', 'info', 'warn', 'error')
         .default('info'),
-      LOKI_AUTH: Joi.string().default('loki:loki'),
       //REDIS
       REDIS_URL: Joi.string().default('redis'),
       REDIS_PORT: Joi.number().default(6379),

@@ -5,10 +5,10 @@ import {
   Inject,
   OnApplicationBootstrap,
 } from '@nestjs/common';
+import { DidRoles } from '@tc/transactions/did-id/dto/did-roles.dto';
 import { EventPattern, Transport } from '@nestjs/microservices';
 import { Logger } from 'winston';
 import { P2PService } from '@tc/p2-p';
-import { RoleManageType } from '@tc/transactions/did-id/constants';
 import { SYSTEM_RESET } from '@tc/clients/event-client/constants';
 
 /**
@@ -49,7 +49,7 @@ export class NetworkObserverController implements OnApplicationBootstrap {
   public information() {
     return {
       serviceType: 'network',
-      nodeType: RoleManageType.Observer,
+      nodeType: DidRoles.Observer,
     };
   }
 

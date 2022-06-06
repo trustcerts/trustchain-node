@@ -1,7 +1,7 @@
 import { ConfigService } from '@tc/config';
 import { ConflictException, Inject, Injectable } from '@nestjs/common';
+import { DidHashResolver } from '@trustcerts/did-hash';
 import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
-import { DidSignatureResolver } from '@trustcerts/signature-verify';
 import { GatewayBlockchainService } from '@apps/http-gateway/src/gateway-blockchain/gateway-blockchain.service';
 import { GatewayTransactionService } from '@apps/http-gateway/src/gateway-transaction.service';
 import { HashCachedService } from '@tc/transactions/did-hash/cached/hash-cached.service';
@@ -16,7 +16,7 @@ import { WalletClientService } from '@tc/clients/wallet-client';
  * Service to validate requests from the api to the blockchain level.
  */
 @Injectable()
-export class GatewayHashService extends GatewayTransactionService<DidSignatureResolver> {
+export class GatewayHashService extends GatewayTransactionService<DidHashResolver> {
   /**
    * Loads required services.
    * @param gatewayBlockchainService
@@ -44,7 +44,7 @@ export class GatewayHashService extends GatewayTransactionService<DidSignatureRe
       logger,
       configService,
     );
-    this.didResolver = new DidSignatureResolver();
+    this.didResolver = new DidHashResolver();
   }
 
   /**

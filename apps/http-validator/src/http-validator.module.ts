@@ -5,7 +5,7 @@ import { EventClientModule } from '@tc/clients/event-client';
 import { HealthController } from './health/health.controller';
 import { HttpValidatorController } from './http-validator.controller';
 import { HttpValidatorService } from './http-validator.service';
-import { Identifier } from '@trustcerts/core';
+import { Identifier } from '@trustcerts/did';
 import { Module } from '@nestjs/common';
 import { ParseClientModule } from '@tc/clients/parse-client';
 import { PrometheusModule } from '@willsoto/nestjs-prometheus';

@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { DidDocument } from '@tc/transactions/transactions/did/dto/did-document.dto';
 import { DidPublicKey } from './did-public-key.dto';
+import { DidRoles } from '@tc/transactions/did-id/dto/did-roles.dto';
 import { DidService } from './did-service.dto';
-import { RoleManageType } from '@tc/transactions/did-id/constants';
 
 /**
  * Did document based on the transactions.
@@ -50,9 +50,9 @@ export class DidIdDocument extends DidDocument {
    */
   @ApiProperty({
     description: 'role of the did',
-    enum: RoleManageType,
-    enumName: 'RoleManageType',
+    enum: DidRoles,
+    enumName: 'DidRoles',
     isArray: true,
   })
-  role!: RoleManageType[];
+  role!: DidRoles[];
 }

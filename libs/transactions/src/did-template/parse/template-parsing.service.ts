@@ -1,6 +1,7 @@
 import { ClientRedis } from '@nestjs/microservices';
 import { Counter } from 'prom-client';
-import { DidId } from '@trustcerts/core';
+import { DID_ID_CONNECTION } from '@tc/transactions/did-id/constants';
+import { DidId } from '@trustcerts/did';
 import { DidIdDocument } from '@tc/transactions/did-id/schemas/did-id.schema';
 import { DidSchema } from '@tc/transactions/did-schema/schemas/did-schema.schema';
 import { DidTemplate, TemplateDocument } from '../schemas/did-template.schema';
@@ -18,6 +19,7 @@ import { ParseService } from '@apps/parse/src/parse.service';
 import { ParsingService } from '@tc/transactions/transactions/parsing.service';
 import { REDIS_INJECTION } from '@tc/clients/event-client/constants';
 import { SchemaCachedService } from '@tc/transactions/did-schema/cached/schema-cached.service';
+import { TEMPLATE_CONNECTION } from '../constants';
 import { TemplateTransactionDto } from '../dto/template.transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
@@ -40,15 +42,15 @@ export class TemplateParsingService extends ParsingService {
     protected readonly hashService: HashService,
     @Inject(REDIS_INJECTION) protected readonly clientRedis: ClientRedis,
     @Inject('winston') protected readonly logger: Logger,
-    @InjectModel(DidTemplate.name)
+    @InjectModel(DidTemplate.name, TEMPLATE_CONNECTION)
     private didTemplateRepository: Model<TemplateDocument>,
-    @InjectModel(DidTemplateTransaction.name)
+    @InjectModel(DidTemplateTransaction.name, TEMPLATE_CONNECTION)
     private didTemplateDocumentRepository: Model<TemplateTransactionDocument>,
     private readonly schemaCachedService: SchemaCachedService,
     @InjectMetric('transactions')
     protected readonly transactionsCounter: Counter<string>,
     private readonly parseService: ParseService,
-    @InjectModel(DidId.name)
+    @InjectModel(DidId.name, DID_ID_CONNECTION)
     protected didIdRepository: Model<DidIdDocument>,
   ) {
     super(

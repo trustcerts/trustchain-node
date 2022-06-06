@@ -1,11 +1,12 @@
 import { BlockCheckService } from '@tc/blockchain/block-check/block-check.service';
 import { CachedService } from './cache.service';
 import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
-import { DidResolver, sortKeys } from '@trustcerts/core';
+import { DidResolver } from '@trustcerts/did';
 import { Logger } from 'winston';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
+import { sortKeys } from '@trustcerts/crypto';
 
 /**
  * Service that implements required function to validate a transaction of a specific type.

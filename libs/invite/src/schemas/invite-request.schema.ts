@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { DidRoles } from '@tc/transactions/did-id/dto/did-roles.dto';
 import { Document } from 'mongoose';
 import { IsEnum, IsOptional, IsString } from 'class-validator';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { RoleManageType } from '@tc/transactions/did-id/constants';
 
 export type InviteRequestDocument = InviteRequest & Document;
 
@@ -54,9 +54,9 @@ export class InviteRequest {
     description:
       'Describes for what type of role in the network the secret is allowed to be used',
   })
-  @IsEnum(RoleManageType)
+  @IsEnum(DidRoles)
   @Prop({ length: 20 })
-  role!: RoleManageType;
+  role!: DidRoles;
 
   /**
    * If set to true a new secret will be set for an existing entry

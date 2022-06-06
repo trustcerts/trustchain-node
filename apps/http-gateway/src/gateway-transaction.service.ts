@@ -1,7 +1,7 @@
 import { CachedService } from '@tc/transactions/transactions/cache.service';
 import { ConfigService } from '@tc/config';
 import { ConflictException } from '@nestjs/common';
-import { DidResolver } from '@trustcerts/core';
+import { DidResolver } from '@trustcerts/did';
 import { GatewayBlockchainService } from './gateway-blockchain/gateway-blockchain.service';
 import { Logger } from 'winston';
 import { PersistedTransaction } from '@shared/http/dto/persisted-transaction';

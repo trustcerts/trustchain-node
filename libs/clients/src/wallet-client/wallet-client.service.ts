@@ -16,7 +16,7 @@ import {
   WALLET_SIGN,
 } from '@tc/clients/wallet-client/endpoints';
 import { WALLET_TCP_INJECTION } from './constants';
-import { importKey, sortKeys, verifySignature } from '@trustcerts/core';
+import { importKey, sortKeys, verifySignature } from '@trustcerts/crypto';
 import { lastValueFrom } from 'rxjs';
 import { webcrypto } from 'crypto';
 

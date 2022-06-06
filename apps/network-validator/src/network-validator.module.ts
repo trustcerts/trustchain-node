@@ -26,7 +26,7 @@ import { DidIdDbModule } from '@tc/transactions/did-id/db/did-id-db.module';
 import { EventClientModule } from '@tc/clients/event-client';
 import { HttpConfigService } from '@shared/http-config.service';
 import { HttpModule } from '@nestjs/axios';
-import { Identifier } from '@trustcerts/core';
+import { Identifier } from '@trustcerts/did';
 
 @Module({
   imports: [

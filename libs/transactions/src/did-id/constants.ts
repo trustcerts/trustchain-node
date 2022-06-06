@@ -3,14 +3,6 @@
  */
 export const DID_ID_CONNECTION = 'didIdConnection';
 
-// TODO the swagger plugin does not allow imported types from other packages so it has to be defined here
-export enum RoleManageType {
-  Validator = 'Validator',
-  Gateway = 'Gateway',
-  Observer = 'Observer',
-  Client = 'Client',
-}
-
 /**
  * Types of the keys.
  */

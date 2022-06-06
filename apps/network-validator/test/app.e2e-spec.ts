@@ -29,9 +29,9 @@ import { io } from 'socket.io-client';
 import { WS_TRANSACTION } from '@tc/blockchain/blockchain.events';
 import { WalletClientService } from '@tc/clients/wallet-client/wallet-client.service';
 import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
-import { DidId } from '@trustcerts/core';
+import { DidId } from '@trustcerts/did';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
-import { RoleManageType } from '@tc/transactions/did-id/constants';
+import { DidRoles } from '@tc/transactions/did-id/constants';
 import { HttpService } from '@nestjs/axios';
 import { config } from 'dotenv';
 import { ParseClientService } from '@tc/clients/parse-client/parse-client.service';
@@ -78,7 +78,7 @@ describe('AppController (e2e)', () => {
   it('Returns the type of the node and the service that was exposed', () => {
     return request(app.getHttpServer()).get('/').expect(200).expect({
       serviceType: 'network',
-      nodeType: RoleManageType.Validator,
+      nodeType: DidRoles.Validator,
     });
   });
 
@@ -88,7 +88,7 @@ describe('AppController (e2e)', () => {
 
   it('should Checks if the node has amount of Validator', async () => {
     const connection = new Connection(logger, httpService);
-    connection.type = RoleManageType.Validator;
+    connection.type = DidRoles.Validator;
     connection.socket = io('ws://localhost:4000');
     await p2PService.addConnection(connection);
     await request(app.getHttpServer())

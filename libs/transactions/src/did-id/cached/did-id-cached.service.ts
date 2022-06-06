@@ -1,9 +1,10 @@
 import { CachedService } from '@tc/transactions/transactions/cache.service';
+import { DID_ID_CONNECTION } from '../constants';
 import {
   DidId,
   DidIdDocument,
 } from '@tc/transactions/did-id/schemas/did-id.schema';
-import { DidIdResolver } from '@trustcerts/core';
+import { DidIdResolver, DidRoles } from '@trustcerts/did';
 import {
   DidIdTransaction,
   DidIdTransactionDocument,
@@ -15,7 +16,6 @@ import { Injectable } from '@nestjs/common';
 import { Key } from '@tc/transactions/did-id/schemas/key.schema';
 import { Model } from 'mongoose';
 import { PersistClientService } from '@tc/clients/persist-client';
-import { RoleManageType } from '@tc/transactions/did-id/constants';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 
 /**
@@ -31,9 +31,9 @@ export class DidIdCachedService extends CachedService<DidIdResolver> {
    * @param verificationRelationRepository
    */
   constructor(
-    @InjectModel(DidIdTransaction.name)
+    @InjectModel(DidIdTransaction.name, DID_ID_CONNECTION)
     protected transactionModel: Model<DidIdTransactionDocument>,
-    @InjectModel(DidId.name)
+    @InjectModel(DidId.name, DID_ID_CONNECTION)
     protected didModel: Model<DidIdDocument>,
     private readonly persistClientService: PersistClientService,
   ) {
@@ -75,7 +75,7 @@ export class DidIdCachedService extends CachedService<DidIdResolver> {
   async getValidatorIdentifiers(): Promise<string[]> {
     return this.didModel.find().then((did) =>
       did
-        .filter((did) => did.roles.includes(RoleManageType.Validator))
+        .filter((did) => did.roles.includes(DidRoles.Validator))
         .map((did) => did.id)
         .sort(),
     );
@@ -119,7 +119,7 @@ export class DidIdCachedService extends CachedService<DidIdResolver> {
    * Returns the roles of a did. Normally there is only one role
    * @param keyIdentifier
    */
-  async getRole(keyIdentifier: string): Promise<RoleManageType[]> {
+  async getRole(keyIdentifier: string): Promise<DidRoles[]> {
     const did = await this.getDidByKey(keyIdentifier);
     return did!.roles;
   }

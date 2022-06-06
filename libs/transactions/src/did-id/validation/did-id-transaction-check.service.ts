@@ -1,11 +1,10 @@
 import { BlockCheckService } from '@tc/blockchain/block-check/block-check.service';
 import { DidId } from '@tc/transactions/did-id/schemas/did-id.schema';
 import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
-import { DidIdResolver } from '@trustcerts/core';
+import { DidIdResolver, DidRoles } from '@trustcerts/did';
 import { DidIdTransactionDto } from '@tc/transactions/did-id/dto/did-id-transaction.dto';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
-import { RoleManageType } from '@tc/transactions/did-id/constants';
 import { TransactionCheck } from '@tc/transactions/transactions/transaction-check.service';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
@@ -38,9 +37,9 @@ export class DidIdTransactionCheckService extends TransactionCheck<DidIdResolver
   /**
    * Authorized identifier that is able to add this type of transaction.
    */
-  protected getIdentifier(): RoleManageType {
+  protected getIdentifier(): DidRoles {
     // TODO depending on the transaction the allowed identifier has to be passed back
-    return RoleManageType.Validator;
+    return DidRoles.Validator;
   }
 
   /**
@@ -117,12 +116,9 @@ export class DidIdTransactionCheckService extends TransactionCheck<DidIdResolver
     }
     // check the hierarchie
     if (
-      (idRole === RoleManageType.Client &&
-        signerRole === RoleManageType.Gateway) ||
-      (idRole === RoleManageType.Gateway &&
-        signerRole === RoleManageType.Validator) ||
-      (idRole === RoleManageType.Observer &&
-        signerRole === RoleManageType.Validator)
+      (idRole === DidRoles.Client && signerRole === DidRoles.Gateway) ||
+      (idRole === DidRoles.Gateway && signerRole === DidRoles.Validator) ||
+      (idRole === DidRoles.Observer && signerRole === DidRoles.Validator)
     ) {
       return Promise.resolve();
     }

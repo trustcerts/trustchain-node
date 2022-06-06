@@ -1,12 +1,12 @@
 import { BlockCheckService } from '@tc/blockchain/block-check/block-check.service';
 import { DidHash } from '@tc/transactions/did-hash/schemas/did-hash.schema';
+import { DidHashResolver } from '@trustcerts/did-hash';
 import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
-import { DidSignatureResolver } from '@trustcerts/signature-verify';
+import { DidRoles } from '@tc/transactions/did-id/dto/did-roles.dto';
 import { HashCachedService } from '@tc/transactions/did-hash/cached/hash-cached.service';
 import { HashDidTransactionDto } from '@tc/transactions/did-hash/dto/hash-transaction.dto';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
-import { RoleManageType } from '@tc/transactions/did-id/constants';
 import { TransactionCheck } from '@tc/transactions/transactions/transaction-check.service';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
@@ -15,7 +15,7 @@ import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
  * Service that implements required function to validate a transaction of a specific type.
  */
 @Injectable()
-export class HashTransactionCheckService extends TransactionCheck<DidSignatureResolver> {
+export class HashTransactionCheckService extends TransactionCheck<DidHashResolver> {
   /**
    * Injects required services
    * @param hashModel
@@ -100,8 +100,8 @@ export class HashTransactionCheckService extends TransactionCheck<DidSignatureRe
   /**
    * Authorized identifier that is able to add this type of transaction.
    */
-  protected getIdentifier(): RoleManageType {
-    return RoleManageType.Client;
+  protected getIdentifier(): DidRoles {
+    return DidRoles.Client;
   }
 
   /**

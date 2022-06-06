@@ -11,13 +11,13 @@ import {
 import { ClientRedis } from '@nestjs/microservices';
 import { Socket as ClientSocket } from 'socket.io-client';
 import { Connection } from '@shared/connection';
+import { DidRoles } from '@tc/transactions/did-id/dto/did-roles.dto';
 import { EventEmitter } from 'events';
 import { HashService } from '@tc/blockchain/hash.service';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
 import { P2PService } from '@tc/p2-p';
 import { REDIS_INJECTION } from '@tc/clients/event-client/constants';
-import { RoleManageType } from '@tc/transactions/did-id/constants';
 import { Socket as ServerSocket } from 'socket.io';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 
@@ -144,10 +144,7 @@ export class ValidatorBlockchainService {
       message: 'add listeners',
       labels: { source: this.constructor.name },
     });
-    const allowedToWrite: RoleManageType[] = [
-      RoleManageType.Validator,
-      RoleManageType.Gateway,
-    ];
+    const allowedToWrite: DidRoles[] = [DidRoles.Validator, DidRoles.Gateway];
     if (allowedToWrite.includes(connection.type)) {
       this.logger.debug({
         message: `${connection.identifier} is allowed to write`,

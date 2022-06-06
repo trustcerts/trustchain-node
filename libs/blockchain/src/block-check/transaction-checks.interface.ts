@@ -1,5 +1,5 @@
 import { CachedService } from '@tc/transactions/transactions/cache.service';
-import { DidResolver } from '@trustcerts/core';
+import { DidResolver } from '@trustcerts/did';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 

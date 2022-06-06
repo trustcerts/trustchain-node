@@ -1,5 +1,6 @@
 import { ClientRedis } from '@nestjs/microservices';
 import { Counter } from 'prom-client';
+import { DID_ID_CONNECTION } from '../constants';
 import {
   DidId,
   DidIdDocument,
@@ -9,6 +10,7 @@ import {
   DidIdTransactionDocument,
 } from '../schemas/did-id-transaction.schema';
 import { DidIdTransactionDto } from '@tc/transactions/did-id/dto/did-id-transaction.dto';
+import { DidRoles } from '@tc/transactions/did-id/dto/did-roles.dto';
 import { HashService } from '@tc/blockchain';
 import { IVerificationRelationships } from '../dto/i-verification-relationships.dto';
 import { Inject, Injectable } from '@nestjs/common';
@@ -19,7 +21,6 @@ import { Model } from 'mongoose';
 import { ParseService } from '@apps/parse/src/parse.service';
 import { ParsingService } from '@tc/transactions/transactions/parsing.service';
 import { REDIS_INJECTION } from '@tc/clients/event-client/constants';
-import { RoleManageType } from '../constants';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 
 /**
@@ -44,8 +45,9 @@ export class DidIdParsingService extends ParsingService {
     protected readonly hashService: HashService,
     @Inject(REDIS_INJECTION) protected readonly clientRedis: ClientRedis,
     @Inject('winston') protected readonly logger: Logger,
-    @InjectModel(DidId.name) protected didIdRepository: Model<DidIdDocument>,
-    @InjectModel(DidIdTransaction.name)
+    @InjectModel(DidId.name, DID_ID_CONNECTION)
+    protected didIdRepository: Model<DidIdDocument>,
+    @InjectModel(DidIdTransaction.name, DID_ID_CONNECTION)
     protected didIdDocumentRepository: Model<DidIdTransactionDocument>,
     @InjectMetric('transactions')
     protected readonly transactionsCounter: Counter<string>,
@@ -83,7 +85,7 @@ export class DidIdParsingService extends ParsingService {
     // update roles
     if (transaction.body.value.role) {
       if (transaction.body.value.role.remove) {
-        did.roles = did.roles!.filter((role: RoleManageType) =>
+        did.roles = did.roles!.filter((role: DidRoles) =>
           transaction.body.value.role!.remove!.includes(role),
         );
       }

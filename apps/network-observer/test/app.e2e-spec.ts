@@ -25,7 +25,7 @@ import { Server } from 'socket.io';
 import { io } from 'socket.io-client';
 import { HttpService } from '@nestjs/axios';
 import { config } from 'dotenv';
-import { RoleManageType } from '@tc/transactions/did-id/constants';
+import { DidRoles } from '@tc/transactions/did-id/constants';
 
 describe('Network Observer (e2e)', () => {
   let app: INestApplication;
@@ -54,7 +54,7 @@ describe('Network Observer (e2e)', () => {
   it('should return the type of the node and the service that was exposed', () => {
     return request(app.getHttpServer()).get('/').expect(200).expect({
       serviceType: 'network',
-      nodeType: RoleManageType.Observer,
+      nodeType: DidRoles.Observer,
     });
   });
 
