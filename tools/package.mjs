@@ -7,12 +7,12 @@ const CI_TAG = process.env.CI_COMMIT_BRANCH || 'latest';
 (async () => {
   // build base image
   await Promise.all([
-    run(
-      `docker build -f ./build/baseimage.Dockerfile -t trustcerts/trustchain-baseimage:${CI_TAG} .`,
-    ),
     // build dev image
     run(
       `docker build -f ./build/base-dev.Dockerfile -t trustcerts/trustchain-dev:${CI_TAG} .`,
+    ),
+    run(
+      `docker build -f ./build/baseimage.Dockerfile -t trustcerts/trustchain-baseimage:${CI_TAG} .`,
     ).then(() =>
       // build them in parallel to speed up
       Promise.all(

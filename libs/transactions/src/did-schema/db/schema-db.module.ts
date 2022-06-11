@@ -9,7 +9,7 @@ import { SCHEMA_CONNECTION } from '../constants';
       imports: [ConfigModule],
       connectionName: SCHEMA_CONNECTION,
       useFactory: async (configService: ConfigService) => ({
-        uri: configService.db('schema'),
+        uri: configService.db(),
         retryAttempts: 1,
       }),
       inject: [ConfigService],

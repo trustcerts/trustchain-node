@@ -6,6 +6,7 @@ import { DidTemplateTransaction } from '@tc/transactions/did-template/schemas/di
 import { MaintenanceGuard } from '@tc/config/version/maintenance.guard';
 import { TemplateCachedService } from '@tc/transactions/did-template/cached/template-cached.service';
 import { TemplateDocResponse } from '@tc/transactions/did-template/dto/doc-response.dto';
+import { TemplateVerifierService } from '@trustcerts/did-template';
 
 /**
  * Controls template requests.
@@ -15,7 +16,8 @@ import { TemplateDocResponse } from '@tc/transactions/did-template/dto/doc-respo
 @Controller('template')
 export class ObserverTemplateController extends DidControllerMixin<
   TemplateDocResponse,
-  DidTemplateTransaction
+  DidTemplateTransaction,
+  TemplateVerifierService
 >({ doc: TemplateDocResponse, trans: DidTemplateTransaction }) {
   /**
    * Injects required services

@@ -115,8 +115,8 @@ export class DidIdParsingService extends ParsingService {
       modification: true,
     };
     Object.entries(transaction.body.value)
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      .filter(([key, value]) => {
+      // TODO removed second param value, validate change
+      .filter(([key]) => {
         return Object.keys(keys).includes(key);
       })
       .map(([key, value]) => {

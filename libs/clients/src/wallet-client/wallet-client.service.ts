@@ -18,7 +18,6 @@ import {
 import { WALLET_TCP_INJECTION } from './constants';
 import { importKey, sortKeys, verifySignature } from '@trustcerts/crypto';
 import { lastValueFrom } from 'rxjs';
-import { webcrypto } from 'crypto';
 
 /**
  * Service to interact with the wallet service of basic functions to deal with cryptographic functions like validating a signature.
@@ -64,7 +63,7 @@ export class WalletClientService implements OnModuleDestroy {
    * @param keyValue
    * @private
    */
-  public importKey(keyValue: PublicKeyJwkDto): Promise<webcrypto.CryptoKey> {
+  public importKey(keyValue: PublicKeyJwkDto): Promise<CryptoKey> {
     return importKey(keyValue, 'jwk', ['verify']);
   }
 

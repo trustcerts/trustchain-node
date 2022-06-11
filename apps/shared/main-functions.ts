@@ -3,6 +3,7 @@ import { ConfigService } from '@tc/config';
 import { INestApplication, LoggerService } from '@nestjs/common';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { WinstonModule, utilities } from 'nest-winston';
+import helmet from 'helmet';
 
 /**
  * Adds helmet if the lets encrypt variable is set. Required for swagger rendering
@@ -11,8 +12,7 @@ import { WinstonModule, utilities } from 'nest-winston';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function addHelmet(app: INestApplication) {
   if (process.env.LETSENCRYPT_HOST) {
-    // TODO removed until this is solved https://github.com/helmetjs/helmet/issues/344 or downgrade version to 4.
-    // app.use(helmet);
+    app.use(helmet());
   }
 }
 

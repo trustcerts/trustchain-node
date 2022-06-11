@@ -7,7 +7,7 @@
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "target": "es2017",
-    "lib": ["ESNext.String"],
+    "lib": ["ESNext.String", "DOM"],
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
