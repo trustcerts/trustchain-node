@@ -382,12 +382,12 @@ import {
   UnauthorizedException,
   UseGuards,
 } from &#x27;@nestjs/common&#x27;;
+import { DidRoles } from &#x27;@tc/transactions/did-id/dto/did-roles.dto&#x27;;
 import { HttpController } from &#x27;@shared/http/http.controller&#x27;;
 import { HttpValidatorService } from &#x27;./http-validator.service&#x27;;
 import { InviteService } from &#x27;@tc/invite&#x27;;
 import { Logger } from &#x27;winston&#x27;;
 import { NodeGuard } from &#x27;@shared/guards/node-guard.service&#x27;;
-import { RoleManageType } from &#x27;@tc/transactions/did-id/constants&#x27;;
 
 /**
  * Controller to handle requests to the Validator.
@@ -426,7 +426,7 @@ export class HttpValidatorController extends HttpController {
   public information() {
     return {
       serviceType: &#x27;http&#x27;,
-      nodeType: RoleManageType.Validator,
+      nodeType: DidRoles.Validator,
       did: this.configService.getConfig(&#x27;IDENTIFIER&#x27;),
     };
   }

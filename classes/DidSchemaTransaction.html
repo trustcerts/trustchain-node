@@ -435,13 +435,13 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
-import { DidIdDocument } from &#x27;@tc/transactions/did-id/schemas/did-id.schema&#x27;;
 import { DidSchemaStructure } from &#x27;../dto/did-schema-structure.dto&#x27;;
 import { DidTransaction } from &#x27;@tc/transactions/transactions/did/schemas/did-transaction.schema&#x27;;
+import { Document } from &#x27;mongoose&#x27;;
 import { Prop, Schema, SchemaFactory } from &#x27;@nestjs/mongoose&#x27;;
 import { Type } from &#x27;class-transformer&#x27;;
 
-export type SchemaTransactionDocument &#x3D; DidSchemaTransaction &amp; DidIdDocument;
+export type SchemaTransactionDocument &#x3D; DidSchemaTransaction &amp; Document;
 
 /**
  * Entity that describes how dids are stored in the database.

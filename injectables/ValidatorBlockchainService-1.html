@@ -606,8 +606,8 @@ in a callback.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="172"
-                            class="link-to-prism">apps/network-validator/src/validator-blockchain/validator-blockchain.service.ts:172</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="169"
+                            class="link-to-prism">apps/network-validator/src/validator-blockchain/validator-blockchain.service.ts:169</a></div>
                 </td>
             </tr>
 
@@ -861,13 +861,13 @@ import {
 import { ClientRedis } from &#x27;@nestjs/microservices&#x27;;
 import { Socket as ClientSocket } from &#x27;socket.io-client&#x27;;
 import { Connection } from &#x27;@shared/connection&#x27;;
+import { DidRoles } from &#x27;@tc/transactions/did-id/dto/did-roles.dto&#x27;;
 import { EventEmitter } from &#x27;events&#x27;;
 import { HashService } from &#x27;@tc/blockchain/hash.service&#x27;;
 import { Inject, Injectable } from &#x27;@nestjs/common&#x27;;
 import { Logger } from &#x27;winston&#x27;;
 import { P2PService } from &#x27;@tc/p2-p&#x27;;
 import { REDIS_INJECTION } from &#x27;@tc/clients/event-client/constants&#x27;;
-import { RoleManageType } from &#x27;@tc/transactions/did-id/constants&#x27;;
 import { Socket as ServerSocket } from &#x27;socket.io&#x27;;
 import { TransactionDto } from &#x27;@tc/blockchain/transaction/transaction.dto&#x27;;
 
@@ -994,10 +994,7 @@ export class ValidatorBlockchainService {
       message: &#x27;add listeners&#x27;,
       labels: { source: this.constructor.name },
     });
-    const allowedToWrite: RoleManageType[] &#x3D; [
-      RoleManageType.Validator,
-      RoleManageType.Gateway,
-    ];
+    const allowedToWrite: DidRoles[] &#x3D; [DidRoles.Validator, DidRoles.Gateway];
     if (allowedToWrite.includes(connection.type)) {
       this.logger.debug({
         message: &#x60;${connection.identifier} is allowed to write&#x60;,

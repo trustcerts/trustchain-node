@@ -89,10 +89,10 @@
                             <a href="#CHAIN_REBUILD" title="libs/clients/src/parse-client/constants.ts" ><b>CHAIN_REBUILD</b>&nbsp;&nbsp;&nbsp;(libs/.../constants.ts)</a>
                         </li>
                         <li>
-                            <a href="#config" title="jest.e2e.ts" ><b>config</b>&nbsp;&nbsp;&nbsp;(jest.e2e.ts)</a>
+                            <a href="#config" title="jest.config.ts" ><b>config</b>&nbsp;&nbsp;&nbsp;(jest.config.ts)</a>
                         </li>
                         <li>
-                            <a href="#config" title="jest.config.ts" ><b>config</b>&nbsp;&nbsp;&nbsp;(jest.config.ts)</a>
+                            <a href="#config" title="jest.e2e.ts" ><b>config</b>&nbsp;&nbsp;&nbsp;(jest.e2e.ts)</a>
                         </li>
                         <li>
                             <a href="#config" title="jest.unit.ts" ><b>config</b>&nbsp;&nbsp;&nbsp;(jest.unit.ts)</a>
@@ -834,6 +834,48 @@
         </tbody>
     </table>
 </section>
+    <h3>jest.config.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="config"></a>
+                    <span class="name">
+                        <span ><b>config</b></span>
+                        <a href="#config"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Config.InitialOptions</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  ...jestConfig,
+  rootDir:&#x27;.&#x27;,
+  projects:[
+    &quot;&lt;rootDir&gt;/jest.e2e.ts&quot;,
+    &quot;&lt;rootDir&gt;/jest.unit.ts&quot;
+  ]
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>an object to configure jest</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
     <h3>jest.e2e.ts</h3>
     <section>
     <h3></h3>    <table class="table table-sm table-bordered">
@@ -880,48 +922,6 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-description"><p>an object to configure e2e tests</p>
-</div>
-                </td>
-            </tr>
-
-        </tbody>
-    </table>
-</section>
-    <h3>jest.config.ts</h3>
-    <section>
-    <h3></h3>    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="config"></a>
-                    <span class="name">
-                        <span ><b>config</b></span>
-                        <a href="#config"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Type : </i>    <code>Config.InitialOptions</code>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>{
-  ...jestConfig,
-  rootDir:&#x27;.&#x27;,
-  projects:[
-    &quot;&lt;rootDir&gt;/jest.e2e.ts&quot;,
-    &quot;&lt;rootDir&gt;/jest.unit.ts&quot;
-  ]
-}</code>
-                    </td>
-                </tr>
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>an object to configure jest</p>
 </div>
                 </td>
             </tr>
@@ -1037,6 +1037,12 @@
   ...jestConfig,
   rootDir: &#x27;../../../&#x27;,
   testRegex: &#x27;.e2e-spec.ts$&#x27;,
+  collectCoverageFrom: [
+    &#x27;&lt;rootDir&gt;/apps/http-gateway/src/**&#x27;,
+    &#x27;!&lt;rootDir&gt;/apps/http-gateway/src/*.*.spec.ts&#x27;,
+    &#x27;!&lt;rootDir&gt;/apps/http-gateway/src/**/*.*.spec.ts&#x27;,
+    &#x27;!&lt;rootDir&gt;/apps/http-gateway/src/main.ts&#x27;,
+  ],
   roots: [&#x27;&lt;rootDir&gt;/apps/http-gateway/&#x27;, &#x27;&lt;rootDir&gt;/libs/&#x27;],
 }</code>
                     </td>
@@ -1077,6 +1083,12 @@
   ...jestConfig,
   rootDir: &#x27;../../../&#x27;,
   testRegex: &#x27;.e2e-spec.ts$&#x27;,
+  collectCoverageFrom: [
+    &#x27;&lt;rootDir&gt;/apps/http-observer/src/**&#x27;,
+    &#x27;!&lt;rootDir&gt;/apps/http-observer/src/*.*.spec.ts&#x27;,
+    &#x27;!&lt;rootDir&gt;/apps/http-observer/src/**/*.*.spec.ts&#x27;,
+    &#x27;!&lt;rootDir&gt;/apps/http-observer/src/main.ts&#x27;,
+  ],
   roots: [&#x27;&lt;rootDir&gt;/apps/http-observer/&#x27;, &#x27;&lt;rootDir&gt;/libs/&#x27;],
 }</code>
                     </td>
@@ -1117,6 +1129,12 @@
   ...jestConfig,
   rootDir: &#x27;../../../&#x27;,
   testRegex: &#x27;.e2e-spec.ts$&#x27;,
+  collectCoverageFrom: [
+    &#x27;&lt;rootDir&gt;/apps/http-validator/src/**&#x27;,
+    &#x27;!&lt;rootDir&gt;/apps/http-validator/src/*.*.spec.ts&#x27;,
+    &#x27;!&lt;rootDir&gt;/apps/http-validator/src/**/*.*.spec.ts&#x27;,
+    &#x27;!&lt;rootDir&gt;/apps/http-validator/src/main.ts&#x27;,
+  ],
   roots: [&#x27;&lt;rootDir&gt;/apps/http-validator/&#x27;, &#x27;&lt;rootDir&gt;/libs/&#x27;],
 }</code>
                     </td>
@@ -1157,6 +1175,12 @@
   ...jestConfig,
   rootDir: &#x27;../../../&#x27;,
   testRegex: &#x27;.e2e-spec.ts$&#x27;,
+  collectCoverageFrom: [
+    &#x27;&lt;rootDir&gt;/apps/network-gateway/src/**&#x27;,
+    &#x27;!&lt;rootDir&gt;/apps/network-gateway/src/*.*.spec.ts&#x27;,
+    &#x27;!&lt;rootDir&gt;/apps/network-gateway/src/**/*.*.spec.ts&#x27;,
+    &#x27;!&lt;rootDir&gt;/apps/network-gateway/src/main.ts&#x27;,
+  ],
   roots: [&#x27;&lt;rootDir&gt;/apps/network-gateway/&#x27;, &#x27;&lt;rootDir&gt;/libs/&#x27;],
 }</code>
                     </td>
@@ -1197,6 +1221,12 @@
   ...jestConfig,
   rootDir: &#x27;../../../&#x27;,
   testRegex: &#x27;.e2e-spec.ts$&#x27;,
+  collectCoverageFrom: [
+    &#x27;&lt;rootDir&gt;/apps/network-observer/src/**&#x27;,
+    &#x27;!&lt;rootDir&gt;/apps/network-observer/src/*.*.spec.ts&#x27;,
+    &#x27;!&lt;rootDir&gt;/apps/network-observer/src/**/*.*.spec.ts&#x27;,
+    &#x27;!&lt;rootDir&gt;/apps/network-observer/src/main.ts&#x27;,
+  ],
   roots: [&#x27;&lt;rootDir&gt;/apps/network-observer/&#x27;, &#x27;&lt;rootDir&gt;/libs/&#x27;],
 }</code>
                     </td>
@@ -1237,6 +1267,12 @@
   ...jestConfig,
   rootDir: &#x27;../../../&#x27;,
   testRegex: &#x27;.e2e-spec.ts$&#x27;,
+  collectCoverageFrom: [
+    &#x27;&lt;rootDir&gt;/apps/network-validator/src/**&#x27;,
+    &#x27;!&lt;rootDir&gt;/apps/network-validator/src/*.*.spec.ts&#x27;,
+    &#x27;!&lt;rootDir&gt;/apps/network-validator/src/**/*.*.spec.ts&#x27;,
+    &#x27;!&lt;rootDir&gt;/apps/network-validator/src/main.ts&#x27;,
+  ],
   roots: [&#x27;&lt;rootDir&gt;/apps/network-validator/&#x27;, &#x27;&lt;rootDir&gt;/libs/&#x27;],
 }</code>
                     </td>
@@ -1277,6 +1313,12 @@
   ...jestConfig,
   rootDir: &#x27;../../../&#x27;,
   testRegex: &#x27;.e2e-spec.ts$&#x27;,
+  collectCoverageFrom: [
+    &#x27;&lt;rootDir&gt;/apps/parse/src/**&#x27;,
+    &#x27;!&lt;rootDir&gt;/apps/parse/src/*.*.spec.ts&#x27;,
+    &#x27;!&lt;rootDir&gt;/apps/parse/src/**/*.*.spec.ts&#x27;,
+    &#x27;!&lt;rootDir&gt;/apps/parse/src/main.ts&#x27;,
+  ],
   roots: [&#x27;&lt;rootDir&gt;/apps/parse/&#x27;, &#x27;&lt;rootDir&gt;/libs/&#x27;],
 }</code>
                     </td>
@@ -1317,6 +1359,12 @@
   ...jestConfig,
   rootDir: &#x27;../../../&#x27;,
   testRegex: &#x27;.e2e-spec.ts$&#x27;,
+  collectCoverageFrom: [
+    &#x27;&lt;rootDir&gt;/apps/persist/src/**&#x27;,
+    &#x27;!&lt;rootDir&gt;/apps/persist/src/*.*.spec.ts&#x27;,
+    &#x27;!&lt;rootDir&gt;/apps/persist/src/**/*.*.spec.ts&#x27;,
+    &#x27;!&lt;rootDir&gt;/apps/persist/src/main.ts&#x27;,
+  ],
   roots: [&#x27;&lt;rootDir&gt;/apps/persist/&#x27;, &#x27;&lt;rootDir&gt;/libs/&#x27;],
 }</code>
                     </td>
@@ -1357,6 +1405,12 @@
   ...jestConfig,
   rootDir: &#x27;../../../&#x27;,
   testRegex: &#x27;.e2e-spec.ts$&#x27;,
+  collectCoverageFrom: [
+    &#x27;&lt;rootDir&gt;/apps/wallet/src/**&#x27;,
+    &#x27;!&lt;rootDir&gt;/apps/wallet/src/*.*.spec.ts&#x27;,
+    &#x27;!&lt;rootDir&gt;/apps/wallet/src/**/*.*.spec.ts&#x27;,
+    &#x27;!&lt;rootDir&gt;/apps/wallet/src/main.ts&#x27;,
+  ],
   roots: [&#x27;&lt;rootDir&gt;/apps/wallet/&#x27;, &#x27;&lt;rootDir&gt;/libs/&#x27;],
 }</code>
                     </td>

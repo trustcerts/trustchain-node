@@ -387,8 +387,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="338"
-                            class="link-to-prism">apps/network-validator/src/validator-blockchain/validator-consensus/validator-consensus.service.ts:338</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="339"
+                            class="link-to-prism">apps/network-validator/src/validator-blockchain/validator-consensus/validator-consensus.service.ts:339</a></div>
                 </td>
             </tr>
 
@@ -661,8 +661,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="413"
-                            class="link-to-prism">apps/network-validator/src/validator-blockchain/validator-consensus/validator-consensus.service.ts:413</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="414"
+                            class="link-to-prism">apps/network-validator/src/validator-blockchain/validator-consensus/validator-consensus.service.ts:414</a></div>
                 </td>
             </tr>
 
@@ -734,15 +734,16 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="306"
-                            class="link-to-prism">apps/network-validator/src/validator-blockchain/validator-consensus/validator-consensus.service.ts:306</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="307"
+                            class="link-to-prism">apps/network-validator/src/validator-blockchain/validator-consensus/validator-consensus.service.ts:307</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Resets the consensus because validators failed to generate a block in the last rounds.</p>
+                    <div class="io-description"><p>Resets the consensus because validators failed to generate a block in the last rounds.
+Right now the process is killed since this makes sure all variables are resetted.</p>
 </div>
 
                     <div class="io-description">
@@ -816,8 +817,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="441"
-                            class="link-to-prism">apps/network-validator/src/validator-blockchain/validator-consensus/validator-consensus.service.ts:441</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="442"
+                            class="link-to-prism">apps/network-validator/src/validator-blockchain/validator-consensus/validator-consensus.service.ts:442</a></div>
                 </td>
             </tr>
 
@@ -859,8 +860,8 @@ successfully.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="461"
-                            class="link-to-prism">apps/network-validator/src/validator-blockchain/validator-consensus/validator-consensus.service.ts:461</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="462"
+                            class="link-to-prism">apps/network-validator/src/validator-blockchain/validator-consensus/validator-consensus.service.ts:462</a></div>
                 </td>
             </tr>
 
@@ -902,8 +903,8 @@ response will be a signature of the block. When a block with enough valid signat
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="400"
-                            class="link-to-prism">apps/network-validator/src/validator-blockchain/validator-consensus/validator-consensus.service.ts:400</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="401"
+                            class="link-to-prism">apps/network-validator/src/validator-blockchain/validator-consensus/validator-consensus.service.ts:401</a></div>
                 </td>
             </tr>
 
@@ -949,8 +950,8 @@ response will be a signature of the block. When a block with enough valid signat
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="380"
-                            class="link-to-prism">apps/network-validator/src/validator-blockchain/validator-consensus/validator-consensus.service.ts:380</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="381"
+                            class="link-to-prism">apps/network-validator/src/validator-blockchain/validator-consensus/validator-consensus.service.ts:381</a></div>
                 </td>
             </tr>
 
@@ -1043,8 +1044,8 @@ response will be a signature of the block. When a block with enough valid signat
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="349"
-                            class="link-to-prism">apps/network-validator/src/validator-blockchain/validator-consensus/validator-consensus.service.ts:349</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="350"
+                            class="link-to-prism">apps/network-validator/src/validator-blockchain/validator-consensus/validator-consensus.service.ts:350</a></div>
                 </td>
             </tr>
 
@@ -1495,9 +1496,9 @@ import { Subject } from &#x27;rxjs&#x27;;
 import { ValidatorBlockchainService } from &#x27;../validator-blockchain.service&#x27;;
 import { ValidatorService } from &#x27;./validator/validator.service&#x27;;
 import Timeout &#x3D; NodeJS.Timeout;
+import { DidRoles } from &#x27;@tc/transactions/did-id/dto/did-roles.dto&#x27;;
 import { Gauge } from &#x27;prom-client&#x27;;
 import { InjectMetric } from &#x27;@willsoto/nestjs-prometheus&#x27;;
-import { RoleManageType } from &#x27;@tc/transactions/did-id/constants&#x27;;
 
 /**
  * Service that is responsible for the consensus to find valid blocks.
@@ -1602,7 +1603,7 @@ export class ValidatorConsensusService {
     this.p2PService.connectionChanges.on(
       CONNECTION_ADDED,
       (connection: Connection) &#x3D;&gt; {
-        if (connection.type &#x3D;&#x3D;&#x3D; RoleManageType.Validator) {
+        if (connection.type &#x3D;&#x3D;&#x3D; DidRoles.Validator) {
           this.logger.debug({
             message: &#x60;round ${this.roundNumber}: register for ${connection.identifier}&#x60;,
             labels: { source: this.constructor.name },
@@ -1641,7 +1642,7 @@ export class ValidatorConsensusService {
     this.p2PService.connectionChanges.on(
       CONNECTION_REMOVED,
       (connection: Connection) &#x3D;&gt; {
-        if (connection.type &#x3D;&#x3D;&#x3D; RoleManageType.Validator) {
+        if (connection.type &#x3D;&#x3D;&#x3D; DidRoles.Validator) {
           // TODO remove the function listeners from above to prevent a memory leak
           this.validatorRemoved();
         }
@@ -1780,33 +1781,34 @@ export class ValidatorConsensusService {
 
   /**
    * Resets the consensus because validators failed to generate a block in the last rounds.
+   * Right now the process is killed since this makes sure all variables are resetted.
    */
   private reset() {
     process.exit(1);
     return;
-    this.proposer &#x3D; this.configService.getConfig(&#x27;IDENTIFIER&#x27;);
-    this.roundNumber &#x3D; 0;
-    this.failedRuns &#x3D; 0;
-    const resetInterval &#x3D; setInterval(() &#x3D;&gt; {
-      const promises &#x3D; this.p2PService.validatorConnections.map((connection) &#x3D;&gt;
-        this.checkIfHealthy(connection),
-      );
-      Promise.all(promises).then(
-        (results: Array&lt;{ identifier: string; reset: boolean }&gt; | any[]) &#x3D;&gt; {
-          const resetCounter &#x3D; results.filter((result) &#x3D;&gt; result.reset).length;
-          if (results.length &gt; 0 &amp;&amp; resetCounter &#x3D;&#x3D;&#x3D; results.length) {
-            this.logger.info({
-              message: &#x60;round ${this.roundNumber}: all ${results.length} validators agreed to reset consensus&#x60;,
-              labels: { source: this.constructor.name },
-            });
-            clearInterval(resetInterval);
-            setTimeout(async () &#x3D;&gt; {
-              await this.startRound();
-            }, 2000);
-          }
-        },
-      );
-    }, 500);
+    // this.proposer &#x3D; this.configService.getConfig(&#x27;IDENTIFIER&#x27;);
+    // this.roundNumber &#x3D; 0;
+    // this.failedRuns &#x3D; 0;
+    // const resetInterval &#x3D; setInterval(() &#x3D;&gt; {
+    //   const promises &#x3D; this.p2PService.validatorConnections.map((connection) &#x3D;&gt;
+    //     this.checkIfHealthy(connection),
+    //   );
+    //   Promise.all(promises).then(
+    //     (results: Array&lt;{ identifier: string; reset: boolean }&gt; | any[]) &#x3D;&gt; {
+    //       const resetCounter &#x3D; results.filter((result) &#x3D;&gt; result.reset).length;
+    //       if (results.length &gt; 0 &amp;&amp; resetCounter &#x3D;&#x3D;&#x3D; results.length) {
+    //         this.logger.info({
+    //           message: &#x60;round ${this.roundNumber}: all ${results.length} validators agreed to reset consensus&#x60;,
+    //           labels: { source: this.constructor.name },
+    //         });
+    //         clearInterval(resetInterval);
+    //         setTimeout(async () &#x3D;&gt; {
+    //           await this.startRound();
+    //         }, 2000);
+    //       }
+    //     },
+    //   );
+    // }, 500);
   }
 
   /**

@@ -154,7 +154,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:20</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:23</a></div>
                             </td>
                         </tr>
 
@@ -231,7 +231,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:20</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:23</a></div>
                         </td>
                     </tr>
 
@@ -273,8 +273,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="36"
-                            class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:36</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="39"
+                            class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:39</a></div>
                 </td>
             </tr>
 
@@ -359,8 +359,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="70"
-                            class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:70</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="73"
+                            class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:73</a></div>
                 </td>
             </tr>
 
@@ -440,8 +440,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="129"
-                            class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:129</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="132"
+                            class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:132</a></div>
                 </td>
             </tr>
 
@@ -533,8 +533,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="83"
-                            class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:83</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="86"
+                            class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:86</a></div>
                 </td>
             </tr>
 
@@ -618,8 +618,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="175"
-                            class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:175</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="178"
+                            class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:178</a></div>
                 </td>
             </tr>
 
@@ -711,8 +711,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="57"
-                            class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:57</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="60"
+                            class="link-to-prism">libs/transactions/src/transactions/cache.service.ts:60</a></div>
                 </td>
             </tr>
 
@@ -775,19 +775,22 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Did } from &#x27;./did/schemas/did.schema&#x27;;
 import { DidDocumentMetaData } from &#x27;@tc/transactions/transactions/did/dto/did-document-meta-data.dto&#x27;;
 import { DidId } from &#x27;@tc/transactions/did-id/schemas/did-id.schema&#x27;;
-import { DidResolver } from &#x27;@trustcerts/core&#x27;;
+import {
+  DidResolver,
+  SignatureContent,
+  VerifierService,
+} from &#x27;@trustcerts/did&#x27;;
 import { DidTransaction } from &#x27;./did/schemas/did-transaction.schema&#x27;;
 import { DocResponse } from &#x27;./did/dto/doc-response.dto&#x27;;
 import { Model, Schema } from &#x27;mongoose&#x27;;
 import { NotFoundException } from &#x27;@nestjs/common&#x27;;
-import { SignatureContent } from &#x27;@trustcerts/core&#x27;;
 import { TransactionDto } from &#x27;@tc/blockchain/transaction/transaction.dto&#x27;;
 import { VersionInformation } from &#x27;./did/version-information&#x27;;
 
 /**
  * Base service to interact with cached transactions from the database.
  */
-export abstract class CachedService&lt;Res extends DidResolver&gt; {
+export abstract class CachedService&lt;Res extends DidResolver&lt;VerifierService&gt;&gt; {
   /**
    * resolver instance to load dids.
    */

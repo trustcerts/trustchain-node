@@ -137,7 +137,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">libs/invite/src/invite.service.ts:23</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">libs/invite/src/invite.service.ts:24</a></div>
                             </td>
                         </tr>
 
@@ -241,8 +241,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="126"
-                            class="link-to-prism">libs/invite/src/invite.service.ts:126</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="127"
+                            class="link-to-prism">libs/invite/src/invite.service.ts:127</a></div>
                 </td>
             </tr>
 
@@ -282,8 +282,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="49"
-                            class="link-to-prism">libs/invite/src/invite.service.ts:49</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="50"
+                            class="link-to-prism">libs/invite/src/invite.service.ts:50</a></div>
                 </td>
             </tr>
 
@@ -356,8 +356,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="41"
-                            class="link-to-prism">libs/invite/src/invite.service.ts:41</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="42"
+                            class="link-to-prism">libs/invite/src/invite.service.ts:42</a></div>
                 </td>
             </tr>
 
@@ -397,8 +397,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="94"
-                            class="link-to-prism">libs/invite/src/invite.service.ts:94</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="95"
+                            class="link-to-prism">libs/invite/src/invite.service.ts:95</a></div>
                 </td>
             </tr>
 
@@ -470,8 +470,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="107"
-                            class="link-to-prism">libs/invite/src/invite.service.ts:107</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="108"
+                            class="link-to-prism">libs/invite/src/invite.service.ts:108</a></div>
                 </td>
             </tr>
 
@@ -553,8 +553,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="85"
-                            class="link-to-prism">libs/invite/src/invite.service.ts:85</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="86"
+                            class="link-to-prism">libs/invite/src/invite.service.ts:86</a></div>
                 </td>
             </tr>
 
@@ -592,8 +592,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="134"
-                            class="link-to-prism">libs/invite/src/invite.service.ts:134</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="135"
+                            class="link-to-prism">libs/invite/src/invite.service.ts:135</a></div>
                 </td>
             </tr>
 
@@ -657,7 +657,8 @@ import {
   UnprocessableEntityException,
 } from &#x27;@nestjs/common&#x27;;
 import { DidIdCachedService } from &#x27;@tc/transactions/did-id/cached/did-id-cached.service&#x27;;
-import { DidIdRegister } from &#x27;@trustcerts/did-id-create&#x27;;
+import { DidIdRegister } from &#x27;@trustcerts/did&#x27;;
+import { INVITE_CONNECTION } from &#x27;./constants&#x27;;
 import { InjectModel } from &#x27;@nestjs/mongoose&#x27;;
 import {
   InviteRequest,
@@ -679,7 +680,7 @@ export class InviteService {
    * @param logger
    */
   constructor(
-    @InjectModel(InviteRequest.name)
+    @InjectModel(InviteRequest.name, INVITE_CONNECTION)
     private inviteModel: Model&lt;InviteRequestDocument&gt;,
     private readonly didCachedService: DidIdCachedService,
     private readonly configService: ConfigService,

@@ -141,8 +141,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="37"
-                            class="link-to-prism">libs/transactions/src/did-template/observer/observer-template.controller.ts:37</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="39"
+                            class="link-to-prism">libs/transactions/src/did-template/observer/observer-template.controller.ts:39</a></div>
                 </td>
             </tr>
 
@@ -204,6 +204,7 @@ import { DidTemplateTransaction } from &#x27;@tc/transactions/did-template/schem
 import { MaintenanceGuard } from &#x27;@tc/config/version/maintenance.guard&#x27;;
 import { TemplateCachedService } from &#x27;@tc/transactions/did-template/cached/template-cached.service&#x27;;
 import { TemplateDocResponse } from &#x27;@tc/transactions/did-template/dto/doc-response.dto&#x27;;
+import { TemplateVerifierService } from &#x27;@trustcerts/did-template&#x27;;
 
 /**
  * Controls template requests.
@@ -213,7 +214,8 @@ import { TemplateDocResponse } from &#x27;@tc/transactions/did-template/dto/doc-
 @Controller(&#x27;template&#x27;)
 export class ObserverTemplateController extends DidControllerMixin&lt;
   TemplateDocResponse,
-  DidTemplateTransaction
+  DidTemplateTransaction,
+  TemplateVerifierService
 &gt;({ doc: TemplateDocResponse, trans: DidTemplateTransaction }) {
   /**
    * Injects required services

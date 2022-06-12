@@ -123,7 +123,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">apps/http-observer/src/tracking/tracking.service.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">apps/http-observer/src/tracking/tracking.service.ts:18</a></div>
                             </td>
                         </tr>
 
@@ -214,8 +214,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="71"
-                            class="link-to-prism">apps/http-observer/src/tracking/tracking.service.ts:71</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="73"
+                            class="link-to-prism">apps/http-observer/src/tracking/tracking.service.ts:73</a></div>
                 </td>
             </tr>
 
@@ -256,8 +256,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="34"
-                            class="link-to-prism">apps/http-observer/src/tracking/tracking.service.ts:34</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="36"
+                            class="link-to-prism">apps/http-observer/src/tracking/tracking.service.ts:36</a></div>
                 </td>
             </tr>
 
@@ -342,8 +342,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="59"
-                            class="link-to-prism">apps/http-observer/src/tracking/tracking.service.ts:59</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="61"
+                            class="link-to-prism">apps/http-observer/src/tracking/tracking.service.ts:61</a></div>
                 </td>
             </tr>
 
@@ -412,6 +412,7 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ConflictException, Inject, Injectable } from &#x27;@nestjs/common&#x27;;
+import { DID_ID_CONNECTION } from &#x27;@tc/transactions/did-id/constants&#x27;;
 import { DidHash } from &#x27;@tc/transactions/did-hash/schemas/did-hash.schema&#x27;;
 import {
   DidId,
@@ -420,6 +421,7 @@ import {
 import { InjectModel } from &#x27;@nestjs/mongoose&#x27;;
 import { Logger } from &#x27;winston&#x27;;
 import { Model } from &#x27;mongoose&#x27;;
+import { TRACKING_CONNECTION } from &#x27;./constants&#x27;;
 import { Tracking, TrackingDocument } from &#x27;./schemas/tracking.schema&#x27;;
 
 /**
@@ -434,9 +436,9 @@ export class TrackingService {
    */
   constructor(
     @Inject(&#x27;winston&#x27;) protected readonly logger: Logger,
-    @InjectModel(DidId.name)
+    @InjectModel(DidId.name, DID_ID_CONNECTION)
     private didModel: Model&lt;DidIdDocument&gt;,
-    @InjectModel(Tracking.name)
+    @InjectModel(Tracking.name, TRACKING_CONNECTION)
     private trackingModel: Model&lt;TrackingDocument&gt;,
   ) {}
 

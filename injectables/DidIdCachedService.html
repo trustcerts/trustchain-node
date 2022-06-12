@@ -829,7 +829,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../classes/RoleManage.html" target="_self" >Promise&lt;RoleManageType[]&gt;</a></code>
+                        <b>Returns : </b>        <code><a href="../classes/Did.html" target="_self" >Promise&lt;DidRoles[]&gt;</a></code>
 
                     </div>
                     <div class="io-description">
@@ -949,7 +949,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:36</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:39</a></code>
 </div>
                 </td>
             </tr>
@@ -1041,7 +1041,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:70</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:73</a></code>
 </div>
                 </td>
             </tr>
@@ -1128,7 +1128,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:129</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:132</a></code>
 </div>
                 </td>
             </tr>
@@ -1227,7 +1227,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:83</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:86</a></code>
 </div>
                 </td>
             </tr>
@@ -1318,7 +1318,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:175</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:178</a></code>
 </div>
                 </td>
             </tr>
@@ -1417,7 +1417,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:57</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:60</a></code>
 </div>
                 </td>
             </tr>
@@ -1500,7 +1500,7 @@
                         </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:20</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:23</a></code>
 </div>
                         </td>
                     </tr>
@@ -1521,11 +1521,12 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CachedService } from &#x27;@tc/transactions/transactions/cache.service&#x27;;
+import { DID_ID_CONNECTION } from &#x27;../constants&#x27;;
 import {
   DidId,
   DidIdDocument,
 } from &#x27;@tc/transactions/did-id/schemas/did-id.schema&#x27;;
-import { DidIdResolver } from &#x27;@trustcerts/core&#x27;;
+import { DidIdResolver, DidRoles } from &#x27;@trustcerts/did&#x27;;
 import {
   DidIdTransaction,
   DidIdTransactionDocument,
@@ -1537,7 +1538,6 @@ import { Injectable } from &#x27;@nestjs/common&#x27;;
 import { Key } from &#x27;@tc/transactions/did-id/schemas/key.schema&#x27;;
 import { Model } from &#x27;mongoose&#x27;;
 import { PersistClientService } from &#x27;@tc/clients/persist-client&#x27;;
-import { RoleManageType } from &#x27;@tc/transactions/did-id/constants&#x27;;
 import { TransactionDto } from &#x27;@tc/blockchain/transaction/transaction.dto&#x27;;
 
 /**
@@ -1553,9 +1553,9 @@ export class DidIdCachedService extends CachedService&lt;DidIdResolver&gt; {
    * @param verificationRelationRepository
    */
   constructor(
-    @InjectModel(DidIdTransaction.name)
+    @InjectModel(DidIdTransaction.name, DID_ID_CONNECTION)
     protected transactionModel: Model&lt;DidIdTransactionDocument&gt;,
-    @InjectModel(DidId.name)
+    @InjectModel(DidId.name, DID_ID_CONNECTION)
     protected didModel: Model&lt;DidIdDocument&gt;,
     private readonly persistClientService: PersistClientService,
   ) {
@@ -1597,7 +1597,7 @@ export class DidIdCachedService extends CachedService&lt;DidIdResolver&gt; {
   async getValidatorIdentifiers(): Promise&lt;string[]&gt; {
     return this.didModel.find().then((did) &#x3D;&gt;
       did
-        .filter((did) &#x3D;&gt; did.roles.includes(RoleManageType.Validator))
+        .filter((did) &#x3D;&gt; did.roles.includes(DidRoles.Validator))
         .map((did) &#x3D;&gt; did.id)
         .sort(),
     );
@@ -1641,7 +1641,7 @@ export class DidIdCachedService extends CachedService&lt;DidIdResolver&gt; {
    * Returns the roles of a did. Normally there is only one role
    * @param keyIdentifier
    */
-  async getRole(keyIdentifier: string): Promise&lt;RoleManageType[]&gt; {
+  async getRole(keyIdentifier: string): Promise&lt;DidRoles[]&gt; {
     const did &#x3D; await this.getDidByKey(keyIdentifier);
     return did!.roles;
   }

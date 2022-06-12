@@ -84,7 +84,7 @@ import { TEMPLATE_CONNECTION } from &#x27;../constants&#x27;;
       imports: [ConfigModule],
       connectionName: TEMPLATE_CONNECTION,
       useFactory: async (configService: ConfigService) &#x3D;&gt; ({
-        uri: configService.db(&#x27;template&#x27;),
+        uri: configService.db(),
         retryAttempts: 1,
       }),
       inject: [ConfigService],

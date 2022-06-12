@@ -460,13 +460,13 @@
 import { Body, Controller, Get, Inject, Post, UseGuards } from &#x27;@nestjs/common&#x27;;
 import { ClientRedis } from &#x27;@nestjs/microservices&#x27;;
 import { ConfigService } from &#x27;@tc/config&#x27;;
+import { DidRoles } from &#x27;@tc/transactions/did-id/dto/did-roles.dto&#x27;;
 import { HttpController } from &#x27;@shared/http/http.controller&#x27;;
 import { HttpObserverService } from &#x27;./http-observer.service&#x27;;
 import { InviteNode } from &#x27;@tc/invite/dto/invite-node.dto&#x27;;
 import { Logger } from &#x27;winston&#x27;;
 import { NodeGuard } from &#x27;@shared/guards/node-guard.service&#x27;;
 import { REDIS_INJECTION } from &#x27;@tc/clients/event-client/constants&#x27;;
-import { RoleManageType } from &#x27;@tc/transactions/did-id/constants&#x27;;
 
 /**
  * Controller to interact with the Observer.
@@ -505,7 +505,7 @@ export class HttpObserverController extends HttpController {
   public information() {
     return {
       serviceType: &#x27;http&#x27;,
-      nodeType: RoleManageType.Observer,
+      nodeType: DidRoles.Observer,
       did: this.configService.getConfig(&#x27;IDENTIFIER&#x27;),
     };
   }

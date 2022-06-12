@@ -138,8 +138,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="39"
-                            class="link-to-prism">libs/transactions/src/did-id/observer/observer-did.controller.ts:39</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="41"
+                            class="link-to-prism">libs/transactions/src/did-id/observer/observer-did.controller.ts:41</a></div>
                 </td>
             </tr>
 
@@ -166,6 +166,7 @@ import { Controller, Get, UseGuards } from &#x27;@nestjs/common&#x27;;
 import { DidControllerMixin } from &#x27;@tc/transactions/transactions/did/did.controller&#x27;;
 import { DidIdCachedService } from &#x27;@tc/transactions/did-id/cached/did-id-cached.service&#x27;;
 import { DidIdTransaction } from &#x27;@tc/transactions/did-id/schemas/did-id-transaction.schema&#x27;;
+import { DidIdVerifierService } from &#x27;@trustcerts/did&#x27;;
 import { GenesisBlock } from &#x27;@tc/blockchain/block/genesis-block.dto&#x27;;
 import { IdDocResponse } from &#x27;@tc/transactions/did-id/dto/doc-response.dto&#x27;;
 import { MaintenanceGuard } from &#x27;@tc/config/version/maintenance.guard&#x27;;
@@ -178,7 +179,8 @@ import { MaintenanceGuard } from &#x27;@tc/config/version/maintenance.guard&#x27
 @Controller(&#x27;did&#x27;)
 export class ObserverDidController extends DidControllerMixin&lt;
   IdDocResponse,
-  DidIdTransaction
+  DidIdTransaction,
+  DidIdVerifierService
 &gt;({ doc: IdDocResponse, trans: DidIdTransaction }) {
   /**
    * Injects required services.

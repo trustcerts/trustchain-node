@@ -142,7 +142,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">apps/http-gateway/src/gateway-transaction.service.ts:23</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">apps/http-gateway/src/gateway-transaction.service.ts:25</a></div>
                             </td>
                         </tr>
 
@@ -267,7 +267,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">apps/http-gateway/src/gateway-transaction.service.ts:23</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">apps/http-gateway/src/gateway-transaction.service.ts:25</a></div>
                         </td>
                     </tr>
 
@@ -310,8 +310,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="88"
-                            class="link-to-prism">apps/http-gateway/src/gateway-transaction.service.ts:88</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="90"
+                            class="link-to-prism">apps/http-gateway/src/gateway-transaction.service.ts:90</a></div>
                 </td>
             </tr>
 
@@ -383,8 +383,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="45"
-                            class="link-to-prism">apps/http-gateway/src/gateway-transaction.service.ts:45</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="47"
+                            class="link-to-prism">apps/http-gateway/src/gateway-transaction.service.ts:47</a></div>
                 </td>
             </tr>
 
@@ -467,8 +467,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="117"
-                            class="link-to-prism">apps/http-gateway/src/gateway-transaction.service.ts:117</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="119"
+                            class="link-to-prism">apps/http-gateway/src/gateway-transaction.service.ts:119</a></div>
                 </td>
             </tr>
 
@@ -531,7 +531,7 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CachedService } from &#x27;@tc/transactions/transactions/cache.service&#x27;;
 import { ConfigService } from &#x27;@tc/config&#x27;;
 import { ConflictException } from &#x27;@nestjs/common&#x27;;
-import { DidResolver } from &#x27;@trustcerts/core&#x27;;
+import { DidResolver, VerifierService } from &#x27;@trustcerts/did&#x27;;
 import { GatewayBlockchainService } from &#x27;./gateway-blockchain/gateway-blockchain.service&#x27;;
 import { Logger } from &#x27;winston&#x27;;
 import { PersistedTransaction } from &#x27;@shared/http/dto/persisted-transaction&#x27;;
@@ -545,7 +545,9 @@ import { WalletClientService } from &#x27;@tc/clients/wallet-client&#x27;;
 /**
  * Base Service to add a transaction.
  */
-export class GatewayTransactionService&lt;Res extends DidResolver&gt; {
+export class GatewayTransactionService&lt;
+  Res extends DidResolver&lt;VerifierService&gt;,
+&gt; {
   // TODO pass DidResolver Class so the procted class is set correctly
   /**
    * Resolved a did.

@@ -87,6 +87,7 @@
 import { Controller, UseGuards } from &#x27;@nestjs/common&#x27;;
 import { DidControllerMixin } from &#x27;@tc/transactions/transactions/did/did.controller&#x27;;
 import { DidHashTransaction } from &#x27;@tc/transactions/did-hash/schemas/did-hash-transaction.schema&#x27;;
+import { DidHashVerifierService } from &#x27;@trustcerts/did-hash&#x27;;
 import { HashCachedService } from &#x27;@tc/transactions/did-hash/cached/hash-cached.service&#x27;;
 import { HashDocResponse } from &#x27;@tc/transactions/did-hash/dto/hash-doc-response.dto&#x27;;
 import { MaintenanceGuard } from &#x27;@tc/config/version/maintenance.guard&#x27;;
@@ -99,7 +100,8 @@ import { MaintenanceGuard } from &#x27;@tc/config/version/maintenance.guard&#x27
 @Controller(&#x27;hash&#x27;)
 export class ObserverHashController extends DidControllerMixin&lt;
   HashDocResponse,
-  DidHashTransaction
+  DidHashTransaction,
+  DidHashVerifierService
 &gt;({ doc: HashDocResponse, trans: DidHashTransaction }) {
   constructor(protected readonly hashCachedService: HashCachedService) {
     super(hashCachedService);

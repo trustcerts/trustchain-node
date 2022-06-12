@@ -76,6 +76,12 @@
             </p>
 
 
+            <p class="comment">
+                <h3>Implements</h3>
+            </p>
+            <p class="comment">
+                            <code><a href="../classes/Key.html" target="_self" >JsonWebKey</a></code>
+            </p>
 
 
             <section>
@@ -96,11 +102,27 @@
                             </li>
                             <li>
                                     <span class="modifier">Optional</span>
+                                <a href="#crv" >crv</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Optional</span>
+                                <a href="#d" >d</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Optional</span>
+                                <a href="#dp" >dp</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Optional</span>
+                                <a href="#dq" >dq</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Optional</span>
                                 <a href="#e" >e</a>
                             </li>
                             <li>
                                     <span class="modifier">Optional</span>
-                                <a href="#key_ops" >key_ops</a>
+                                <a href="#k" >k</a>
                             </li>
                             <li>
                                     <span class="modifier">Optional</span>
@@ -109,6 +131,26 @@
                             <li>
                                     <span class="modifier">Optional</span>
                                 <a href="#n" >n</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Optional</span>
+                                <a href="#p" >p</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Optional</span>
+                                <a href="#q" >q</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Optional</span>
+                                <a href="#qi" >qi</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Optional</span>
+                                <a href="#x" >x</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Optional</span>
+                                <a href="#y" >y</a>
                             </li>
                         </ul>
                     </td>
@@ -152,13 +194,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsString()<br />@Equals(&#x27;RS256&#x27;)<br />@ApiProperty({description: &#x27;The specific cryptographic algorithm used with the key.&#x27;, example: &#x27;RS256&#x27;})<br />
+                            @ApiProperty()<br />@IsString()<br />@IsOptional()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">libs/transactions/src/did-id/dto/public-key-jwk.dto.ts:56</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">libs/transactions/src/did-id/dto/public-key-jwk.dto.ts:34</a></div>
                         </td>
                     </tr>
 
@@ -168,6 +210,150 @@
 </div>
                 </td>
             </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="crv"></a>
+                    <span class="name">
+                            <span class="modifier">Optional</span>
+                        <span ><b>crv</b></span>
+                        <a href="#crv"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ApiProperty()<br />@IsString()<br />@IsOptional()<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">libs/transactions/src/did-id/dto/public-key-jwk.dto.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="d"></a>
+                    <span class="name">
+                            <span class="modifier">Optional</span>
+                        <span ><b>d</b></span>
+                        <a href="#d"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ApiProperty()<br />@IsString()<br />@IsOptional()<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">libs/transactions/src/did-id/dto/public-key-jwk.dto.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dp"></a>
+                    <span class="name">
+                            <span class="modifier">Optional</span>
+                        <span ><b>dp</b></span>
+                        <a href="#dp"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ApiProperty()<br />@IsString()<br />@IsOptional()<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">libs/transactions/src/did-id/dto/public-key-jwk.dto.ts:49</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dq"></a>
+                    <span class="name">
+                            <span class="modifier">Optional</span>
+                        <span ><b>dq</b></span>
+                        <a href="#dq"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ApiProperty()<br />@IsString()<br />@IsOptional()<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">libs/transactions/src/did-id/dto/public-key-jwk.dto.ts:54</a></div>
+                        </td>
+                    </tr>
+
 
         </tbody>
     </table>
@@ -194,13 +380,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({description: &#x27;The exponent for the RSA public key.&#x27;, example: &#x27;AQAB&#x27;})<br />@IsString()<br />
+                            @ApiProperty()<br />@IsString()<br />@IsOptional()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">libs/transactions/src/did-id/dto/public-key-jwk.dto.ts:46</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">libs/transactions/src/did-id/dto/public-key-jwk.dto.ts:27</a></div>
                         </td>
                     </tr>
 
@@ -217,17 +403,17 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="key_ops"></a>
+                    <a name="k"></a>
                     <span class="name">
                             <span class="modifier">Optional</span>
-                        <span ><b>key_ops</b></span>
-                        <a href="#key_ops"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>k</b></span>
+                        <a href="#k"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>    <code>string[] | undefined</code>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
 
                     </td>
                 </tr>
@@ -236,22 +422,16 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({description: &#x27;How the key was meant to be used&#x27;, example: undefined})<br />@IsString({each: true})<br />
+                            @ApiProperty()<br />@IsString()<br />@IsOptional()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">libs/transactions/src/did-id/dto/public-key-jwk.dto.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">libs/transactions/src/did-id/dto/public-key-jwk.dto.ts:59</a></div>
                         </td>
                     </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>How the key was meant to be used</p>
-</div>
-                </td>
-            </tr>
 
         </tbody>
     </table>
@@ -278,13 +458,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({description: &#x27;The family of cryptographic algorithms used with the key.&#x27;, example: undefined})<br />@Equals(&#x27;RSA&#x27;)<br />
+                            @ApiProperty()<br />@IsString()<br />@IsOptional()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">libs/transactions/src/did-id/dto/public-key-jwk.dto.ts:27</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">libs/transactions/src/did-id/dto/public-key-jwk.dto.ts:13</a></div>
                         </td>
                     </tr>
 
@@ -320,13 +500,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({description: &#x27;The modulus for the RSA public key.&#x27;, example: &#x27;zvbICKrRLlnDWuTXRwWV9nsaiYCaLCNiNF1WmbsWFXHbT9AhyYDbIh_KLI0y5vpYTIfdneRYeNWjkldzZ_J3xZDJ9zUdxHZGXUa9j-NHInmKsYVPDhTYTbTEmDQ2COGKv26klNkyNFKS1Sap8Q7y3jyZQvV4fVd4KynpkJirpDRoDS4jeqPrZKjXQdLxmLBnBiUuD7V2phy5PFBxTsnX6wkZiWJKRRzq6CnavlgeieLgCUrsD6fmmV7B5MtJJ-fdrLxXFXXDaD9d82ZFmM24dqaMkwLvMt22xEaz27WoYftUJJIbYGNec4qTTzacEv_YcYgR8YIXQSpnviXsZ0mqPw&#x27;})<br />@IsString()<br />
+                            @ApiProperty()<br />@IsString()<br />@IsOptional()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">libs/transactions/src/did-id/dto/public-key-jwk.dto.ts:37</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">libs/transactions/src/did-id/dto/public-key-jwk.dto.ts:20</a></div>
                         </td>
                     </tr>
 
@@ -336,6 +516,186 @@
 </div>
                 </td>
             </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="p"></a>
+                    <span class="name">
+                            <span class="modifier">Optional</span>
+                        <span ><b>p</b></span>
+                        <a href="#p"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ApiProperty()<br />@IsString()<br />@IsOptional()<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">libs/transactions/src/did-id/dto/public-key-jwk.dto.ts:64</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="q"></a>
+                    <span class="name">
+                            <span class="modifier">Optional</span>
+                        <span ><b>q</b></span>
+                        <a href="#q"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ApiProperty()<br />@IsString()<br />@IsOptional()<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="69" class="link-to-prism">libs/transactions/src/did-id/dto/public-key-jwk.dto.ts:69</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="qi"></a>
+                    <span class="name">
+                            <span class="modifier">Optional</span>
+                        <span ><b>qi</b></span>
+                        <a href="#qi"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ApiProperty()<br />@IsString()<br />@IsOptional()<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="74" class="link-to-prism">libs/transactions/src/did-id/dto/public-key-jwk.dto.ts:74</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="x"></a>
+                    <span class="name">
+                            <span class="modifier">Optional</span>
+                        <span ><b>x</b></span>
+                        <a href="#x"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ApiProperty()<br />@IsString()<br />@IsOptional()<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="79" class="link-to-prism">libs/transactions/src/did-id/dto/public-key-jwk.dto.ts:79</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="y"></a>
+                    <span class="name">
+                            <span class="modifier">Optional</span>
+                        <span ><b>y</b></span>
+                        <a href="#y"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ApiProperty()<br />@IsString()<br />@IsOptional()<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="84" class="link-to-prism">libs/transactions/src/did-id/dto/public-key-jwk.dto.ts:84</a></div>
+                        </td>
+                    </tr>
+
 
         </tbody>
     </table>
@@ -352,61 +712,89 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
-import { Equals, IsString } from &#x27;class-validator&#x27;;
+import { IsOptional, IsString } from &#x27;class-validator&#x27;;
 /**
  * Describes a json web key object.
  */
-// TODO add values for a ec key.
-// TODO evaluate if JsonWebKey should be implemented.
-export class PublicKeyJwkDto {
-  /**
-   * How the key was meant to be used
-   */
-  @ApiProperty({
-    description: &#x27;How the key was meant to be used&#x27;,
-    example: [&#x27;verify&#x27;],
-  })
-  @IsString({ each: true })
-  key_ops?: string[] | undefined;
-
+export class PublicKeyJwkDto implements JsonWebKey {
   /**
    *  The family of cryptographic algorithms used with the key.
    */
-  @ApiProperty({
-    description: &#x27;The family of cryptographic algorithms used with the key.&#x27;,
-    example: [&#x27;RSA&#x27;],
-  })
-  @Equals(&#x27;RSA&#x27;)
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
   kty?: string;
   /**
    *  The modulus for the RSA public key.
    */
-  @ApiProperty({
-    description: &#x27;The modulus for the RSA public key.&#x27;,
-    example:
-      &#x27;zvbICKrRLlnDWuTXRwWV9nsaiYCaLCNiNF1WmbsWFXHbT9AhyYDbIh_KLI0y5vpYTIfdneRYeNWjkldzZ_J3xZDJ9zUdxHZGXUa9j-NHInmKsYVPDhTYTbTEmDQ2COGKv26klNkyNFKS1Sap8Q7y3jyZQvV4fVd4KynpkJirpDRoDS4jeqPrZKjXQdLxmLBnBiUuD7V2phy5PFBxTsnX6wkZiWJKRRzq6CnavlgeieLgCUrsD6fmmV7B5MtJJ-fdrLxXFXXDaD9d82ZFmM24dqaMkwLvMt22xEaz27WoYftUJJIbYGNec4qTTzacEv_YcYgR8YIXQSpnviXsZ0mqPw&#x27;,
-  })
+  @ApiProperty()
   @IsString()
+  @IsOptional()
   n?: string;
   /**
    * The exponent for the RSA public key.
    */
-  @ApiProperty({
-    description: &#x27;The exponent for the RSA public key.&#x27;,
-    example: &#x27;AQAB&#x27;,
-  })
+  @ApiProperty()
   @IsString()
+  @IsOptional()
   e?: string;
   /**
    *  The specific cryptographic algorithm used with the key.
    */
+  @ApiProperty()
   @IsString()
-  @Equals(&#x27;RS256&#x27;)
-  @ApiProperty({
-    description: &#x27;The specific cryptographic algorithm used with the key.&#x27;,
-    example: &#x27;RS256&#x27;,
-  })
+  @IsOptional()
   alg?: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  crv?: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  d?: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  dp?: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  dq?: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  k?: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  p?: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  q?: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  qi?: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  x?: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  y?: string;
 }
 </code></pre>
     </div>

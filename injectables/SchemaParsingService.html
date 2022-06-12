@@ -157,7 +157,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">libs/transactions/src/did-schema/parse/schema-parsing.service.ts:26</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">libs/transactions/src/did-schema/parse/schema-parsing.service.ts:28</a></div>
                             </td>
                         </tr>
 
@@ -315,7 +315,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:67</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:69</a></code>
 </div>
                 </td>
             </tr>
@@ -394,7 +394,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:101</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:103</a></code>
 </div>
                 </td>
             </tr>
@@ -801,7 +801,8 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ClientRedis } from &#x27;@nestjs/microservices&#x27;;
 import { Counter } from &#x27;prom-client&#x27;;
-import { DidId } from &#x27;@trustcerts/core&#x27;;
+import { DID_ID_CONNECTION } from &#x27;@tc/transactions/did-id/constants&#x27;;
+import { DidId } from &#x27;@trustcerts/did&#x27;;
 import { DidIdDocument } from &#x27;@tc/transactions/did-id/schemas/did-id.schema&#x27;;
 import { DidSchema, SchemaDocument } from &#x27;../schemas/did-schema.schema&#x27;;
 import {
@@ -817,6 +818,7 @@ import { Model } from &#x27;mongoose&#x27;;
 import { ParseService } from &#x27;@apps/parse/src/parse.service&#x27;;
 import { ParsingService } from &#x27;@tc/transactions/transactions/parsing.service&#x27;;
 import { REDIS_INJECTION } from &#x27;@tc/clients/event-client/constants&#x27;;
+import { SCHEMA_CONNECTION } from &#x27;../constants&#x27;;
 import { SchemaTransactionDto } from &#x27;../dto/schema.transaction.dto&#x27;;
 import { TransactionType } from &#x27;@tc/blockchain/transaction/transaction-type&#x27;;
 
@@ -837,14 +839,14 @@ export class SchemaParsingService extends ParsingService {
     protected readonly hashService: HashService,
     @Inject(REDIS_INJECTION) protected readonly clientRedis: ClientRedis,
     @Inject(&#x27;winston&#x27;) protected readonly logger: Logger,
-    @InjectModel(DidSchema.name)
+    @InjectModel(DidSchema.name, SCHEMA_CONNECTION)
     private didSchemaRepository: Model&lt;SchemaDocument&gt;,
-    @InjectModel(DidSchemaTransaction.name)
+    @InjectModel(DidSchemaTransaction.name, SCHEMA_CONNECTION)
     didSchemaDocumentRepository: Model&lt;SchemaTransactionDocument&gt;,
     @InjectMetric(&#x27;transactions&#x27;)
     protected readonly transactionsCounter: Counter&lt;string&gt;,
     private readonly parseService: ParseService,
-    @InjectModel(DidId.name)
+    @InjectModel(DidId.name, DID_ID_CONNECTION)
     protected didIdRepository: Model&lt;DidIdDocument&gt;,
   ) {
     super(

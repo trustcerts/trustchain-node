@@ -460,7 +460,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/GatewayTransactionService.html#source" target="_self" >GatewayTransactionService:88</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/GatewayTransactionService.html#source" target="_self" >GatewayTransactionService:90</a></code>
 </div>
                 </td>
             </tr>
@@ -539,7 +539,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/GatewayTransactionService.html#source" target="_self" >GatewayTransactionService:45</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/GatewayTransactionService.html#source" target="_self" >GatewayTransactionService:47</a></code>
 </div>
                 </td>
             </tr>
@@ -629,7 +629,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/GatewayTransactionService.html#source" target="_self" >GatewayTransactionService:117</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/GatewayTransactionService.html#source" target="_self" >GatewayTransactionService:119</a></code>
 </div>
                 </td>
             </tr>
@@ -712,7 +712,7 @@
                         </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/GatewayTransactionService.html#source" target="_self" >GatewayTransactionService:23</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/GatewayTransactionService.html#source" target="_self" >GatewayTransactionService:25</a></code>
 </div>
                         </td>
                     </tr>
@@ -734,8 +734,8 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ConfigService } from &#x27;@tc/config&#x27;;
 import { ConflictException, Inject, Injectable } from &#x27;@nestjs/common&#x27;;
+import { DidHashResolver } from &#x27;@trustcerts/did-hash&#x27;;
 import { DidIdCachedService } from &#x27;@tc/transactions/did-id/cached/did-id-cached.service&#x27;;
-import { DidSignatureResolver } from &#x27;@trustcerts/signature-verify&#x27;;
 import { GatewayBlockchainService } from &#x27;@apps/http-gateway/src/gateway-blockchain/gateway-blockchain.service&#x27;;
 import { GatewayTransactionService } from &#x27;@apps/http-gateway/src/gateway-transaction.service&#x27;;
 import { HashCachedService } from &#x27;@tc/transactions/did-hash/cached/hash-cached.service&#x27;;
@@ -750,7 +750,7 @@ import { WalletClientService } from &#x27;@tc/clients/wallet-client&#x27;;
  * Service to validate requests from the api to the blockchain level.
  */
 @Injectable()
-export class GatewayHashService extends GatewayTransactionService&lt;DidSignatureResolver&gt; {
+export class GatewayHashService extends GatewayTransactionService&lt;DidHashResolver&gt; {
   /**
    * Loads required services.
    * @param gatewayBlockchainService
@@ -778,7 +778,7 @@ export class GatewayHashService extends GatewayTransactionService&lt;DidSignatur
       logger,
       configService,
     );
-    this.didResolver &#x3D; new DidSignatureResolver();
+    this.didResolver &#x3D; new DidHashResolver();
   }
 
   /**

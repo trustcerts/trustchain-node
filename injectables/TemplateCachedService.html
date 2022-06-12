@@ -162,7 +162,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">libs/transactions/src/did-template/cached/template-cached.service.ts:19</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">libs/transactions/src/did-template/cached/template-cached.service.ts:20</a></div>
                             </td>
                         </tr>
 
@@ -239,8 +239,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="54"
-                            class="link-to-prism">libs/transactions/src/did-template/cached/template-cached.service.ts:54</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="56"
+                            class="link-to-prism">libs/transactions/src/did-template/cached/template-cached.service.ts:56</a></div>
                 </td>
             </tr>
 
@@ -312,8 +312,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="38"
-                            class="link-to-prism">libs/transactions/src/did-template/cached/template-cached.service.ts:38</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="40"
+                            class="link-to-prism">libs/transactions/src/did-template/cached/template-cached.service.ts:40</a></div>
                 </td>
             </tr>
 
@@ -391,7 +391,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:36</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:39</a></code>
 </div>
                 </td>
             </tr>
@@ -483,7 +483,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:70</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:73</a></code>
 </div>
                 </td>
             </tr>
@@ -570,7 +570,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:129</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:132</a></code>
 </div>
                 </td>
             </tr>
@@ -669,7 +669,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:83</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:86</a></code>
 </div>
                 </td>
             </tr>
@@ -760,7 +760,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:175</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:178</a></code>
 </div>
                 </td>
             </tr>
@@ -859,7 +859,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:57</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:60</a></code>
 </div>
                 </td>
             </tr>
@@ -942,7 +942,7 @@
                         </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:20</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/CachedService.html#source" target="_self" >CachedService:23</a></code>
 </div>
                         </td>
                     </tr>
@@ -964,7 +964,7 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CachedService } from &#x27;@tc/transactions/transactions/cache.service&#x27;;
 import { DidTemplate, TemplateDocument } from &#x27;../schemas/did-template.schema&#x27;;
-import { DidTemplateResolver } from &#x27;@trustcerts/template-verify&#x27;;
+import { DidTemplateResolver } from &#x27;@trustcerts/did-template&#x27;;
 import {
   DidTemplateTransaction,
   TemplateTransactionDocument,
@@ -973,6 +973,7 @@ import { InjectModel } from &#x27;@nestjs/mongoose&#x27;;
 import { Injectable, NotFoundException } from &#x27;@nestjs/common&#x27;;
 import { Model } from &#x27;mongoose&#x27;;
 import { ParsingService } from &#x27;@tc/transactions/transactions/parsing.service&#x27;;
+import { TEMPLATE_CONNECTION } from &#x27;../constants&#x27;;
 import { existsSync, readFileSync } from &#x27;fs&#x27;;
 import { join } from &#x27;path&#x27;;
 
@@ -986,9 +987,10 @@ export class TemplateCachedService extends CachedService&lt;DidTemplateResolver&
    * @param didModel
    */
   constructor(
-    @InjectModel(DidTemplateTransaction.name)
+    @InjectModel(DidTemplateTransaction.name, TEMPLATE_CONNECTION)
     protected transactionModel: Model&lt;TemplateTransactionDocument&gt;,
-    @InjectModel(DidTemplate.name) protected didModel: Model&lt;TemplateDocument&gt;,
+    @InjectModel(DidTemplate.name, TEMPLATE_CONNECTION)
+    protected didModel: Model&lt;TemplateDocument&gt;,
   ) {
     super(transactionModel, didModel);
     this.resolver &#x3D; new DidTemplateResolver();

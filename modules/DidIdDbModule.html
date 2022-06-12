@@ -84,7 +84,7 @@ import { MongooseModule } from &#x27;@nestjs/mongoose&#x27;;
       imports: [ConfigModule],
       connectionName: DID_ID_CONNECTION,
       useFactory: async (configService: ConfigService) &#x3D;&gt; ({
-        uri: configService.db(&#x27;did-id&#x27;),
+        uri: configService.db(),
         retryAttempts: 1,
       }),
       inject: [ConfigService],

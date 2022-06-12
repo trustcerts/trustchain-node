@@ -259,10 +259,10 @@ import {
   Inject,
   OnApplicationBootstrap,
 } from &#x27;@nestjs/common&#x27;;
+import { DidRoles } from &#x27;@tc/transactions/did-id/dto/did-roles.dto&#x27;;
 import { EventPattern, Transport } from &#x27;@nestjs/microservices&#x27;;
 import { Logger } from &#x27;winston&#x27;;
 import { P2PService } from &#x27;@tc/p2-p&#x27;;
-import { RoleManageType } from &#x27;@tc/transactions/did-id/constants&#x27;;
 import { SYSTEM_RESET } from &#x27;@tc/clients/event-client/constants&#x27;;
 
 /**
@@ -303,7 +303,7 @@ export class NetworkObserverController implements OnApplicationBootstrap {
   public information() {
     return {
       serviceType: &#x27;network&#x27;,
-      nodeType: RoleManageType.Observer,
+      nodeType: DidRoles.Observer,
     };
   }
 

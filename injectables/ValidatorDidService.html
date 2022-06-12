@@ -117,7 +117,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">apps/http-validator/src/validator-did/validator-did.service.ts:25</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">apps/http-validator/src/validator-did/validator-did.service.ts:20</a></div>
                             </td>
                         </tr>
 
@@ -223,15 +223,15 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>createDid(createCert: <a href="../classes/CreateDidIdDto.html" target="_self">CreateDidIdDto</a>, role: <a href="../classes/RoleManage.html" target="_self">RoleManageType</a>)</code>
+<code>createDid(createCert: <a href="../classes/CreateDidIdDto.html" target="_self">CreateDidIdDto</a>, role: <a href="../classes/Did.html" target="_self">DidRoles</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="47"
-                            class="link-to-prism">apps/http-validator/src/validator-did/validator-did.service.ts:47</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="42"
+                            class="link-to-prism">apps/http-validator/src/validator-did/validator-did.service.ts:42</a></div>
                 </td>
             </tr>
 
@@ -268,7 +268,7 @@
                                 <tr>
                                     <td>role</td>
                                     <td>
-                                                <code><a href="../classes/RoleManage.html" target="_self" >RoleManageType</a></code>
+                                                <code><a href="../classes/Did.html" target="_self" >DidRoles</a></code>
                                     </td>
 
                                     <td>
@@ -309,15 +309,15 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>setDid(createCert: <a href="../classes/CreateDidIdDto.html" target="_self">CreateDidIdDto</a>, roles: <a href="../classes/RoleManage.html" target="_self">RoleManageType[]</a>)</code>
+                    <code>setDid(createCert: <a href="../classes/CreateDidIdDto.html" target="_self">CreateDidIdDto</a>, roles: <a href="../classes/Did.html" target="_self">DidRoles[]</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="60"
-                            class="link-to-prism">apps/http-validator/src/validator-did/validator-did.service.ts:60</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="55"
+                            class="link-to-prism">apps/http-validator/src/validator-did/validator-did.service.ts:55</a></div>
                 </td>
             </tr>
 
@@ -358,7 +358,7 @@ transaction hash is triggered when the cert was persisted into the blockchain.</
                                 <tr>
                                     <td>roles</td>
                                     <td>
-                                                <code><a href="../classes/RoleManage.html" target="_self" >RoleManageType[]</a></code>
+                                                <code><a href="../classes/Did.html" target="_self" >DidRoles[]</a></code>
                                     </td>
 
                                     <td>
@@ -395,22 +395,17 @@ transaction hash is triggered when the cert was persisted into the blockchain.</
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ConfigService } from &#x27;@tc/config&#x27;;
 import { CreateDidIdDto } from &#x27;@tc/transactions/did-id/dto/create-did-id.dto&#x27;;
 import { DidIdCachedService } from &#x27;@tc/transactions/did-id/cached/did-id-cached.service&#x27;;
-import { DidIdRegister } from &#x27;@trustcerts/did-id-create&#x27;;
+import { DidIdRegister, VerificationRelationshipType } from &#x27;@trustcerts/did&#x27;;
 import { DidIdTransactionDto } from &#x27;@tc/transactions/did-id/dto/did-id-transaction.dto&#x27;;
+import { DidRoles } from &#x27;@tc/transactions/did-id/dto/did-roles.dto&#x27;;
 import { Inject, Injectable } from &#x27;@nestjs/common&#x27;;
 import { Logger } from &#x27;winston&#x27;;
 import { PersistedTransaction } from &#x27;@shared/http/dto/persisted-transaction&#x27;;
-import { RoleManageType } from &#x27;@tc/transactions/did-id/constants&#x27;;
 import { SignatureInfo } from &#x27;@tc/blockchain/transaction/signature-info&#x27;;
 import { SignatureType } from &#x27;@tc/blockchain/transaction/signature-type&#x27;;
 import { ValidatorBlockchainService } from &#x27;../validator-blockchain/validator-blockchain.service&#x27;;
-import {
-  VerificationRelationshipType,
-  exportKey,
-  getFingerPrint,
-  importKey,
-} from &#x27;@trustcerts/core&#x27;;
 import { WalletClientService } from &#x27;@tc/clients/wallet-client&#x27;;
+import { exportKey, getFingerPrint, importKey } from &#x27;@trustcerts/crypto&#x27;;
 
 /**
  * Service that signs or revokes public keys from gateways.
@@ -440,7 +435,7 @@ export class ValidatorDidService {
    */
   createDid(
     createCert: CreateDidIdDto,
-    role: RoleManageType,
+    role: DidRoles,
   ): Promise&lt;PersistedTransaction&gt; {
     return this.setDid(createCert, [role]);
   }
@@ -453,7 +448,7 @@ export class ValidatorDidService {
    */
   private async setDid(
     createCert: CreateDidIdDto,
-    roles: RoleManageType[] &#x3D; [],
+    roles: DidRoles[] &#x3D; [],
   ): Promise&lt;PersistedTransaction&gt; {
     // add the did
     const did &#x3D; DidIdRegister.create({
@@ -494,6 +489,7 @@ export class ValidatorDidService {
       ],
     };
     const transaction &#x3D; new DidIdTransactionDto(
+      //@ts-ignore
       did.getChanges(),
       didDocSignature,
     );

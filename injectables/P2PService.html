@@ -1436,8 +1436,8 @@ takes some time.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="854"
-                            class="link-to-prism">libs/p2-p/src/p2-p.service.ts:854</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="856"
+                            class="link-to-prism">libs/p2-p/src/p2-p.service.ts:856</a></div>
                 </td>
             </tr>
 
@@ -1509,8 +1509,8 @@ takes some time.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="766"
-                            class="link-to-prism">libs/p2-p/src/p2-p.service.ts:766</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="768"
+                            class="link-to-prism">libs/p2-p/src/p2-p.service.ts:768</a></div>
                 </td>
             </tr>
 
@@ -1674,8 +1674,8 @@ takes some time.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="819"
-                            class="link-to-prism">libs/p2-p/src/p2-p.service.ts:819</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="821"
+                            class="link-to-prism">libs/p2-p/src/p2-p.service.ts:821</a></div>
                 </td>
             </tr>
 
@@ -1748,8 +1748,8 @@ takes some time.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="833"
-                            class="link-to-prism">libs/p2-p/src/p2-p.service.ts:833</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="835"
+                            class="link-to-prism">libs/p2-p/src/p2-p.service.ts:835</a></div>
                 </td>
             </tr>
 
@@ -1894,8 +1894,8 @@ takes some time.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="795"
-                            class="link-to-prism">libs/p2-p/src/p2-p.service.ts:795</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="797"
+                            class="link-to-prism">libs/p2-p/src/p2-p.service.ts:797</a></div>
                 </td>
             </tr>
 
@@ -2225,7 +2225,7 @@ takes some time.</p>
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="846" class="link-to-prism">libs/p2-p/src/p2-p.service.ts:846</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="848" class="link-to-prism">libs/p2-p/src/p2-p.service.ts:848</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -2267,13 +2267,13 @@ import { BlockchainSyncService } from &#x27;@tc/p2-p/blockchain-sync/blockchain-
 import { ConnectDto } from &#x27;@tc/p2-p/dto/connect.dto&#x27;;
 import { Connection } from &#x27;@shared/connection&#x27;;
 import { DidIdCachedService } from &#x27;@tc/transactions/did-id/cached/did-id-cached.service&#x27;;
+import { DidRoles } from &#x27;@tc/transactions/did-id/dto/did-roles.dto&#x27;;
 import { Gauge } from &#x27;prom-client&#x27;;
 import { HandshakeService } from &#x27;@tc/p2-p/handshake/handshake.service&#x27;;
 import { HttpService } from &#x27;@nestjs/axios&#x27;;
 import { InjectMetric } from &#x27;@willsoto/nestjs-prometheus&#x27;;
 import { Logger } from &#x27;winston&#x27;;
 import { PersistClientService } from &#x27;@tc/clients/persist-client&#x27;;
-import { RoleManageType } from &#x27;@tc/transactions/did-id/constants&#x27;;
 import { Socket as ServerSocket } from &#x27;socket.io&#x27;;
 import { SignatureService } from &#x27;@tc/blockchain/signature/signature.service&#x27;;
 import { lastValueFrom } from &#x27;rxjs&#x27;;
@@ -2402,7 +2402,7 @@ export class P2PService implements BeforeApplicationShutdown {
    */
   get validatorConnections(): Connection[] {
     return this.connections.filter(
-      (connection) &#x3D;&gt; connection.type &#x3D;&#x3D;&#x3D; RoleManageType.Validator,
+      (connection) &#x3D;&gt; connection.type &#x3D;&#x3D;&#x3D; DidRoles.Validator,
     );
   }
 
@@ -2496,10 +2496,10 @@ export class P2PService implements BeforeApplicationShutdown {
         (roles) &#x3D;&gt; roles[0],
         () &#x3D;&gt; {
           // return Validator because the blockchain is empty and the first connection is always a Validator
-          return RoleManageType.Validator;
+          return DidRoles.Validator;
         },
       )
-      .then((type: RoleManageType) &#x3D;&gt; {
+      .then((type: DidRoles) &#x3D;&gt; {
         endpoint.type &#x3D; type;
         if (
           !this.connections.find(
@@ -2833,7 +2833,7 @@ export class P2PService implements BeforeApplicationShutdown {
       // wait one second so the Validator can register the required events.
       await this.addConnection(endpoint);
       setTimeout(() &#x3D;&gt; {
-        endpoint.type &#x3D; RoleManageType.Validator;
+        endpoint.type &#x3D; DidRoles.Validator;
         this.addListeners(endpoint);
       }, 1000);
     } else {
@@ -2898,7 +2898,7 @@ export class P2PService implements BeforeApplicationShutdown {
     endpoint.socket.once(IS_ENDPOINT_LISTENING_FOR_BLOCKS, () &#x3D;&gt; {
       endpoint.socket.emit(ENDPOINT_LISTENING_FOR_BLOCKS);
     });
-    if (endpoint.type &#x3D;&#x3D;&#x3D; RoleManageType.Validator) {
+    if (endpoint.type &#x3D;&#x3D;&#x3D; DidRoles.Validator) {
       const validators: string[] &#x3D;
         this.configService.getConfig(&#x27;VALIDATORS&#x27;) ?? [];
       if (validators.indexOf(endpoint.peer) &#x3D;&#x3D;&#x3D; -1 &amp;&amp; endpoint.peer !&#x3D;&#x3D; null) {
@@ -2989,6 +2989,8 @@ export class P2PService implements BeforeApplicationShutdown {
           this.processBlock(endpoint, block);
         }
       });
+      // request missing blocks again since between the validator sync and the ws_block listener a new block could be sent without listening to it.
+      await this.blockchainSyncService.request(endpoint);
     } else {
       endpoint.socket.once(IS_ENDPOINT_LISTENING_FOR_VALIDATORS, () &#x3D;&gt; {
         endpoint.socket.emit(ENDPOINT_LISTENING_FOR_VALIDATORS);

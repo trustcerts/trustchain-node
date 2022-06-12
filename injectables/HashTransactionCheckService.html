@@ -508,7 +508,7 @@
 </div>
 
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../classes/RoleManage.html" target="_self" >RoleManageType</a></code>
+                        <b>Returns : </b>        <code><a href="../classes/Did.html" target="_self" >DidRoles</a></code>
 
                     </div>
                 </td>
@@ -752,7 +752,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:70</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:73</a></code>
 </div>
                 </td>
             </tr>
@@ -832,7 +832,7 @@ Check will pass if the transaction does not exists yet or the signer is authoriz
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:54</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:57</a></code>
 </div>
                 </td>
             </tr>
@@ -911,7 +911,7 @@ Check will pass if the transaction does not exists yet or the signer is authoriz
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:46</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:49</a></code>
 </div>
                 </td>
             </tr>
@@ -990,7 +990,7 @@ Check will pass if the transaction does not exists yet or the signer is authoriz
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:61</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/TransactionCheck.html#source" target="_self" >TransactionCheck:64</a></code>
 </div>
                 </td>
             </tr>
@@ -1017,13 +1017,13 @@ Check will pass if the transaction does not exists yet or the signer is authoriz
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { BlockCheckService } from &#x27;@tc/blockchain/block-check/block-check.service&#x27;;
 import { DidHash } from &#x27;@tc/transactions/did-hash/schemas/did-hash.schema&#x27;;
+import { DidHashResolver } from &#x27;@trustcerts/did-hash&#x27;;
 import { DidIdCachedService } from &#x27;@tc/transactions/did-id/cached/did-id-cached.service&#x27;;
-import { DidSignatureResolver } from &#x27;@trustcerts/signature-verify&#x27;;
+import { DidRoles } from &#x27;@tc/transactions/did-id/dto/did-roles.dto&#x27;;
 import { HashCachedService } from &#x27;@tc/transactions/did-hash/cached/hash-cached.service&#x27;;
 import { HashDidTransactionDto } from &#x27;@tc/transactions/did-hash/dto/hash-transaction.dto&#x27;;
 import { Inject, Injectable } from &#x27;@nestjs/common&#x27;;
 import { Logger } from &#x27;winston&#x27;;
-import { RoleManageType } from &#x27;@tc/transactions/did-id/constants&#x27;;
 import { TransactionCheck } from &#x27;@tc/transactions/transactions/transaction-check.service&#x27;;
 import { TransactionDto } from &#x27;@tc/blockchain/transaction/transaction.dto&#x27;;
 import { TransactionType } from &#x27;@tc/blockchain/transaction/transaction-type&#x27;;
@@ -1032,7 +1032,7 @@ import { TransactionType } from &#x27;@tc/blockchain/transaction/transaction-typ
  * Service that implements required function to validate a transaction of a specific type.
  */
 @Injectable()
-export class HashTransactionCheckService extends TransactionCheck&lt;DidSignatureResolver&gt; {
+export class HashTransactionCheckService extends TransactionCheck&lt;DidHashResolver&gt; {
   /**
    * Injects required services
    * @param hashModel
@@ -1117,8 +1117,8 @@ export class HashTransactionCheckService extends TransactionCheck&lt;DidSignatur
   /**
    * Authorized identifier that is able to add this type of transaction.
    */
-  protected getIdentifier(): RoleManageType {
-    return RoleManageType.Client;
+  protected getIdentifier(): DidRoles {
+    return DidRoles.Client;
   }
 
   /**

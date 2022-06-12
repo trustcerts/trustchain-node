@@ -156,7 +156,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">libs/transactions/src/did-id/parse/did-id-parsing.service.ts:29</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">libs/transactions/src/did-id/parse/did-id-parsing.service.ts:30</a></div>
                             </td>
                         </tr>
 
@@ -301,7 +301,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:72</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:74</a></code>
 </div>
                 </td>
             </tr>
@@ -380,7 +380,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:152</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/ParsingService.html#source" target="_self" >ParsingService:154</a></code>
 </div>
                 </td>
             </tr>
@@ -787,6 +787,7 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ClientRedis } from &#x27;@nestjs/microservices&#x27;;
 import { Counter } from &#x27;prom-client&#x27;;
+import { DID_ID_CONNECTION } from &#x27;../constants&#x27;;
 import {
   DidId,
   DidIdDocument,
@@ -796,6 +797,7 @@ import {
   DidIdTransactionDocument,
 } from &#x27;../schemas/did-id-transaction.schema&#x27;;
 import { DidIdTransactionDto } from &#x27;@tc/transactions/did-id/dto/did-id-transaction.dto&#x27;;
+import { DidRoles } from &#x27;@tc/transactions/did-id/dto/did-roles.dto&#x27;;
 import { HashService } from &#x27;@tc/blockchain&#x27;;
 import { IVerificationRelationships } from &#x27;../dto/i-verification-relationships.dto&#x27;;
 import { Inject, Injectable } from &#x27;@nestjs/common&#x27;;
@@ -806,7 +808,6 @@ import { Model } from &#x27;mongoose&#x27;;
 import { ParseService } from &#x27;@apps/parse/src/parse.service&#x27;;
 import { ParsingService } from &#x27;@tc/transactions/transactions/parsing.service&#x27;;
 import { REDIS_INJECTION } from &#x27;@tc/clients/event-client/constants&#x27;;
-import { RoleManageType } from &#x27;../constants&#x27;;
 import { TransactionType } from &#x27;@tc/blockchain/transaction/transaction-type&#x27;;
 
 /**
@@ -831,8 +832,9 @@ export class DidIdParsingService extends ParsingService {
     protected readonly hashService: HashService,
     @Inject(REDIS_INJECTION) protected readonly clientRedis: ClientRedis,
     @Inject(&#x27;winston&#x27;) protected readonly logger: Logger,
-    @InjectModel(DidId.name) protected didIdRepository: Model&lt;DidIdDocument&gt;,
-    @InjectModel(DidIdTransaction.name)
+    @InjectModel(DidId.name, DID_ID_CONNECTION)
+    protected didIdRepository: Model&lt;DidIdDocument&gt;,
+    @InjectModel(DidIdTransaction.name, DID_ID_CONNECTION)
     protected didIdDocumentRepository: Model&lt;DidIdTransactionDocument&gt;,
     @InjectMetric(&#x27;transactions&#x27;)
     protected readonly transactionsCounter: Counter&lt;string&gt;,
@@ -870,7 +872,7 @@ export class DidIdParsingService extends ParsingService {
     // update roles
     if (transaction.body.value.role) {
       if (transaction.body.value.role.remove) {
-        did.roles &#x3D; did.roles!.filter((role: RoleManageType) &#x3D;&gt;
+        did.roles &#x3D; did.roles!.filter((role: DidRoles) &#x3D;&gt;
           transaction.body.value.role!.remove!.includes(role),
         );
       }
@@ -900,8 +902,8 @@ export class DidIdParsingService extends ParsingService {
       modification: true,
     };
     Object.entries(transaction.body.value)
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      .filter(([key, value]) &#x3D;&gt; {
+      // TODO removed second param value, validate change
+      .filter(([key]) &#x3D;&gt; {
         return Object.keys(keys).includes(key);
       })
       .map(([key, value]) &#x3D;&gt; {

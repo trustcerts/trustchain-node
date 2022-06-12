@@ -140,7 +140,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">libs/transactions/src/transactions/transaction-check.service.ts:13</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">libs/transactions/src/transactions/transaction-check.service.ts:16</a></div>
                             </td>
                         </tr>
 
@@ -244,8 +244,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="70"
-                            class="link-to-prism">libs/transactions/src/transactions/transaction-check.service.ts:70</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="73"
+                            class="link-to-prism">libs/transactions/src/transactions/transaction-check.service.ts:73</a></div>
                 </td>
             </tr>
 
@@ -318,8 +318,8 @@ Check will pass if the transaction does not exists yet or the signer is authoriz
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="54"
-                            class="link-to-prism">libs/transactions/src/transactions/transaction-check.service.ts:54</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="57"
+                            class="link-to-prism">libs/transactions/src/transactions/transaction-check.service.ts:57</a></div>
                 </td>
             </tr>
 
@@ -391,8 +391,8 @@ Check will pass if the transaction does not exists yet or the signer is authoriz
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="46"
-                            class="link-to-prism">libs/transactions/src/transactions/transaction-check.service.ts:46</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="49"
+                            class="link-to-prism">libs/transactions/src/transactions/transaction-check.service.ts:49</a></div>
                 </td>
             </tr>
 
@@ -464,8 +464,8 @@ Check will pass if the transaction does not exists yet or the signer is authoriz
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="61"
-                            class="link-to-prism">libs/transactions/src/transactions/transaction-check.service.ts:61</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="64"
+                            class="link-to-prism">libs/transactions/src/transactions/transaction-check.service.ts:64</a></div>
                 </td>
             </tr>
 
@@ -506,8 +506,8 @@ Check will pass if the transaction does not exists yet or the signer is authoriz
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="40"
-                            class="link-to-prism">libs/transactions/src/transactions/transaction-check.service.ts:40</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="43"
+                            class="link-to-prism">libs/transactions/src/transactions/transaction-check.service.ts:43</a></div>
                 </td>
             </tr>
 
@@ -548,8 +548,8 @@ Check will pass if the transaction does not exists yet or the signer is authoriz
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="102"
-                            class="link-to-prism">libs/transactions/src/transactions/transaction-check.service.ts:102</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="105"
+                            class="link-to-prism">libs/transactions/src/transactions/transaction-check.service.ts:105</a></div>
                 </td>
             </tr>
 
@@ -624,16 +624,19 @@ Check will pass if the transaction does not exists yet or the signer is authoriz
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { BlockCheckService } from &#x27;@tc/blockchain/block-check/block-check.service&#x27;;
 import { CachedService } from &#x27;./cache.service&#x27;;
 import { DidIdCachedService } from &#x27;@tc/transactions/did-id/cached/did-id-cached.service&#x27;;
-import { DidResolver, sortKeys } from &#x27;@trustcerts/core&#x27;;
+import { DidResolver, VerifierService } from &#x27;@trustcerts/did&#x27;;
 import { Logger } from &#x27;winston&#x27;;
 import { SignatureDto } from &#x27;@tc/blockchain/transaction/signature.dto&#x27;;
 import { TransactionDto } from &#x27;@tc/blockchain/transaction/transaction.dto&#x27;;
 import { TransactionType } from &#x27;@tc/blockchain/transaction/transaction-type&#x27;;
+import { sortKeys } from &#x27;@trustcerts/crypto&#x27;;
 
 /**
  * Service that implements required function to validate a transaction of a specific type.
  */
-export abstract class TransactionCheck&lt;Res extends DidResolver&gt; {
+export abstract class TransactionCheck&lt;
+  Res extends DidResolver&lt;VerifierService&gt;,
+&gt; {
   /**
    * Registers the implemented function at the block check so the transaction can be checked.
    * @param blockCheckService
