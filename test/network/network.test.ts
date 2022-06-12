@@ -1,4 +1,4 @@
-import { DidRoles } from '@tc/transactions/did-id/dto/did-roles.dto';
+import { DidRoles } from '@trustcerts/did';
 import axios from 'axios';
 
 describe('Network Testing', () => {
