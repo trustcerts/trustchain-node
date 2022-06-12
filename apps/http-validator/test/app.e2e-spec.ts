@@ -4,7 +4,6 @@ import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import * as fs from 'fs';
 import { InviteRequest } from '@tc/invite/schemas/invite-request.schema';
-import { DidRoles } from '@tc/transactions/did-id/constants';
 import { WalletClientService } from '@tc/clients/wallet-client';
 import { DidIdRegister, Identifier } from '@trustcerts/did';
 import { REDIS_INJECTION } from '@tc/clients/event-client/constants';
@@ -22,6 +21,7 @@ import { HttpValidatorService } from '../src/http-validator.service';
 import { wait } from '@shared/helpers';
 import { config } from 'dotenv';
 import { CreateDidIdDto } from '@tc/transactions/did-id/dto/create-did-id.dto';
+import { DidRoles } from '@tc/transactions/did-id/dto/did-roles.dto';
 
 describe('ValidatorController (e2e)', () => {
   let app: INestApplication;

@@ -28,6 +28,8 @@ import { DidIdTransactionDto } from '@tc/transactions/did-id/dto/did-id-transact
 import { config } from 'dotenv';
 import { ParseClientService } from '@tc/clients/parse-client/parse-client.service';
 import { ParseClientModule } from '@tc/clients/parse-client';
+import { HASH_CONNECTION } from '@tc/transactions/did-hash/constants';
+import { DID_ID_CONNECTION } from '@tc/transactions/did-id/constants';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -61,8 +63,12 @@ describe('AppController (e2e)', () => {
     await app.startAllMicroservices();
     await app.init();
 
-    hashRepository = app.get<Model<DidHash>>(getModelToken(DidHash.name));
-    didRepository = app.get<Model<DidId>>(getModelToken(DidId.name));
+    hashRepository = app.get<Model<DidHash>>(
+      getModelToken(DidHash.name, HASH_CONNECTION),
+    );
+    didRepository = app.get<Model<DidId>>(
+      getModelToken(DidId.name, DID_ID_CONNECTION),
+    );
     clientRedis = app.get(REDIS_INJECTION);
     persistClientService = app.get<PersistClientService>(PersistClientService);
     parseClientService = new ParseClientService(app.get('ParseClient'));

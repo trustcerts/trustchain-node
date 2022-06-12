@@ -31,7 +31,7 @@ import { WalletClientService } from '@tc/clients/wallet-client/wallet-client.ser
 import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
 import { DidId } from '@trustcerts/did';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
-import { DidRoles } from '@tc/transactions/did-id/constants';
+import { DidRoles } from '@tc/transactions/did-id/dto/did-roles.dto';
 import { HttpService } from '@nestjs/axios';
 import { config } from 'dotenv';
 import { ParseClientService } from '@tc/clients/parse-client/parse-client.service';

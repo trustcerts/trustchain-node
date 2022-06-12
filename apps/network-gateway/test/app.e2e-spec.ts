@@ -35,7 +35,7 @@ import {
 } from '@tc/blockchain/blockchain.events';
 import { HttpService } from '@nestjs/axios';
 import { config } from 'dotenv';
-import { DidRoles } from '@tc/transactions/did-id/constants';
+import { DidRoles } from '@tc/transactions/did-id/dto/did-roles.dto';
 
 describe('Network Gateway (e2e)', () => {
   let app: INestApplication;

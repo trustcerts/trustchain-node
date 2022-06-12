@@ -136,6 +136,7 @@ export async function createDidForTesting(
     values: [await walletService.signIssuer(did.getDocument())],
   };
   const transaction: TransactionDto = new DidIdTransactionDto(
+    //@ts-ignore
     did.getChanges(),
     didDocSignature,
   );

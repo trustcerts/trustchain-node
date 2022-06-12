@@ -13,7 +13,6 @@ import { ClientRedis } from '@nestjs/microservices';
 import { REDIS_INJECTION } from '@tc/clients/event-client/constants';
 import { addRedisEndpoint } from '@shared/main-functions';
 import { HashService } from '@tc/blockchain';
-import { DidRoles } from '@tc/transactions/did-id/constants';
 import { TemplateTransactionDto } from '@tc/transactions/did-template/dto/template.transaction.dto';
 import { CompressionType } from '@tc/transactions/did-template/dto/compressiontype.dto';
 import { InviteRequest } from '@tc/invite/schemas/invite-request.schema';
@@ -38,6 +37,7 @@ import { HashDidTransactionDto } from '@tc/transactions/did-hash/dto/hash-transa
 import { CreateDidIdDto } from '@tc/transactions/did-id/dto/create-did-id.dto';
 import { config } from 'dotenv';
 import { ParseClientService } from '@tc/clients/parse-client/parse-client.service';
+import { DidRoles } from '@tc/transactions/did-id/dto/did-roles.dto';
 
 describe('Http Gateway (e2e)', () => {
   let app: INestApplication;
