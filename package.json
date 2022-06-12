@@ -28,6 +28,7 @@
     "test:network": "jest -c ./test/network/jest.network.ts --coverage",
     "test:unit": "jest -c jest.unit.ts --coverage",
     "test:unit-ci": "jest -c jest.unit.ts --coverage --ci --reporters=default --reporters=jest-junit",
+    "test:unit-persist": "jest ./apps/persist/src",
     "doc": "compodoc -p tsconfig.json -w --theme material -s -r 8000",
     "doc:build": "compodoc -p tsconfig.json -w --theme material",
     "coverage": "compodoc -p tsconfig.json --coverageTest 95 --coverageTestShowOnlyFailed",

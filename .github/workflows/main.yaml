@@ -14,6 +14,7 @@ on:
 #   PR_NUMBER: ${{ github.event.pull_request.number }}
 
 jobs:
+
   prebuild:
     runs-on: ubuntu-latest
     steps:
@@ -142,12 +143,8 @@ jobs:
         env:
           STORAGE: tmp/
 
-      - name: Upload Unit Test Results
-        if: always()
-        uses: actions/upload-artifact@v2
-        with:
-          name: Unit Test Results ${{ matrix.service }}
-          path: ./*.xml
+      - name: Upload coverage reports to Codecov with GitHub Action
+        uses: codecov/codecov-action@v2
 
   # TODO check if containers have to be build before the e2e test
   # TODO check if we moved completely to npm run test
@@ -200,28 +197,8 @@ jobs:
         # TODO check if call is correct for ci usage
         run: npm run test -- -c ./apps/${{ matrix.services}}/test/jest-e2e.ts --detectOpenHandles --forceExit --coverage --ci --reporters=default --reporters=jest-junit
 
-      - name: Upload E2E Test Results
-        if: always()
-        uses: actions/upload-artifact@v2
-        with:
-          name: E2E Test Results ${{ matrix.service }}
-          path: ./*.xml
-
-  publish-test-results:
-    name: 'Publish Unit Tests Results'
-    needs: e2e
-    runs-on: ubuntu-latest
-    if: always()
-    steps:
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
-        with:
-          path: artifacts
-
-      - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1
-        with:
-          files: artifacts/**/*.xml
+      - name: Upload coverage reports to Codecov with GitHub Action
+        uses: codecov/codecov-action@v2
 
   network-test:
     needs: e2e
@@ -268,10 +245,15 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set npm
-        uses: actions/setup-node@v2
+      - name: Cache dependencies
+        uses: actions/cache@v2
         with:
-          node-version: 16
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-
+
+      - name: Install dependencies
+        run: npm ci
 
       - name: Cache base build Image
         id: cache-trustchain-images
@@ -303,6 +285,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-
+
+      - name: Install dependencies
+        run: npm ci
 
       - name: generate documentation folder
         run: npm run doc:build

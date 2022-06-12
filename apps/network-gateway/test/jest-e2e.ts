@@ -8,6 +8,12 @@ const config: Config.InitialOptions = {
   ...jestConfig,
   rootDir: '../../../',
   testRegex: '.e2e-spec.ts$',
+  collectCoverageFrom: [
+    '<rootDir>/apps/network-gateway/src/**',
+    '!<rootDir>/apps/network-gateway/src/*.*.spec.ts',
+    '!<rootDir>/apps/network-gateway/src/**/*.*.spec.ts',
+    '!<rootDir>/apps/network-gateway/src/main.ts',
+  ],
   roots: ['<rootDir>/apps/network-gateway/', '<rootDir>/libs/'],
 };
 
