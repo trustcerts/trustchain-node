@@ -7,13 +7,13 @@ import {
 import { Body, Controller, Get, Inject, Post, UseGuards } from '@nestjs/common';
 import { ClientRedis } from '@nestjs/microservices';
 import { ConfigService } from '@tc/config';
+import { DidRoles } from '@tc/transactions/did-id/dto/did-roles.dto';
 import { HttpController } from '@shared/http/http.controller';
 import { HttpObserverService } from './http-observer.service';
 import { InviteNode } from '@tc/invite/dto/invite-node.dto';
 import { Logger } from 'winston';
 import { NodeGuard } from '@shared/guards/node-guard.service';
 import { REDIS_INJECTION } from '@tc/clients/event-client/constants';
-import { RoleManageType } from '@tc/transactions/did-id/constants';
 
 /**
  * Controller to interact with the Observer.
@@ -52,7 +52,7 @@ export class HttpObserverController extends HttpController {
   public information() {
     return {
       serviceType: 'http',
-      nodeType: RoleManageType.Observer,
+      nodeType: DidRoles.Observer,
       did: this.configService.getConfig('IDENTIFIER'),
     };
   }

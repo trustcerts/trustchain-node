@@ -1,19 +1,22 @@
 import { Did } from './did/schemas/did.schema';
 import { DidDocumentMetaData } from '@tc/transactions/transactions/did/dto/did-document-meta-data.dto';
 import { DidId } from '@tc/transactions/did-id/schemas/did-id.schema';
-import { DidResolver } from '@trustcerts/core';
+import {
+  DidResolver,
+  SignatureContent,
+  VerifierService,
+} from '@trustcerts/did';
 import { DidTransaction } from './did/schemas/did-transaction.schema';
 import { DocResponse } from './did/dto/doc-response.dto';
 import { Model, Schema } from 'mongoose';
 import { NotFoundException } from '@nestjs/common';
-import { SignatureContent } from '@trustcerts/core';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { VersionInformation } from './did/version-information';
 
 /**
  * Base service to interact with cached transactions from the database.
  */
-export abstract class CachedService<Res extends DidResolver> {
+export abstract class CachedService<Res extends DidResolver<VerifierService>> {
   /**
    * resolver instance to load dids.
    */

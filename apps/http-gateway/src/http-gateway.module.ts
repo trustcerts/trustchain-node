@@ -8,7 +8,7 @@ import { GatewaySchemaModule } from '@tc/transactions/did-schema/gateway/gateway
 import { GatewayTemplateModule } from '@tc/transactions/did-template/gateway/gateway-template.module';
 import { HttpGatewayController } from './http-gateway.controller';
 import { HttpGatewayService } from './http-gateway.service';
-import { Identifier } from '@trustcerts/core';
+import { Identifier } from '@trustcerts/did';
 import { InviteModule } from '@tc/invite/invite.module';
 import { Module } from '@nestjs/common';
 import { ParseClientModule } from '@tc/clients/parse-client';

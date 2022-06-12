@@ -1,23 +1,23 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { DidManage } from '@tc/transactions/transactions/did/dto/did-manage.dto';
+import { DidRoles } from '@tc/transactions/did-id/dto/did-roles.dto';
 import { IsArray, IsOptional } from 'class-validator';
-import { RoleManageType } from '@tc/transactions/did-id/constants';
 
 /**
- * Manger class for the roles.pa
+ * Manger class for the roles.
  */
-export class RoleManage extends DidManage<RoleManageType> {
+export class RoleManage extends DidManage<DidRoles> {
   /**
    * Id that should be removed from the list.
    */
   @ApiProperty({
     description: 'roles that should be added to the did',
-    example: [RoleManageType.Client],
-    enum: RoleManageType,
-    enumName: 'RoleManageType',
+    example: [DidRoles.Client],
+    enum: DidRoles,
+    enumName: 'DidRoles',
     isArray: true,
   })
   @IsOptional()
   @IsArray()
-  add?: RoleManageType[];
+  add?: DidRoles[];
 }

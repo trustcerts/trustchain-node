@@ -1,4 +1,5 @@
 import { ConflictException, Inject, Injectable } from '@nestjs/common';
+import { DID_ID_CONNECTION } from '@tc/transactions/did-id/constants';
 import { DidHash } from '@tc/transactions/did-hash/schemas/did-hash.schema';
 import {
   DidId,
@@ -7,6 +8,7 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { Logger } from 'winston';
 import { Model } from 'mongoose';
+import { TRACKING_CONNECTION } from './constants';
 import { Tracking, TrackingDocument } from './schemas/tracking.schema';
 
 /**
@@ -21,9 +23,9 @@ export class TrackingService {
    */
   constructor(
     @Inject('winston') protected readonly logger: Logger,
-    @InjectModel(DidId.name)
+    @InjectModel(DidId.name, DID_ID_CONNECTION)
     private didModel: Model<DidIdDocument>,
-    @InjectModel(Tracking.name)
+    @InjectModel(Tracking.name, TRACKING_CONNECTION)
     private trackingModel: Model<TrackingDocument>,
   ) {}
 

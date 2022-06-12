@@ -21,13 +21,13 @@ import { BlockchainSyncService } from '@tc/p2-p/blockchain-sync/blockchain-sync.
 import { ConnectDto } from '@tc/p2-p/dto/connect.dto';
 import { Connection } from '@shared/connection';
 import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
+import { DidRoles } from '@tc/transactions/did-id/dto/did-roles.dto';
 import { Gauge } from 'prom-client';
 import { HandshakeService } from '@tc/p2-p/handshake/handshake.service';
 import { HttpService } from '@nestjs/axios';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';
 import { Logger } from 'winston';
 import { PersistClientService } from '@tc/clients/persist-client';
-import { RoleManageType } from '@tc/transactions/did-id/constants';
 import { Socket as ServerSocket } from 'socket.io';
 import { SignatureService } from '@tc/blockchain/signature/signature.service';
 import { lastValueFrom } from 'rxjs';
@@ -156,7 +156,7 @@ export class P2PService implements BeforeApplicationShutdown {
    */
   get validatorConnections(): Connection[] {
     return this.connections.filter(
-      (connection) => connection.type === RoleManageType.Validator,
+      (connection) => connection.type === DidRoles.Validator,
     );
   }
 
@@ -250,10 +250,10 @@ export class P2PService implements BeforeApplicationShutdown {
         (roles) => roles[0],
         () => {
           // return Validator because the blockchain is empty and the first connection is always a Validator
-          return RoleManageType.Validator;
+          return DidRoles.Validator;
         },
       )
-      .then((type: RoleManageType) => {
+      .then((type: DidRoles) => {
         endpoint.type = type;
         if (
           !this.connections.find(
@@ -587,7 +587,7 @@ export class P2PService implements BeforeApplicationShutdown {
       // wait one second so the Validator can register the required events.
       await this.addConnection(endpoint);
       setTimeout(() => {
-        endpoint.type = RoleManageType.Validator;
+        endpoint.type = DidRoles.Validator;
         this.addListeners(endpoint);
       }, 1000);
     } else {
@@ -652,7 +652,7 @@ export class P2PService implements BeforeApplicationShutdown {
     endpoint.socket.once(IS_ENDPOINT_LISTENING_FOR_BLOCKS, () => {
       endpoint.socket.emit(ENDPOINT_LISTENING_FOR_BLOCKS);
     });
-    if (endpoint.type === RoleManageType.Validator) {
+    if (endpoint.type === DidRoles.Validator) {
       const validators: string[] =
         this.configService.getConfig('VALIDATORS') ?? [];
       if (validators.indexOf(endpoint.peer) === -1 && endpoint.peer !== null) {

@@ -4,7 +4,7 @@ import {
   IDENTIFIER_LENGTH_MIN,
   INVITE_CODE_LENGTH_MAX,
 } from '@tc/p2-p/connect.const';
-import { Identifier } from '@trustcerts/core';
+import { Identifier } from '@trustcerts/did';
 import {
   IsDefined,
   IsString,

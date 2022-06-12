@@ -14,13 +14,13 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ConfigService } from '@tc/config';
+import { DidRoles } from '@tc/transactions/did-id/dto/did-roles.dto';
 import { HttpController } from '@shared/http/http.controller';
 import { HttpGatewayService } from './http-gateway.service';
 import { InviteNode } from '@tc/invite/dto/invite-node.dto';
 import { InviteService } from '@tc/invite';
 import { Logger } from 'winston';
 import { NodeGuard } from '@shared/guards/node-guard.service';
-import { RoleManageType } from '@tc/transactions/did-id/constants';
 
 /**
  * Controller to handle requests to the gateway.
@@ -58,7 +58,7 @@ export class HttpGatewayController extends HttpController {
   public information() {
     return {
       serviceType: 'http',
-      nodeType: RoleManageType.Gateway,
+      nodeType: DidRoles.Gateway,
       did: this.configService.getConfig('IDENTIFIER'),
     };
   }

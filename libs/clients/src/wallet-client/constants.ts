@@ -1,5 +1,3 @@
-import { JsonWebKey } from 'crypto';
-
 /**
  * Interface of a exported json web key.
  */

@@ -9,7 +9,7 @@ import { TRACKING_CONNECTION } from './constants';
       imports: [ConfigModule],
       connectionName: TRACKING_CONNECTION,
       useFactory: async (configService: ConfigService) => ({
-        uri: configService.db('traking'),
+        uri: configService.db(),
         retryAttempts: 1,
       }),
       inject: [ConfigService],

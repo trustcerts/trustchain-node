@@ -1,9 +1,9 @@
 import { BlockCheckService } from '@tc/blockchain/block-check/block-check.service';
 import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
-import { DidTemplateResolver } from '@trustcerts/template-verify';
+import { DidRoles } from '@tc/transactions/did-id/dto/did-roles.dto';
+import { DidTemplateResolver } from '@trustcerts/did-template';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
-import { RoleManageType } from '@tc/transactions/did-id/constants';
 import { TemplateCachedService } from '@tc/transactions/did-template/cached/template-cached.service';
 import { TemplateTransactionDto } from '../dto/template.transaction.dto';
 import { TransactionCheck } from '@tc/transactions/transactions/transaction-check.service';
@@ -41,8 +41,8 @@ export class TemplateTransactionCheckService extends TransactionCheck<DidTemplat
    * Returns the identifier that is allowed to make these kind of transactions.
    * @returns
    */
-  protected getIdentifier(): RoleManageType {
-    return RoleManageType.Client;
+  protected getIdentifier(): DidRoles {
+    return DidRoles.Client;
   }
 
   /**

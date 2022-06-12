@@ -22,7 +22,7 @@ import { HttpObserverService } from '../src/http-observer.service';
 import { wait } from '@shared/helpers';
 import { config } from 'dotenv';
 import { ParseClientService } from '@tc/clients/parse-client/parse-client.service';
-import { RoleManageType } from '@tc/transactions/did-id/constants';
+import { DidRoles } from '@tc/transactions/did-id/dto/did-roles.dto';
 
 describe('ObserverController (e2e)', () => {
   let app: INestApplication;
@@ -68,7 +68,7 @@ describe('ObserverController (e2e)', () => {
   it('should give the information about the service', async () => {
     return request(app.getHttpServer()).get('/').expect(200).expect({
       serviceType: 'http',
-      nodeType: RoleManageType.Observer,
+      nodeType: DidRoles.Observer,
     });
   });
 

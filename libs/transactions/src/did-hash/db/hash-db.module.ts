@@ -9,7 +9,7 @@ import { MongooseModule } from '@nestjs/mongoose';
       imports: [ConfigModule],
       connectionName: HASH_CONNECTION,
       useFactory: async (configService: ConfigService) => ({
-        uri: configService.db('hash'),
+        uri: configService.db(),
         retryAttempts: 1,
       }),
       inject: [ConfigService],

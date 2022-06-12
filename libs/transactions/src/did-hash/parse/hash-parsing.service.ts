@@ -1,5 +1,6 @@
 import { ClientRedis } from '@nestjs/microservices';
 import { Counter } from 'prom-client';
+import { DID_ID_CONNECTION } from '@tc/transactions/did-id/constants';
 import {
   DidHash,
   HashDocument,
@@ -8,9 +9,10 @@ import {
   DidHashTransaction,
   HashTransactionDocument,
 } from '../schemas/did-hash-transaction.schema';
-import { DidId } from '@trustcerts/core';
+import { DidId } from '@trustcerts/did';
 import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
 import { DidIdDocument } from '@tc/transactions/did-id/schemas/did-id.schema';
+import { HASH_CONNECTION } from '../constants';
 import { HashDidTransactionDto } from '../dto/hash-transaction.dto';
 import { HashService } from '@tc/blockchain';
 import { Inject, Injectable } from '@nestjs/common';
@@ -41,14 +43,15 @@ export class HashParsingService extends ParsingService {
     protected readonly hashService: HashService,
     @Inject(REDIS_INJECTION) protected readonly clientRedis: ClientRedis,
     @Inject('winston') protected readonly logger: Logger,
-    @InjectModel(DidHash.name) private didHashRepository: Model<HashDocument>,
-    @InjectModel(DidHashTransaction.name)
+    @InjectModel(DidHash.name, HASH_CONNECTION)
+    private didHashRepository: Model<HashDocument>,
+    @InjectModel(DidHashTransaction.name, HASH_CONNECTION)
     private didHashDocumentRegistry: Model<HashTransactionDocument>,
     @InjectMetric('transactions')
     protected readonly transactionsCounter: Counter<string>,
     private readonly parseService: ParseService,
     readonly didIdCachedService: DidIdCachedService,
-    @InjectModel(DidId.name)
+    @InjectModel(DidId.name, DID_ID_CONNECTION)
     protected didIdRepository: Model<DidIdDocument>,
   ) {
     super(

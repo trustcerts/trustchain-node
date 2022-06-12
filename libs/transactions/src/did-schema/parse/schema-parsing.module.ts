@@ -45,5 +45,6 @@ import { SchemaParsingService } from './schema-parsing.service';
       help: 'parsing transactions',
     }),
   ],
+  exports: [MongooseModule],
 })
 export class SchemaParsingModule {}

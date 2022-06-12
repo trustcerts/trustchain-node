@@ -2,16 +2,19 @@ import { Block } from '@tc/blockchain/block/block.interface';
 import { BlockReceivedService } from '@tc/p2-p/block-received/block-received.service';
 import { ConfigService } from '@tc/config/config.service';
 import { Connection } from '@shared/connection';
-import { DidCreation, VerificationRelationshipType } from '@trustcerts/core';
+import {
+  DidCreation,
+  DidIdRegister,
+  VerificationRelationshipType,
+} from '@trustcerts/did';
 import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
-import { DidIdRegister } from '@trustcerts/did-id-create';
 import { DidIdTransactionDto } from '@tc/transactions/did-id/dto/did-id-transaction.dto';
+import { DidRoles } from '@tc/transactions/did-id/dto/did-roles.dto';
 import { HashService } from '@tc/blockchain';
 import { HttpService } from '@nestjs/axios';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
 import { ProposedBlock } from '@tc/blockchain/block/proposed-block.dto';
-import { RoleManageType } from '@tc/transactions/did-id/constants';
 import { SignatureDto } from '@tc/blockchain/transaction/signature.dto';
 import { SignatureInfo } from '@tc/blockchain/transaction/signature-info';
 import { SignatureType } from '@tc/blockchain/transaction/signature-type';
@@ -265,7 +268,7 @@ export class GenesisService {
       key.id.split('#')[1],
       VerificationRelationshipType.authentication,
     );
-    did.addRole(RoleManageType.Validator);
+    did.addRole(DidRoles.Validator);
     // TODO update endpoint if microservice is not api.
     did.addService(
       'name',
@@ -279,6 +282,7 @@ export class GenesisService {
       values: [await this.walletClientService.signIssuer(did.getDocument())],
     };
     const transaction = new DidIdTransactionDto(
+      //@ts-ignore
       did.getChanges(),
       didDocSignature,
     );

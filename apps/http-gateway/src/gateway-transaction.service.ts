@@ -1,7 +1,7 @@
 import { CachedService } from '@tc/transactions/transactions/cache.service';
 import { ConfigService } from '@tc/config';
 import { ConflictException } from '@nestjs/common';
-import { DidResolver } from '@trustcerts/core';
+import { DidResolver, VerifierService } from '@trustcerts/did';
 import { GatewayBlockchainService } from './gateway-blockchain/gateway-blockchain.service';
 import { Logger } from 'winston';
 import { PersistedTransaction } from '@shared/http/dto/persisted-transaction';
@@ -15,7 +15,9 @@ import { WalletClientService } from '@tc/clients/wallet-client';
 /**
  * Base Service to add a transaction.
  */
-export class GatewayTransactionService<Res extends DidResolver> {
+export class GatewayTransactionService<
+  Res extends DidResolver<VerifierService>,
+> {
   // TODO pass DidResolver Class so the procted class is set correctly
   /**
    * Resolved a did.

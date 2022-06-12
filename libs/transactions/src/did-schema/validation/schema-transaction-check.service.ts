@@ -1,9 +1,9 @@
 import { BlockCheckService } from '@tc/blockchain/block-check/block-check.service';
 import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
-import { DidSchemaResolver } from '@trustcerts/schema-verify';
+import { DidRoles } from '@tc/transactions/did-id/dto/did-roles.dto';
+import { DidSchemaResolver } from '@trustcerts/did-schema';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
-import { RoleManageType } from '@tc/transactions/did-id/constants';
 import { SchemaCachedService } from '@tc/transactions/did-schema/cached/schema-cached.service';
 import { SchemaTransactionDto } from '@tc/transactions/did-schema/dto/schema.transaction.dto';
 import { TransactionCheck } from '@tc/transactions/transactions/transaction-check.service';
@@ -48,8 +48,8 @@ export class SchemaTransactionCheckService extends TransactionCheck<DidSchemaRes
    * Returns the identifier that is allowed to make these kind of transactions.
    * @returns
    */
-  protected getIdentifier(): RoleManageType {
-    return RoleManageType.Client;
+  protected getIdentifier(): DidRoles {
+    return DidRoles.Client;
   }
 
   /**

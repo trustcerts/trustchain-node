@@ -9,7 +9,7 @@ import {
   TRANSACTION_CREATED,
 } from '@tc/clients/event-client/constants';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
-import { DidId } from '@trustcerts/core';
+import { DidId } from '@trustcerts/did';
 import { WalletClientService } from '@tc/clients/wallet-client';
 import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
 import { wait } from '@shared/helpers';
@@ -35,7 +35,7 @@ import {
 } from '@tc/blockchain/blockchain.events';
 import { HttpService } from '@nestjs/axios';
 import { config } from 'dotenv';
-import { RoleManageType } from '@tc/transactions/did-id/constants';
+import { DidRoles } from '@tc/transactions/did-id/dto/did-roles.dto';
 
 describe('Network Gateway (e2e)', () => {
   let app: INestApplication;
@@ -70,7 +70,7 @@ describe('Network Gateway (e2e)', () => {
   it('should return the type of the node and the service that was exposed', () => {
     return request(app.getHttpServer()).get('/').expect(200).expect({
       serviceType: 'network',
-      nodeType: RoleManageType.Gateway,
+      nodeType: DidRoles.Gateway,
     });
   });
 

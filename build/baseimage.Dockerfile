@@ -1,5 +1,5 @@
 FROM node:16.14.0-alpine3.15
-ARG app
+WORKDIR /app
 
 ## Install build toolchain, install node deps and compile native add-ons
 RUN apk add py-pip make g++ openssl docker bash
@@ -10,7 +10,11 @@ RUN apk add py-pip make g++ openssl docker bash
 ## install libraries
 COPY ./package*.json ./
 
+
 RUN npm ci --only=production
+
+RUN echo ls
+
 RUN rm package*.json
 
 COPY ./build/wait-for-it.sh ./

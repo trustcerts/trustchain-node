@@ -88,7 +88,6 @@ export class ConfigService {
       LOKI_LOG_LEVEL: Joi.string()
         .valid('debug', 'info', 'warn', 'error')
         .default('info'),
-      LOKI_AUTH: Joi.string().default('loki:loki'),
       //REDIS
       REDIS_URL: Joi.string().default('redis'),
       REDIS_PORT: Joi.number().default(6379),
@@ -279,8 +278,7 @@ export class ConfigService {
   /**
    * Loads the parameters to connect to the db based on the db type.
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public db(module: string) {
+  public db() {
     return `mongodb://${this.getString('DB_USERNAME')}:${this.getString(
       'DB_PASSWORD',
     )}@${this.getString('DB_HOST')}:${this.getString(

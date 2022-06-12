@@ -1,6 +1,6 @@
 import { CachedService } from '@tc/transactions/transactions/cache.service';
 import { DidSchema, SchemaDocument } from '../schemas/did-schema.schema';
-import { DidSchemaResolver } from '@trustcerts/schema-verify';
+import { DidSchemaResolver } from '@trustcerts/did-schema';
 import {
   DidSchemaTransaction,
   SchemaTransactionDocument,
@@ -8,6 +8,7 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
+import { SCHEMA_CONNECTION } from '../constants';
 
 /**
  * Handles requests to get a cached schema.
@@ -19,9 +20,9 @@ export class SchemaCachedService extends CachedService<DidSchemaResolver> {
    * @param schemaModel
    */
   constructor(
-    @InjectModel(DidSchemaTransaction.name)
+    @InjectModel(DidSchemaTransaction.name, SCHEMA_CONNECTION)
     protected transactionModel: Model<SchemaTransactionDocument>,
-    @InjectModel(DidSchema.name)
+    @InjectModel(DidSchema.name, SCHEMA_CONNECTION)
     protected didModel: Model<SchemaDocument>,
   ) {
     super(transactionModel, didModel);

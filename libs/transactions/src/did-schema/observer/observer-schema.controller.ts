@@ -5,6 +5,7 @@ import { DidSchemaTransaction } from '@tc/transactions/did-schema/schemas/did-sc
 import { MaintenanceGuard } from '@tc/config/version/maintenance.guard';
 import { SchemaCachedService } from '@tc/transactions/did-schema/cached/schema-cached.service';
 import { SchemaDocResponse } from '@tc/transactions/did-schema/dto/schema-doc-response.dto';
+import { SchemaVerifierService } from '@trustcerts/did-schema';
 
 /**
  * Endpoint to get a schema.
@@ -14,7 +15,8 @@ import { SchemaDocResponse } from '@tc/transactions/did-schema/dto/schema-doc-re
 @Controller('schema')
 export class ObserverSchemaController extends DidControllerMixin<
   SchemaDocResponse,
-  DidSchemaTransaction
+  DidSchemaTransaction,
+  SchemaVerifierService
 >({ doc: SchemaDocResponse, trans: DidSchemaTransaction }) {
   constructor(protected readonly schemaCachedService: SchemaCachedService) {
     super(schemaCachedService);

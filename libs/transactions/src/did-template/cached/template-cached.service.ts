@@ -1,6 +1,6 @@
 import { CachedService } from '@tc/transactions/transactions/cache.service';
 import { DidTemplate, TemplateDocument } from '../schemas/did-template.schema';
-import { DidTemplateResolver } from '@trustcerts/template-verify';
+import { DidTemplateResolver } from '@trustcerts/did-template';
 import {
   DidTemplateTransaction,
   TemplateTransactionDocument,
@@ -9,6 +9,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { ParsingService } from '@tc/transactions/transactions/parsing.service';
+import { TEMPLATE_CONNECTION } from '../constants';
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 
@@ -22,9 +23,10 @@ export class TemplateCachedService extends CachedService<DidTemplateResolver> {
    * @param didModel
    */
   constructor(
-    @InjectModel(DidTemplateTransaction.name)
+    @InjectModel(DidTemplateTransaction.name, TEMPLATE_CONNECTION)
     protected transactionModel: Model<TemplateTransactionDocument>,
-    @InjectModel(DidTemplate.name) protected didModel: Model<TemplateDocument>,
+    @InjectModel(DidTemplate.name, TEMPLATE_CONNECTION)
+    protected didModel: Model<TemplateDocument>,
   ) {
     super(transactionModel, didModel);
     this.resolver = new DidTemplateResolver();

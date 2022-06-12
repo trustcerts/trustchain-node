@@ -1,5 +1,5 @@
 import { ConfigService } from '@tc/config';
-import { DidTemplateResolver } from '@trustcerts/template-verify';
+import { DidTemplateResolver } from '@trustcerts/did-template';
 import { GatewayBlockchainService } from '@apps/http-gateway/src/gateway-blockchain/gateway-blockchain.service';
 import { GatewayTransactionService } from '@apps/http-gateway/src/gateway-transaction.service';
 import { HashService } from '@tc/blockchain';

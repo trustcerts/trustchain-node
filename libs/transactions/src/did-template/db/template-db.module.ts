@@ -9,7 +9,7 @@ import { TEMPLATE_CONNECTION } from '../constants';
       imports: [ConfigModule],
       connectionName: TEMPLATE_CONNECTION,
       useFactory: async (configService: ConfigService) => ({
-        uri: configService.db('template'),
+        uri: configService.db(),
         retryAttempts: 1,
       }),
       inject: [ConfigService],

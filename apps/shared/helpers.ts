@@ -1,4 +1,4 @@
-import { Identifier } from '@trustcerts/core';
+import { Identifier } from '@trustcerts/did';
 
 /**
  * Waits a defined time in milliseconds.
