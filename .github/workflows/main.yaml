@@ -200,13 +200,6 @@ jobs:
         # TODO check if call is correct for ci usage
         run: npm run test -- -c ./apps/${{ matrix.services}}/test/jest-e2e.ts --detectOpenHandles --forceExit --coverage --ci --reporters=default --reporters=jest-junit
 
-      - name: Upload E2E Test Results
-        if: always()
-        uses: actions/upload-artifact@v2
-        with:
-          name: E2E Test Results ${{ matrix.services }}
-          path: ./coverage
-
       - name: Upload coverage reports to Codecov with GitHub Action
         uses: codecov/codecov-action@v2
 
