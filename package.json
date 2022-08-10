@@ -58,7 +58,7 @@
     "@trustcerts/did-hash": "^11.0.1",
     "@trustcerts/did-schema": "^11.0.1",
     "@trustcerts/did-template": "^11.0.1",
-    "@willsoto/nestjs-prometheus": "^4.4.0",
+    "@willsoto/nestjs-prometheus": "^4.7.0",
     "ajv": "^8.11.0",
     "axios": "^0.27.2",
     "class-transformer": "^0.5.1",
