@@ -19,8 +19,9 @@ export class InviteRequest {
     required: false,
   })
   @IsString()
+  @IsOptional()
   @Prop({ length: 50 })
-  id!: string;
+  id?: string;
 
   /**
    * Secret/Invite code.

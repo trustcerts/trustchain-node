@@ -30,6 +30,13 @@ export class DidTransaction extends BcEntity {
   createdAt!: string;
 
   /**
+   * Type of the transaction.
+   */
+  @Prop()
+  @ApiProperty({ description: 'Type of the transaction' })
+  type!: string;
+
+  /**
    * Includes the changes of a did document as json object.
    */
   @Prop()

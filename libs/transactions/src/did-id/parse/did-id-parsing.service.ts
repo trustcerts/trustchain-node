@@ -27,7 +27,7 @@ import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
  * Parses the transaction that change a did document.
  */
 @Injectable()
-export class DidIdParsingService extends ParsingService {
+export class DidIdParsingService extends ParsingService<DidIdTransactionDocument> {
   /**
    * Injects required services.
    * @param parser
@@ -72,7 +72,7 @@ export class DidIdParsingService extends ParsingService {
    * @param transaction
    */
   async parseDid(transaction: DidIdTransactionDto) {
-    await this.addDocument(transaction);
+    await this.addTransaction(transaction);
     const did = await this.didIdRepository
       .findOne({ id: transaction.body.value.id })
       .then(

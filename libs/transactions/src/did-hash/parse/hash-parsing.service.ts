@@ -29,7 +29,7 @@ import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
  * Parses transactions that deal with hashes.
  */
 @Injectable()
-export class HashParsingService extends ParsingService {
+export class HashParsingService extends ParsingService<HashTransactionDocument> {
   /**
    * Creates a HashBlockchainService and places listeners for hashes on the blockchainService.
    * @param parser
@@ -73,7 +73,7 @@ export class HashParsingService extends ParsingService {
    * @param transaction
    */
   async parseDid(transaction: HashDidTransactionDto) {
-    await this.addDocument(transaction);
+    await this.addTransaction(transaction);
     const did = await this.didHashRepository
       .findOne({ id: transaction.body.value.id })
       .then(

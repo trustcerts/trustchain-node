@@ -29,7 +29,7 @@ import { join } from 'path';
  * Parses new template transactions.
  */
 @Injectable()
-export class TemplateParsingService extends ParsingService {
+export class TemplateParsingService extends ParsingService<TemplateTransactionDocument> {
   /**
    * Creates a HashBlockchainService and places listeners for hashes on the blockchainService.
    * @param parser
@@ -72,7 +72,7 @@ export class TemplateParsingService extends ParsingService {
    * @param transaction
    */
   protected async parseDid(transaction: TemplateTransactionDto) {
-    await this.addDocument(transaction);
+    await this.addTransaction(transaction);
     const did = await this.didTemplateRepository
       .findOne({ id: transaction.body.value.id })
       .then(

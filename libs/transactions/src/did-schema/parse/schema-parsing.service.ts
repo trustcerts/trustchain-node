@@ -25,7 +25,7 @@ import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
  * Parses new schema transactions.
  */
 @Injectable()
-export class SchemaParsingService extends ParsingService {
+export class SchemaParsingService extends ParsingService<SchemaTransactionDocument> {
   /**
    * Creates a HashBlockchainService and places listeners for hashes on the blockchainService.
    * @param parser
@@ -67,7 +67,7 @@ export class SchemaParsingService extends ParsingService {
    * @param transaction
    */
   protected async parseDid(transaction: SchemaTransactionDto) {
-    await this.addDocument(transaction);
+    await this.addTransaction(transaction);
     const did = await this.didSchemaRepository
       .findOne({ id: transaction.body.value.id })
       .then(

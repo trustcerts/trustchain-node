@@ -76,6 +76,7 @@ export class InviteService {
       message: `Added invite for ${invite.name}`,
       labels: { source: this.constructor.name },
     });
+    // TODO return a jwt so the elements are in one object and have not to be copies one by one
     return invite;
   }
 

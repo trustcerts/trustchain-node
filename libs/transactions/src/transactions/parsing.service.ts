@@ -5,6 +5,7 @@ import {
   DidId,
   DidIdDocument,
 } from '@tc/transactions/did-id/schemas/did-id.schema';
+import { DidTransactionDocument } from './did/schemas/did-transaction.schema';
 import { DidTransactionDto } from './did/dto/did.transaction.dto';
 import { HashService } from '@tc/blockchain';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';
@@ -16,7 +17,7 @@ import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 /**
  * Base class to parse a new transaction.
  */
-export abstract class ParsingService {
+export abstract class ParsingService<B extends DidTransactionDocument> {
   /**
    * Path where shared files should be stored that will not be stored in the database.
    */
@@ -35,8 +36,7 @@ export abstract class ParsingService {
     @InjectMetric('transactions')
     protected transactionsCounter: Counter<string>,
     protected didIdRepository: Model<DidIdDocument>,
-    // TODO set DidTransactionDocument
-    protected didTransactionRepository: Model<any>,
+    protected didTransactionRepository: Model<B>,
   ) {}
 
   /**
@@ -72,15 +72,18 @@ export abstract class ParsingService {
   }
 
   /**
-   * Adds the document to the database.
+   * Adds the document's transaction to the database.
    */
-  protected async addDocument(transaction: DidTransactionDto): Promise<void> {
+  protected async addTransaction(
+    transaction: DidTransactionDto,
+  ): Promise<void> {
     const did = new this.didTransactionRepository({
       index: await this.hashService.hashTransaction(transaction),
       id: transaction.body.value.id,
       createdAt: transaction.body.date,
       values: transaction.body.value,
-      signature: transaction.signature.values,
+      signature: transaction.signature,
+      type: transaction.body.type,
       didDocumentSignature: transaction.metadata.didDocSignature,
       block: {
         ...transaction.block,

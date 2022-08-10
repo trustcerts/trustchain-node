@@ -35,4 +35,10 @@ export class DidDocumentMetaData {
    */
   @ApiProperty()
   created!: string;
+
+  /**
+   * timestamp when the transaction was imported
+   */
+  @ApiProperty()
+  imported?: string;
 }

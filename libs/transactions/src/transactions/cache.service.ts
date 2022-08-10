@@ -95,6 +95,10 @@ export abstract class CachedService<Res extends DidResolver<VerifierService>> {
       created: new Date(transactions[0].createdAt).toISOString(),
       versionId: transactions.length,
     };
+    // add imported information. When imported the timestamp is the one from the block so the correct did version can be requested
+    if (transactions[0].block.imported) {
+      result.imported = transactions[0].block.createdAt;
+    }
     // set update if there are more transactions
     if (transactions.length > 1) {
       result.updated = new Date(

@@ -97,10 +97,14 @@ export function DidControllerMixin<
       @Query('versionTime') time: string,
       @Query('versionId') id: number,
     ): Promise<D> {
-      return this.didCachedService.getDocument<D>(identifier, {
-        time,
-        id,
-      });
+      return this.didCachedService
+        .getDocument<D>(identifier, {
+          time,
+          id,
+        })
+        .catch((err: Error) => {
+          throw new NotFoundException(err.message);
+        });
     }
 
     /**
