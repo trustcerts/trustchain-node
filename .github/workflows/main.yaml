@@ -9,12 +9,22 @@ on:
       - opened
       - synchronize
 
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
+
 # TODO evaluate if we need the pr number since we store the images in the cicd cache and not in a registry during the branches
 # env:
 #   PR_NUMBER: ${{ github.event.pull_request.number }}
 
 jobs:
-
   prebuild:
     runs-on: ubuntu-latest
     steps:
@@ -284,7 +294,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Cache dependencies
         uses: actions/cache@v2
@@ -299,8 +309,14 @@ jobs:
       - name: generate documentation folder
         run: npm run doc:build
 
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4.2.5
+      - name: Setup Pages
+        uses: actions/configure-pages@v1
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
         with:
-          branch: gh-pages # The branch the action should deploy to.
-          folder: documentation
+          path: 'documentation'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@main
