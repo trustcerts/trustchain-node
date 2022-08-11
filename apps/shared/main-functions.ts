@@ -40,9 +40,8 @@ export async function addRedisEndpoint(app: INestApplication) {
   app.connectMicroservice({
     transport: Transport.REDIS,
     options: {
-      url: `redis://${configService.getString(
-        'REDIS_URL',
-      )}:${configService.getNumber('REDIS_PORT')}`,
+      host: configService.getString('REDIS_URL'),
+      port: configService.getNumber('REDIS_PORT'),
       retryAttempts: 3,
       retryDelay: 1000,
     },

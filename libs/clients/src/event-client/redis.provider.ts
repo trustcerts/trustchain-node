@@ -11,9 +11,8 @@ export const redisProvider = {
     return ClientProxyFactory.create({
       transport: Transport.REDIS,
       options: {
-        url: `redis://${configService.getString(
-          'REDIS_URL',
-        )}:${configService.getNumber('REDIS_PORT')}`,
+        host: configService.getString('REDIS_URL'),
+        port: configService.getNumber('REDIS_PORT'),
         retryAttempts: 10,
         retryDelay: 1000,
       },

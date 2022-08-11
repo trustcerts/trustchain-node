@@ -8,6 +8,8 @@ import {
   VerificationRelationshipType,
 } from '@trustcerts/did';
 import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
+import { DidIdStructure } from '../dto/did-id-structure.dto';
+import { DidIdTransaction } from '../schemas/did-id-transaction.schema';
 import { DidIdTransactionCheckService } from '@tc/transactions/did-id/validation/did-id-transaction-check.service';
 import { DidIdTransactionDto } from '@tc/transactions/did-id/dto/did-id-transaction.dto';
 import { DidResponse } from './responses';
@@ -19,7 +21,7 @@ import { Logger } from 'winston';
 import { SignatureInfo } from '@tc/blockchain/transaction/signature-info';
 import { SignatureType } from '@tc/blockchain/transaction/signature-type';
 import { WalletClientService } from '@tc/clients/wallet-client';
-import { exportKey, getFingerPrint, importKey } from '@trustcerts/crypto';
+import { exportKey, importKey } from '@trustcerts/crypto';
 
 /**
  * Administrates did objects.
@@ -88,14 +90,16 @@ export class GatewayDidService extends GatewayTransactionService<DidIdResolver> 
   private async resetModification(
     createCert: CreateDidIdDto,
   ): Promise<DidResponse> {
-    const transactions = await this.didCachedService.getTransactions(
-      createCert.identifier,
-    );
+    const transactions: DidIdStructure[] = (
+      await this.didCachedService.getTransactions<DidIdTransaction>(
+        createCert.identifier,
+      )
+    ).map((transaction) => transaction.values);
     if (transactions.length === 0) {
       throw new NotFoundException(`${createCert.identifier} not known`);
     }
     const did = await this.didResolver.load(createCert.identifier, {
-      transactions: transactions.map((transaction) => transaction.values),
+      transactions,
       validateChainOfTrust: false,
     });
     did.getDocument().modification.forEach((id) => {
@@ -106,7 +110,10 @@ export class GatewayDidService extends GatewayTransactionService<DidIdResolver> 
       did.removeKey(id);
     });
     const key = await importKey(createCert.publicKey, 'jwk', ['verify']);
-    const fingerPrint = await getFingerPrint(key);
+    const keyService = await this.walletService.getCryptoKeyServiceByKey(
+      createCert.publicKey,
+    );
+    const fingerPrint = await keyService.getFingerPrint(key);
     did.addKey(fingerPrint, await exportKey(key));
     did.addVerificationRelationship(
       fingerPrint,
@@ -134,7 +141,10 @@ export class GatewayDidService extends GatewayTransactionService<DidIdResolver> 
 
     // add the given key
     const key = await importKey(createCert.publicKey, 'jwk', ['verify']);
-    const fingerPrint = await getFingerPrint(key);
+    const keyService = await this.walletService.getCryptoKeyServiceByKey(
+      createCert.publicKey,
+    );
+    const fingerPrint = await keyService.getFingerPrint(key);
     did.addKey(fingerPrint, await exportKey(key));
     did.addVerificationRelationship(
       fingerPrint,

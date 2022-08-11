@@ -2,6 +2,14 @@ import { ClientTCP, RpcException } from '@nestjs/microservices';
 import { ConfigService } from '@tc/config';
 import { Connection } from '@shared/connection';
 import { CreateDidIdDto } from '@tc/transactions/did-id/dto/create-did-id.dto';
+import {
+  CryptoKeyService,
+  ECCryptoKeyService,
+  RSACryptoKeyService,
+  importKey,
+  sortKeys,
+  verifySignature,
+} from '@trustcerts/crypto';
 import { HttpService } from '@nestjs/axios';
 import { Inject, Injectable, OnModuleDestroy } from '@nestjs/common';
 import { InviteNode } from '@tc/invite/dto/invite-node.dto';
@@ -16,7 +24,6 @@ import {
   WALLET_SIGN,
 } from '@tc/clients/wallet-client/endpoints';
 import { WALLET_TCP_INJECTION } from './constants';
-import { importKey, sortKeys, verifySignature } from '@trustcerts/crypto';
 import { lastValueFrom } from 'rxjs';
 
 /**
@@ -24,6 +31,11 @@ import { lastValueFrom } from 'rxjs';
  */
 @Injectable()
 export class WalletClientService implements OnModuleDestroy {
+  /**
+   * An array containing instances of cryptokey services to handle different key types.
+   */
+  private cryptoKeyServices: CryptoKeyService[];
+
   /**
    * Hashing algorithm that should be used.
    */
@@ -41,7 +53,12 @@ export class WalletClientService implements OnModuleDestroy {
     @Inject('winston') private readonly logger: Logger,
     private readonly configService: ConfigService,
     private readonly httpService: HttpService,
-  ) {}
+  ) {
+    this.cryptoKeyServices = [
+      new RSACryptoKeyService(),
+      new ECCryptoKeyService(),
+    ];
+  }
 
   /**
    * Checks a given input is signed by a given key.
@@ -161,6 +178,20 @@ export class WalletClientService implements OnModuleDestroy {
       });
       throw new RpcException(err);
     }
+  }
+
+  /**
+   * Returns the keycrptoservice based on the key type
+   * @param algorithm of the key
+   * @returns object of the cryptokeyservice
+   */
+  public async getCryptoKeyServiceByKey(
+    key: JsonWebKey,
+  ): Promise<CryptoKeyService> {
+    for (const service of this.cryptoKeyServices) {
+      if (await service.isCorrectKeyType(key)) return service;
+    }
+    throw Error(`no service found for ${JSON.stringify(key)}`);
   }
 
   /**

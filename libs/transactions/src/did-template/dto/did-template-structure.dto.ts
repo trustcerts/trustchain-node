@@ -30,7 +30,7 @@ export class DidTemplateStructure extends DidStructure {
     description: 'template that should be used.',
   })
   @IsString()
-  template!: string;
+  template?: string;
 
   /**
    * did of the schema the template is based on
@@ -39,11 +39,11 @@ export class DidTemplateStructure extends DidStructure {
     description: 'did of the schema the template is based on',
   })
   @IsString()
-  schemaId!: string;
+  schemaId?: string;
 
   /**
    * Information about the used compression algorithm.
    */
   @Type(() => Compression)
-  compression!: Compression;
+  compression?: Compression;
 }

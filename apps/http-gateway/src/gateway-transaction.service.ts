@@ -2,6 +2,7 @@ import { CachedService } from '@tc/transactions/transactions/cache.service';
 import { ConfigService } from '@tc/config';
 import { ConflictException } from '@nestjs/common';
 import { DidResolver, VerifierService } from '@trustcerts/did';
+import { DidTransactionDto } from '@tc/transactions/transactions/did/dto/did.transaction.dto';
 import { GatewayBlockchainService } from './gateway-blockchain/gateway-blockchain.service';
 import { Logger } from 'winston';
 import { PersistedTransaction } from '@shared/http/dto/persisted-transaction';
@@ -87,12 +88,12 @@ export class GatewayTransactionService<
   /**
    * Adds a signature to the transaction to proof it was correct.
    */
-  public async addDidDocSignature(transaction: TransactionDto) {
+  public async addDidDocSignature(transaction: DidTransactionDto) {
     const values = await this.cachedService.getTransactions(
       transaction.body.value.id,
     );
     const transactions = values
-      .map((transaction) => transaction.values)
+      .map((value) => value.values)
       .concat([transaction.body.value]);
     const did = await this.didResolver.load(transaction.body.value.id, {
       transactions,

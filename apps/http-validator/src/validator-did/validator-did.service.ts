@@ -11,7 +11,7 @@ import { SignatureInfo } from '@tc/blockchain/transaction/signature-info';
 import { SignatureType } from '@tc/blockchain/transaction/signature-type';
 import { ValidatorBlockchainService } from '../validator-blockchain/validator-blockchain.service';
 import { WalletClientService } from '@tc/clients/wallet-client';
-import { exportKey, getFingerPrint, importKey } from '@trustcerts/crypto';
+import { exportKey, importKey } from '@trustcerts/crypto';
 
 /**
  * Service that signs or revokes public keys from gateways.
@@ -64,7 +64,10 @@ export class ValidatorDidService {
 
     // add the given key
     const key = await importKey(createCert.publicKey, 'jwk', ['verify']);
-    const fingerPrint = await getFingerPrint(key);
+    const keyService = await this.walletService.getCryptoKeyServiceByKey(
+      createCert.publicKey,
+    );
+    const fingerPrint = await keyService.getFingerPrint(key);
     did.addKey(fingerPrint, await exportKey(key));
     did.addVerificationRelationship(
       fingerPrint,

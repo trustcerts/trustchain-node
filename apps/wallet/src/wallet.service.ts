@@ -4,7 +4,7 @@ import { ConfigService } from '@tc/config';
 import {
   CryptoService,
   DecryptedKeyPair,
-  generateKeyPair,
+  RSACryptoKeyService,
 } from '@trustcerts/crypto';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
@@ -90,7 +90,8 @@ export class WalletService {
   async setOwnInformation(id: string) {
     this.configService.setConfig('IDENTIFIER', id);
     this.clientRedis.emit(NEW_IDENTIFIER, id);
-    const keyPair = await generateKeyPair(id);
+    const keyService = new RSACryptoKeyService();
+    const keyPair = await keyService.generateKeyPair(id);
     this.addKey(keyPair);
     await this.init();
   }
