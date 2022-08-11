@@ -56,7 +56,7 @@
     "@nestjs/websockets": "^8.2.4",
     "@trustcerts/did": "^11.0.1",
     "@trustcerts/did-hash": "^11.0.1",
-    "@trustcerts/did-schema": "^11.0.1",
+    "@trustcerts/did-schema": "^11.0.12",
     "@trustcerts/did-template": "^11.0.1",
     "@willsoto/nestjs-prometheus": "^4.4.0",
     "ajv": "^8.11.0",
