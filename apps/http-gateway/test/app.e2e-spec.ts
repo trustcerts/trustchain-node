@@ -4,7 +4,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { HttpGatewayModule } from '../src/http-gateway.module';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
-import { exportKey, generateCryptoKeyPair } from '@trustcerts/crypto';
+import { RSACryptoKeyService } from '@trustcerts/crypto';
 import { Did, DidIdRegister, Identifier } from '@trustcerts/did';
 import { DidIdTransactionDto } from '@tc/transactions/did-id/dto/did-id-transaction.dto';
 import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
@@ -258,11 +258,12 @@ describe('Http Gateway (e2e)', () => {
       role: DidRoles.Gateway,
     };
     await inviteService.createInvite(invite);
-    const pair = await generateCryptoKeyPair();
+    const keyService = new RSACryptoKeyService();
+    const pair = await keyService.generateKeyPair(did.id);
     const testCerts: CreateDidIdDto = {
       identifier: did.id,
       secret: 'test_secret',
-      publicKey: await exportKey(pair.publicKey!),
+      publicKey: pair.publicKey,
     };
     addListenerToTransactionParsed(clientRedis, hashService);
     return request(app.getHttpServer())

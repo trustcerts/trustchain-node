@@ -15,10 +15,10 @@ permissions:
   pages: write
   id-token: write
 
-# Allow one concurrent deployment
-concurrency:
-  group: 'pages'
-  cancel-in-progress: true
+# # Allow one concurrent deployment
+# concurrency:
+#   group: 'pages'
+#   cancel-in-progress: true
 
 # TODO evaluate if we need the pr number since we store the images in the cicd cache and not in a registry during the branches
 # env:
