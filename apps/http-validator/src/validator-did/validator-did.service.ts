@@ -4,8 +4,7 @@ import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached
 import { DidIdRegister, VerificationRelationshipType } from '@trustcerts/did';
 import { DidIdTransactionDto } from '@tc/transactions/did-id/dto/did-id-transaction.dto';
 import { DidRoles } from '@tc/transactions/did-id/dto/did-roles.dto';
-import { Inject, Injectable } from '@nestjs/common';
-import { Logger } from 'winston';
+import { Injectable } from '@nestjs/common';
 import { PersistedTransaction } from '@shared/http/dto/persisted-transaction';
 import { SignatureInfo } from '@tc/blockchain/transaction/signature-info';
 import { SignatureType } from '@tc/blockchain/transaction/signature-type';
@@ -31,7 +30,6 @@ export class ValidatorDidService {
     private readonly walletService: WalletClientService,
     private readonly didCachedService: DidIdCachedService,
     private readonly configService: ConfigService,
-    @Inject('winston') private readonly logger: Logger,
   ) {}
 
   /**
@@ -80,7 +78,6 @@ export class ValidatorDidService {
     );
 
     // add endpoint to resolve name
-    // TODO replace with OWN peer to be independent from domain approach
     const endpoint = this.configService.getString('OWN_PEER');
     did.addService('name', `${endpoint}/did/resolve/${did.id}`, 'resolver');
 

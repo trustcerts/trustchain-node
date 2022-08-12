@@ -106,7 +106,7 @@ describe('Http Gateway (e2e)', () => {
     const values: InviteNode = {
       id: 'faketestid',
       secret: 'test_secret',
-      url: 'localhost:3050',
+      endpoint: 'localhost:3050',
     };
     return request(app.getHttpServer())
       .post('/init')

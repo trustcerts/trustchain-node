@@ -24,5 +24,5 @@ export class InviteNode {
    */
   @ApiProperty({ description: 'Url of the node endpoint' })
   @IsString()
-  url!: string;
+  endpoint!: string;
 }
