@@ -209,7 +209,7 @@ export function addRedisSub(
   callback: (data: any) => void,
 ) {
   const subClient = client.createClient();
-  const sub = subClient.subscribe(channel);
+  subClient.subscribe(channel);
   subClient.on(MESSAGE_EVENT, (pattern: string, value: any) => {
     if (channel === pattern) {
       console.log(
@@ -217,7 +217,7 @@ export function addRedisSub(
         `an event was recieved on channel ${pattern} successfully`,
       );
       callback(JSON.parse(value).data);
-      sub.unsubscribe();
+      subClient.unsubscribe(channel);
     }
   });
 }
