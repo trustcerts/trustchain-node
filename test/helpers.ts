@@ -10,7 +10,6 @@ import {
 import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
 import { DidIdTransactionDto } from '@tc/transactions/did-id/dto/did-id-transaction.dto';
 import { HashService } from '@tc/blockchain/hash.service';
-import { RedisClient } from '@nestjs/microservices/external/redis.interface';
 import { SignatureInfo } from '@tc/blockchain/transaction/signature-info';
 import { SignatureType } from '@tc/blockchain/transaction/signature-type';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
@@ -25,7 +24,7 @@ import { MESSAGE_EVENT } from '@nestjs/microservices/constants';
 import { ParseClientService } from '@tc/clients/parse-client/parse-client.service';
 import { SchemaTransactionDto } from '@tc/transactions/did-schema/dto/schema.transaction.dto';
 import { Server } from 'socket.io';
-import { Subject } from 'rxjs';
+
 import {
   TRANSACTION_CREATED,
   TRANSACTION_PARSED,
@@ -89,16 +88,6 @@ export function generateTestDidIdTransaction(): DidIdTransactionDto {
       value: { id: `${Math.random()}` },
     },
   };
-}
-
-/**
- * Stop listening to a redis event
- * @param client Redis client
- * @param channel Channel name
- */
-export function removeRedisSub(subClient: RedisClient, channel: string) {
-  subClient.unsubscribe(channel);
-  subClient.quit();
 }
 
 /**
@@ -219,8 +208,8 @@ export function addRedisSub(
   channel: string,
   callback: (data: any) => void,
 ) {
-  const subClient = client.createClient(new Subject<Error>());
-  subClient.subscribe(channel);
+  const subClient = client.createClient();
+  const sub = subClient.subscribe(channel);
   subClient.on(MESSAGE_EVENT, (pattern: string, value: any) => {
     if (channel === pattern) {
       console.log(
@@ -228,7 +217,7 @@ export function addRedisSub(
         `an event was recieved on channel ${pattern} successfully`,
       );
       callback(JSON.parse(value).data);
-      removeRedisSub(subClient, TRANSACTION_CREATED);
+      sub.unsubscribe();
     }
   });
 }
