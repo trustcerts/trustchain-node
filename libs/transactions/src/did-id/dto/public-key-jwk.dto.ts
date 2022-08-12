@@ -32,52 +32,72 @@ export class PublicKeyJwkDto implements JsonWebKey {
   @IsString()
   @IsOptional()
   alg?: string;
-
+  /**
+   * Used curve, used with elliptic curves.
+   */
   @ApiProperty()
   @IsString()
   @IsOptional()
   crv?: string;
-
+  /**
+   * Private exponent of an rsa private key.
+   */
   @ApiProperty()
   @IsString()
   @IsOptional()
   d?: string;
-
+  /**
+   * used in a rsa private key.
+   */
   @ApiProperty()
   @IsString()
   @IsOptional()
   dp?: string;
-
+  /**
+   * used in a rsa private key.
+   */
   @ApiProperty()
   @IsString()
   @IsOptional()
   dq?: string;
-
+  /**
+   * used for a symmetric key
+   */
   @ApiProperty()
   @IsString()
   @IsOptional()
   k?: string;
-
+  /**
+   * used in a rsa private key.
+   */
   @ApiProperty()
   @IsString()
   @IsOptional()
   p?: string;
-
+  /**
+   * used in a rsa private key.
+   */
   @ApiProperty()
   @IsString()
   @IsOptional()
   q?: string;
-
+  /**
+   * used in a rsa private key.
+   */
   @ApiProperty()
   @IsString()
   @IsOptional()
   qi?: string;
-
+  /**
+   * coordinate of a position for elliptic curves
+   */
   @ApiProperty()
   @IsString()
   @IsOptional()
   x?: string;
-
+  /**
+   * coordinate of a position for elliptic curves
+   */
   @ApiProperty()
   @IsString()
   @IsOptional()
