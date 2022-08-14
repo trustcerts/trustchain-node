@@ -9,6 +9,7 @@ import { CreateDidIdDto } from '@tc/transactions/did-id/dto/create-did-id.dto';
 import { DidIdTransactionDto } from '@tc/transactions/did-id/dto/did-id-transaction.dto';
 import { DidResponse } from './responses';
 import { GatewayDidService } from './gateway-did.service';
+import { InviteNode } from '@tc/invite/dto/invite-node.dto';
 import { InviteRequest } from '@tc/invite/schemas/invite-request.schema';
 import { InviteService } from '@tc/invite';
 import { MaintenanceGuard } from '@tc/config/version/maintenance.guard';
@@ -54,7 +55,7 @@ export class GatewayDidController {
   @ApiOperation({
     summary: 'Generates an invite for a new Client',
   })
-  async invite(@Body() invite: InviteRequest): Promise<InviteRequest> {
+  async invite(@Body() invite: InviteRequest): Promise<InviteNode> {
     return this.inviteService.createInvite(invite);
   }
 

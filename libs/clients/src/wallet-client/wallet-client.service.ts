@@ -139,7 +139,7 @@ export class WalletClientService implements OnModuleDestroy {
       labels: { source: this.constructor.name },
     });
     const connection = new Connection(this.logger, this.httpService);
-    connection.peer = invite.url;
+    connection.peer = invite.endpoint;
     await connection.waitUntilHealthy();
 
     // set the new did

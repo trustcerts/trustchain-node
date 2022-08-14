@@ -83,7 +83,7 @@ describe('ObserverController (e2e)', () => {
     const values: InviteNode = {
       id: 'irgendeineId',
       secret: 'testSecret',
-      url: 'localhost:3050',
+      endpoint: 'localhost:3050',
     };
     return request(app.getHttpServer())
       .post('/init')

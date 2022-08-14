@@ -12,6 +12,7 @@ import {
 import { ClientTCP } from '@nestjs/microservices';
 import { ConfigService } from '@tc/config';
 import { CreateDidIdDto } from '@tc/transactions/did-id/dto/create-did-id.dto';
+import { InviteNode } from '@tc/invite/dto/invite-node.dto';
 import { InviteRequest } from '@tc/invite/schemas/invite-request.schema';
 import { InviteService } from '@tc/invite/invite.service';
 import { MaintenanceGuard } from '@tc/config/version/maintenance.guard';
@@ -52,7 +53,7 @@ export class ValidatorDidController {
   @ApiOperation({
     summary: 'Generates an invite for a new node',
   })
-  async invite(@Body() invite: InviteRequest): Promise<InviteRequest> {
+  async invite(@Body() invite: InviteRequest): Promise<InviteNode> {
     return this.inviteService.createInvite(invite);
   }
 
@@ -77,7 +78,7 @@ export class ValidatorDidController {
   }
 
   /**
-   * Resolves the name of a did
+   * Resolves the name of a didy
    * @param id
    */
   @Get('resolve/:id')

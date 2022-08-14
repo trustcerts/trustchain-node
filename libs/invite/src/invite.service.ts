@@ -9,6 +9,7 @@ import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached
 import { DidIdRegister } from '@trustcerts/did';
 import { INVITE_CONNECTION } from './constants';
 import { InjectModel } from '@nestjs/mongoose';
+import { InviteNode } from './dto/invite-node.dto';
 import {
   InviteRequest,
   InviteRequestDocument,
@@ -47,7 +48,7 @@ export class InviteService {
    * Creates an invite for the given identifier and saves it. If force is set, ignore the already existing certificate.
    * @param inviteDto
    */
-  async createInvite(inviteDto: InviteRequest): Promise<InviteRequest> {
+  async createInvite(inviteDto: InviteRequest): Promise<InviteNode> {
     if (!inviteDto.force) {
       await this.inviteModel
         .findOne({ name: inviteDto.name })
@@ -77,7 +78,11 @@ export class InviteService {
       labels: { source: this.constructor.name },
     });
     // TODO return a jwt so the elements are in one object and have not to be copies one by one
-    return invite;
+    return {
+      id: invite.id,
+      secret: invite.secret!,
+      endpoint: `${this.configService.getString('OWN_PEER')}`,
+    };
   }
 
   // TODO expose endpint
@@ -108,7 +113,7 @@ export class InviteService {
    */
   async isValidInvite(id: string, secret: string): Promise<InviteRequest> {
     const query: any = { id };
-    if (!this.configService.getBoolean('INVITE_FORCE')) {
+    if (this.configService.getBoolean('INVITE_FORCE')) {
       query.secret = secret;
     }
     const invite = await this.inviteModel.findOne(query);
