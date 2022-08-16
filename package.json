@@ -49,7 +49,7 @@
     "@nestjs/core": "^9.0.8",
     "@nestjs/microservices": "^9.0.8",
     "@nestjs/mongoose": "^9.2.0",
-    "@nestjs/platform-express": "^9.0.8",
+    "@nestjs/platform-express": "^9.0.11",
     "@nestjs/platform-socket.io": "^9.0.8",
     "@nestjs/swagger": "^6.0.5",
     "@nestjs/terminus": "^9.1.0",
