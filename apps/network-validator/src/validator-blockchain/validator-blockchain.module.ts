@@ -11,6 +11,7 @@ import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { P2PModule } from '@tc/p2-p';
 import { SchemaBlockchainModule } from '@tc/transactions/did-schema/validation/schema-blockchain.module';
+import { StatusListBlockchainModule } from '@tc/transactions/did-status-list/validation/status-list-blockchain.module';
 import { TemplateBlockchainModule } from '@tc/transactions/did-template/validation/template-blockchain.module';
 import { ValidatorBlockchainService } from './validator-blockchain.service';
 
@@ -30,6 +31,7 @@ import { ValidatorBlockchainService } from './validator-blockchain.service';
     SchemaBlockchainModule,
     DidIdBlockchainModule,
     TemplateBlockchainModule,
+    StatusListBlockchainModule,
   ],
   providers: [BlockchainGateway, ValidatorBlockchainService],
   exports: [ValidatorBlockchainService, HashModule],

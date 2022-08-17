@@ -15,7 +15,7 @@ export type DidTransactionDocument = DidTransaction & Document;
 @Schema()
 export class DidTransaction extends BcEntity {
   /**
-   * DID Subject, only including the id of the document since method is defined by the system.
+   * DID SubjNect, only including the id of the document since method is defined by the system.
    * https://www.w3.org/TR/did-core/#did-subject
    */
   @IsString()

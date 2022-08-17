@@ -10,4 +10,6 @@ export enum TransactionType {
 
   // Template
   Template = 'Template',
+
+  StatusList = 'StatusList',
 }
