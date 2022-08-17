@@ -56,6 +56,7 @@
     "@trustcerts/did": "^11.0.9",
     "@trustcerts/did-hash": "^11.0.9",
     "@trustcerts/did-schema": "^11.0.9",
+    "@trustcerts/did-status-list": "^11.0.14",
     "@trustcerts/did-template": "^11.0.9",
     "@willsoto/nestjs-prometheus": "^4.7.0",
     "ajv": "^8.11.0",

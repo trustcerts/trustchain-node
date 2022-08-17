@@ -112,18 +112,18 @@ export class InviteService {
    * @param secret
    */
   async isValidInvite(id: string, secret: string): Promise<InviteRequest> {
-    const query: any = { id };
-    if (this.configService.getBoolean('INVITE_FORCE')) {
-      query.secret = secret;
-    }
+    const query: any = { id, secret };
     const invite = await this.inviteModel.findOne(query);
     if (!invite) {
       throw new UnprocessableEntityException(
         'No invite code found for this identifier.',
       );
     }
-    invite.secret = undefined;
-    await invite.save();
+    console.log(this.configService.getBoolean('REUSE_INVITE'));
+    if (!this.configService.getBoolean('REUSE_INVITE')) {
+      invite.secret = undefined;
+      await invite.save();
+    }
     return invite;
   }
 
