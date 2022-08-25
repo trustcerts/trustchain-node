@@ -1,7 +1,4 @@
-import {
-  DidHash,
-  HashSchema,
-} from '@tc/transactions/did-hash/schemas/did-hash.schema';
+import { DidHash } from '@trustcerts/did-hash';
 import {
   DidHashTransaction,
   HashTransactionSchema,
@@ -12,6 +9,7 @@ import { HASH_CONNECTION } from '@tc/transactions/did-hash/constants';
 import { HashDbModule } from '@tc/transactions/did-hash/db/hash-db.module';
 import { HashModule } from '@tc/blockchain';
 import { HashParsingService } from '@tc/transactions/did-hash/parse/hash-parsing.service';
+import { HashSchema } from '@tc/transactions/did-hash/schemas/did-hash.schema';
 import { Module, forwardRef } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ParseModule } from '@apps/parse/src/parse.module';

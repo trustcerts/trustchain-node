@@ -1,10 +1,8 @@
 import { ConflictException, Inject, Injectable } from '@nestjs/common';
 import { DID_ID_CONNECTION } from '@tc/transactions/did-id/constants';
-import { DidHash } from '@tc/transactions/did-hash/schemas/did-hash.schema';
-import {
-  DidId,
-  DidIdDocument,
-} from '@tc/transactions/did-id/schemas/did-id.schema';
+import { DidHashDocument } from '@tc/transactions/did-hash/schemas/did-hash.schema';
+import { DidId } from '@trustcerts/did';
+import { DidIdDocumentDocument } from '@tc/transactions/did-id/schemas/did-id.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Logger } from 'winston';
 import { Model } from 'mongoose';
@@ -24,7 +22,7 @@ export class TrackingService {
   constructor(
     @Inject('winston') protected readonly logger: Logger,
     @InjectModel(DidId.name, DID_ID_CONNECTION)
-    private didModel: Model<DidIdDocument>,
+    private didModel: Model<DidIdDocumentDocument>,
     @InjectModel(Tracking.name, TRACKING_CONNECTION)
     private trackingModel: Model<TrackingDocument>,
   ) {}
@@ -33,10 +31,10 @@ export class TrackingService {
    * Stores the result in a log to parse it later
    * @param hash
    */
-  public async save(hash: DidHash, origin: string) {
+  public async save(hash: DidHashDocument, origin: string) {
     // TODO implement again
     const issuer = await this.didModel.findOne({
-      id: hash.signature.values[0].identifier.split('#')[0],
+      id: hash.controller[0],
     });
     if (!issuer) {
       throw new ConflictException('issuer not found');

@@ -1,10 +1,8 @@
 import { ClientRedis } from '@nestjs/microservices';
 import { Counter } from 'prom-client';
 import { DID_ID_CONNECTION } from '../constants';
-import {
-  DidId,
-  DidIdDocument,
-} from '@tc/transactions/did-id/schemas/did-id.schema';
+import { DidId } from '@trustcerts/did';
+import { DidIdDocumentDocument } from '@tc/transactions/did-id/schemas/did-id.schema';
 import {
   DidIdTransaction,
   DidIdTransactionDocument,
@@ -12,7 +10,6 @@ import {
 import { DidIdTransactionDto } from '@tc/transactions/did-id/dto/did-id-transaction.dto';
 import { DidRoles } from '@tc/transactions/did-id/dto/did-roles.dto';
 import { HashService } from '@tc/blockchain';
-import { IVerificationRelationships } from '../dto/i-verification-relationships.dto';
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';
 import { InjectModel } from '@nestjs/mongoose';
@@ -46,7 +43,7 @@ export class DidIdParsingService extends ParsingService<DidIdTransactionDocument
     @Inject(REDIS_INJECTION) protected readonly clientRedis: ClientRedis,
     @Inject('winston') protected readonly logger: Logger,
     @InjectModel(DidId.name, DID_ID_CONNECTION)
-    protected didIdRepository: Model<DidIdDocument>,
+    protected didIdRepository: Model<DidIdDocumentDocument>,
     @InjectModel(DidIdTransaction.name, DID_ID_CONNECTION)
     protected didIdDocumentRepository: Model<DidIdTransactionDocument>,
     @InjectMetric('transactions')
@@ -84,68 +81,83 @@ export class DidIdParsingService extends ParsingService<DidIdTransactionDocument
 
     // update roles
     if (transaction.body.value.role) {
+      if (!did.role) did.role = [];
       if (transaction.body.value.role.remove) {
-        did.roles = did.roles!.filter((role: DidRoles) =>
+        did.role = did.role!.filter((role: DidRoles) =>
           transaction.body.value.role!.remove!.includes(role),
         );
       }
       if (transaction.body.value.role.add) {
-        did.roles.push(...transaction.body.value.role.add);
+        did.role.push(...transaction.body.value.role.add);
       }
     }
 
-    // update the keys
-    const key = 'verificationMethod';
-    if (transaction.body.value[key]) {
-      if (transaction.body.value[key]!.remove) {
-        did.keys = did.keys.filter(
+    if (transaction.body.value.verificationMethod) {
+      if (!did.verificationMethod) did.verificationMethod = [];
+      if (transaction.body.value.verificationMethod!.remove) {
+        did.verificationMethod = did.verificationMethod.filter(
           (usedKey) =>
-            !transaction.body.value[key]!.remove?.includes(usedKey.id),
+            !transaction.body.value.verificationMethod!.remove?.includes(
+              usedKey.id,
+            ),
         );
       }
-      if (transaction.body.value[key]!.add) {
-        did.keys.push(...transaction.body.value[key]!.add!);
+      if (transaction.body.value.verificationMethod!.add) {
+        did.verificationMethod.push(
+          ...transaction.body.value.verificationMethod!.add!,
+        );
       }
     }
 
-    // TODO store verification relationship
-    const keys: IVerificationRelationships = {
-      assertionMethod: true,
-      authentication: true,
-      modification: true,
-    };
-    Object.entries(transaction.body.value)
-      // TODO removed second param value, validate change
-      .filter(([key]) => {
-        return Object.keys(keys).includes(key);
-      })
-      .map(([key, value]) => {
-        let relation = did.verificationRelationships.find(
-          (relation) => relation.method === key,
+    if (transaction.body.value.assertionMethod) {
+      if (!did.assertionMethod) did.assertionMethod = [];
+      if (transaction.body.value.assertionMethod!.remove) {
+        did.assertionMethod = did.assertionMethod.filter(
+          (usedKey) =>
+            !transaction.body.value.assertionMethod!.remove?.includes(usedKey),
         );
-        if (!relation) {
-          relation = {
-            method: key as keyof IVerificationRelationships,
-            keyIds: [],
-          };
-          did.verificationRelationships.push(relation);
-        }
+      }
+      if (transaction.body.value.assertionMethod!.add) {
+        did.assertionMethod.push(
+          ...transaction.body.value.assertionMethod!.add!,
+        );
+      }
+    }
 
-        if (value.remove) {
-          relation.keyIds = relation.keyIds.filter(
-            (key) => !value.remove.includes(key),
-          );
-        }
-        if (value.add) {
-          relation.keyIds.push(...value.add);
-        }
-      }),
-      await did.save();
+    if (transaction.body.value.authentication) {
+      if (!did.modification) did.modification = [];
+      if (transaction.body.value.authentication!.remove) {
+        did.authentication = did.authentication.filter(
+          (usedKey) =>
+            !transaction.body.value.authentication!.remove?.includes(usedKey),
+        );
+      }
+      if (transaction.body.value.authentication!.add) {
+        did.authentication.push(...transaction.body.value.authentication!.add!);
+      }
+    }
+
+    if (transaction.body.value.modification) {
+      if (!did.modification) did.modification = [];
+      if (transaction.body.value.modification!.remove) {
+        did.modification = did.modification.filter(
+          (usedKey) =>
+            !transaction.body.value.modification!.remove?.includes(usedKey),
+        );
+      }
+      if (transaction.body.value.modification!.add) {
+        did.modification.push(...transaction.body.value.modification!.add!);
+      }
+    }
+
+    await did.save();
     this.logger.debug({
       message: `set did: ${transaction.body.value.id}`,
       labels: { source: this.constructor.name },
     });
     this.created(transaction).then();
+    // TODO to store it into the state proof the did document has to be assembled. In the DB there are only the raw values to do so. the observer is assembling the did every time. it would be better to use the latest version from the DB. Right now the gateway is also assembling from the transaction so no one seems to use the latest version so safe some time
+    // this.stateService.addElement(did)
   }
 
   /**

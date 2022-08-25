@@ -13,6 +13,9 @@ import { PersistClientModule } from '@tc/clients/persist-client';
 import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 import { SchemaCachedModule } from '@tc/transactions/did-schema/cached/schema-cached.module';
 import { SchemaParsingModule } from '@tc/transactions/did-schema/parse/schema-parsing.module';
+import { StateModule } from './state/state.module';
+import { StatusListCachedModule } from '@tc/transactions/did-status-list/cached/status-list-cached.module';
+import { StatusListParsingModule } from '@tc/transactions/did-status-list/parse/status-list-parsing.module';
 import { TemplateCachedModule } from '@tc/transactions/did-template/cached/template-cached.module';
 import { TemplateParsingModule } from '@tc/transactions/did-template/parse/template-parsing.module';
 import { TerminusModule } from '@nestjs/terminus';
@@ -54,6 +57,11 @@ import { dbConnectionValidation } from '@shared/validation-rules';
 
     TemplateParsingModule,
     TemplateCachedModule,
+
+    StatusListParsingModule,
+    StatusListCachedModule,
+
+    StateModule,
   ],
   controllers: [ParseController, HealthController],
   providers: [ParseService],

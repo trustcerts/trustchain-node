@@ -1,6 +1,9 @@
 import { CachedService } from '@tc/transactions/transactions/cache.service';
-import { DidTemplate, TemplateDocument } from '../schemas/did-template.schema';
-import { DidTemplateResolver } from '@trustcerts/did-template';
+import { DidTemplate, DidTemplateResolver } from '@trustcerts/did-template';
+import {
+  DidTemplateDocument,
+  TemplateDocumentDocument,
+} from '../schemas/did-template.schema';
 import {
   DidTemplateTransaction,
   TemplateTransactionDocument,
@@ -26,7 +29,7 @@ export class TemplateCachedService extends CachedService<DidTemplateResolver> {
     @InjectModel(DidTemplateTransaction.name, TEMPLATE_CONNECTION)
     protected transactionModel: Model<TemplateTransactionDocument>,
     @InjectModel(DidTemplate.name, TEMPLATE_CONNECTION)
-    protected didModel: Model<TemplateDocument>,
+    protected didModel: Model<TemplateDocumentDocument>,
   ) {
     super(transactionModel, didModel);
     this.resolver = new DidTemplateResolver();
@@ -37,8 +40,8 @@ export class TemplateCachedService extends CachedService<DidTemplateResolver> {
    * @param id
    * @returns
    */
-  async getTemplateOrFail(id: string): Promise<DidTemplate> {
-    const template = await this.getById<DidTemplate>(id);
+  async getTemplateOrFail(id: string): Promise<DidTemplateDocument> {
+    const template = await this.getById<DidTemplateDocument>(id);
     if (!template) {
       throw new NotFoundException('template not found');
     }
@@ -46,6 +49,36 @@ export class TemplateCachedService extends CachedService<DidTemplateResolver> {
     const f = JSON.parse(JSON.stringify(template));
     f.template = this.getTemplateContent(id);
     return f;
+  }
+
+  /**
+   * Returns a did object based on the cached values from the db
+   * @param id
+   * @returns
+   */
+  async getLatestDocument(id: string): Promise<DidTemplate> {
+    const document: DidTemplateDocument =
+      await this.getById<DidTemplateDocument>(id);
+    const didId = new DidTemplate(id);
+    didId.parseDocument({
+      document: {
+        '@context': [],
+        id,
+        controller: document.controller,
+        compression: document.compression,
+        schemaId: document.schemaId,
+        template: document.template,
+      },
+      metaData: {
+        versionId: didId.version,
+        created: '',
+      },
+      signatures: {
+        type: 'Single',
+        values: [],
+      },
+    });
+    return didId;
   }
 
   /**

@@ -1,16 +1,16 @@
-import * as mongoose from 'mongoose';
 import { ApiProperty } from '@nestjs/swagger';
-import { Did } from '@tc/transactions/transactions/did/schemas/did.schema';
+import { DidDocument } from '@tc/transactions/transactions/did/schemas/did.schema';
+import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { StatusPurpose } from '../dto/status-purpose.dto';
 
-export type StatusListDocument = DidStatusList & mongoose.Document;
+export type StatusListDocumentDocument = DidStatusListDocument & Document;
 
 /**
  * Describes the values of a statuslist that is used for revocation.
  */
 @Schema()
-export class DidStatusList extends Did {
+export class DidStatusListDocument extends DidDocument {
   /**
    * Encoded bitstring
    */
@@ -29,4 +29,6 @@ export class DidStatusList extends Did {
 /**
  * StatusList Schema
  */
-export const StatusListSchema = SchemaFactory.createForClass(DidStatusList);
+export const StatusListSchema = SchemaFactory.createForClass(
+  DidStatusListDocument,
+);

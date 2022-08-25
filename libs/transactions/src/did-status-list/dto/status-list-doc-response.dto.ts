@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { DidStatusListDocument } from './did-status-list-document.dto';
+import { DidStatusListDocument } from '../schemas/did-status-list.schema';
 import { DocResponse } from '@tc/transactions/transactions/did/dto/doc-response.dto';
 
 /**

@@ -1,11 +1,11 @@
-import { Did } from './did/schemas/did.schema';
-import { DidDocumentMetaData } from '@tc/transactions/transactions/did/dto/did-document-meta-data.dto';
-import { DidId } from '@tc/transactions/did-id/schemas/did-id.schema';
 import {
+  Did,
   DidResolver,
   SignatureContent,
   VerifierService,
 } from '@trustcerts/did';
+import { DidDocument } from './did/schemas/did.schema';
+import { DidDocumentMetaData } from '@tc/transactions/transactions/did/dto/did-document-meta-data.dto';
 import { DidTransaction } from './did/schemas/did-transaction.schema';
 import { DocResponse } from './did/dto/doc-response.dto';
 import { Model, Schema } from 'mongoose';
@@ -37,20 +37,16 @@ export abstract class CachedService<Res extends DidResolver<VerifierService>> {
    * checks if an issuer is listed as controller to manipulate the did document.
    */
   public canChange(issuerId: string, id: string): Promise<void> {
-    return this.didModel
-      .findOne({ id })
-      .populate('controllers')
-      .then((res) => {
-        if (
-          res.controllers.find(
-            (controller: DidId) => (controller.id = issuerId),
-          )
-        ) {
-          return Promise.resolve();
-        } else {
-          return Promise.reject();
-        }
-      });
+    return this.didModel.findOne({ id }).then((res: DidDocument) => {
+      console.log(res);
+      if (
+        res.controller.find((controller: string) => controller === issuerId)
+      ) {
+        return Promise.resolve();
+      } else {
+        return Promise.reject(`${issuerId} not allowed to change ${id}`);
+      }
+    });
   }
 
   /**
@@ -70,7 +66,7 @@ export abstract class CachedService<Res extends DidResolver<VerifierService>> {
    * @param id
    * @returns
    */
-  public async getById<T extends Did>(id: string): Promise<T & Schema> {
+  public async getById<T extends DidDocument>(id: string): Promise<T & Schema> {
     const did = await this.didModel.findOne({ id });
     if (!did) {
       throw Error(`${id} not found`);
@@ -96,9 +92,9 @@ export abstract class CachedService<Res extends DidResolver<VerifierService>> {
       versionId: transactions.length,
     };
     // add imported information. When imported the timestamp is the one from the block so the correct did version can be requested
-    if (transactions[0].block.imported) {
-      result.imported = transactions[0].block.createdAt;
-    }
+    // if (transactions[0].block.imported) {
+    //   result.imported = transactions[0].block.createdAt;
+    // }
     // set update if there are more transactions
     if (transactions.length > 1) {
       result.updated = new Date(
@@ -129,6 +125,12 @@ export abstract class CachedService<Res extends DidResolver<VerifierService>> {
     // TODO set if did was deactivated
     return result;
   }
+
+  /**
+   * Returns the latest version of the did document that is stored in the database.
+   * @param id
+   */
+  abstract getLatestDocument(id: string): Promise<Did>;
 
   /**
    * Returns a document based on the id and optional version parameters

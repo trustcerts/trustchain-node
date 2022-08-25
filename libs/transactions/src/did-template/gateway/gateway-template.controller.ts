@@ -7,7 +7,7 @@ import {
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { GatewayTemplateService } from './gateway-template.service';
 import { MaintenanceGuard } from '@tc/config/version/maintenance.guard';
-import { TemplateResponse } from './response';
+import { TemplateResponse } from '../dto/template-response';
 import { TemplateTransactionDto } from '@tc/transactions/did-template/dto/template.transaction.dto';
 
 /**

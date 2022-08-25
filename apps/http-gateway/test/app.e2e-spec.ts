@@ -14,7 +14,7 @@ import { REDIS_INJECTION } from '@tc/clients/event-client/constants';
 import { addRedisEndpoint } from '@shared/main-functions';
 import { HashService } from '@tc/blockchain';
 import { TemplateTransactionDto } from '@tc/transactions/did-template/dto/template.transaction.dto';
-import { CompressionType } from '@tc/transactions/did-template/dto/compressiontype.dto';
+import { CompressionType } from '@tc/transactions/did-template/dto/compression-type.dto';
 import { InviteRequest } from '@tc/invite/schemas/invite-request.schema';
 import { InviteNode } from '@tc/invite/dto/invite-node.dto';
 import * as fs from 'fs';

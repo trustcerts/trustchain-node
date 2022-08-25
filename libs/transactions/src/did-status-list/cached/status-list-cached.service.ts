@@ -1,9 +1,12 @@
 import { CachedService } from '@tc/transactions/transactions/cache.service';
 import {
   DidStatusList,
-  StatusListDocument,
+  DidStatusListResolver,
+} from '@trustcerts/did-status-list';
+import {
+  DidStatusListDocument,
+  StatusListDocumentDocument,
 } from '../schemas/did-status-list.schema';
-import { DidStatusListResolver } from '@trustcerts/did-status-list';
 import {
   DidStatusListTransaction,
   StatusListTransactionDocument,
@@ -26,7 +29,7 @@ export class StatusListCachedService extends CachedService<DidStatusListResolver
     @InjectModel(DidStatusListTransaction.name, STATUSLIST_CONNECTION)
     protected transactionModel: Model<StatusListTransactionDocument>,
     @InjectModel(DidStatusList.name, STATUSLIST_CONNECTION)
-    protected didModel: Model<StatusListDocument>,
+    protected didModel: Model<StatusListDocumentDocument>,
   ) {
     super(transactionModel, didModel);
     this.resolver = new DidStatusListResolver();
@@ -37,11 +40,40 @@ export class StatusListCachedService extends CachedService<DidStatusListResolver
    * @param id
    * @returns
    */
-  async getStatusListOrFail(id: string): Promise<DidStatusList> {
-    const statuslist = await this.getById<DidStatusList>(id);
+  async getStatusListOrFail(id: string): Promise<DidStatusListDocument> {
+    const statuslist = await this.getById<DidStatusListDocument>(id);
     if (!statuslist) {
       throw new NotFoundException('statuslist not found');
     }
     return statuslist;
+  }
+
+  /**
+   * Returns a did object based on the cached values from the db
+   * @param id
+   * @returns
+   */
+  async getLatestDocument(id: string): Promise<DidStatusList> {
+    const document: DidStatusListDocument =
+      await this.getById<DidStatusListDocument>(id);
+    const didId = new DidStatusList(id);
+    didId.parseDocument({
+      document: {
+        '@context': [],
+        id,
+        controller: document.controller,
+        encodedList: document.encodedList,
+        statusPurpose: document.statusPurpose,
+      },
+      metaData: {
+        versionId: didId.version,
+        created: '',
+      },
+      signatures: {
+        type: 'Single',
+        values: [],
+      },
+    });
+    return didId;
   }
 }

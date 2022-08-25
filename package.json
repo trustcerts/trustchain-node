@@ -44,6 +44,7 @@
   },
   "dependencies": {
     "@compodoc/compodoc": "^1.1.19",
+    "@ethereumjs/trie": "^5.0.0-beta.1",
     "@nestjs/axios": "^0.1.0",
     "@nestjs/common": "^9.1.2",
     "@nestjs/core": "^9.1.2",

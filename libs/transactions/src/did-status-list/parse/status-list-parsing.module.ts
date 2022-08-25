@@ -1,8 +1,5 @@
 import { DidIdCachedModule } from '@tc/transactions/did-id/cached/did-id-cached.module';
-import {
-  DidStatusList,
-  StatusListSchema,
-} from '../schemas/did-status-list.schema';
+import { DidStatusList } from '@trustcerts/did-status-list';
 import {
   DidStatusListTransaction,
   StatusListTransactionSchema,
@@ -20,6 +17,7 @@ import { STATUSLIST_CONNECTION } from '../constants';
 import { SchemaCachedModule } from '@tc/transactions/did-schema/cached/schema-cached.module';
 import { StatusListDbModule } from '../db/status-list-db.module';
 import { StatusListParsingService } from './status-list-parsing.service';
+import { StatusListSchema } from '../schemas/did-status-list.schema';
 
 @Module({
   imports: [

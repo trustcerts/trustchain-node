@@ -1,5 +1,4 @@
 import { BlockCheckService } from '@tc/blockchain/block-check/block-check.service';
-import { DidId } from '@tc/transactions/did-id/schemas/did-id.schema';
 import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
 import { DidIdResolver, DidRoles } from '@trustcerts/did';
 import { DidIdTransactionDto } from '@tc/transactions/did-id/dto/did-id-transaction.dto';
@@ -92,25 +91,17 @@ export class DidIdTransactionCheckService extends TransactionCheck<DidIdResolver
       .getRole(signerId)
       .then((roles) => roles[0]);
     // check if the client was signed by a listed controller
-    const controllers: DidId[] = await this.didCachedService
-      .getDid(documentId, 'controllers')
+    const controllers: string[] = await this.didCachedService
+      .getDid(documentId)
       .then(
-        (did) => did.controllers,
+        (did) => did.controller,
         () => {
+          // TODO check the existence of the controllers has to be validated. Possible when the controller is a did on the same ledger or using the did:trust method
           // in case the did is new get the controllers from the transaction
-          const controllerDids = transaction.body.value.controller?.add;
-          if (controllerDids) {
-            return Promise.all(
-              controllerDids.map((controllerDid) =>
-                this.didCachedService.getDid(controllerDid),
-              ),
-            );
-          } else {
-            return [];
-          }
+          return transaction.body.value.controller?.add ?? [];
         },
       );
-    const found = controllers.find((controller) => controller.id === signerId);
+    const found = controllers.find((controller) => controller === signerId);
     if (found) {
       return Promise.resolve();
     }

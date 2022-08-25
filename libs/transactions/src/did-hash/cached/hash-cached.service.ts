@@ -1,9 +1,9 @@
 import { CachedService } from '@tc/transactions/transactions/cache.service';
+import { DidHash, DidHashResolver } from '@trustcerts/did-hash';
 import {
-  DidHash,
-  HashDocument,
+  DidHashDocument,
+  HashDocumentDocument,
 } from '@tc/transactions/did-hash/schemas/did-hash.schema';
-import { DidHashResolver } from '@trustcerts/did-hash';
 import {
   DidHashTransaction,
   HashTransactionDocument,
@@ -23,7 +23,7 @@ export class HashCachedService extends CachedService<DidHashResolver> {
    */
   constructor(
     @InjectModel(DidHash.name, HASH_CONNECTION)
-    protected didModel: Model<HashDocument>,
+    protected didModel: Model<HashDocumentDocument>,
     @InjectModel(DidHashTransaction.name, HASH_CONNECTION)
     protected transactionModel: Model<HashTransactionDocument>,
   ) {
@@ -37,5 +37,33 @@ export class HashCachedService extends CachedService<DidHashResolver> {
    */
   getHash(hash: string) {
     return this.didModel.findOne({ id: hash });
+  }
+
+  /**
+   * Returns a did object based on the cached values from the db
+   * @param id
+   * @returns
+   */
+  async getLatestDocument(id: string): Promise<DidHash> {
+    const document: DidHashDocument = await this.getById<DidHashDocument>(id);
+    const didId = new DidHash(id);
+    didId.parseDocument({
+      document: {
+        '@context': [],
+        id,
+        controller: document.controller,
+        algorithm: document.algorithm,
+        revoked: document.revoked?.toString(),
+      },
+      metaData: {
+        versionId: didId.version,
+        created: '',
+      },
+      signatures: {
+        type: 'Single',
+        values: [],
+      },
+    });
+    return didId;
   }
 }

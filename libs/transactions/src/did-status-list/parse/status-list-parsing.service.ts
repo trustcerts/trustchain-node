@@ -2,11 +2,8 @@ import { ClientRedis } from '@nestjs/microservices';
 import { Counter } from 'prom-client';
 import { DID_ID_CONNECTION } from '@tc/transactions/did-id/constants';
 import { DidId } from '@trustcerts/did';
-import { DidIdDocument } from '@tc/transactions/did-id/schemas/did-id.schema';
-import {
-  DidStatusList,
-  StatusListDocument,
-} from '../schemas/did-status-list.schema';
+import { DidIdDocumentDocument } from '@tc/transactions/did-id/schemas/did-id.schema';
+import { DidStatusList } from '@trustcerts/did-status-list';
 import {
   DidStatusListTransaction,
   StatusListTransactionDocument,
@@ -21,6 +18,7 @@ import { ParseService } from '@apps/parse/src/parse.service';
 import { ParsingService } from '@tc/transactions/transactions/parsing.service';
 import { REDIS_INJECTION } from '@tc/clients/event-client/constants';
 import { STATUSLIST_CONNECTION } from '../constants';
+import { StatusListDocumentDocument } from '../schemas/did-status-list.schema';
 import { StatusListTransactionDto } from '../dto/status-list.transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 
@@ -42,14 +40,14 @@ export class StatusListParsingService extends ParsingService<StatusListTransacti
     @Inject(REDIS_INJECTION) protected readonly clientRedis: ClientRedis,
     @Inject('winston') protected readonly logger: Logger,
     @InjectModel(DidStatusList.name, STATUSLIST_CONNECTION)
-    private didStatusListRepository: Model<StatusListDocument>,
+    private didStatusListRepository: Model<StatusListDocumentDocument>,
     @InjectModel(DidStatusListTransaction.name, STATUSLIST_CONNECTION)
     private didStatusListDocumentRepository: Model<StatusListTransactionDocument>,
     @InjectMetric('transactions')
     protected readonly transactionsCounter: Counter<string>,
     private readonly parseService: ParseService,
     @InjectModel(DidId.name, DID_ID_CONNECTION)
-    protected didIdRepository: Model<DidIdDocument>,
+    protected didIdRepository: Model<DidIdDocumentDocument>,
   ) {
     super(
       clientRedis,

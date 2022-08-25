@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { CompressionType } from './compressiontype.dto';
+import { CompressionType } from './compression-type.dto';
 import { IsEnum } from 'class-validator';
 import { Prop } from '@nestjs/mongoose';
 

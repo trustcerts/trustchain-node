@@ -4,7 +4,7 @@ import { DidControllerMixin } from '@tc/transactions/transactions/did/did.contro
 import { DidStatusListTransaction } from '@tc/transactions/did-status-list/schemas/did-status-list-transaction.schema';
 import { MaintenanceGuard } from '@tc/config/version/maintenance.guard';
 import { StatusListCachedService } from '@tc/transactions/did-status-list/cached/status-list-cached.service';
-import { StatusListDocResponse } from '@tc/transactions/did-status-list/dto/doc-response.dto';
+import { StatusListDocResponse } from '@tc/transactions/did-status-list/dto/status-list-doc-response.dto';
 import { StatusListVerifierService } from '@trustcerts/did-status-list';
 
 /**

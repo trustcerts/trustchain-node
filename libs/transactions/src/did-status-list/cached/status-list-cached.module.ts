@@ -1,7 +1,4 @@
-import {
-  DidStatusList,
-  StatusListSchema,
-} from '../schemas/did-status-list.schema';
+import { DidStatusList } from '@trustcerts/did-status-list';
 import {
   DidStatusListTransaction,
   StatusListTransactionSchema,
@@ -11,6 +8,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { STATUSLIST_CONNECTION } from '../constants';
 import { StatusListCachedService } from './status-list-cached.service';
 import { StatusListDbModule } from '../db/status-list-db.module';
+import { StatusListSchema } from '../schemas/did-status-list.schema';
 
 @Module({
   imports: [

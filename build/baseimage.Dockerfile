@@ -10,7 +10,7 @@ RUN apk add py-pip make g++ openssl docker bash
 ## install libraries
 COPY ./package*.json ./
 
-RUN npm ci --only=production
+RUN npm ci --omit=dev
 
 RUN rm package*.json
 

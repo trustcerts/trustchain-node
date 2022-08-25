@@ -1,8 +1,9 @@
 import { BlockCheckModule } from '@tc/blockchain/block-check/block-check.module';
 import { DID_ID_CONNECTION } from '../constants';
-import { DidId, DidIdSchema } from '../schemas/did-id.schema';
+import { DidId } from '@trustcerts/did';
 import { DidIdCachedModule } from '../cached/did-id-cached.module';
 import { DidIdDbModule } from '../db/did-id-db.module';
+import { DidIdSchema } from '../schemas/did-id.schema';
 import {
   DidIdTransaction,
   DidTransactionSchema,

@@ -2,8 +2,8 @@ import { ClientRedis } from '@nestjs/microservices';
 import { Counter } from 'prom-client';
 import { DID_ID_CONNECTION } from '@tc/transactions/did-id/constants';
 import { DidId } from '@trustcerts/did';
-import { DidIdDocument } from '@tc/transactions/did-id/schemas/did-id.schema';
-import { DidSchema, SchemaDocument } from '../schemas/did-schema.schema';
+import { DidIdDocumentDocument } from '@tc/transactions/did-id/schemas/did-id.schema';
+import { DidSchema } from '@trustcerts/did-schema';
 import {
   DidSchemaTransaction,
   SchemaTransactionDocument,
@@ -18,6 +18,7 @@ import { ParseService } from '@apps/parse/src/parse.service';
 import { ParsingService } from '@tc/transactions/transactions/parsing.service';
 import { REDIS_INJECTION } from '@tc/clients/event-client/constants';
 import { SCHEMA_CONNECTION } from '../constants';
+import { SchemaDocumentDocument } from '../schemas/did-schema.schema';
 import { SchemaTransactionDto } from '../dto/schema.transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 
@@ -39,14 +40,14 @@ export class SchemaParsingService extends ParsingService<SchemaTransactionDocume
     @Inject(REDIS_INJECTION) protected readonly clientRedis: ClientRedis,
     @Inject('winston') protected readonly logger: Logger,
     @InjectModel(DidSchema.name, SCHEMA_CONNECTION)
-    private didSchemaRepository: Model<SchemaDocument>,
+    private didSchemaRepository: Model<SchemaDocumentDocument>,
     @InjectModel(DidSchemaTransaction.name, SCHEMA_CONNECTION)
     didSchemaDocumentRepository: Model<SchemaTransactionDocument>,
     @InjectMetric('transactions')
     protected readonly transactionsCounter: Counter<string>,
     private readonly parseService: ParseService,
     @InjectModel(DidId.name, DID_ID_CONNECTION)
-    protected didIdRepository: Model<DidIdDocument>,
+    protected didIdRepository: Model<DidIdDocumentDocument>,
   ) {
     super(
       clientRedis,
@@ -78,7 +79,7 @@ export class SchemaParsingService extends ParsingService<SchemaTransactionDocume
     await this.updateCoreValues(did, transaction);
 
     if (transaction.body.value.schema) {
-      did.values = transaction.body.value.schema;
+      did.value = transaction.body.value.schema;
     }
     did
       .save()

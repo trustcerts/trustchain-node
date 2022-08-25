@@ -18,7 +18,7 @@ import { WalletClientService } from '@tc/clients/wallet-client';
 import { exec } from 'child_process';
 import http = require('http');
 import express = require('express');
-import { CompressionType } from '@tc/transactions/did-template/dto/compressiontype.dto';
+import { CompressionType } from '@tc/transactions/did-template/dto/compression-type.dto';
 import { HashDidTransactionDto } from '@tc/transactions/did-hash/dto/hash-transaction.dto';
 import { MESSAGE_EVENT } from '@nestjs/microservices/constants';
 import { ParseClientService } from '@tc/clients/parse-client/parse-client.service';

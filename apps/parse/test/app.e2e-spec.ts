@@ -7,8 +7,8 @@ import {
 } from '@tc/clients/event-client/constants';
 import { Block } from '@tc/blockchain/block/block.interface';
 import { ClientRedis, ClientsModule, Transport } from '@nestjs/microservices';
-import { DidHash } from '@tc/transactions/did-hash/schemas/did-hash.schema';
-import { DidId } from '@tc/transactions/did-id/schemas/did-id.schema';
+import { DidHashDocument } from '@tc/transactions/did-hash/schemas/did-hash.schema';
+import { DidIdDocument } from '@tc/transactions/did-id/schemas/did-id.schema';
 import { addRedisEndpoint, addTCPEndpoint } from '@shared/main-functions';
 import { PersistClientService } from '@tc/clients/persist-client';
 import {
@@ -36,8 +36,8 @@ describe('AppController (e2e)', () => {
   let clientRedis: ClientRedis;
   let parseClientService: ParseClientService;
   let persistClientService: PersistClientService;
-  let hashRepository: Model<DidHash>;
-  let didRepository: Model<DidId>;
+  let hashRepository: Model<DidHashDocument>;
+  let didRepository: Model<DidIdDocument>;
   let dockerDeps: string[] = ['persist', 'db', 'redis'];
 
   beforeAll(async () => {
@@ -63,10 +63,10 @@ describe('AppController (e2e)', () => {
     await app.startAllMicroservices();
     await app.init();
 
-    hashRepository = app.get<Model<DidHash>>(
+    hashRepository = app.get<Model<DidHashDocument>>(
       getModelToken(DidHash.name, HASH_CONNECTION),
     );
-    didRepository = app.get<Model<DidId>>(
+    didRepository = app.get<Model<DidIdDocument>>(
       getModelToken(DidId.name, DID_ID_CONNECTION),
     );
     clientRedis = app.get(REDIS_INJECTION);
