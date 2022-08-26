@@ -38,7 +38,6 @@ export abstract class CachedService<Res extends DidResolver<VerifierService>> {
    */
   public canChange(issuerId: string, id: string): Promise<void> {
     return this.didModel.findOne({ id }).then((res: DidDocument) => {
-      console.log(res);
       if (
         res.controller.find((controller: string) => controller === issuerId)
       ) {

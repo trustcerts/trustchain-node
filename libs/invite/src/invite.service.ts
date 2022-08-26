@@ -119,7 +119,6 @@ export class InviteService {
         'No invite code found for this identifier.',
       );
     }
-    console.log(this.configService.getBoolean('REUSE_INVITE'));
     if (!this.configService.getBoolean('REUSE_INVITE')) {
       invite.secret = undefined;
       await invite.save();

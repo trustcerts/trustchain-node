@@ -57,6 +57,7 @@ export class WalletClientService implements OnModuleDestroy {
     this.cryptoKeyServices = [
       new RSACryptoKeyService(),
       new ECCryptoKeyService(),
+      // new BbsCryptoKeyService(),
     ];
   }
 
@@ -76,12 +77,33 @@ export class WalletClientService implements OnModuleDestroy {
   }
 
   /**
+   * Gets the algorithm of a json web key to import it. Throws and error if there is no registered service to handle it.
+   * @param publicKey
+   * @returns
+   */
+  private async getAlgorithmFromKey(publicKey: JsonWebKey) {
+    let algorithm: Algorithm | undefined;
+    for (const service of this.cryptoKeyServices) {
+      if (await service.isCorrectKeyType(publicKey)) {
+        algorithm = service.algorithm;
+      }
+    }
+    if (!algorithm) throw new Error(`algorithm of the key is not supported`);
+    return algorithm;
+  }
+
+  /**
    * Imports the crypto key object from a jwk string
    * @param keyValue
    * @private
    */
-  public importKey(keyValue: PublicKeyJwkDto): Promise<CryptoKey> {
-    return importKey(keyValue, 'jwk', ['verify']);
+  public async importKey(keyValue: PublicKeyJwkDto): Promise<CryptoKey> {
+    return importKey(
+      keyValue,
+      'jwk',
+      ['verify'],
+      await this.getAlgorithmFromKey(keyValue),
+    );
   }
 
   /**
