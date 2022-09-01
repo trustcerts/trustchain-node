@@ -1,33 +1,102 @@
+import { Block } from '@tc/blockchain/block/block.interface';
+import { DidDocument } from '@tc/transactions/transactions/did/schemas/did.schema';
+import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
 import { Level } from 'level';
 import { LevelDB, Trie } from '@ethereumjs/trie';
+import { Model } from 'mongoose';
+import { RootState, RootStateDocument } from './schema/root-state.schema';
+import { base58Decode, base58Encode } from '@trustcerts/helpers';
 import { getHash, sortKeys } from '@trustcerts/crypto';
 @Injectable()
 export class StateService {
+  /**
+   * Storage path of the level db
+   */
   private storage = 'state';
+  /**
+   * Trie instance to handle the patricia trie
+   */
   private trie: Trie;
+  /**
+   * database instance to persist the trie
+   */
+  private db: LevelDB;
 
-  constructor() {
-    this.trie = new Trie({ db: new LevelDB(new Level(this.storage)) });
+  /**
+   * Initialised the service to interact with the state
+   * @param rootStateModel db connection for the root states
+   */
+  constructor(
+    @InjectModel(RootState.name)
+    protected rootStateModel: Model<RootStateDocument>,
+  ) {
+    this.db = new LevelDB(new Level(this.storage));
+    this.trie = new Trie({ db: this.db });
   }
 
   /**
    * Adds a new element to the tree. Calculates that hash of it and adds it to the trie.
+   * Sets the hash of id as the key and the hash of the document in the leave
    * @param value
    */
-  async addElement(value: any) {
-    const hash = await getHash(JSON.stringify(sortKeys(value)));
-    this.trie.put(Buffer.from(hash), Buffer.from(hash));
+  async addElement(value: DidDocument) {
+    const didHash = await getHash(value.id);
+    const docHash = await getHash(JSON.stringify(sortKeys(value)));
+    await this.trie.put(Buffer.from(didHash), Buffer.from(docHash));
   }
 
-  async getProof(value: any) {
-    const hash = await getHash(JSON.stringify(sortKeys(value)));
-    // const proof = await Trie.createProof(this.trie, Buffer.from(hash));
-    // return {
-    //   proof,
-    //   root: this.trie.root.toString('base64'),
-    //   signatures: [],
-    // };
+  /**
+   * Stores the state root information from the parsed block
+   * @param block
+   */
+  async storeRootState(block: Block) {
+    const exists = await this.trie.checkRoot(
+      Buffer.from(base58Decode(block.stateRootHash)),
+    );
+    if (!exists)
+      throw new Error(
+        `root hash ${
+          block.stateRootHash
+        } is not known, latest is ${base58Encode(this.trie.root)}`,
+      );
+    await new this.rootStateModel({
+      signatures: block.stateSignatures,
+      root: block.stateRootHash,
+      timestamp: block.timestamp,
+    }).save();
+  }
+
+  /**
+   * Gets the root state based on the given data
+   * @param date
+   * @returns
+   */
+  async getRootState(date: Date): Promise<RootState> {
+    // TODO check if it must be sorted to get the correct one
+    const result = await this.rootStateModel.findOne({ date: { $gte: date } });
+    if (!result) throw new Error(`no state root for ${date.toString()}`);
+    return result;
+  }
+
+  /**
+   * Generate the proof based on the did and the root of the trie
+   * @param value
+   */
+  async getProof(did: string, root: string) {
+    const hash = await getHash(did);
+    const trie = new Trie({ db: this.db, root: Buffer.from(root) });
+    const proof = await trie.createProof(Buffer.from(hash));
+    return proof.map((buffer) => base58Encode(buffer));
+  }
+
+  /**
+   * Resets the trie by emptying the db instance for root state
+   */
+  public async reset() {
+    await this.rootStateModel.deleteMany();
+    // TODO reset the trie
+    await this.db._leveldb.clear();
   }
 }
 /**

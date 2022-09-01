@@ -18,6 +18,7 @@ import { Model } from 'mongoose';
 import { ParseService } from '@apps/parse/src/parse.service';
 import { ParsingService } from '@tc/transactions/transactions/parsing.service';
 import { REDIS_INJECTION } from '@tc/clients/event-client/constants';
+import { StateService } from '@apps/parse/src/state/state.service';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 
 /**
@@ -49,6 +50,7 @@ export class DidIdParsingService extends ParsingService<DidIdTransactionDocument
     @InjectMetric('transactions')
     protected readonly transactionsCounter: Counter<string>,
     private readonly parseService: ParseService,
+    private readonly stateService: StateService,
   ) {
     super(
       clientRedis,
@@ -155,9 +157,8 @@ export class DidIdParsingService extends ParsingService<DidIdTransactionDocument
       message: `set did: ${transaction.body.value.id}`,
       labels: { source: this.constructor.name },
     });
+    await this.stateService.addElement(did);
     this.created(transaction).then();
-    // TODO to store it into the state proof the did document has to be assembled. In the DB there are only the raw values to do so. the observer is assembling the did every time. it would be better to use the latest version from the DB. Right now the gateway is also assembling from the transaction so no one seems to use the latest version so safe some time
-    // this.stateService.addElement(did)
   }
 
   /**

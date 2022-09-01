@@ -18,6 +18,14 @@ export class Block extends ProposedBlock {
   /**
    * signature of the one who proposed the block
    */
+  // TODO move this signature to the other signature array
   @Type(() => SignatureDto)
   proposer!: SignatureDto;
+
+  /**
+   * Signatures of the state proof
+   */
+  @IsArray()
+  @Type(() => SignatureDto)
+  stateSignatures!: SignatureDto[];
 }

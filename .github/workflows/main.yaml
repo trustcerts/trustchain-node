@@ -9,6 +9,10 @@ on:
       - opened
       - synchronize
 
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
 # TODO evaluate if we need the pr number since we store the images in the cicd cache and not in a registry during the branches
 # env:
 #   PR_NUMBER: ${{ github.event.pull_request.number }}

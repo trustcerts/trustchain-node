@@ -28,10 +28,16 @@ export class ProposedBlock {
   previousHash!: string;
 
   /**
-   *  hashBlock of the transactions
+   *  hashBlock of the transactions.
    */
   @IsString()
   hash!: string;
+
+  /**
+   * Hash of the state root.
+   */
+  @IsString()
+  stateRootHash!: string;
 
   /**
    * timestamp when the block was proposed
