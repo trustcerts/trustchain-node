@@ -27,5 +27,5 @@ export class Block extends ProposedBlock {
    */
   @IsArray()
   @Type(() => SignatureDto)
-  stateSignatures!: SignatureDto[];
+  stateSignatures?: SignatureDto[];
 }

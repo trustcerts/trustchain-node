@@ -7,6 +7,7 @@ import { GatewayHashModule } from '@tc/transactions/did-hash/gateway/gateway-has
 import { GatewaySchemaModule } from '@tc/transactions/did-schema/gateway/gateway-schema.module';
 import { GatewayStatusListModule } from '@tc/transactions/did-status-list/gateway/gateway-status-list.module';
 import { GatewayTemplateModule } from '@tc/transactions/did-template/gateway/gateway-template.module';
+import { GatewayVisualRepresentationModule } from '@tc/transactions/did-visual-representation/gateway/gateway-visual-representation.module';
 import { HttpGatewayController } from './http-gateway.controller';
 import { HttpGatewayService } from './http-gateway.service';
 import { Identifier } from '@trustcerts/did';
@@ -60,6 +61,7 @@ import {
     GatewayTemplateModule,
     GatewaySchemaModule,
     GatewayStatusListModule,
+    GatewayVisualRepresentationModule,
   ],
   controllers: [HttpGatewayController],
   providers: [HttpGatewayService],

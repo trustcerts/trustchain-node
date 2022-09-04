@@ -215,12 +215,15 @@ export class BlockCheckService {
     transaction: TransactionDto,
     addedTransactions: Map<string, TransactionDto>,
   ): Promise<any[]> {
+    const validator = this.types.get(transaction.body.type);
+    if (!validator)
+      throw new Error(
+        `no validations for ${transaction.body.type} registered `,
+      );
     return Promise.all([
       this.checkSignature(transaction),
       this.checkSize(transaction),
-      this.types
-        .get(transaction.body.type)!
-        .validation(transaction, addedTransactions),
+      validator.validation(transaction, addedTransactions),
     ]);
   }
 

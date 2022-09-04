@@ -9,6 +9,7 @@ import { ObserverHashModule } from '@tc/transactions/did-hash/observer/observer-
 import { ObserverSchemaModule } from '@tc/transactions/did-schema/observer/observer-schema.module';
 import { ObserverStatusListModule } from '@tc/transactions/did-status-list/observer/observer-status-list.module';
 import { ObserverTemplateModule } from '@tc/transactions/did-template/observer/observer-template.module';
+import { ObserverVisualRepresentationModule } from '@tc/transactions/did-visual-representation/observer/observer-visual-representation.module';
 import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 import { TrackingModule } from './tracking/tracking.module';
 import { WinstonModule } from 'nest-winston';
@@ -55,6 +56,7 @@ import {
     ObserverTemplateModule,
     ObserverSchemaModule,
     ObserverStatusListModule,
+    ObserverVisualRepresentationModule,
   ],
   controllers: [HttpObserverController],
   providers: [HttpObserverService],

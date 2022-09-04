@@ -19,6 +19,8 @@ import { StatusListParsingModule } from '@tc/transactions/did-status-list/parse/
 import { TemplateCachedModule } from '@tc/transactions/did-template/cached/template-cached.module';
 import { TemplateParsingModule } from '@tc/transactions/did-template/parse/template-parsing.module';
 import { TerminusModule } from '@nestjs/terminus';
+import { VisualRepresentationCachedModule } from '@tc/transactions/did-visual-representation/cached/visual-representation-cached.module';
+import { VisualRepresentationParsingModule } from '@tc/transactions/did-visual-representation/parse/status-visual-representation.module';
 import { WinstonModule } from 'nest-winston';
 import { dbConnectionValidation } from '@shared/validation-rules';
 @Module({
@@ -45,6 +47,7 @@ import { dbConnectionValidation } from '@shared/validation-rules';
     TerminusModule,
     EventClientModule,
     PersistClientModule,
+    StateModule,
 
     HashParsingModule,
     HashCachedModule,
@@ -61,7 +64,8 @@ import { dbConnectionValidation } from '@shared/validation-rules';
     StatusListParsingModule,
     StatusListCachedModule,
 
-    StateModule,
+    VisualRepresentationParsingModule,
+    VisualRepresentationCachedModule,
   ],
   controllers: [ParseController, HealthController],
   providers: [ParseService],

@@ -12,4 +12,6 @@ export enum TransactionType {
   Template = 'Template',
 
   StatusList = 'StatusList',
+
+  VisualRepresentation = 'VisualRepresentation',
 }

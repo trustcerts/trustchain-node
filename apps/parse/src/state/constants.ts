@@ -1,0 +1,1 @@
+export const STATE_CONNECTION = 'STATE_CONNECTION';

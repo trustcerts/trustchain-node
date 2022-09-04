@@ -152,6 +152,19 @@ export class DidIdParsingService extends ParsingService<DidIdTransactionDocument
       }
     }
 
+    if (transaction.body.value.service) {
+      if (!did.service) did.service = [];
+      if (transaction.body.value.service!.remove) {
+        did.service = did.service.filter(
+          (usedKey) =>
+            !transaction.body.value.service!.remove?.includes(usedKey.id),
+        );
+      }
+      if (transaction.body.value.service!.add) {
+        did.service.push(...transaction.body.value.service!.add!);
+      }
+    }
+
     await did.save();
     this.logger.debug({
       message: `set did: ${transaction.body.value.id}`,

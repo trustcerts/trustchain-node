@@ -16,6 +16,7 @@ import {
   PrometheusModule,
   makeCounterProvider,
 } from '@willsoto/nestjs-prometheus';
+import { StateModule } from '@apps/parse/src/state/state.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import {
     EventClientModule,
     HashModule,
     DidIdDbModule,
+    StateModule,
     MongooseModule.forFeature(
       [
         { name: DidIdTransaction.name, schema: DidTransactionSchema },

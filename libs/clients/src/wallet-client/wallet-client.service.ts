@@ -98,12 +98,7 @@ export class WalletClientService implements OnModuleDestroy {
    * @private
    */
   public async importKey(keyValue: PublicKeyJwkDto): Promise<CryptoKey> {
-    return importKey(
-      keyValue,
-      'jwk',
-      ['verify'],
-      await this.getAlgorithmFromKey(keyValue),
-    );
+    return importKey(keyValue, 'jwk', ['verify']);
   }
 
   /**

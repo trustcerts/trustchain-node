@@ -3,9 +3,11 @@ import { DidDocument } from '@tc/transactions/transactions/did/schemas/did.schem
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
 import { Level } from 'level';
-import { LevelDB, Trie } from '@ethereumjs/trie';
+import { LevelDB } from './level-db';
 import { Model } from 'mongoose';
 import { RootState, RootStateDocument } from './schema/root-state.schema';
+import { STATE_CONNECTION } from './constants';
+import { Trie } from '@ethereumjs/trie';
 import { base58Decode, base58Encode } from '@trustcerts/helpers';
 import { getHash, sortKeys } from '@trustcerts/crypto';
 @Injectable()
@@ -28,7 +30,7 @@ export class StateService {
    * @param rootStateModel db connection for the root states
    */
   constructor(
-    @InjectModel(RootState.name)
+    @InjectModel(RootState.name, STATE_CONNECTION)
     protected rootStateModel: Model<RootStateDocument>,
   ) {
     this.db = new LevelDB(new Level(this.storage));
@@ -51,6 +53,7 @@ export class StateService {
    * @param block
    */
   async storeRootState(block: Block) {
+    if (!block.stateRootHash) throw new Error();
     const exists = await this.trie.checkRoot(
       Buffer.from(base58Decode(block.stateRootHash)),
     );
@@ -58,7 +61,7 @@ export class StateService {
       throw new Error(
         `root hash ${
           block.stateRootHash
-        } is not known, latest is ${base58Encode(this.trie.root)}`,
+        } is not known, latest is ${base58Encode(this.trie.root())}`,
       );
     await new this.rootStateModel({
       signatures: block.stateSignatures,

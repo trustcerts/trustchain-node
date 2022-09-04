@@ -2,6 +2,7 @@ import {
   ArrayMinSize,
   IsArray,
   IsNumber,
+  IsOptional,
   IsPositive,
   IsRFC3339,
   IsString,
@@ -37,7 +38,8 @@ export class ProposedBlock {
    * Hash of the state root.
    */
   @IsString()
-  stateRootHash!: string;
+  @IsOptional()
+  stateRootHash?: string;
 
   /**
    * timestamp when the block was proposed
