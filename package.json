@@ -47,7 +47,7 @@
     "@nestjs/axios": "^0.1.0",
     "@nestjs/common": "^9.0.8",
     "@nestjs/core": "^9.0.8",
-    "@nestjs/microservices": "^9.0.8",
+    "@nestjs/microservices": "^9.0.11",
     "@nestjs/mongoose": "^9.2.0",
     "@nestjs/platform-express": "^9.0.8",
     "@nestjs/platform-socket.io": "^9.0.8",
