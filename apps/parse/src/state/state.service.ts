@@ -53,21 +53,22 @@ export class StateService {
    * @param block
    */
   async storeRootState(block: Block) {
-    if (!block.stateRootHash) throw new Error();
-    const exists = await this.trie.checkRoot(
-      Buffer.from(base58Decode(block.stateRootHash)),
-    );
-    if (!exists)
-      throw new Error(
-        `root hash ${
-          block.stateRootHash
-        } is not known, latest is ${base58Encode(this.trie.root())}`,
-      );
-    await new this.rootStateModel({
-      signatures: block.stateSignatures,
-      root: block.stateRootHash,
-      timestamp: block.timestamp,
-    }).save();
+    return;
+    // if (!block.stateRootHash) throw new Error();
+    // const exists = await this.trie.checkRoot(
+    //   Buffer.from(base58Decode(block.stateRootHash)),
+    // );
+    // if (!exists)
+    //   throw new Error(
+    //     `root hash ${
+    //       block.stateRootHash
+    //     } is not known, latest is ${base58Encode(this.trie.root())}`,
+    //   );
+    // await new this.rootStateModel({
+    //   signatures: block.stateSignatures,
+    //   root: block.stateRootHash,
+    //   timestamp: block.timestamp,
+    // }).save();
   }
 
   /**

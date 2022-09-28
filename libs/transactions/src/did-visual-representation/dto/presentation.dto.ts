@@ -29,13 +29,13 @@ export class Presentation {
   type!: PresentationType;
 
   /**
-   * Value of the presentation
+   * Resolvable link to request the content
    */
   @ApiProperty({
-    description: 'value of the presentation',
-    example: '<h1>{{ hello }}</h1>',
+    description: 'resolvable link to request the content',
+    example: 'http://example.com',
   })
   @IsString()
   @Prop()
-  value!: string;
+  link!: string;
 }

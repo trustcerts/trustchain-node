@@ -3,7 +3,6 @@ import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
 import { Parser } from './parser.interface';
 import { PersistClientService } from '@tc/clients/persist-client';
-import { StateService } from './state/state.service';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 
 /**
@@ -31,8 +30,7 @@ export class ParseService {
    */
   constructor(
     @Inject('winston') private readonly logger: Logger,
-    private readonly persistClientService: PersistClientService,
-    private readonly stateService: StateService,
+    private readonly persistClientService: PersistClientService, // private readonly stateService: StateService,
   ) {
     this.rebuilding = false;
   }
@@ -53,7 +51,7 @@ export class ParseService {
   async rebuild() {
     this.rebuilding = true;
     await this.reset();
-    await this.stateService.reset();
+    // await this.stateService.reset();
     // TODO this can cause problems when a new block will be send
     const maxCounter = await this.persistClientService.getBlockCounter();
     let counter = 0;
@@ -108,6 +106,8 @@ export class ParseService {
         }
         return parser.parsing(transaction);
       }),
-    ).then(() => this.stateService.storeRootState(block));
+    ).then(() => {
+      // this.stateService.storeRootState(block)
+    });
   }
 }

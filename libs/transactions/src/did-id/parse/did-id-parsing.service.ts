@@ -18,7 +18,6 @@ import { Model } from 'mongoose';
 import { ParseService } from '@apps/parse/src/parse.service';
 import { ParsingService } from '@tc/transactions/transactions/parsing.service';
 import { REDIS_INJECTION } from '@tc/clients/event-client/constants';
-import { StateService } from '@apps/parse/src/state/state.service';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 
 /**
@@ -49,8 +48,7 @@ export class DidIdParsingService extends ParsingService<DidIdTransactionDocument
     protected didIdDocumentRepository: Model<DidIdTransactionDocument>,
     @InjectMetric('transactions')
     protected readonly transactionsCounter: Counter<string>,
-    private readonly parseService: ParseService,
-    private readonly stateService: StateService,
+    private readonly parseService: ParseService, // private readonly stateService: StateService,
   ) {
     super(
       clientRedis,
@@ -170,7 +168,7 @@ export class DidIdParsingService extends ParsingService<DidIdTransactionDocument
       message: `set did: ${transaction.body.value.id}`,
       labels: { source: this.constructor.name },
     });
-    await this.stateService.addElement(did);
+    // await this.stateService.addElement(did);
     this.created(transaction).then();
   }
 
