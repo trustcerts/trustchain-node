@@ -2,7 +2,6 @@ import * as Joi from 'joi';
 import { ConfigModule, ConfigService } from '@tc/config';
 import { EventClientModule } from '@tc/clients/event-client';
 import { HealthController } from './health/health.controller';
-import { Identifier } from '@trustcerts/did';
 import { Module } from '@nestjs/common';
 import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 import { TerminusModule } from '@nestjs/terminus';
@@ -14,9 +13,6 @@ import { WinstonModule } from 'nest-winston';
   imports: [
     ConfigModule.forRoot({
       service: 'wallet',
-      environment: {
-        DID_NETWORK: Joi.string(),
-      },
       dynamic: {
         IDENTIFIER: Joi.string(),
       },
@@ -39,8 +35,4 @@ import { WinstonModule } from 'nest-winston';
   controllers: [WalletController, HealthController],
   providers: [WalletService],
 })
-export class WalletModule {
-  constructor(configService: ConfigService) {
-    Identifier.setNetwork(configService.getString('DID_NETWORK'));
-  }
-}
+export class WalletModule {}

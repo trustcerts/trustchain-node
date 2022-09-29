@@ -28,7 +28,7 @@ import {
   stopAndRemoveAllDeps,
 } from '@test/helpers';
 import { ConfigService } from '@tc/config/config.service';
-import { DidId, DidIdRegister } from '@trustcerts/did';
+import { DidId, DidIdRegister, Identifier } from '@trustcerts/did';
 import { lastValueFrom } from 'rxjs';
 import { config } from 'dotenv';
 
@@ -60,6 +60,8 @@ describe('AppController (e2e)', () => {
     await addTCPEndpoint(app);
     await app.startAllMicroservices();
     await app.init();
+    const configService = app.get(ConfigService);
+    Identifier.setNetwork(configService.getString('DID_NETWORK'));
 
     path = join(`${app.get(ConfigService).storagePath}`, 'wallet.json');
     clientRedis = app.get(REDIS_INJECTION);
