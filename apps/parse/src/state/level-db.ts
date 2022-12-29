@@ -1,6 +1,5 @@
 import { DB } from '@ethereumjs/trie';
 import { Level } from 'level';
-import { isTruthy } from '@ethereumjs/util';
 
 const ENCODING_OPTS = { keyEncoding: 'buffer', valueEncoding: 'buffer' };
 
@@ -12,7 +11,8 @@ export class LevelDB implements DB {
     try {
       value = await this._leveldb.get<Buffer, Buffer>(key, ENCODING_OPTS);
     } catch (error: any) {
-      if (isTruthy(error.notFound)) {
+      // TODO implement
+      if (error.notFound) {
         // not found, returning null
       } else {
         throw error;

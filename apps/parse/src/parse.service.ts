@@ -49,6 +49,8 @@ export class ParseService {
    * Rebuilds the service.
    */
   async rebuild() {
+    // TODO needs a counter to check which blocks got parsed so the missing ones can be added
+    if (this.rebuilding) return Promise.reject(`service is rebuilding`);
     this.rebuilding = true;
     await this.reset();
     // await this.stateService.reset();
@@ -59,7 +61,9 @@ export class ParseService {
       while (maxCounter > counter) {
         counter++;
         const block = await this.persistClientService.getBlock(counter);
-        await this.parseBlock(block);
+        await this.parseBlock(block).catch((err) => {
+          throw new Error(err);
+        });
         this.logger.info({
           message: `parsed block: ${block.index}`,
           labels: { source: this.constructor.name },
@@ -86,8 +90,6 @@ export class ParseService {
    * @param block block that is ready for cert-parsing
    */
   public parseBlock(block: Block): Promise<void> {
-    // TODO needs a counter to check which blocks got parsed so the missing ones can be added
-    if (this.rebuilding) return Promise.reject(`service is rebuilding`);
     return Promise.all(
       block.transactions.map((transaction) => {
         transaction.block = {

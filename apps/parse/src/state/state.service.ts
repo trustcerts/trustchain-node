@@ -8,7 +8,7 @@ import { Model } from 'mongoose';
 import { RootState, RootStateDocument } from './schema/root-state.schema';
 import { STATE_CONNECTION } from './constants';
 import { Trie } from '@ethereumjs/trie';
-import { base58Decode, base58Encode } from '@trustcerts/helpers';
+import { base58Encode } from '@trustcerts/helpers';
 import { getHash, sortKeys } from '@trustcerts/crypto';
 @Injectable()
 export class StateService {
