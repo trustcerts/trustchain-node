@@ -1,4 +1,4 @@
-FROM node:18.7.0-alpine3.16
+FROM node:18.15.0-alpine3.16
 WORKDIR /app
 
 ## Install build toolchain, install node deps and compile native add-ons
