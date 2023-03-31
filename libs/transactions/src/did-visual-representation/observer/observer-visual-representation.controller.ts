@@ -5,7 +5,6 @@ import { DidVisualRepresentationTransaction } from '@tc/transactions/did-visual-
 import { MaintenanceGuard } from '@tc/config/version/maintenance.guard';
 import { VisualRepresentationCachedService } from '@tc/transactions/did-visual-representation/cached/visual-representation-cached.service';
 import { VisualRepresentationDocResponse } from '@tc/transactions/did-visual-representation/dto/visual-representation-doc-response.dto';
-import { VisualRepresentationVerifierService } from '@trustcerts/did-visual-representation';
 
 /**
  * Controls visualrepresentation requests.
@@ -16,7 +15,7 @@ import { VisualRepresentationVerifierService } from '@trustcerts/did-visual-repr
 export class ObserverVisualRepresentationController extends DidControllerMixin<
   VisualRepresentationDocResponse,
   DidVisualRepresentationTransaction,
-  VisualRepresentationVerifierService
+  any
 >({
   doc: VisualRepresentationDocResponse,
   trans: DidVisualRepresentationTransaction,

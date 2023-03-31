@@ -20,7 +20,7 @@ import { VISUALREPRESENTATION_CONNECTION } from '../constants';
  * Handles requests to get a cached visualrepresentation.
  */
 @Injectable()
-export class VisualRepresentationCachedService extends CachedService<DidVisualRepresentationResolver> {
+export class VisualRepresentationCachedService extends CachedService<any> {
   /**
    * Injects required dependencies.
    * @param didModel
@@ -59,7 +59,7 @@ export class VisualRepresentationCachedService extends CachedService<DidVisualRe
    * @param id
    * @returns
    */
-  async getLatestDocument(id: string): Promise<DidVisualRepresentation> {
+  async getLatestDocument(id: string): Promise<any> {
     const document: DidVisualRepresentationDocument =
       await this.getById<DidVisualRepresentationDocument>(id);
     const didId = new DidVisualRepresentation(id);

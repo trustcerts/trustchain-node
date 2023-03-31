@@ -1,7 +1,6 @@
 import { BlockCheckService } from '@tc/blockchain/block-check/block-check.service';
 import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
 import { DidRoles } from '@tc/transactions/did-id/dto/did-roles.dto';
-import { DidVisualRepresentationResolver } from '@trustcerts/did-visual-representation';
 import { Inject, Injectable } from '@nestjs/common';
 import { Logger } from 'winston';
 import { TransactionCheck } from '@tc/transactions/transactions/transaction-check.service';
@@ -14,7 +13,7 @@ import { VisualRepresentationTransactionDto } from '../dto/visual-representation
  * Validates a visualrepresentation before it gets into a block.
  */
 @Injectable()
-export class VisualRepresentationTransactionCheckService extends TransactionCheck<DidVisualRepresentationResolver> {
+export class VisualRepresentationTransactionCheckService extends TransactionCheck<any> {
   /**
    * Injects required services
    * @param blockCheckService
