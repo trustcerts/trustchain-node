@@ -54,7 +54,10 @@ export class DidIdTransactionCheckService extends TransactionCheck<DidIdResolver
         newTransaction.body.value.id ===
           (transaction as DidIdTransactionDto).body.value.id
       ) {
-        throw new Error('Double did manipulation');
+        console.log('throw this');
+        throw new Error(
+          `Double did manipulation for ${newTransaction.body.value.id}`,
+        );
       }
     });
   }

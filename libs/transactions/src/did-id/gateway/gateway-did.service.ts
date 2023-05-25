@@ -109,6 +109,20 @@ export class GatewayDidService extends GatewayTransactionService<DidIdResolver> 
       );
       did.removeKey(id);
     });
+    did.getDocument().authentication.forEach((id) => {
+      did.removeVerificationRelationship(
+        id,
+        VerificationRelationshipType.authentication,
+      );
+      did.removeKey(id);
+    });
+    did.getDocument().assertionMethod.forEach((id) => {
+      did.removeVerificationRelationship(
+        id,
+        VerificationRelationshipType.assertionMethod,
+      );
+      did.removeKey(id);
+    });
     const key = await this.walletService.importKey(createCert.publicKey);
     const keyService = await this.walletService.getCryptoKeyServiceByKey(
       createCert.publicKey,

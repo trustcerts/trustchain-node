@@ -14,7 +14,7 @@ import { WalletClientService } from '@tc/clients/wallet-client';
  * Service to handle incoming visualrepresentations.
  */
 @Injectable()
-export class GatewayVisualRepresentationService extends GatewayTransactionService<any> {
+export class GatewayVisualRepresentationService extends GatewayTransactionService<DidVisualRepresentationResolver> {
   /**
    * Loads required services.
    * @param gatewayBlockchainService

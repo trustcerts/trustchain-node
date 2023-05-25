@@ -49,7 +49,9 @@ export class GatewayStatusListService extends GatewayTransactionService<DidStatu
    * @param transaction
    */
   async addStatusList(transaction: StatusListTransactionDto) {
-    await this.addDidDocSignature(transaction);
+    await this.addDidDocSignature(transaction).catch((err) => {
+      console.log(err);
+    });
     return {
       metaData: await this.addTransaction(transaction),
       transaction,
