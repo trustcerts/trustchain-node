@@ -77,9 +77,7 @@ export abstract class TransactionCheck<
         (did) => {
           for (const signer of transaction.signature.values) {
             const signerId = signer.identifier.split('#')[0];
-            if (
-              !did.controllers.find((controller) => controller.id === signerId)
-            ) {
+            if (!did.controller.find((controller) => controller === signerId)) {
               throw new Error(
                 `${signerId} is not authorized to update ${transaction.body.value.id}`,
               );

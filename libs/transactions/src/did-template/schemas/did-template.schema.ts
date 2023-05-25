@@ -1,18 +1,16 @@
-import * as mongoose from 'mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { Compression } from '../dto/compression.dto';
-import { Did } from '@tc/transactions/transactions/did/schemas/did.schema';
-import { DidSchema } from '@tc/transactions/did-schema/schemas/did-schema.schema';
+import { DidDocument } from '@tc/transactions/transactions/did/schemas/did.schema';
+import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Type } from 'class-transformer';
 
-export type TemplateDocument = DidTemplate & mongoose.Document;
+export type TemplateDocumentDocument = DidTemplateDocument & Document;
 
 /**
  * Describes the values of a template that is used for presentation.
  */
 @Schema()
-export class DidTemplate extends Did {
+export class DidTemplateDocument extends DidDocument {
   /**
    * Information about the used compression.
    */
@@ -30,12 +28,10 @@ export class DidTemplate extends Did {
    * Value of the template.
    */
   @ApiProperty({ description: 'schema of the input' })
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'DidSchema' })
-  @Type(() => DidSchema)
-  schemaObject!: DidSchema;
+  schemaId!: string;
 }
 
 /**
  * Template Schema
  */
-export const TemplateSchema = SchemaFactory.createForClass(DidTemplate);
+export const TemplateSchema = SchemaFactory.createForClass(DidTemplateDocument);

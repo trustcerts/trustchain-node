@@ -1,7 +1,8 @@
 import { DID_ID_CONNECTION } from '@tc/transactions/did-id/constants';
-import { DidId, DidIdSchema } from '../schemas/did-id.schema';
+import { DidId } from '@trustcerts/did';
 import { DidIdCachedService } from './did-id-cached.service';
 import { DidIdDbModule } from '../db/did-id-db.module';
+import { DidIdSchema } from '../schemas/did-id.schema';
 import {
   DidIdTransaction,
   DidTransactionSchema,

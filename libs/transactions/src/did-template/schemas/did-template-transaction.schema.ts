@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { DidTemplateStructure } from '../dto/did-template-structure.dto';
+import { DidTemplateStructure } from '../dto/template-structure.dto';
 import {
   DidTransaction,
   DidTransactionDocument,

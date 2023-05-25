@@ -70,4 +70,7 @@ export class GenesisBlock implements Block {
     description: 'validator that proposed the block',
   })
   proposer!: SignatureDto;
+
+  stateSignatures!: SignatureDto[];
+  stateRootHash!: string;
 }

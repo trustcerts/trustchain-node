@@ -1,15 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Did } from '@tc/transactions/transactions/did/schemas/did.schema';
+import { DidDocument } from '@tc/transactions/transactions/did/schemas/did.schema';
 import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-export type HashDocument = DidHash & Document;
+export type HashDocumentDocument = DidHashDocument & Document;
 
 /**
  * Entity that describes how signed hashes are stored on the database
  */
 @Schema()
-export class DidHash extends Did {
+export class DidHashDocument extends DidDocument {
   /**
    * Hash of the hash to identify it.
    */
@@ -23,7 +23,7 @@ export class DidHash extends Did {
   @ApiProperty({ description: 'Used algorithm for the hash.' })
   // TODO calculate length based on the available types
   @Prop({ length: 10 })
-  hashAlgorithm!: string;
+  algorithm!: string;
 
   /**
    * Date when the hash was revoked.
@@ -40,4 +40,4 @@ export class DidHash extends Did {
 /**
  * Hash Schema
  */
-export const HashSchema = SchemaFactory.createForClass(DidHash);
+export const HashSchema = SchemaFactory.createForClass(DidHashDocument);

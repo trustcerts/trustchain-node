@@ -19,7 +19,6 @@ import { WalletClientService } from '@tc/clients/wallet-client';
 export class GatewayTransactionService<
   Res extends DidResolver<VerifierService>,
 > {
-  // TODO pass DidResolver Class so the procted class is set correctly
   /**
    * Resolved a did.
    */
@@ -89,28 +88,32 @@ export class GatewayTransactionService<
    * Adds a signature to the transaction to proof it was correct.
    */
   public async addDidDocSignature(transaction: DidTransactionDto) {
-    const values = await this.cachedService.getTransactions(
-      transaction.body.value.id,
-    );
-    const transactions = values
-      .map((value) => value.values)
-      .concat([transaction.body.value]);
-    const did = await this.didResolver.load(transaction.body.value.id, {
-      transactions,
-      validateChainOfTrust: false,
-    });
-    // parse the transaction into the did
-    // add signature
-    const didDocSignature: SignatureInfo = {
-      type: SignatureType.Single,
-      values: [
-        await this.walletService.signIssuer({
-          document: did.getDocument(),
-          version: did.getVersion(),
-        }),
-      ],
-    };
-    transaction.metadata.didDocSignature = didDocSignature;
+    try {
+      const values = await this.cachedService.getTransactions(
+        transaction.body.value.id,
+      );
+      const transactions = values
+        .map((value) => value.values)
+        .concat([transaction.body.value]);
+      const did = await this.didResolver.load(transaction.body.value.id, {
+        transactions,
+        validateChainOfTrust: false,
+      });
+      // parse the transaction into the did
+      // add signature
+      const didDocSignature: SignatureInfo = {
+        type: SignatureType.Single,
+        values: [
+          await this.walletService.signIssuer({
+            document: did.getDocument(),
+            version: did.getVersion(),
+          }),
+        ],
+      };
+      transaction.metadata.didDocSignature = didDocSignature;
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   /**

@@ -21,7 +21,7 @@ import { Logger } from 'winston';
 import { SignatureInfo } from '@tc/blockchain/transaction/signature-info';
 import { SignatureType } from '@tc/blockchain/transaction/signature-type';
 import { WalletClientService } from '@tc/clients/wallet-client';
-import { exportKey, importKey } from '@trustcerts/crypto';
+import { exportKey } from '@trustcerts/crypto';
 
 /**
  * Administrates did objects.
@@ -109,7 +109,21 @@ export class GatewayDidService extends GatewayTransactionService<DidIdResolver> 
       );
       did.removeKey(id);
     });
-    const key = await importKey(createCert.publicKey, 'jwk', ['verify']);
+    did.getDocument().authentication.forEach((id) => {
+      did.removeVerificationRelationship(
+        id,
+        VerificationRelationshipType.authentication,
+      );
+      did.removeKey(id);
+    });
+    did.getDocument().assertionMethod.forEach((id) => {
+      did.removeVerificationRelationship(
+        id,
+        VerificationRelationshipType.assertionMethod,
+      );
+      did.removeKey(id);
+    });
+    const key = await this.walletService.importKey(createCert.publicKey);
     const keyService = await this.walletService.getCryptoKeyServiceByKey(
       createCert.publicKey,
     );
@@ -140,7 +154,7 @@ export class GatewayDidService extends GatewayTransactionService<DidIdResolver> 
     });
 
     // add the given key
-    const key = await importKey(createCert.publicKey, 'jwk', ['verify']);
+    const key = await this.walletService.importKey(createCert.publicKey);
     const keyService = await this.walletService.getCryptoKeyServiceByKey(
       createCert.publicKey,
     );

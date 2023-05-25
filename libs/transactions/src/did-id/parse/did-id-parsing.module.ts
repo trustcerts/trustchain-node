@@ -1,7 +1,8 @@
 import { DID_ID_CONNECTION } from '@tc/transactions/did-id/constants';
-import { DidId, DidIdSchema } from '../schemas/did-id.schema';
+import { DidId } from '@trustcerts/did';
 import { DidIdDbModule } from '../db/did-id-db.module';
 import { DidIdParsingService } from './did-id-parsing.service';
+import { DidIdSchema } from '../schemas/did-id.schema';
 import {
   DidIdTransaction,
   DidTransactionSchema,
@@ -22,6 +23,7 @@ import {
     EventClientModule,
     HashModule,
     DidIdDbModule,
+    // StateModule,
     MongooseModule.forFeature(
       [
         { name: DidIdTransaction.name, schema: DidTransactionSchema },

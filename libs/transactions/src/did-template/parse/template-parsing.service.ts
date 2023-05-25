@@ -2,9 +2,8 @@ import { ClientRedis } from '@nestjs/microservices';
 import { Counter } from 'prom-client';
 import { DID_ID_CONNECTION } from '@tc/transactions/did-id/constants';
 import { DidId } from '@trustcerts/did';
-import { DidIdDocument } from '@tc/transactions/did-id/schemas/did-id.schema';
-import { DidSchema } from '@tc/transactions/did-schema/schemas/did-schema.schema';
-import { DidTemplate, TemplateDocument } from '../schemas/did-template.schema';
+import { DidIdDocumentDocument } from '@tc/transactions/did-id/schemas/did-id.schema';
+import { DidTemplate } from '@trustcerts/did-template';
 import {
   DidTemplateTransaction,
   TemplateTransactionDocument,
@@ -20,6 +19,7 @@ import { ParsingService } from '@tc/transactions/transactions/parsing.service';
 import { REDIS_INJECTION } from '@tc/clients/event-client/constants';
 import { SchemaCachedService } from '@tc/transactions/did-schema/cached/schema-cached.service';
 import { TEMPLATE_CONNECTION } from '../constants';
+import { TemplateDocumentDocument } from '../schemas/did-template.schema';
 import { TemplateTransactionDto } from '../dto/template.transaction.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
@@ -43,7 +43,7 @@ export class TemplateParsingService extends ParsingService<TemplateTransactionDo
     @Inject(REDIS_INJECTION) protected readonly clientRedis: ClientRedis,
     @Inject('winston') protected readonly logger: Logger,
     @InjectModel(DidTemplate.name, TEMPLATE_CONNECTION)
-    private didTemplateRepository: Model<TemplateDocument>,
+    private didTemplateRepository: Model<TemplateDocumentDocument>,
     @InjectModel(DidTemplateTransaction.name, TEMPLATE_CONNECTION)
     private didTemplateDocumentRepository: Model<TemplateTransactionDocument>,
     private readonly schemaCachedService: SchemaCachedService,
@@ -51,7 +51,7 @@ export class TemplateParsingService extends ParsingService<TemplateTransactionDo
     protected readonly transactionsCounter: Counter<string>,
     private readonly parseService: ParseService,
     @InjectModel(DidId.name, DID_ID_CONNECTION)
-    protected didIdRepository: Model<DidIdDocument>,
+    protected didIdRepository: Model<DidIdDocumentDocument>,
   ) {
     super(
       clientRedis,
@@ -83,9 +83,7 @@ export class TemplateParsingService extends ParsingService<TemplateTransactionDo
     await this.updateCoreValues(did, transaction);
 
     if (transaction.body.value.schemaId) {
-      did.schemaObject = await this.schemaCachedService.getById<DidSchema>(
-        transaction.body.value.schemaId,
-      );
+      did.schemaId = transaction.body.value.schemaId;
     }
     if (transaction.body.value.template) {
       this.store(transaction.body.value.id, transaction.body.value.template);

@@ -1,4 +1,4 @@
-import { DidTemplate, TemplateSchema } from '../schemas/did-template.schema';
+import { DidTemplate } from '@trustcerts/did-template';
 import {
   DidTemplateTransaction,
   TemplateTransactionSchema,
@@ -8,6 +8,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { TEMPLATE_CONNECTION } from '../constants';
 import { TemplateCachedService } from './template-cached.service';
 import { TemplateDbModule } from '../db/template-db.module';
+import { TemplateSchema } from '../schemas/did-template.schema';
 
 @Module({
   imports: [

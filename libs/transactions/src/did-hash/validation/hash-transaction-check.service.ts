@@ -1,5 +1,5 @@
 import { BlockCheckService } from '@tc/blockchain/block-check/block-check.service';
-import { DidHash } from '@tc/transactions/did-hash/schemas/did-hash.schema';
+import { DidHashDocument } from '@tc/transactions/did-hash/schemas/did-hash.schema';
 import { DidHashResolver } from '@trustcerts/did-hash';
 import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
 import { DidRoles } from '@tc/transactions/did-id/dto/did-roles.dto';
@@ -94,7 +94,7 @@ export class HashTransactionCheckService extends TransactionCheck<DidHashResolve
    * @param hash
    */
   protected async findHash(hash: string) {
-    return this.cachedService.getById<DidHash>(hash);
+    return this.cachedService.getById<DidHashDocument>(hash);
   }
 
   /**

@@ -1,4 +1,4 @@
-import { ArrayMinSize, IsArray } from 'class-validator';
+import { ArrayMinSize, IsArray, IsOptional } from 'class-validator';
 import { ProposedBlock } from './proposed-block.dto';
 import { SignatureDto } from '../transaction/signature.dto';
 import { Type } from 'class-transformer';
@@ -18,6 +18,15 @@ export class Block extends ProposedBlock {
   /**
    * signature of the one who proposed the block
    */
+  // TODO move this signature to the other signature array
   @Type(() => SignatureDto)
   proposer!: SignatureDto;
+
+  /**
+   * Signatures of the state proof
+   */
+  @IsArray()
+  @IsOptional()
+  @Type(() => SignatureDto)
+  stateSignatures?: SignatureDto[];
 }

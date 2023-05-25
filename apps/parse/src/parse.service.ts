@@ -11,6 +11,11 @@ import { TransactionType } from '@tc/blockchain/transaction/transaction-type';
 @Injectable()
 export class ParseService {
   /**
+   * Flag if the service is beeing rebuilded. In this state new blocks should not be parsed since the corrupt the state.
+   */
+  private rebuilding: boolean;
+
+  /**
    * Includes a function pointer how to parse a special type of transaction.
    */
   public parsers: Map<TransactionType, Parser> = new Map<
@@ -25,8 +30,10 @@ export class ParseService {
    */
   constructor(
     @Inject('winston') private readonly logger: Logger,
-    private readonly persistClientService: PersistClientService,
-  ) {}
+    private readonly persistClientService: PersistClientService, // private readonly stateService: StateService,
+  ) {
+    this.rebuilding = false;
+  }
 
   /**
    * Resets the registered modules by deleting the modules.
@@ -42,14 +49,21 @@ export class ParseService {
    * Rebuilds the service.
    */
   async rebuild() {
+    // TODO needs a counter to check which blocks got parsed so the missing ones can be added
+    if (this.rebuilding) return Promise.reject(`service is rebuilding`);
+    this.rebuilding = true;
     await this.reset();
+    // await this.stateService.reset();
+    // TODO this can cause problems when a new block will be send
     const maxCounter = await this.persistClientService.getBlockCounter();
     let counter = 0;
     try {
       while (maxCounter > counter) {
         counter++;
         const block = await this.persistClientService.getBlock(counter);
-        await this.parseBlock(block);
+        await this.parseBlock(block).catch((err) => {
+          throw new Error(err);
+        });
         this.logger.info({
           message: `parsed block: ${block.index}`,
           labels: { source: this.constructor.name },
@@ -66,14 +80,16 @@ export class ParseService {
         message: `failed parsing block ${counter} reason: ${e.message}`,
         labels: { source: this.constructor.name },
       });
+      // TODO what to do when the rebuild fails? This can only happen when the DB is throwing some errors or the local blockchain storage got compromised
     }
+    this.rebuilding = false;
   }
 
   /**
-   * Informs other nodes about a block ready for cert-parsing.
+   * Iterates over the transactions and calls the correct parser. When sucessfully finished the state will be updated. Will reject the new block when the service is rebuilding
    * @param block block that is ready for cert-parsing
    */
-  public parseBlock(block: Block): Promise<void[]> {
+  public parseBlock(block: Block): Promise<void> {
     return Promise.all(
       block.transactions.map((transaction) => {
         transaction.block = {
@@ -92,6 +108,8 @@ export class ParseService {
         }
         return parser.parsing(transaction);
       }),
-    );
+    ).then(() => {
+      // this.stateService.storeRootState(block)
+    });
   }
 }

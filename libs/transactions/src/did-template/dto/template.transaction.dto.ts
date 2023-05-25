@@ -1,5 +1,5 @@
 import { DidTransactionDto } from '@tc/transactions/transactions/did/dto/did.transaction.dto';
-import { TemplateTransactionBody } from './template-transactionbody.dto';
+import { TemplateTransactionBody } from './template-transaction-body.dto';
 
 /**
  * Class to handle templates

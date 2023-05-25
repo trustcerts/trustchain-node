@@ -1,4 +1,4 @@
-FROM node:18.7.0-alpine3.16
+FROM node:18.15.0-alpine3.16
 WORKDIR /app
 
 ## Install build toolchain, install node deps and compile native add-ons
@@ -10,7 +10,7 @@ RUN apk add py-pip make g++ openssl docker bash
 ## install libraries
 COPY ./package*.json ./
 
-RUN npm ci --only=production
+RUN npm ci --omit=dev
 
 RUN rm package*.json
 

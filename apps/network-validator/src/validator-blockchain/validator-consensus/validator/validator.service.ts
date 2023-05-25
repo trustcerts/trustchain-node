@@ -249,7 +249,9 @@ export class ValidatorService extends ParticipantConsensus {
     await validateOrReject(plainToClass(ProposedBlock, block)).catch(
       (errors) => {
         this.logger.error({
-          message: `round ${this.roundNumber}: ${JSON.stringify(block)}`,
+          message: `round ${this.roundNumber}: ${JSON.stringify(
+            block,
+          )} with error ${JSON.stringify(errors)}`,
           labels: { source: this.constructor.name, rejected: true },
         });
         Promise.reject(Error(JSON.stringify(errors)));

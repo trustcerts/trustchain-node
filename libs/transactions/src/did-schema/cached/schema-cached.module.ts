@@ -1,4 +1,4 @@
-import { DidSchema, SchemaSchema } from '../schemas/did-schema.schema';
+import { DidSchema } from '@trustcerts/did-schema';
 import {
   DidSchemaTransaction,
   SchemaTransactionSchema,
@@ -8,6 +8,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { SCHEMA_CONNECTION } from '../constants';
 import { SchemaCachedService } from './schema-cached.service';
 import { SchemaDbModule } from '../db/schema-db.module';
+import { SchemaSchema } from '../schemas/did-schema.schema';
 
 @Module({
   imports: [

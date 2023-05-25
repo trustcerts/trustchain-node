@@ -1,10 +1,7 @@
 import { ClientRedis } from '@nestjs/microservices';
 import { Counter } from 'prom-client';
-import { Did } from './did/schemas/did.schema';
-import {
-  DidId,
-  DidIdDocument,
-} from '@tc/transactions/did-id/schemas/did-id.schema';
+import { DidDocument } from './did/schemas/did.schema';
+import { DidIdDocumentDocument } from '@tc/transactions/did-id/schemas/did-id.schema';
 import { DidTransactionDocument } from './did/schemas/did-transaction.schema';
 import { DidTransactionDto } from './did/dto/did.transaction.dto';
 import { HashService } from '@tc/blockchain';
@@ -35,7 +32,7 @@ export abstract class ParsingService<B extends DidTransactionDocument> {
     protected readonly hashService: HashService,
     @InjectMetric('transactions')
     protected transactionsCounter: Counter<string>,
-    protected didIdRepository: Model<DidIdDocument>,
+    protected didIdRepository: Model<DidIdDocumentDocument>,
     protected didTransactionRepository: Model<B>,
   ) {}
 
@@ -101,28 +98,27 @@ export abstract class ParsingService<B extends DidTransactionDocument> {
   /**
    * Updates the core values of a did object like controllers, signature or block information.
    */
-  protected async updateCoreValues(did: Did, transaction: DidTransactionDto) {
+  protected async updateCoreValues(
+    did: DidDocument,
+    transaction: DidTransactionDto,
+  ) {
     // update the controllers
     if (transaction.body.value.controller) {
-      if (transaction.body.value.controller!.remove) {
-        did.controllers = did.controllers.filter((controller: DidId) =>
-          transaction.body.value.controller!.remove!.includes(controller.id),
+      if (!did.controller) did.controller = [];
+      if (transaction.body.value.controller.remove) {
+        did.controller = did.controller.filter((controller: string) =>
+          transaction.body.value.controller!.remove!.includes(controller),
         );
       }
-      if (transaction.body.value.controller!.add) {
-        const newDids = await this.didIdRepository.find({
-          id: { $in: transaction.body.value.controller!.add! },
-        });
-        if (newDids.length > 0) {
-          did.controllers.push(...newDids);
-        }
+      if (transaction.body.value.controller.add) {
+        did.controller.push(...transaction.body.value.controller.add);
       }
     }
-    did.signature = transaction.metadata.didDocSignature!;
-    did.block = {
-      ...transaction.block!,
-      imported: transaction.metadata?.imported?.date,
-    };
+    // did.signature = transaction.metadata.didDocSignature!;
+    // did.block = {
+    //   ...transaction.block!,
+    //   imported: transaction.metadata?.imported?.date,
+    // };
   }
 
   /**

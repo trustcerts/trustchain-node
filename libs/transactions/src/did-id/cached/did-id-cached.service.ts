@@ -1,19 +1,18 @@
 import { CachedService } from '@tc/transactions/transactions/cache.service';
 import { DID_ID_CONNECTION } from '../constants';
+import { DidId, DidIdResolver, DidRoles } from '@trustcerts/did';
 import {
-  DidId,
   DidIdDocument,
+  DidIdDocumentDocument,
 } from '@tc/transactions/did-id/schemas/did-id.schema';
-import { DidIdResolver, DidRoles } from '@trustcerts/did';
 import {
   DidIdTransaction,
   DidIdTransactionDocument,
 } from '../schemas/did-id-transaction.schema';
+import { DidPublicKey } from '@tc/transactions/did-id/schemas/key.schema';
 import { GenesisBlock } from '@tc/blockchain/block/genesis-block.dto';
-import { IVerificationRelationships } from '../dto/i-verification-relationships.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
-import { Key } from '@tc/transactions/did-id/schemas/key.schema';
 import { Model } from 'mongoose';
 import { PersistClientService } from '@tc/clients/persist-client';
 import { TransactionDto } from '@tc/blockchain/transaction/transaction.dto';
@@ -34,7 +33,7 @@ export class DidIdCachedService extends CachedService<DidIdResolver> {
     @InjectModel(DidIdTransaction.name, DID_ID_CONNECTION)
     protected transactionModel: Model<DidIdTransactionDocument>,
     @InjectModel(DidId.name, DID_ID_CONNECTION)
-    protected didModel: Model<DidIdDocument>,
+    protected didModel: Model<DidIdDocumentDocument>,
     private readonly persistClientService: PersistClientService,
   ) {
     super(transactionModel, didModel);
@@ -53,12 +52,44 @@ export class DidIdCachedService extends CachedService<DidIdResolver> {
    * Returns a did element. If not found it will throw an error
    * @param id
    */
-  async getDid(id: string, populate = ''): Promise<DidId> {
+  async getDid(id: string, populate = ''): Promise<DidIdDocument> {
     const did = await this.didModel.findOne({ id }).populate(populate);
     if (!did) {
       throw new Error('not found');
     }
     return did;
+  }
+
+  /**
+   * Returns a did object based on the cached values from the db
+   * @param id
+   * @returns
+   */
+  async getLatestDocument(id: string): Promise<DidId> {
+    const document: DidIdDocument = await this.getById<DidIdDocument>(id);
+    const didId = new DidId(id);
+    didId.parseDocument({
+      document: {
+        assertionMethod: document.assertionMethod,
+        authentication: document.authentication,
+        modification: document.modification,
+        verificationMethod: document.verificationMethod,
+        controller: document.controller,
+        id,
+        service: document.service,
+        role: document.role,
+        '@context': [],
+      },
+      metaData: {
+        versionId: didId.version,
+        created: '',
+      },
+      signatures: {
+        type: 'Single',
+        values: [],
+      },
+    });
+    return didId;
   }
 
   /**
@@ -75,7 +106,7 @@ export class DidIdCachedService extends CachedService<DidIdResolver> {
   async getValidatorIdentifiers(): Promise<string[]> {
     return this.didModel.find().then((did) =>
       did
-        .filter((did) => did.roles.includes(DidRoles.Validator))
+        .filter((did) => did.role.includes(DidRoles.Validator))
         .map((did) => did.id)
         .sort(),
     );
@@ -107,7 +138,9 @@ export class DidIdCachedService extends CachedService<DidIdResolver> {
     return this.didModel
       .findOne({ id: this.getIdentifierOfKey(identifier) })
       .then((did) => {
-        const key = did?.keys.find((key: Key) => key.id === identifier);
+        const key = did?.verificationMethod.find(
+          (key: DidPublicKey) => key.id === identifier,
+        );
         if (!key) {
           throw new Error('key not found');
         }
@@ -121,14 +154,14 @@ export class DidIdCachedService extends CachedService<DidIdResolver> {
    */
   async getRole(keyIdentifier: string): Promise<DidRoles[]> {
     const did = await this.getDidByKey(keyIdentifier);
-    return did!.roles;
+    return did!.role;
   }
 
   /**
    * Returns the did based on the key id.
    * @param keyIdentifier
    */
-  async getDidByKey(keyIdentifier: string): Promise<DidId> {
+  async getDidByKey(keyIdentifier: string): Promise<DidIdDocument> {
     const id = this.getIdentifierOfKey(keyIdentifier);
     const did = await this.didModel.findOne({ id });
     if (!did) {
@@ -144,14 +177,11 @@ export class DidIdCachedService extends CachedService<DidIdResolver> {
    */
   async canUse(
     keyId: string,
-    method: keyof IVerificationRelationships,
-  ): Promise<Key | void> {
+    method: 'authentication' | 'modification' | 'assertionMethod',
+  ): Promise<DidPublicKey | void> {
     const did = await this.getDidByKey(keyId);
-    const relation = did?.verificationRelationships.find(
-      (relationship) => relationship.method === method,
-    );
-    if (relation && relation.keyIds.includes(keyId)) {
-      return did!.keys.find((key) => key.id === keyId);
+    if (did[method] && did[method].includes(keyId)) {
+      return did!.verificationMethod.find((key) => key.id === keyId);
     }
   }
 }

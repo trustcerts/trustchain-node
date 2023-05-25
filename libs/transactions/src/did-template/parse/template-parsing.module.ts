@@ -1,5 +1,5 @@
 import { DidIdCachedModule } from '@tc/transactions/did-id/cached/did-id-cached.module';
-import { DidTemplate, TemplateSchema } from '../schemas/did-template.schema';
+import { DidTemplate } from '@trustcerts/did-template';
 import {
   DidTemplateTransaction,
   TemplateTransactionSchema,
@@ -17,6 +17,7 @@ import { SchemaCachedModule } from '@tc/transactions/did-schema/cached/schema-ca
 import { TEMPLATE_CONNECTION } from '../constants';
 import { TemplateDbModule } from '../db/template-db.module';
 import { TemplateParsingService } from './template-parsing.service';
+import { TemplateSchema } from '../schemas/did-template.schema';
 
 @Module({
   imports: [

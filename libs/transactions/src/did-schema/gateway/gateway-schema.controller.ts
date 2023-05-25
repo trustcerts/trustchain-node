@@ -7,7 +7,7 @@ import {
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { GatewaySchemaService } from './gateway-schema.service';
 import { MaintenanceGuard } from '@tc/config/version/maintenance.guard';
-import { SchemaResponse } from './response';
+import { SchemaResponse } from '../dto/schema-response';
 import { SchemaTransactionDto } from '@tc/transactions/did-schema/dto/schema.transaction.dto';
 
 /**

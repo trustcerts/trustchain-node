@@ -32,7 +32,7 @@ export class BlockchainSyncService {
     private readonly configService: ConfigService,
     @Inject('winston') private readonly logger: Logger,
   ) {
-    this.chunkSize = this.configService.getNumber('CHUNK_SIZE');
+    this.chunkSize = 10; //this.configService.getNumber('CHUNK_SIZE');
   }
 
   /**
@@ -45,11 +45,14 @@ export class BlockchainSyncService {
       WS_BLOCK_MISSING,
       (data: { start: number; size: number }, callback) => {
         // TODO check chunk size against the local maximum for the risk of an overflow
-        this.persistClientService
-          .getBlocks(data.start, data.size)
-          .then((blocks) => {
+        this.persistClientService.getBlocks(data.start, data.size).then(
+          (blocks) => {
             callback(blocks);
-          });
+          },
+          (err) => {
+            throw new Error(err);
+          },
+        );
       },
     );
   }

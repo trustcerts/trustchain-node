@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { DidSchemaStructure } from './did-schema-structure.dto';
+import { DidSchemaStructure } from './schema-structure.dto';
 import { IsIn } from 'class-validator';
 import { TransactionBody } from '@tc/blockchain/transaction/transaction-body.dto';
 import { TransactionType } from '@tc/blockchain/transaction/transaction-type';

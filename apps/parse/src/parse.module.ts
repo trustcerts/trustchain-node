@@ -13,9 +13,13 @@ import { PersistClientModule } from '@tc/clients/persist-client';
 import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 import { SchemaCachedModule } from '@tc/transactions/did-schema/cached/schema-cached.module';
 import { SchemaParsingModule } from '@tc/transactions/did-schema/parse/schema-parsing.module';
+import { StatusListCachedModule } from '@tc/transactions/did-status-list/cached/status-list-cached.module';
+import { StatusListParsingModule } from '@tc/transactions/did-status-list/parse/status-list-parsing.module';
 import { TemplateCachedModule } from '@tc/transactions/did-template/cached/template-cached.module';
 import { TemplateParsingModule } from '@tc/transactions/did-template/parse/template-parsing.module';
 import { TerminusModule } from '@nestjs/terminus';
+import { VisualRepresentationCachedModule } from '@tc/transactions/did-visual-representation/cached/visual-representation-cached.module';
+import { VisualRepresentationParsingModule } from '@tc/transactions/did-visual-representation/parse/status-visual-representation.module';
 import { WinstonModule } from 'nest-winston';
 import { dbConnectionValidation } from '@shared/validation-rules';
 @Module({
@@ -42,6 +46,7 @@ import { dbConnectionValidation } from '@shared/validation-rules';
     TerminusModule,
     EventClientModule,
     PersistClientModule,
+    // StateModule,
 
     HashParsingModule,
     HashCachedModule,
@@ -54,6 +59,12 @@ import { dbConnectionValidation } from '@shared/validation-rules';
 
     TemplateParsingModule,
     TemplateCachedModule,
+
+    StatusListParsingModule,
+    StatusListCachedModule,
+
+    VisualRepresentationParsingModule,
+    VisualRepresentationCachedModule,
   ],
   controllers: [ParseController, HealthController],
   providers: [ParseService],

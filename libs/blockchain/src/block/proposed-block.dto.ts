@@ -2,6 +2,7 @@ import {
   ArrayMinSize,
   IsArray,
   IsNumber,
+  IsOptional,
   IsPositive,
   IsRFC3339,
   IsString,
@@ -28,10 +29,17 @@ export class ProposedBlock {
   previousHash!: string;
 
   /**
-   *  hashBlock of the transactions
+   *  hashBlock of the transactions.
    */
   @IsString()
   hash!: string;
+
+  /**
+   * Hash of the state root.
+   */
+  @IsString()
+  @IsOptional()
+  stateRootHash?: string;
 
   /**
    * timestamp when the block was proposed

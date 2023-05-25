@@ -56,8 +56,8 @@ export class ClientModule {
                   message: `service not ready in time`,
                   labels: { source: this.constructor.name },
                 });
-                clearInterval(interval);
-                reject(`${host} service not ready in time`);
+                // no not clear interval, the dependant service can come online again. Logging an error should be engouth so the system can revocer from itself.
+                // reject(`${host} service not ready in time`);
               }
             },
           });

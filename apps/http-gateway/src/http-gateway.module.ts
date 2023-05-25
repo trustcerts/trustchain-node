@@ -5,7 +5,9 @@ import { EventClientModule } from '@tc/clients/event-client';
 import { GatewayDidModule } from '@tc/transactions/did-id/gateway/gateway-did.module';
 import { GatewayHashModule } from '@tc/transactions/did-hash/gateway/gateway-hash.module';
 import { GatewaySchemaModule } from '@tc/transactions/did-schema/gateway/gateway-schema.module';
+import { GatewayStatusListModule } from '@tc/transactions/did-status-list/gateway/gateway-status-list.module';
 import { GatewayTemplateModule } from '@tc/transactions/did-template/gateway/gateway-template.module';
+import { GatewayVisualRepresentationModule } from '@tc/transactions/did-visual-representation/gateway/gateway-visual-representation.module';
 import { HttpGatewayController } from './http-gateway.controller';
 import { HttpGatewayService } from './http-gateway.service';
 import { Identifier } from '@trustcerts/did';
@@ -26,7 +28,7 @@ import {
     ConfigModule.forRoot({
       service: 'http',
       environment: {
-        INVITE_FORCE: Joi.boolean().default(true),
+        REUSE_INVITE: Joi.boolean().default(false),
         MAX_BLOCK_WAIT: Joi.number().default(30),
         ...httpValidation,
         ...dbConnectionValidation,
@@ -58,6 +60,8 @@ import {
     GatewayDidModule,
     GatewayTemplateModule,
     GatewaySchemaModule,
+    GatewayStatusListModule,
+    GatewayVisualRepresentationModule,
   ],
   controllers: [HttpGatewayController],
   providers: [HttpGatewayService],

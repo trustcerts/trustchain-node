@@ -1,19 +1,17 @@
 import { ClientRedis } from '@nestjs/microservices';
 import { Counter } from 'prom-client';
 import { DID_ID_CONNECTION } from '@tc/transactions/did-id/constants';
-import {
-  DidHash,
-  HashDocument,
-} from '@tc/transactions/did-hash/schemas/did-hash.schema';
+import { DidHash } from '@trustcerts/did-hash';
 import {
   DidHashTransaction,
   HashTransactionDocument,
 } from '../schemas/did-hash-transaction.schema';
 import { DidId } from '@trustcerts/did';
 import { DidIdCachedService } from '@tc/transactions/did-id/cached/did-id-cached.service';
-import { DidIdDocument } from '@tc/transactions/did-id/schemas/did-id.schema';
+import { DidIdDocumentDocument } from '@tc/transactions/did-id/schemas/did-id.schema';
 import { HASH_CONNECTION } from '../constants';
 import { HashDidTransactionDto } from '../dto/hash-transaction.dto';
+import { HashDocumentDocument } from '@tc/transactions/did-hash/schemas/did-hash.schema';
 import { HashService } from '@tc/blockchain';
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';
@@ -44,7 +42,7 @@ export class HashParsingService extends ParsingService<HashTransactionDocument> 
     @Inject(REDIS_INJECTION) protected readonly clientRedis: ClientRedis,
     @Inject('winston') protected readonly logger: Logger,
     @InjectModel(DidHash.name, HASH_CONNECTION)
-    private didHashRepository: Model<HashDocument>,
+    private didHashRepository: Model<HashDocumentDocument>,
     @InjectModel(DidHashTransaction.name, HASH_CONNECTION)
     private didHashDocumentRegistry: Model<HashTransactionDocument>,
     @InjectMetric('transactions')
@@ -52,7 +50,7 @@ export class HashParsingService extends ParsingService<HashTransactionDocument> 
     private readonly parseService: ParseService,
     readonly didIdCachedService: DidIdCachedService,
     @InjectModel(DidId.name, DID_ID_CONNECTION)
-    protected didIdRepository: Model<DidIdDocument>,
+    protected didIdRepository: Model<DidIdDocumentDocument>,
   ) {
     super(
       clientRedis,

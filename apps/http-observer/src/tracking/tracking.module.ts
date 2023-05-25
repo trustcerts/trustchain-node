@@ -1,9 +1,7 @@
 import { DID_ID_CONNECTION } from '@tc/transactions/did-id/constants';
-import {
-  DidId,
-  DidIdSchema,
-} from '@tc/transactions/did-id/schemas/did-id.schema';
+import { DidId } from '@trustcerts/did';
 import { DidIdDbModule } from '@tc/transactions/did-id/db/did-id-db.module';
+import { DidIdSchema } from '@tc/transactions/did-id/schemas/did-id.schema';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TRACKING_CONNECTION } from './constants';
